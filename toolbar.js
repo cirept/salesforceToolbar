@@ -102,73 +102,73 @@ jQuery(window).bind("load", function () {
             oem = idArray[0],
             //            _ = webID.substr(webID.indexOf("-") + 1),
             id = webID.substr(webID.indexOf("-") + 1),
-            liveSite,
+            liveSiteURL,
             folderPath;
 
-        // start build liveSite URL and folderPath
+        // start build liveSiteURL URL and folderPath
         switch (oem) {
         case "gmps":
-            liveSite = nitra + "gmpsdealer.com/" + id + reload;
+            liveSiteURL = nitra + "gmpsdealer.com/" + id + reload;
             folderPath = baseManuLoc + oem + "\\" + id.charAt(0) + "\\" + id;
             break;
         case "gmcl":
-            liveSite = nitra + "gmcldealer.com/" + id + reload;
+            liveSiteURL = nitra + "gmcldealer.com/" + id + reload;
             folderPath = baseManuLoc + oem + "\\" + id.charAt(0) + "\\" + id;
             break;
         case "vw":
-            liveSite = nitra + "vwdealer.com/" + id + reload;
+            liveSiteURL = nitra + "vwdealer.com/" + id + reload;
             folderPath = baseManuLoc + oem + "\\" + id.charAt(0) + "\\" + id;
             break;
         case "hyun":
-            liveSite = nitra + "hyundaistores.com/" + id + reload;
+            liveSiteURL = nitra + "hyundaistores.com/" + id + reload;
             folderPath = baseManuLoc + oem + "\\" + id.charAt(0) + "\\" + id;
             break;
         case "mazda":
-            liveSite = nitra + "mazdadealer.com/" + id + reload;
+            liveSiteURL = nitra + "mazdadealer.com/" + id + reload;
             folderPath = baseManuLoc + oem + "\\" + id.charAt(0) + "\\" + id;
             break;
         case "lex":
-            liveSite = nitra + "lexusdealer.com/" + id + reload;
+            liveSiteURL = nitra + "lexusdealer.com/" + id + reload;
             folderPath = baseManuLoc + "lexus\\" + id.charAt(0) + "\\" + id;
             break;
         case "k1ia":
-            liveSite = nitra + "k1iadealer.com/" + id + reload;
+            liveSiteURL = nitra + "k1iadealer.com/" + id + reload;
             folderPath = baseManuLoc + oem + "\\" + id.charAt(0) + "\\" + id;
             break;
         case "b2mw":
-            liveSite = nitra + "b2mwdealer.com/" + id + reload;
+            liveSiteURL = nitra + "b2mwdealer.com/" + id + reload;
             folderPath = baseManuLoc + oem + "\\" + id.charAt(0) + "\\" + id;
             break;
         case "mini":
-            liveSite = nitra + "mini-dealer.com/" + id + reload;
+            liveSiteURL = nitra + "mini-dealer.com/" + id + reload;
             folderPath = baseManuLoc + oem + "\\" + id.charAt(0) + "\\" + id;
             break;
         case "motp":
-            liveSite = nitra + "motorplace.com/" + id + reload;
+            liveSiteURL = nitra + "motorplace.com/" + id + reload;
             folderPath = baseManuLoc + "motorplace\\" + id.charAt(0) + "\\" + id;
             break;
         case "hond":
-            liveSite = nitra + "hondadealer.com/" + id + reload;
+            liveSiteURL = nitra + "hondadealer.com/" + id + reload;
             folderPath = baseManuLoc + "honda\\" + id.charAt(0) + "\\" + id;
             break;
         case "holden":
-            liveSite = nitra + "gmholdendealer.com.au/" + id + reload;
+            liveSiteURL = nitra + "gmholdendealer.com.au/" + id + reload;
             folderPath = baseManuLoc + oem + "\\" + id.charAt(0) + "\\" + id;
             break;
         case "holdennz":
-            liveSite = nitra + "gmholdendealer.co.nz/" + id + reload;
+            liveSiteURL = nitra + "gmholdendealer.co.nz/" + id + reload;
             folderPath = baseManuLoc + oem + "\\" + id.charAt(0) + "\\" + id;
             break;
         case "nissan":
-            liveSite = nitra + "nissandealer.com/" + id + reload;
+            liveSiteURL = nitra + "nissandealer.com/" + id + reload;
             folderPath = baseManuLoc + oem + "\\" + id.charAt(0) + "\\" + id;
             break;
         case "toyd":
-            liveSite = nitra + "toyotadealer.com/" + id + reload;
+            liveSiteURL = nitra + "toyotadealer.com/" + id + reload;
             folderPath = baseManuLoc + "toyota\\" + id.charAt(0) + "\\" + id;
             break;
         case "infiniti":
-            liveSite = nitra + "infinitidealer.com/" + id + reload;
+            liveSiteURL = nitra + "infinitidealer.com/" + id + reload;
             folderPath = baseManuLoc + oem + "\\" + id.charAt(0) + "\\" + id;
             break;
         }
@@ -177,11 +177,89 @@ jQuery(window).bind("load", function () {
         // ----------------------------------------
         // ----------------------------------------
 
-        var z = "https://cdk.my.salesforce.com/" + a + "/a?retURL=%2F" + a + "&newOwn=" + createdBy,
-            j = "https://cdk.my.salesforce.com/" + a + "/s?retURL=%2F" + a,
-            F = jQuery("#00N40000002OuSq_ileinner")[0].innerHTML;
+        //        var z = "https://cdk.my.salesforce.com/" + a + "/a?retURL=%2F" + a + "&newOwn=" + createdBy,
+        var changeCaseOwner = "https://cdk.my.salesforce.com/" + a + "/a?retURL=%2F" + a + "&newOwn=" + createdBy,
+            //            j = "https://cdk.my.salesforce.com/" + a + "/s?retURL=%2F" + a,
+            closeCase = "https://cdk.my.salesforce.com/" + a + "/s?retURL=%2F" + a,
+            //            F = jQuery("#00N40000002OuSq_ileinner")[0].innerHTML;
+            accountLevel = jQuery("#00N40000002OuSq_ileinner")[0].innerHTML;
 
-        n.append('<a href="' + wsmLink + '" target="_new"><div id="webID" class="funcButtons" style="color:gray;" title="Edit in WSM">EDIT</div></a>'), n.append('<div id="resultBox"></div>'), n.append('<div id="caseNumber" class="funcButtons" title="Copy Case Number">' + caseNumber + "</div>"), n.append('<div id="idCombo" title="Copy WebID and Case Number">+</div>'), n.append('<div id="copyWebid" title="Copy WebID">' + webID + "</div>"), n.append('<a href="' + liveSite + '" target="_new"><div id="copyProof" class="funcButtons"><img src="http://assets.cobaltnitra.com/teams/repository/export/fda/575f081c91005867320145edef087/fda575f081c91005867320145edef087.png" height="15px" title="View Live Site"/></div></a>'), n.append('<div id="copyFolderPath" class="funcButtons"><img src="http://dm.cdk.com/inc/images/18x18_Folder.png" height="20px" title="Project Folder Location"/></div></div>'), n.append('<a href="' + enterCommentURL + '" target="_parent"><div id="commentONCase" class="funcButtons" style="padding-left:12px !important; color:purple !important; font-size:11px !important;" title="Make a Comment">Comment</div></a>'), "Resolve Back to Ticket Owner" === followUp ? n.append('<a href="' + z + '" target="_parent"><div id="follow" class="funcButtons" style="padding-left:12px !important; color:red !important; font-size:11px !important;" title="Resolve Case">' + followUp + "</div></a>") : n.append('<a href="' + j + '" target="_parent"><div id="follow" class="funcButtons" style="padding-left:12px !important;  color:red !important; font-size:11px !important;" title="Close Case">' + followUp + "</div></a>"), n.append('<div id="echelon" style="padding-left:12px; padding-top:0px; float:left; color:blue; font-size:11px;"> <span style="color:orange;">' + F + "</span></div>"), n.append('<div id="follow" class="funcButtons" style="padding-left:12px; padding-top:5px; float:left; color:blue; font-size:11px;"> <span style="color:black;">Created By:&nbsp;&nbsp;&nbsp;</span><span id="creator" title="Copy Name">' + createdBy + "</span></div>");
+        console.log(changeCaseOwner);
+        console.log(closeCase);
+        console.log(accountLevel);
+
+        var $EditLink = jQuery('<a>').attr({
+                target: '_new'
+            }),
+            $Edit = jQuery('<div>').attr({
+                id: 'webID',
+                class: 'funcButtons',
+                title: 'Edit in WSM'
+            }).css({
+                color: 'gray'
+            }),
+            $resultBox = jQuery('<div>').attr({
+                id: 'resultBox'
+            }),
+            $caseNo = jQuery('div').attr({
+                id: 'caseNumber',
+                class: 'funcButtons',
+                title: 'Copy Case Number'
+            }).text(caseNumber),
+            $idCombo = jQuery('<div>').attr({
+                title: 'Copy WebID and Case Number',
+                id: 'idCombo'
+            }).text('+'),
+            $copyWebID = jQuery('<div>').attr({
+                id: 'copyWebid',
+                title: 'Copy WebID'
+            }).text(webID),
+            $liveSite = jQuery('<a>').attr({
+                target: '_new'
+            }),
+            $openImage = jQuery('<i>').attr({
+                class: 'fa fa-desktop',
+                title: 'View Live Site'
+            }),
+            $copyFolderPath = jQuery('<div>').attr({
+                id: 'copyFolderPath',
+                class: 'funcButtons'
+            }),
+            $folderImage = jQuery('<i>').attr({
+                class: 'fa fa-folder-open',
+                title: 'Project Folder Location'
+            }),
+            $commentCase = jQuery('<a>').attr({
+                target: '_parent'
+            }),
+            $commentOnCase = jQuery('<div>').attr({
+                id: 'commentONCase',
+                class: 'funcButtons',
+                title: 'Make a Comment'
+            }).css({
+                'padding-left': '12px !important',
+                color: 'purple!important',
+                'font-size': '11 px!important'
+            });
+
+        n.append('<a href="' + wsmLink + '" target="_new"><div id="webID" class="funcButtons" style="color:gray;" title="Edit in WSM">EDIT</div></a>'); //done
+
+        n.append('<div id="resultBox"></div>'); //done
+
+        n.append('<div id="caseNumber" class="funcButtons" title="Copy Case Number">' + caseNumber + "</div>"); //done
+
+        n.append('<div id="idCombo" title="Copy WebID and Case Number">+</div>'); //done
+
+        n.append('<div id="copyWebid" title="Copy WebID">' + webID + "</div>"); //done
+
+        n.append('<a href="' + liveSite + '" target="_new"><div id="copyProof" class="funcButtons"><img src="http://assets.cobaltnitra.com/teams/repository/export/fda/575f081c91005867320145edef087/fda575f081c91005867320145edef087.png" height="15px" title="View Live Site"/></div></a>'); //done
+
+        n.append('<div id="copyFolderPath" class="funcButtons"><img src="http://dm.cdk.com/inc/images/18x18_Folder.png" height="20px" title="Project Folder Location"/></div></div>'); //done
+
+        n.append('<a href="' + enterCommentURL + '" target="_parent"><div id="commentONCase" class="funcButtons" style="padding-left:12px !important; color:purple !important; font-size:11px !important;" title="Make a Comment">Comment</div></a>'), //done
+            "Resolve Back to Ticket Owner" === followUp ? n.append('<a href="' + changeCaseOwner + '" target="_parent"><div id="follow" class="funcButtons" style="padding-left:12px !important; color:red !important; font-size:11px !important;" title="Resolve Case">' + followUp + "</div></a>") : n.append('<a href="' + closeCase + '" target="_parent"><div id="follow" class="funcButtons" style="padding-left:12px !important;  color:red !important; font-size:11px !important;" title="Close Case">' + followUp + "</div></a>")
+        n.append('<div id="echelon" style="padding-left:12px; padding-top:0px; float:left; color:blue; font-size:11px;"> <span style="color:orange;">' + accountLevel + "</span></div>");
+        n.append('<div id="follow" class="funcButtons" style="padding-left:12px; padding-top:5px; float:left; color:blue; font-size:11px;"> <span style="color:black;">Created By:&nbsp;&nbsp;&nbsp;</span><span id="creator" title="Copy Name">' + createdBy + "</span></div>");
 
         var T = (jQuery("#emailBugTeam"), jQuery("#webID"), jQuery("#assignButton")),
             E = (jQuery("#jumpLinkDown"), jQuery("#jumpLinkUp"), jQuery("#copyFolderPath")),
