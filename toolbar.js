@@ -48,7 +48,7 @@ jQuery(window).bind("load", function () {
             au = "&locale=en_AU",
             nz = "&locale=en_NZ",
             wsmLink,
-            n = jQuery("#uiBox"),
+            //            n = jQuery("#uiBox"),
             pageToChange = jQuery("#00N40000002aU9c_ileinner").text(),
             followUp = jQuery("#00N40000002aU7t_ileinner").text(),
             createdBy = jQuery("#CreatedBy_ileinner a").text();
@@ -230,7 +230,8 @@ jQuery(window).bind("load", function () {
                 title: 'Project Folder Location'
             }),
             $commentCase = jQuery('<a>').attr({
-                target: '_parent'
+                target: '_parent',
+                href: enterCommentURL
             }),
             $commentOnCase = jQuery('<div>').attr({
                 id: 'commentONCase',
@@ -240,45 +241,85 @@ jQuery(window).bind("load", function () {
                 'padding-left': '12px !important',
                 color: 'purple!important',
                 'font-size': '11 px!important'
+            }).text('Comment'),
+            $follow = jQuery('<div>').attr({
+                id: 'follow',
+                class: 'funcButtons',
+                title: 'Resolve Case'
+            }).css({
+                'padding-left': '12px !important',
+                color: 'red !important',
+                'font-size': '11px !important'
+            }).text(followUp),
+            $changeCaseOwner = jQuery('<a>').attr({
+                target: '_parent',
+                href: changeCaseOwner
+            }),
+            $closeCase = jQuery('<a>').attr({
+                target: '_parent',
+                href: changeCaseOwner
             });
 
-        n.append('<a href="' + wsmLink + '" target="_new"><div id="webID" class="funcButtons" style="color:gray;" title="Edit in WSM">EDIT</div></a>'); //done
+        $uiBox.append('<a href="' + wsmLink + '" target="_new"><div id="webID" class="funcButtons" style="color:gray;" title="Edit in WSM">EDIT</div></a>'); //done
 
-        n.append('<div id="resultBox"></div>'); //done
+        //        $uiBox.append('<div id="resultBox"></div>'); //done
+        $uiBox.append($resultBox); //done
 
-        n.append('<div id="caseNumber" class="funcButtons" title="Copy Case Number">' + caseNumber + "</div>"); //done
+        //        $uiBox.append('<div id="caseNumber" class="funcButtons" title="Copy Case Number">' + caseNumber + "</div>"); //done
+        $uiBox.append($caseNo); //done
 
-        n.append('<div id="idCombo" title="Copy WebID and Case Number">+</div>'); //done
+        //        $uiBox.append('<div id="idCombo" title="Copy WebID and Case Number">+</div>'); //done
+        $uiBox.append($idCombo); //done
 
-        n.append('<div id="copyWebid" title="Copy WebID">' + webID + "</div>"); //done
+        //        $uiBox.append('<div id="copyWebid" title="Copy WebID">' + webID + "</div>"); //done
+        $uiBox.append($copyWebID); //done
 
-        n.append('<a href="' + liveSite + '" target="_new"><div id="copyProof" class="funcButtons"><img src="http://assets.cobaltnitra.com/teams/repository/export/fda/575f081c91005867320145edef087/fda575f081c91005867320145edef087.png" height="15px" title="View Live Site"/></div></a>'); //done
+        $uiBox.append('<a href="' + liveSiteURL + '" target="_new"><div id="copyProof" class="funcButtons"><img src="http://assets.cobaltnitra.com/teams/repository/export/fda/575f081c91005867320145edef087/fda575f081c91005867320145edef087.png" height="15px" title="View Live Site"/></div></a>'); //done
 
-        n.append('<div id="copyFolderPath" class="funcButtons"><img src="http://dm.cdk.com/inc/images/18x18_Folder.png" height="20px" title="Project Folder Location"/></div></div>'); //done
+        //        $uiBox.append('<div id="copyFolderPath" class="funcButtons"><img src="http://dm.cdk.com/inc/images/18x18_Folder.png" height="20px" title="Project Folder Location"/></div></div>'); //done
+        $uiBox.append($copyFolderPath.append($folderImage)); //done
 
-        n.append('<a href="' + enterCommentURL + '" target="_parent"><div id="commentONCase" class="funcButtons" style="padding-left:12px !important; color:purple !important; font-size:11px !important;" title="Make a Comment">Comment</div></a>'), //done
-            "Resolve Back to Ticket Owner" === followUp ? n.append('<a href="' + changeCaseOwner + '" target="_parent"><div id="follow" class="funcButtons" style="padding-left:12px !important; color:red !important; font-size:11px !important;" title="Resolve Case">' + followUp + "</div></a>") : n.append('<a href="' + closeCase + '" target="_parent"><div id="follow" class="funcButtons" style="padding-left:12px !important;  color:red !important; font-size:11px !important;" title="Close Case">' + followUp + "</div></a>")
-        n.append('<div id="echelon" style="padding-left:12px; padding-top:0px; float:left; color:blue; font-size:11px;"> <span style="color:orange;">' + accountLevel + "</span></div>");
-        n.append('<div id="follow" class="funcButtons" style="padding-left:12px; padding-top:5px; float:left; color:blue; font-size:11px;"> <span style="color:black;">Created By:&nbsp;&nbsp;&nbsp;</span><span id="creator" title="Copy Name">' + createdBy + "</span></div>");
+        //        $uiBox.append('<a href="' + enterCommentURL + '" target="_parent"> <div id="commentONCase" class="funcButtons" style="padding-left:12px !important; color:purple !important; font-size:11px !important;" title="Make a Comment">Comment</div> </a>'); //done
+        $uiBox.append($commentCase.append($commentOnCase)); //done
 
-        var T = (jQuery("#emailBugTeam"), jQuery("#webID"), jQuery("#assignButton")),
-            E = (jQuery("#jumpLinkDown"), jQuery("#jumpLinkUp"), jQuery("#copyFolderPath")),
+        if ("Resolve Back to Ticket Owner" === followUp) {
+            //            $uiBox.append('<a href="' + changeCaseOwner + '" target="_parent"><div id="follow" class="funcButtons" style="padding-left:12px !important; color:red !important; font-size:11px !important;" title="Resolve Case">' + followUp + "</div></a>");
+            $uiBox.append($changeCaseOwner.append($follow));
+        } else {
+            //            $uiBox.append('<a href="' + closeCase + '" target="_parent"><div id="follow" class="funcButtons" style="padding-left:12px !important;  color:red !important; font-size:11px !important;" title="Close Case">' + followUp + "</div></a>");
+            $uiBox.append($closeCase.append($follow));
+        }
+
+        $uiBox.append('<div id="echelon" style="padding-left:12px; padding-top:0px; float:left; color:blue; font-size:11px;"> <span style="color:orange;">' + accountLevel + "</span></div>");
+
+        $uiBox.append('<div id="follow" class="funcButtons" style="padding-left:12px; padding-top:5px; float:left; color:blue; font-size:11px;"> <span style="color:black;">Created By:&nbsp;&nbsp;&nbsp;</span><span id="creator" title="Copy Name">' + createdBy + "</span></div>");
+
+        //        var T = (jQuery("#emailBugTeam"), jQuery("#webID"), jQuery("#assignButton")),
+        var $bugTeam = jQuery("#emailBugTeam"),
+            $webID = jQuery("#webID"),
+            $addignButton = jQuery("#assignButton"),
+            //            E = (jQuery("#jumpLinkDown"), jQuery("#jumpLinkUp"), jQuery("#copyFolderPath")),
+            $jumpLinkDown = jQuery("#jumpLinkDown"),
+            $jumpLinkUp = jQuery("#jumpLinkUp"),
+            $folderPath = jQuery("#copyFolderPath"),
             Q = jQuery("#copyFolderPath > img"),
             N = jQuery(".funcButtons"),
             H = jQuery("#resultBox"),
             //            M = jQuery("#toggleOn"),
             //            O = jQuery("#toggleOff"),
-            U = jQuery("#idCombo"),
-            I = jQuery("#copyWebid");
+            //            U = jQuery("#idCombo"),
+            $caseNoWebIDCombo = jQuery("#idCombo");
+        //            I = jQuery("#copyWebid");
+        //            I = jQuery("#copyWebid");
 
-        if (U.css({
+        if ($caseNoWebIDCombo.css({
                 "float": "right",
                 padding: "3px 5px 0",
                 cursor: "pointer",
                 "border-right": "2px #aaa solid",
                 height: "15px",
                 "padding-top": "0px"
-            }), I.css({
+            }), $copyWebID.css({
                 "float": "right",
                 padding: "3px 15px 0",
                 cursor: "pointer",
@@ -322,11 +363,11 @@ jQuery(window).bind("load", function () {
             }), Q.css({
                 "margin-top": "-3px"
             }), $toggleOn.click(function () {
-                n.animate({
+                $uiBox.animate({
                     width: "75%"
                 }, "slow"), $toggleOn.toggle(), $toggleOff.toggle(), N.toggle();
             }), $toggleOff.click(function () {
-                n.animate({
+                $uiBox.animate({
                         width: "70px"
                     }, "slow"),
                     jQuery(".funcButtons").css({
@@ -344,16 +385,19 @@ jQuery(window).bind("load", function () {
             jQuery("#caseNumber").click(function () {
                 window.prompt("Copy to clipboard: Ctrl+C, Enter", caseNumber);
             }),
-            jQuery("#copyWebid").click(function () {
+            //            jQuery("#copyWebid").click(function () {
+            //                window.prompt("Copy to clipboard: Ctrl+C, Enter", webID);
+            //            }),
+            $copyWebID.click(function () {
                 window.prompt("Copy to clipboard: Ctrl+C, Enter", webID);
             }),
             jQuery("#creator").click(function () {
                 window.prompt("Copy to clipboard: Ctrl+C, Enter", createdBy);
             }),
-            E.click(function () {
+            $folderPath.click(function () {
                 window.prompt("Copy to clipboard: Ctrl+C, Enter", folderPath);
             }),
-            T.click(function () {}), void 0 != jQuery("#cas28_ileinner a").html()) {
+            $bugTeam.click(function () {}), void 0 != jQuery("#cas28_ileinner a").html()) {
             console.log("child case");
             var R = '<p style ="color:red; margin-left:5px;"><b>CHILD CASE:</b> Look for related cases</p>';
             jQuery(".ptBody").after(R);
