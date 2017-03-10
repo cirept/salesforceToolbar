@@ -22,7 +22,7 @@
             "font-family": "Arial",
             "font-size": "12px",
             height: "22px",
-            width: "70px",
+            width: "0px",
             "font-weight": "bold",
             top: "0",
             right: "0",
@@ -54,8 +54,8 @@
             "border-right": "2px #aaa solid",
             height: "16px"
         }),
-        caseNo = jQuery("#cas2_ileinner")[0].innerHTML,
-        caseNumber = caseNo.substring(0, 8),
+        caseNo = jQuery("#cas2_ileinner").text(),
+        caseNumber = caseNo.substr(0, 8),
         webID = jQuery("#CF00N40000002aUB4_ileinner a").text(),
         base = "http://websites.cobalt.com/wsm/index.do?webId=",
         us = "&locale=en_US",
@@ -67,13 +67,37 @@
         //            n = jQuery("#uiBox"),
         pageToChange = jQuery("#00N40000002aU9c_ileinner").text(),
         followUp = jQuery("#00N40000002aU7t_ileinner").text(),
-        createdBy = jQuery("#CreatedBy_ileinner a").text();
-
+        createdBy = jQuery("#CreatedBy_ileinner a").text(),
+        // functions
+        // ----------------------------------------
+        $funcButts = jQuery(".funcButtons").css({
+            display: "none",
+            "float": "right",
+            padding: "3px 15px 0",
+            cursor: "pointer",
+            "border-right": "2px #aaa solid",
+            height: "15px",
+            "padding-top": "0px"
+        }),
+        $resultBox = jQuery('<div>').attr({
+            id: 'resultBox'
+        }).css({
+            display: "none",
+            "float": "right",
+            color: "red",
+            "background-color": "white",
+            padding: "0 15px",
+            margin: "2px 0 0 40px",
+            "-moz-border-radius": "8px",
+            "border-radius": "8px",
+            border: "2px #aaa solid",
+            cursor: "text"
+        });
 
     // ----------------------------------------
     // ----------------------------------------
 
-    console.log('createdBy : ' + createdBy);
+    //    console.log('createdBy : ' + createdBy);
     switch (pageToChange) {
     case "Proof":
         $toggleOn.html('&#9666; PROOF');
@@ -88,27 +112,31 @@
         break;
     }
 
-    $toggleOn.click(function () {
+    $toggleOn.on('click', function () {
         $uiBox.animate({
             width: "75%"
         }, "slow");
+        //        $uiBox.toggle('fade', 500);
         $toggleOn.toggle();
         $toggleOff.toggle();
-        funcButts.toggle();
+        $funcButts.toggle();
+        $resultBox.toggle();
     });
 
-    $toggleOff.click(function () {
+    $toggleOff.on('click', function () {
         $uiBox.animate({
-            width: "70px"
+            width: "0px"
         }, "slow");
-        funcButts.css({
+        //        $uiBox.toggle('fade', 500);
+        $funcButts.css({
             background: "inherit",
             "text-shadow": "#aaa 0px 0px 0px"
         });
         $toggleOn.toggle();
         $toggleOff.toggle();
-        funcButts.toggle();
+        $funcButts.toggle();
         $resultBox.hide();
+        //        $resultBox.toggle();
         $resultBox.text("");
     });
 
@@ -216,31 +244,29 @@
     // ----------------------------------------
     // ----------------------------------------
 
-    /*
-
     // ----------------------------------------
     // highlight things on page
     // ----------------------------------------
     //    var r = window.location.pathname,
-    var $comments = jQuery('_RelatedCommentsList_link');
-    var commentAmount = $comments.find('.count');
-
-    if (commentAmount !== 0) {
-        $comments.css({
-            background: 'red'
-        });
-    }
-
-    //        var z = "https://cdk.my.salesforce.com/" + a + "/a?retURL=%2F" + a + "&newOwn=" + createdBy,
-    var changeCaseOwner = "https://cdk.my.salesforce.com/" + caseID + "/a?retURL=%2F" + caseID + "&newOwn=" + createdBy,
-        //            j = "https://cdk.my.salesforce.com/" + a + "/s?retURL=%2F" + a,
-        closeCase = "https://cdk.my.salesforce.com/" + caseID + "/s?retURL=%2F" + caseID,
-        //            F = jQuery("#00N40000002OuSq_ileinner")[0].innerHTML;
-        accountLevel = jQuery("#00N40000002OuSq_ileinner")[0].innerHTML;
-
-    console.log(changeCaseOwner);
-    console.log(closeCase);
-    console.log(accountLevel);
+    //    var $comments = jQuery('_RelatedCommentsList_link');
+    //    var commentAmount = $comments.find('.count');
+    //
+    //    if (commentAmount !== 0) {
+    //        $comments.css({
+    //            background: 'red'
+    //        });
+    //    }
+    //
+    //    //        var z = "https://cdk.my.salesforce.com/" + a + "/a?retURL=%2F" + a + "&newOwn=" + createdBy,
+    //    var changeCaseOwner = "https://cdk.my.salesforce.com/" + caseID + "/a?retURL=%2F" + caseID + "&newOwn=" + createdBy,
+    //        //            j = "https://cdk.my.salesforce.com/" + a + "/s?retURL=%2F" + a,
+    //        closeCase = "https://cdk.my.salesforce.com/" + caseID + "/s?retURL=%2F" + caseID,
+    //        //            F = jQuery("#00N40000002OuSq_ileinner")[0].innerHTML;
+    //        accountLevel = jQuery("#00N40000002OuSq_ileinner")[0].innerHTML;
+    //
+    //    console.log(changeCaseOwner);
+    //    console.log(closeCase);
+    //    console.log(accountLevel);
 
     // ----------------------------------------
     // ----------------------------------------
@@ -255,30 +281,32 @@
             class: 'funcButtons',
             title: 'Edit in WSM'
         }).css({
-            color: 'gray'
+            color: 'gray',
+            float: 'right'
         }).text('EDIT');
 
     $EditLink.append($Edit);
+    $uiBox.append($EditLink);
     // ----------------------------------------
     // ----------------------------------------
 
     // ----------------------------------------
     // ----------------------------------------
     //        $uiBox.append('<div id="resultBox"></div>'); //done
-    var $resultBox = jQuery('<div>').attr({
-        id: 'resultBox'
-    }).css({
-        display: "none",
-        "float": "right",
-        color: "red",
-        "background-color": "white",
-        padding: "0 15px",
-        margin: "2px 0 0 40px",
-        "-moz-border-radius": "8px",
-        "border-radius": "8px",
-        border: "2px #aaa solid",
-        cursor: "text"
-    });
+    //    var $resultBox = jQuery('<div>').attr({
+    //        id: 'resultBox'
+    //    }).css({
+    //        display: "none",
+    //        "float": "right",
+    //        color: "red",
+    //        "background-color": "white",
+    //        padding: "0 15px",
+    //        margin: "2px 0 0 40px",
+    //        "-moz-border-radius": "8px",
+    //        "border-radius": "8px",
+    //        border: "2px #aaa solid",
+    //        cursor: "text"
+    //    });
 
     $uiBox.append($resultBox); //done
     // ----------------------------------------
@@ -288,11 +316,13 @@
     // ----------------------------------------
     //        $uiBox.append('<div id="caseNumber" class="funcButtons" title="Copy Case Number">' + caseNumber + "</div>"); //done
 
-    var $caseNo = jQuery('div').attr({
+    var $caseNo = jQuery('<div>').attr({
         id: 'caseNumber',
         class: 'funcButtons',
         title: 'Copy Case Number'
-    }).text(caseNumber);
+    }).text(caseNumber).css({
+        float: 'right'
+    });
 
     $uiBox.append($caseNo); //done
     // ----------------------------------------
@@ -304,7 +334,8 @@
 
     var $idCombo = jQuery('<div>').attr({
         title: 'Copy WebID and Case Number',
-        id: 'idCombo'
+        id: 'idCombo',
+        class: 'funcButtons'
     }).css({
         "float": "right",
         padding: "3px 5px 0",
@@ -332,14 +363,16 @@
 
     var $copyWebID = jQuery('<div>').attr({
         id: 'copyWebid',
-        title: 'Copy WebID'
+        title: 'Copy WebID',
+        class: 'funcButtons'
     }).css({
         "float": "right",
         padding: "3px 15px 0",
         cursor: "pointer",
         "border-right": "2px #aaa solid",
         height: "15px",
-        "padding-top": "0px"
+        "padding-top": "0px",
+        background: 'purple'
     }).text(webID);
 
     $uiBox.append($copyWebID); //done
@@ -352,17 +385,24 @@
     //        $uiBox.append('<a href="' + liveSiteURL + '" target="_new"><div id="copyProof" class="funcButtons">' + $desktopIcon + '</div></a>'); //done
 
     var $desktopIcon = jQuery('<i>').attr({
-            class: 'fa fa-desktop',
+            class: 'fa fa-desktop funcButtons',
             'aira-hidden': 'true',
             title: 'View Live Site'
+        }).css({
+            float: 'right'
         }),
         $copyProof = jQuery('<div>').attr({
             id: 'copyProof',
             class: 'funcButtons'
+        }).css({
+            float: 'right'
         }),
         $liveSite = jQuery('<a>').attr({
             target: '_new',
-            href: liveSiteURL
+            href: liveSiteURL,
+            class: 'funcButtons'
+        }).css({
+            float: 'right'
         });
 
     $copyProof.append($desktopIcon);
@@ -380,10 +420,11 @@
             class: 'funcButtons'
         }),
         $folderImage = jQuery('<i>').attr({
-            class: 'fa fa-folder-open',
+            class: 'fa fa-folder-open funcButtons',
             title: 'Project Folder Location'
         }).css({
-            "margin-top": "-3px"
+            "margin-top": "-3px",
+            float: 'right'
         });
 
     $copyFolderPath.append($folderImage);
@@ -395,7 +436,10 @@
 
     var $commentCase = jQuery('<a>').attr({
             target: '_parent',
-            href: enterCommentURL
+            href: enterCommentURL,
+        class: 'funcButtons'
+        }).css({
+            float: 'right'
         }),
         $commentOnCase = jQuery('<div>').attr({
             id: 'commentONCase',
@@ -412,70 +456,70 @@
     // ----------------------------------------
     // ----------------------------------------
 
-    var $changeCaseOwner = jQuery('<a>').attr({
-            target: '_parent',
-            href: changeCaseOwner
-        }),
-        $closeCase = jQuery('<a>').attr({
-            target: '_parent',
-            href: changeCaseOwner
-        }),
-        $follow = jQuery('<div>').attr({
-            id: 'follow',
-            class: 'funcButtons',
-            title: 'Resolve Case'
-        }).css({
-            'padding-left': '12px !important',
-            color: 'red !important',
-            'font-size': '11px !important'
-        }).text(followUp);
-
-    if ("Resolve Back to Ticket Owner" === followUp) {
-        //            $uiBox.append('<a href="' + changeCaseOwner + '" target="_parent"><div id="follow" class="funcButtons" style="padding-left:12px !important; color:red !important; font-size:11px !important;" title="Resolve Case">' + followUp + "</div></a>");
-        $changeCaseOwner.append($follow);
-        $uiBox.append($changeCaseOwner);
-    } else {
-        //            $uiBox.append('<a href="' + closeCase + '" target="_parent"><div id="follow" class="funcButtons" style="padding-left:12px !important;  color:red !important; font-size:11px !important;" title="Close Case">' + followUp + "</div></a>");
-        $closeCase.append($follow);
-        $uiBox.append($closeCase);
-    }
-
-    $uiBox.append('<div id="echelon" style="padding-left:12px; padding-top:0px; float:left; color:blue; font-size:11px;"> <span style="color:orange;">' + accountLevel + "</span></div>");
-
-    $uiBox.append('<div id="follow" class="funcButtons" style="padding-left:12px; padding-top:5px; float:left; color:blue; font-size:11px;"> <span style="color:black;">Created By:&nbsp;&nbsp;&nbsp;</span><span id="creator" title="Copy Name">' + createdBy + "</span></div>");
+    //    var $changeCaseOwner = jQuery('<a>').attr({
+    //            target: '_parent',
+    //            href: changeCaseOwner
+    //        }),
+    //        $closeCase = jQuery('<a>').attr({
+    //            target: '_parent',
+    //            href: changeCaseOwner
+    //        }),
+    //        $follow = jQuery('<div>').attr({
+    //            id: 'follow',
+    //            class: 'funcButtons',
+    //            title: 'Resolve Case'
+    //        }).css({
+    //            'padding-left': '12px !important',
+    //            color: 'red !important',
+    //            'font-size': '11px !important'
+    //        }).text(followUp);
+    //
+    //    if ("Resolve Back to Ticket Owner" === followUp) {
+    //        //            $uiBox.append('<a href="' + changeCaseOwner + '" target="_parent"><div id="follow" class="funcButtons" style="padding-left:12px !important; color:red !important; font-size:11px !important;" title="Resolve Case">' + followUp + "</div></a>");
+    //        $changeCaseOwner.append($follow);
+    //        $uiBox.append($changeCaseOwner);
+    //    } else {
+    //        //            $uiBox.append('<a href="' + closeCase + '" target="_parent"><div id="follow" class="funcButtons" style="padding-left:12px !important;  color:red !important; font-size:11px !important;" title="Close Case">' + followUp + "</div></a>");
+    //        $closeCase.append($follow);
+    //        $uiBox.append($closeCase);
+    //    }
+    //
+    //    $uiBox.append('<div id="echelon" style="padding-left:12px; padding-top:0px; float:left; color:blue; font-size:11px;"> <span style="color:orange;">' + accountLevel + "</span></div>");
+    //
+    //    $uiBox.append('<div id="follow" class="funcButtons" style="padding-left:12px; padding-top:5px; float:left; color:blue; font-size:11px;"> <span style="color:black;">Created By:&nbsp;&nbsp;&nbsp;</span><span id="creator" title="Copy Name">' + createdBy + "</span></div>");
 
     // functions
     // ----------------------------------------
-    var funcButts = jQuery(".funcButtons").css({
-        display: "none",
-        "float": "right",
-        padding: "3px 15px 0",
-        cursor: "pointer",
-        "border-right": "2px #aaa solid",
-        height: "15px",
-        "padding-top": "0px"
-    });
+    //    var funcButts = jQuery(".funcButtons").css({
+    //        display: "none",
+    //        "float": "right",
+    //        padding: "3px 15px 0",
+    //        cursor: "pointer",
+    //        "border-right": "2px #aaa solid",
+    //        height: "15px",
+    //        "padding-top": "0px"
+    //    });
 
     $idCombo.click(function () {
         window.prompt("Copy to clipboard: Ctrl+C, Enter", webID + " " + caseNumber);
     });
-
+    //
     $caseNo.click(function () {
         window.prompt("Copy to clipboard: Ctrl+C, Enter", caseNumber);
     });
-
+    //
     $copyWebID.click(function () {
         window.prompt("Copy to clipboard: Ctrl+C, Enter", webID);
     });
-
+    //
     jQuery("#creator").click(function () {
         window.prompt("Copy to clipboard: Ctrl+C, Enter", createdBy);
     });
-
+    //
     $copyFolderPath.click(function () {
         window.prompt("Copy to clipboard: Ctrl+C, Enter", folderPath);
     });
-    */
+
 
     // This should be added last
     $body.append($uiBox);
