@@ -83,7 +83,84 @@
             "border-radius": "8px",
             border: "2px #aaa solid",
             cursor: "text"
+        }),
+        $rawParent = jQuery('#cas28_ileinner'),
+        $rawParentLink = $rawParent.find('a'),
+        rawParentLaunch = $rawParent.text(),
+        $trimParentLaunch = jQuery.trim(rawParentLaunch),
+        $childCaseLink = jQuery('#' + caseID + '_RelatedChildCaseList_link'),
+        //        $childCaseLinkText = $childCaseLink.find('span'),
+        childCases = jQuery.trim(jQuery('#' + caseID + '_RelatedChildCaseList_body').text()),
+        $childCase = jQuery('<div>').css({
+            color: 'purple',
+            'margin-left': '5px'
+        }).html('<b>Child Case:</b> Look for related cases'),
+        $parentCase = jQuery('<div>').css({
+            color: 'red',
+            'margin-left': '5px'
+        }).html('<b>Parent Case:</b> Look for related cases');
+    //    console.log(caseID);
+
+    // ----------------------------------------
+    // check for parent / child lanches
+    // ----------------------------------------
+
+    //    var rawParentLaunch = jQuery('#cas28_ileinner').text(),
+    //        trimParentLaunch = jQuery.trim(rawParentLaunch),
+    //        childCases = jQuery('#' + caseID + '_RelatedChildCaseList_body').text();
+
+    //    console.log(caseID);
+    //    console.log(caseID + '_RelatedChildCaseList_link');
+    //    console.log(caseID + '_RelatedChildCaseList_body');
+
+    if ($trimParentLaunch !== '') {
+        //        var R = '<div style ="color:red; margin-left:5px;"><b>CHILD CASE:</b> Look for related cases</div>';
+        //    jQuery(".ptBody").after(R);
+        jQuery(".ptBody .content").append($parentCase);
+        $rawParentLink.css({
+            background: 'red',
+            color: 'white'
         });
+    }
+
+    console.log('childCases : ' + childCases);
+    console.log(childCases !== 'No records to display');
+    console.log($childCaseLink.text());
+    jQuery('#5003300000u0025_RelatedChildCaseList_link').css({
+        'background-color': 'purple'
+    });
+    var listLinks = jQuery('.listHoverLinks');
+    var childCaseLink = listLinks.find(".linklet"); //.find("[id*='RelatedChildCaseList_link']");
+    console.log('childCaseLink');
+    //    console.log(childCaseLink.text());
+    console.log(childCaseLink);
+    //    .css({
+    //        'background-color': 'purple'
+    //    });
+    jQuery('#5003300000u0025_RelatedAttachmentList_link').attr({
+        style: 'background-color: purple;'
+    });
+
+    if (childCases !== 'No records to display') {
+        //        var W = '<div style ="color:red; margin-left:5px;"><b>PARENT CASE:</b> Look for related cases</div>';
+        //    jQuery(".ptBody").after(W);
+        jQuery(".ptBody .content").append($childCase);
+        $childCaseLink.attr({
+            style: 'background-color: purple;'
+        });
+        //        $childCaseLinkText.css({
+        //            background: 'purple'
+        //        });
+        //        var head = jQuery('head');
+        //        var style = jQuery('<style>').attr({
+        //            type: 'text/css',
+        //            id: 'testMe'
+        //        });
+        //        style.append('#' + caseID + '_RelatedChildCaseList_link { background: purple; }');
+        //        style.append('#5003300000u0025_RelatedChildCaseList_link { background: pink; }');
+        //        head.append(style);
+        //        jQuery(".ptBody .content").append(W);
+    }
 
     // ----------------------------------------
     // ----------------------------------------
@@ -111,6 +188,7 @@
         $toggleOn.toggle();
         $toggleOff.toggle();
         $funcButts.toggle();
+        $accountLevel.toggle();
         //        $resultBox.toggle();
     });
 
@@ -127,6 +205,7 @@
         $toggleOff.toggle();
         $funcButts.toggle();
         //        $resultBox.hide();
+        $accountLevel.toggle();
         //        $resultBox.toggle();
         //        $resultBox.text("");
     });
@@ -255,10 +334,16 @@
         //        //            F = jQuery("#00N40000002OuSq_ileinner")[0].innerHTML;
         accountLevel = jQuery("#00N40000002OuSq_ileinner").text(),
         $accountLevel = jQuery('<div>').attr({
-            class: 'funcButtons',
+            //            class: 'funcButtons',
             id: 'accountLevel'
         }).css({
-            float: 'left'
+            display: "none",
+            "float": "left",
+            padding: "3px 15px 0",
+            cursor: "pointer",
+            //            "border-right": "2px #aaa solid",
+            height: "15px",
+            "padding-top": "0px"
         });
     //00N40000002OuSq_ileinner
     //    console.log(changeCaseOwner);
@@ -385,7 +470,7 @@
     //        $uiBox.append('<a href="' + liveSiteURL + '" target="_new"><div id="copyProof" class="funcButtons">' + $desktopIcon + '</div></a>'); //done
 
     var $desktopIcon = jQuery('<i>').attr({
-            class: 'fa fa-desktop',
+            class: 'fa fa-desktop fa-lg',
             'aira-hidden': 'true',
             title: 'View Live Site'
         }).css({
@@ -422,7 +507,7 @@
             float: 'right'
         }),
         $folderImage = jQuery('<i>').attr({
-            class: 'fa fa-folder-open',
+            class: 'fa fa-folder-open fa-lg',
             title: 'Project Folder Location'
         }).css({
             float: 'right'
@@ -445,7 +530,8 @@
             href: enterCommentURL,
             //            class: 'funcButtons'
         }).css({
-            float: 'right'
+            float: 'right',
+            'text-decoration': 'none'
         }),
         $commentOnCase = jQuery('<div>').attr({
             id: 'commentONCase',
@@ -645,22 +731,38 @@
 // ----------------------------------------
 // check for parent / child lanches
 // ----------------------------------------
-/*
-        //        var P = document.getElementById(a + "_RelatedChildCaseList_link").innerHTML,
+
+//        var P = document.getElementById(a + "_RelatedChildCaseList_link").innerHTML,
 //            S = P.replace("]</span></span>", ""),
 //            D = S.charAt(S.length - 1);
 
 
-var rawParentLaunch = jQuery('#CF00N40000002hyAq_ileinner').text(),
-    trimParentLaunch = jQuery.trim(rawParentLaunch);
-var R = '<p style ="color:red; margin-left:5px;"><b>CHILD CASE:</b> Look for related cases</p>';
-jQuery(".ptBody").after(R);
+//var rawParentLaunch = jQuery('#CF00N40000002hyAq_ileinner').text(),
+//var rawParentLaunch = jQuery('#cas28_ileinner').text(),
+//    trimParentLaunch = jQuery.trim(rawParentLaunch);
+//
+//if (trimParentLaunch !== '') {
+//    var R = '<div style ="color:red; margin-left:5px;"><b>CHILD CASE:</b> Look for related cases</div>';
+//    //    jQuery(".ptBody").after(R);
+//    jQuery(".ptBody .content").append(R);
+//}
+//if (x !== 'No records to display') {
+//    var W = '<div style ="color:red; margin-left:5px;"><b>PARENT CASE:</b> Look for related cases</div>';
+//    //    jQuery(".ptBody").after(W);
+//    jQuery(".ptBody .content").append(W);
+//}
 
-if (trimParentLaunch !== '') {
-    var W = '<p style ="color:red; margin-left:5px;"><b>PARENT CASE:</b> Look for related cases</p>';
-    jQuery(".ptBody").after(W);
-}
-*/
+//var x = jQuery('#' + caseID + '_RelatedChildCaseList_body');
+//var v = window.location.pathname,
+//    c = v.split('/'),
+//    caseID = c[1];
+//console.log(caseID);
+
+//console.log(v);
+//console.log(x.text());
+
+
+
 // ----------------------------------------
 
 // ----------------------------------------
