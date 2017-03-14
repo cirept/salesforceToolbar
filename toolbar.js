@@ -1,4 +1,4 @@
-/*global jQuery, window, document */
+/*global jQuery, window, document, setTimeout */
 
 (function () {
     // ----------------------------------------
@@ -88,7 +88,7 @@
         $rawParentLink = $rawParent.find('a'),
         rawParentLaunch = $rawParent.text(),
         $trimParentLaunch = jQuery.trim(rawParentLaunch),
-        $childCaseLink = jQuery('#' + caseID + '_RelatedChildCaseList_link'),
+        childCaseID = '#' + caseID + '_RelatedChildCaseList_link',
         //        $childCaseLinkText = $childCaseLink.find('span'),
         childCases = jQuery.trim(jQuery('#' + caseID + '_RelatedChildCaseList_body').text()),
         $childCase = jQuery('<div>').css({
@@ -98,13 +98,29 @@
         $parentCase = jQuery('<div>').css({
             color: 'red',
             'margin-left': '5px'
-        }).html('<b>Parent Case:</b> Look for related cases');
-    //    console.log(caseID);
+        }).html('<b>Parent Case:</b> Look for related cases'),
+        $toolbarStyles = jQuery('<style>').attr({
+            id: 'qa_toolbox',
+            type: 'text/css'
+        }),
+        $jQueryLink = jQuery('<script>').attr({
+            type: 'text/javascript',
+            src: 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'
+        });
+
+    $toolbarStyles
+    // general toolbox styles
+        .append('.funcButtons { display: none; float: right; padding: 3px 15px 0; cursor: pointer; border-right: 2px #aaa solid; height: 15px; padding-top: 0px; } '); // end
+
+    jQuery('head').append($toolbarStyles);
+    jQuery('head').append($jQueryLink);
+
+    //    console.log($rawParent);
 
     // ----------------------------------------
     // check for parent / child lanches
     // ----------------------------------------
-
+    console.log(caseID);
     //    var rawParentLaunch = jQuery('#cas28_ileinner').text(),
     //        trimParentLaunch = jQuery.trim(rawParentLaunch),
     //        childCases = jQuery('#' + caseID + '_RelatedChildCaseList_body').text();
@@ -123,31 +139,45 @@
         });
     }
 
-    console.log('childCases : ' + childCases);
-    console.log(childCases !== 'No records to display');
-    console.log($childCaseLink.text());
-    jQuery('#5003300000u0025_RelatedChildCaseList_link').css({
-        'background-color': 'purple'
-    });
-    var listLinks = jQuery('.listHoverLinks');
-    var childCaseLink = listLinks.find(".linklet"); //.find("[id*='RelatedChildCaseList_link']");
-    console.log('childCaseLink');
+    //    console.log('childCases : ' + childCases);
+    //    console.log(childCases !== 'No records to display');
+    //    console.log($childCaseLink.text());
+    //    var linksTest = jQuery('#5003300000u0025_RelatedChildCaseList_link');
+    //    console.log('linksText ----------------------------------------');
+    //    console.log(linksTest);
+    //    console.log(linksTest.text());
+    //    jQuery('a#5003300000u0025_RelatedChildCaseList_link').css({
+    //        'background-color': 'purple'
+    //    });
+    //    var listTitle = jQuery('span.listTitle');
+    //    jQuery('span.listTitle').css({
+    //        'background-color': 'purple'
+    //    });
+    //    console.log(listTitle);
+    //    (document.getElementById(caseID + "_RelatedCommentsList_link").style.backgroundColor = "red");
+    console.log('get this id : ' + caseID + "_RelatedCommentsList_link");
+    var listLinks = jQuery('#5003300000vnthh_RelatedCommentsList_link');
+    //    var childCaseLink = listLinks.find(".linklet"); //.find("[id*='RelatedChildCaseList_link']");
+    console.log('listLinks');
     //    console.log(childCaseLink.text());
-    console.log(childCaseLink);
+    console.log(listLinks.css({
+        background: 'purple'
+    }));
     //    .css({
     //        'background-color': 'purple'
     //    });
-    jQuery('#5003300000u0025_RelatedAttachmentList_link').attr({
-        style: 'background-color: purple;'
-    });
+    //    var relatedCaseLink = jQuery('#5003300000u0025_RelatedAttachmentList_link');
+    //    var relatedCaseLink = jQuery('[id*="RelatedAttachmentList_link"]');
+    //    console.log(relatedCaseLink);
+    //    console.log(relatedCaseLink.html());
 
     if (childCases !== 'No records to display') {
         //        var W = '<div style ="color:red; margin-left:5px;"><b>PARENT CASE:</b> Look for related cases</div>';
         //    jQuery(".ptBody").after(W);
         jQuery(".ptBody .content").append($childCase);
-        $childCaseLink.attr({
-            style: 'background-color: purple;'
-        });
+        //        setTimeout(colorRelatedCases, 2000);
+        jQuery('.listHoverLinks').on('load', setTimeout(colorRelatedCases, 2000));
+
         //        $childCaseLinkText.css({
         //            background: 'purple'
         //        });
@@ -160,6 +190,15 @@
         //        style.append('#5003300000u0025_RelatedChildCaseList_link { background: pink; }');
         //        head.append(style);
         //        jQuery(".ptBody .content").append(W);
+    }
+
+    function colorRelatedCases() {
+        jQuery(childCaseID).css({
+            //        jQuery($childCaseLink).css({
+            background: 'linear-gradient(to left, #41295a , #2F0743)',
+            color: '#ccc'
+                //            background: commentsbgColor
+        });
     }
 
     // ----------------------------------------
@@ -620,16 +659,90 @@
 
     // This should be added last
     $body.append($uiBox);
-    var $funcButts = jQuery(".funcButtons").css({
-        display: "none",
-        "float": "right",
-        padding: "3px 15px 0",
-        cursor: "pointer",
-        "border-right": "2px #aaa solid",
-        height: "15px",
-        "padding-top": "0px"
-    });
+    var $funcButts = jQuery(".funcButtons")
+        //    .css({
+        //        display: "none",
+        //        "float": "right",
+        //        padding: "3px 15px 0",
+        //        cursor: "pointer",
+        //        "border-right": "2px #aaa solid",
+        //        height: "15px",
+        //        "padding-top": "0px"
+        //    })
+    ;
+
+    // have to set timeout due to jump links being dynamically created
+    var commentsbgColor = 'linear-gradient(to left, #FF512F , #DD2476)',
+        commentsID = '#' + caseID + '_RelatedCommentsList_link';
+    console.log(commentsbgColor);
+    console.log(commentsID);
+    jQuery('.listHoverLinks').on('load', setTimeout(paintUI, 2000));
+    //    jQuery('.listHoverLinks').on('load', delayFire);
+
+    //    function delayFire() {
+    //        return setTimeout(paintUI, 2000);
+    //    }
+
+    function paintUI() {
+        //    function paintUI() {
+
+        //        jQuery('#' + caseID + '_RelatedCommentsList_link').css({
+        //        return function (id, bgColor) {
+        jQuery(commentsID).css({
+            //            background: 'linear-gradient(to left, #FF512F , #DD2476)'
+            background: commentsbgColor,
+            color: '#ccc'
+        });
+
+        $toggleOn.trigger('click');
+        //        };
+    }
+
+    //    var visi = jQuery(".listHoverLinks").html(); //.attr('style');
+    //    console.log(visi);
+
+    //    jQuery(".listHoverLinks").load(function () {
+    //        console.log('jump links finished loading');
+    //        // Handler for .load() called.
+    //    });
+
 })();
+
+//jQuery('#5003300000vnthh_RelatedCommentsList_link').css({
+//    background: 'purple'
+//});
+
+//var dataID = jQuery('.listHoverLinks'),
+//    inner = jQuery('.listHoverLinks'),
+//    cloned = jQuery('.listHoverLinks').clone(),
+//    linkslist = cloned.find('.linklet'),
+//    dataIDHTML = jQuery('.listHoverLinks').html(),
+//    caseComments = dataID.children('[id*="_RelatedCommentsList_link"]'),
+//    caseChildren = dataID.children();
+//console.log('dataID');
+//console.log(dataID);
+//console.log('----------------------------------------');
+//console.log('linkslist');
+//console.log(linkslist);
+
+
+//var r = window.location.pathname,
+//    a = r.slice(1);
+//(document.getElementById(a + "_RelatedCommentsList_link").style.backgroundColor = "red");
+//console.log(inner.css({
+//    background: 'purple'
+//}));
+//console.log(inner.find('.linklet').css({
+//    background: 'pink'
+//}));
+//console.log('dataIDHTML');
+//console.log(dataIDHTML);
+//console.log('dataID.children');
+//console.log(dataID.children);
+//console.log('caseChildren');
+//console.log(caseChildren);
+//console.log(caseComments.html());
+//document.getElementById(caseID + "_RelatedCommentsList_link").style.backgroundColor = "red";
 
 // end functions
 // ----------------------------------------
