@@ -1,0 +1,552 @@
+/*global jQuery, window, document, setTimeout, GM_setClipboard */
+
+
+(function () {
+
+    var launchToolbar = {
+        init: function () {
+            this.createElements();
+            this.cacheDOM();
+            this.changeTab();
+            this.buildWSMlink();
+            this.childCheck();
+            this.parentCheck();
+            this.buildFolderPath();
+            this.bindEvents();
+            this.addStyles();
+            this.buildTool();
+            this.attachTool();
+            this.startTool();
+        },
+        createElements: function () {
+            launchToolbar.config = {
+                $uiBox: jQuery('<div>').attr({
+                    id: 'uiBox'
+                }).css({
+                    position: 'fixed',
+                    'z-index': '1100000',
+                    background: 'linear-gradient(to left, #FFAFBD , #ffc3a0)',
+                    color: '#000',
+                    'text-align': 'left',
+                    'font-family': 'Arial',
+                    'font-size': '12px',
+                    height: '22px',
+                    width: '150px',
+                    'font-weight': 'bold',
+                    top: '0',
+                    right: '0',
+                    '-moz-border-radius': '10px 0 0 10px',
+                    'border-radius': '10px 0 0 10px',
+                    border: '1px #AAA solid',
+                    'border-right': '0',
+                    'padding-top': '7px',
+                    'padding-right': '80px'
+                }),
+                $toggleOn: jQuery('<div>').attr({
+                    id: 'toggleOn'
+                }).css({
+                    'float': 'left',
+                    //                    width: '100px',
+                    margin: '0',
+                    padding: '0px 10px',
+                    cursor: 'pointer'
+                }),
+                $toggleOff: jQuery('<div>').attr({
+                    id: 'toggleOff'
+                }).css({
+                    'float': 'left',
+                    //                    width: '100px',
+                    margin: '0',
+                    padding: '0px 10px',
+                    display: 'none',
+                    cursor: 'pointer',
+                    'border-right': '1px black solid',
+                    height: '16px'
+                }),
+                base: 'http://websites.cobalt.com/wsm/index.do?webId=',
+                us: '&locale=en_US',
+                en_ca: '&locale=en_CA',
+                fr_ca: '&locale=fr_CA',
+                au: '&locale=en_AU',
+                nz: '&locale=en_NZ',
+                wsmLink: '',
+                $resultBox: jQuery('<div>').attr({
+                    id: 'resultBox'
+                }).css({
+                    display: 'none',
+                    'float': 'right',
+                    color: 'red',
+                    'background-color': 'white',
+                    padding: '0 15px',
+                    margin: '2px 0 0 40px',
+                    '-moz-border-radius': '8px',
+                    'border-radius': '8px',
+                    border: '2px #aaa solid',
+                    cursor: 'text'
+                }),
+                $childCase: jQuery('<div>').css({
+                    color: 'purple',
+                    'margin-left': '5px'
+                }).html('<b>Child Case:</b> Look for related cases'),
+                $parentCase: jQuery('<div>').css({
+                    color: 'red',
+                    'margin-left': '5px'
+                }).html('<b>Parent Case:</b> Look for related cases'),
+                $toolbarStyles: jQuery('<style>').attr({
+                    id: 'qa_toolbox',
+                    type: 'text/css'
+                }),
+                $jQueryLink: jQuery('<script>').attr({
+                    type: 'text/javascript',
+                    src: 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'
+                }),
+                baseManuLoc: '\\\\las-mgmt1.lasisi01a.las.san.dsghost.net\\Associate\\sea\\CS\\graphics\\manufacturers\\',
+                nitra: 'http://nitra.',
+                reload: '/?reload=true',
+                liveSiteURL: '',
+                folderPath: '',
+                $status: jQuery('<div>').attr({
+                    id: 'statusText'
+                }).css({
+                    display: 'none',
+                    'float': 'left',
+                    padding: '3px 15px 0',
+                    height: '15px',
+                    'padding-top': '0px'
+                }),
+                $EditLink: jQuery('<a>').attr({
+                    target: '_new',
+                }),
+                $Edit: jQuery('<div>').attr({
+                    id: 'webID',
+                    class: 'funcButtons',
+                    title: 'Edit in WSM'
+                }).css({
+                    color: 'gray',
+                    float: 'right'
+                }).text('EDIT'),
+                $launchID: jQuery('<div>').attr({
+                    id: 'launchID',
+                    class: 'funcButtons',
+                    title: 'Copy Launch ID'
+                }).css({
+                    float: 'right'
+                }),
+                $idCombo: jQuery('<div>').attr({
+                    title: 'Copy WebID and Launch',
+                    id: 'idCombo',
+                    class: 'funcButtons'
+                }).css({
+                    'float': 'right',
+                    height: '15px',
+                    'padding-top': '0px'
+                }).text('+'),
+                $copyWebID: jQuery('<div>').attr({
+                    id: 'copyWebid',
+                    title: 'Copy WebID',
+                    class: 'funcButtons'
+                }),
+                $desktopIcon: jQuery('<i>').attr({
+                    class: 'fa fa-desktop fa-lg',
+                    'aira-hidden': 'true',
+                    title: 'View Live Site'
+                }).css({
+                    float: 'right'
+                }),
+                $copyProof: jQuery('<div>').attr({
+                    id: 'copyProof',
+                    class: 'funcButtons'
+                }).css({
+                    float: 'right'
+                }),
+                $liveSite: jQuery('<a>').attr({
+                    target: '_new',
+                }).css({
+                    float: 'right'
+                }),
+                $copyFolderPath: jQuery('<div>').css({
+                    float: 'right',
+                }),
+                $folderImage: jQuery('<i>').attr({
+                    class: 'fa fa-folder-open fa-lg funcButtons',
+                    title: 'Project Folder Location',
+                    id: 'copyFolderPath'
+                }).css({
+                    float: 'right'
+                }),
+                $commentCaseContainer: jQuery('<div>').attr({
+                    class: 'funcButtons'
+                }).css({
+                    float: 'right'
+                }),
+                $commentCase: jQuery('<a>').attr({
+                    target: '_parent'
+                }).css({
+                    float: 'right',
+                    'text-decoration': 'none'
+                }),
+                $commentOnCase: jQuery('<div>').attr({
+                    id: 'commentONCase',
+                    title: 'Make a Comment'
+                }).css({
+                    'padding-left': '12px !important',
+                    color: 'purple!important',
+                    'font-size': '11 px!important'
+                }).text('Comment'),
+                $changeCaseOwner: jQuery('<a>').attr({
+                    target: '_parent',
+                    id: 'followUp',
+                    class: 'funcButtons',
+                    title: 'Change case owner'
+                }).css({
+                    float: 'right'
+                }),
+                $closeCase: jQuery('<a>').attr({
+                    target: '_parent',
+                }),
+                $followInfo: jQuery('<div>').attr({
+                    id: 'follow',
+                    class: 'funcButtons'
+                }).css({
+                    'padding-left': '12px !important',
+                    color: 'red !important',
+                    'font-size': '11px !important'
+                }),
+                commentsbgColor: 'linear-gradient(to left, #FF512F , #DD2476)',
+                $importantInfo: jQuery('<div>').attr({
+                    id: 'importantInfo'
+                })
+            };
+        },
+        cacheDOM: function () {
+            // launch stuff
+            this.$launchID = jQuery('#Name_ileinner');
+            this.launchID = jQuery('#Name_ileinner').text();
+            this.$webID = jQuery('#CF00N40000002aUF9_ileinner');
+            this.webID = jQuery('#CF00N40000002aUF9_ileinner a').text();
+            this.$account = jQuery('#CF00N40000002aUDp_ileinner a');
+            this.accountInfo = jQuery('#CF00N40000002aUDp_ileinner a').attr('href');
+            this.accountID = this.accountInfo.slice(1);
+            this.$webIDtext = jQuery('#00N40000002aUF8_ileinner');
+            this.webIDtext = jQuery('#00N40000002aUF8_ileinner').text();
+            this.$proofDate = jQuery('#00N330000038W91_ileinner');
+            this.$launchDate = jQuery('#00N33000002yrbp_ileinner');
+            this.$status = jQuery('#00N40000002aUF4_ileinner');
+            this.statusText = jQuery('#00N40000002aUF4_ileinner').text();
+            this.owner = jQuery('#Owner_ileinner').find('[id*="Owner"]').text();
+            this.$builder = jQuery('#CF00N40000002aUE2_ileinner');
+            this.bizBeginning = 'j_id0_j_id5_';
+            this.accountID = '';
+            this.bizEnd = '_00N40000002aU57';
+            this.bizSiteTable = this.bizBeginning + this.accountID + this.bizEnd;
+            // case stuff
+            this.path = window.location.pathname;
+            //            this.caseID = this.path.slice(1);
+            this.enterCommentURL = 'https://cdk.my.salesforce.com/00a/e?parent_id=' + this.launchID + '&retURL=%2F' + this.launchID;
+            this.createdBy = jQuery('#CreatedBy_ileinner a').text();
+            this.changeCaseOwner = 'https://cdk.my.salesforce.com/' + this.launchID + '/a?retURL=%2F' + this.launchID + '&newOwn=' + this.createdBy;
+            this.closeCaseLink = 'https://cdk.my.salesforce.com/' + this.launchID + '/s?retURL=%2F';
+            this.$body = jQuery('body');
+            this.$head = jQuery('head');
+            //            this.caseNo = jQuery('#cas2_ileinner').text();
+            //            this.caseNumber = this.caseNo.substr(0, 8);
+            //            this.webID = jQuery('#CF00N40000002aUB4_ileinner a').text();
+            this.comboID = this.webID + ' ' + this.launchID;
+            this.idArray = this.webID.split('-');
+            this.oem = this.idArray[0];
+            this.id = this.webID.substr(this.webID.indexOf('-') + 1);
+            //            this.webIDtext = jQuery('#00N40000002OuSq_ileinner').text();
+            this.pageToChange = jQuery('#00N40000002aU9c_ileinner').text();
+            this.followUp = jQuery('#00N40000002aU7t_ileinner').text();
+            this.$rawParent = jQuery('#cas28_ileinner');
+            this.$rawParentLink = this.$rawParent.find('a');
+            this.rawParentLaunch = this.$rawParent.text();
+            this.$trimParentLaunch = jQuery.trim(this.rawParentLaunch);
+            this.childCaseID = '#' + this.caseID + '_RelatedChildCaseList_link';
+            this.childCases = jQuery.trim(jQuery('#' + this.caseID + '_RelatedChildCaseList_body').text());
+            this.commentsID = '#' + this.caseID + '_RelatedCommentsList_link';
+        },
+        changeTab: function () {
+            //            switch (this.pageToChange) {
+            //                case 'Proof':
+            //                    launchToolbar.config.$toggleOn.html('&#9666; ' + this.status);
+            //                    launchToolbar.config.$toggleOff.html(this.status + ' &#9656;');
+            //                    break;
+            //                case 'Publish':
+            //                    launchToolbar.config.$toggleOn.html('&#9666; ' + this.status);
+            //                    launchToolbar.config.$toggleOff.html(this.status + ' &#9656;');
+            //                    break;
+            //                default:
+            //                    // nothing
+            //                    break;
+            //            }
+            launchToolbar.config.$toggleOn.html('&#9666; ' + this.webIDtext);
+            launchToolbar.config.$toggleOff.html(this.webIDtext + ' &#9656;');
+        },
+        buildWSMlink: function () {
+            if (-1 != this.webID.search('gmcl')) {
+                if (-1 != this.webID.search('-fr')) {
+                    launchToolbar.config.wsmLink = launchToolbar.config.base + this.webID + launchToolbar.config.fr_ca;
+                } else {
+                    launchToolbar.config.wsmLink = launchToolbar.config.base + this.webID + launchToolbar.config.en_ca;
+                }
+            } else if (-1 != this.webID.search('holden')) {
+                if (-1 != this.webID.search('holdennz')) {
+                    launchToolbar.config.wsmLink = launchToolbar.config.base + this.webID + launchToolbar.config.nz;
+                } else {
+                    launchToolbar.config.wsmLink = launchToolbar.config.base + this.webID + launchToolbar.config.au;
+                }
+            } else {
+                launchToolbar.config.wsmLink = launchToolbar.config.base + this.webID + launchToolbar.config.us;
+            }
+        },
+        childCheck: function () {
+            if (this.childCases !== 'No records to display') {
+                jQuery('.ptBody .content').append(launchToolbar.config.$childCase);
+
+                jQuery('.listHoverLinks').on('load', setTimeout(this.colorRelatedCases, 2000));
+            }
+        },
+        parentCheck: function () {
+            if (this.$trimParentLaunch !== '') {
+                jQuery('.ptBody .content').append(launchToolbar.config.$parentCase);
+                this.$rawParentLink.css({
+                    background: 'red',
+                    color: 'white'
+                });
+            }
+        },
+        buildFolderPath: function () {
+            switch (this.oem) {
+                case 'gmps':
+                    launchToolbar.config.liveSiteURL = launchToolbar.config.nitra + 'gmpsdealer.com/' + this.id + launchToolbar.config.reload;
+                    launchToolbar.config.folderPath = launchToolbar.config.baseManuLoc + this.oem + '\\' + this.id.charAt(0) + '\\' + this.id;
+                    break;
+                case 'gmcl':
+                    launchToolbar.config.liveSiteURL = launchToolbar.config.nitra + 'gmcldealer.com/' + this.id + launchToolbar.config.reload;
+                    launchToolbar.config.folderPath = launchToolbar.config.baseManuLoc + this.oem + '\\' + this.id.charAt(0) + '\\' + this.id;
+                    break;
+                case 'vw':
+                    launchToolbar.config.liveSiteURL = launchToolbar.config.nitra + 'vwdealer.com/' + this.id + launchToolbar.config.reload;
+                    launchToolbar.config.folderPath = launchToolbar.config.baseManuLoc + this.oem + '\\' + this.id.charAt(0) + '\\' + this.id;
+                    break;
+                case 'hyun':
+                    launchToolbar.config.liveSiteURL = launchToolbar.config.nitra + 'hyundaistores.com/' + this.id + launchToolbar.config.reload;
+                    launchToolbar.config.folderPath = launchToolbar.config.baseManuLoc + this.oem + '\\' + this.id.charAt(0) + '\\' + this.id;
+                    break;
+                case 'mazda':
+                    launchToolbar.config.liveSiteURL = launchToolbar.config.nitra + 'mazdadealer.com/' + this.id + launchToolbar.config.reload;
+                    launchToolbar.config.folderPath = launchToolbar.config.baseManuLoc + this.oem + '\\' + this.id.charAt(0) + '\\' + this.id;
+                    break;
+                case 'lex':
+                    launchToolbar.config.liveSiteURL = launchToolbar.config.nitra + 'lexusdealer.com/' + this.id + launchToolbar.config.reload;
+                    launchToolbar.config.folderPath = launchToolbar.config.baseManuLoc + 'lexus\\' + this.id.charAt(0) + '\\' + this.id;
+                    break;
+                case 'k1ia':
+                    launchToolbar.config.liveSiteURL = launchToolbar.config.nitra + 'k1iadealer.com/' + this.id + launchToolbar.config.reload;
+                    launchToolbar.config.folderPath = launchToolbar.config.baseManuLoc + this.oem + '\\' + this.id.charAt(0) + '\\' + this.id;
+                    break;
+                case 'b2mw':
+                    launchToolbar.config.liveSiteURL = launchToolbar.config.nitra + 'b2mwdealer.com/' + this.id + launchToolbar.config.reload;
+                    launchToolbar.config.folderPath = launchToolbar.config.baseManuLoc + this.oem + '\\' + this.id.charAt(0) + '\\' + this.id;
+                    break;
+                case 'mini':
+                    launchToolbar.config.liveSiteURL = launchToolbar.config.nitra + 'mini-dealer.com/' + this.id + launchToolbar.config.reload;
+                    launchToolbar.config.folderPath = launchToolbar.config.baseManuLoc + this.oem + '\\' + this.id.charAt(0) + '\\' + this.id;
+                    break;
+                case 'motp':
+                    launchToolbar.config.liveSiteURL = launchToolbar.config.nitra + 'motorplace.com/' + this.id + launchToolbar.config.reload;
+                    launchToolbar.config.folderPath = launchToolbar.config.baseManuLoc + 'motorplace\\' + this.id.charAt(0) + '\\' + this.id;
+                    break;
+                case 'hond':
+                    launchToolbar.config.liveSiteURL = launchToolbar.config.nitra + 'hondadealer.com/' + this.id + launchToolbar.config.reload;
+                    launchToolbar.config.folderPath = launchToolbar.config.baseManuLoc + 'honda\\' + this.id.charAt(0) + '\\' + this.id;
+                    break;
+                case 'holden':
+                    launchToolbar.config.liveSiteURL = launchToolbar.config.nitra + 'gmholdendealer.com.au/' + this.id + launchToolbar.config.reload;
+                    launchToolbar.config.folderPath = launchToolbar.config.baseManuLoc + this.oem + '\\' + this.id.charAt(0) + '\\' + this.id;
+                    break;
+                case 'holdennz':
+                    launchToolbar.config.liveSiteURL = launchToolbar.config.nitra + 'gmholdendealer.co.nz/' + this.id + launchToolbar.config.reload;
+                    launchToolbar.config.folderPath = launchToolbar.config.baseManuLoc + this.oem + '\\' + this.id.charAt(0) + '\\' + this.id;
+                    break;
+                case 'nissan':
+                    launchToolbar.config.liveSiteURL = launchToolbar.config.nitra + 'nissandealer.com/' + this.id + launchToolbar.config.reload;
+                    launchToolbar.config.folderPath = launchToolbar.config.baseManuLoc + this.oem + '\\' + this.id.charAt(0) + '\\' + this.id;
+                    break;
+                case 'toyd':
+                    launchToolbar.config.liveSiteURL = launchToolbar.config.nitra + 'toyotadealer.com/' + this.id + launchToolbar.config.reload;
+                    launchToolbar.config.folderPath = launchToolbar.config.baseManuLoc + 'toyota\\' + this.id.charAt(0) + '\\' + this.id;
+                    break;
+                case 'infiniti':
+                    launchToolbar.config.liveSiteURL = launchToolbar.config.nitra + 'infinitthis.idealer.com/' + this.id + launchToolbar.config.reload;
+                    launchToolbar.config.folderPath = launchToolbar.config.baseManuLoc + this.oem + '\\' + this.id.charAt(0) + '\\' + this.id;
+                    break;
+            }
+        },
+        bindEvents: function () {
+            launchToolbar.config.$toggleOn.on('click', this.animate);
+            launchToolbar.config.$toggleOn.on('click', this.showBox);
+            launchToolbar.config.$toggleOff.on('click', this.animate);
+            launchToolbar.config.$toggleOff.on('click', this.hideBox);
+            launchToolbar.config.$idCombo.on('click', this.clipboardCopy.bind(this));
+            launchToolbar.config.$launchID.on('click', this.clipboardCopy.bind(this));
+            launchToolbar.config.$copyWebID.on('click', this.clipboardCopy.bind(this));
+            launchToolbar.config.$folderImage.on('click', this.clipboardCopy.bind(this));
+        },
+        addStyles: function () {
+            launchToolbar.config.$toolbarStyles
+                // general toolbox styles
+                .append('.funcButtons { display: none; float: right; padding: 3px 15px 0; cursor: pointer; border-right: 1px rgb(112, 160, 121) solid; height: 15px; padding-top: 0px; } '); // end
+        },
+        buildTool: function () {
+            launchToolbar.config.$status.append(this.statusText);
+            launchToolbar.config.$EditLink.append(launchToolbar.config.$Edit);
+            launchToolbar.config.$EditLink.attr({
+                href: launchToolbar.config.wsmLink
+            });
+            launchToolbar.config.$copyProof.append(launchToolbar.config.$desktopIcon);
+            launchToolbar.config.$liveSite.append(launchToolbar.config.$copyProof);
+            launchToolbar.config.$liveSite.attr({
+                href: launchToolbar.config.liveSiteURL
+            });
+            launchToolbar.config.$copyFolderPath.append(launchToolbar.config.$folderImage);
+            launchToolbar.config.$commentCase.append(launchToolbar.config.$commentOnCase);
+            launchToolbar.config.$commentCase.attr({
+                href: this.enterCommentURL
+            });
+            launchToolbar.config.$commentCaseContainer.append(launchToolbar.config.$commentCase);
+            launchToolbar.config.$changeCaseOwner.append(launchToolbar.config.$followInfo);
+            launchToolbar.config.$changeCaseOwner.text(this.followUp);
+            launchToolbar.config.$changeCaseOwner.attr({
+                href: this.changeCaseOwner
+            });
+            launchToolbar.config.$closeCase.attr({
+                href: this.changeCaseOwner
+            });
+            launchToolbar.config.$launchID.text(this.launchID);
+            launchToolbar.config.$copyWebID.text(this.webID);
+
+            launchToolbar.config.$uiBox.append(launchToolbar.config.$toggleOn)
+                .append(launchToolbar.config.$toggleOff)
+                .append(launchToolbar.config.$status)
+                .append(launchToolbar.config.$EditLink)
+                .append(launchToolbar.config.$launchID)
+                .append(launchToolbar.config.$idCombo)
+                .append(launchToolbar.config.$copyWebID)
+                .append(launchToolbar.config.$liveSite)
+                .append(launchToolbar.config.$copyFolderPath)
+                //                .append(launchToolbar.config.$commentCaseContainer)
+                //                .append(launchToolbar.config.$changeCaseOwner)
+                .append(launchToolbar.config.$importantInfo);
+        },
+        attachTool: function () {
+            this.$head.append(launchToolbar.config.$toolbarStyles);
+            this.$head.append(launchToolbar.config.$jQueryLink);
+            this.$body.append(launchToolbar.config.$uiBox);
+        },
+        getBAC: function () {
+            //            jQuery('#importantInfo').load('https://cdk--c.na27.visual.force.com/apex/ALL_AccountDetailPageOverride?id=0014000000JvwMC #j_id0_j_id5_0014000000JvwMC_00N40000002aU57');
+
+        },
+        startTool: function () {
+            var commentsID = this.commentsID;
+            setTimeout(function (commentsID) {
+                jQuery(commentsID).css({
+                    background: launchToolbar.config.commentsbgColor,
+                    color: '#ccc'
+                });
+                launchToolbar.config.$toggleOn.trigger('click');
+            }, 2000);
+        },
+        // ----------------------------------------
+        // TIER 2
+        // ----------------------------------------
+        colorRelatedCases: function () {
+            jQuery(this.childCaseID).css({
+                background: 'linear-gradient(to left, #41295a , #2F0743)',
+                color: '#ccc'
+            });
+        },
+        animate: function () {
+            var $funcButts = jQuery('.funcButtons');
+            launchToolbar.config.$toggleOn.toggle();
+            launchToolbar.config.$toggleOff.toggle();
+            launchToolbar.config.$status.toggle();
+            $funcButts.toggle();
+        },
+        showBox: function () {
+            launchToolbar.config.$uiBox.animate({
+                width: "75%"
+            }, "slow");
+        },
+        hideBox: function () {
+            launchToolbar.config.$uiBox.animate({
+                width: "150px"
+            }, "slow");
+        },
+        clipboardCopy: function (event) {
+            var $clickedElement = jQuery(event.target),
+                id = $clickedElement.attr('id'),
+                variable = '';
+
+            switch (id) {
+                case 'idCombo':
+                    variable = this.comboID;
+                    break;
+                case 'launchID':
+                    variable = this.launchID;
+                    break;
+                case 'copyWebid':
+                    variable = this.webID;
+                    break;
+                case 'copyFolderPath':
+                    variable = launchToolbar.config.folderPath;
+                    break;
+            }
+            console.log('copy clipboard ' + variable);
+            GM_setClipboard(variable, 'text');
+        }
+    };
+
+    var getBAC = {
+        init: function () {
+            this.getBAC();
+        },
+        getBAC: function () {
+            console.log('getBAC entered');
+            if (window.location.href.indexOf('AccountDetailPageOverride') > -1) {
+                var beginning = 'j_id0_j_id5_',
+                    accountID = '',
+                    end = '_00N40000002aU57',
+                    location = window.location.href,
+                    locationText = jQuery.trim(window.location.href),
+                    startLocation, endLocation,
+                    findID = 'id=',
+                    tableID;
+
+                console.log('locationText : ' + locationText);
+                // search url for account id
+                startLocation = location.indexOf(findID) + findID.length;
+                endLocation = location.indexOf('&');
+
+                accountID = location.slice(startLocation, endLocation);
+                console.log('accountID : ' + accountID);
+
+                tableID = '#' + beginning + '' + accountID + '' + end;
+                console.log('tableID : ' + tableID);
+
+                var testOBJ = jQuery(tableID);
+                console.log(testOBJ);
+            }
+        }
+    };
+
+    if (window.location.href.indexOf('cdk.my.salesforce.com/') > -1) {
+        launchToolbar.init();
+    }
+
+    if (window.location.href.indexOf('visual.force.com/') > -1) {
+        getBAC.init();
+    }
+})();
