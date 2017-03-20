@@ -1,7 +1,21 @@
-/*global jQuery, window, document, setTimeout, GM_setClipboard */
-
+/*global jQuery, window, document, setTimeout, GM_setClipboard, GM_openInTab, GM_setValue, GM_getValue */
 
 (function () {
+
+    // Tampermonkey functions
+
+    function openInTab(url) {
+        GM_openInTab(url, 'insert');
+    }
+
+    function setValue(variable, val) {
+        console.log('"SET" value "' + variable + '" with "' + val + '"');
+        GM_setValue(variable, val);
+    }
+
+    function getValue(variable) {
+        return GM_getValue(variable, 'false');
+    }
 
     var launchToolbar = {
         init: function () {
@@ -12,11 +26,13 @@
             this.childCheck();
             this.parentCheck();
             this.buildFolderPath();
+            this.openAccountInfoPage();
             this.bindEvents();
             this.addStyles();
             this.buildTool();
             this.attachTool();
             this.startTool();
+            this.BACtable();
         },
         createElements: function () {
             launchToolbar.config = {
@@ -172,7 +188,8 @@
                     title: 'Project Folder Location',
                     id: 'copyFolderPath'
                 }).css({
-                    float: 'right'
+                    float: 'right',
+                    display: 'none'
                 }),
                 $commentCaseContainer: jQuery('<div>').attr({
                     class: 'funcButtons'
@@ -215,6 +232,18 @@
                 commentsbgColor: 'linear-gradient(to left, #FF512F , #DD2476)',
                 $importantInfo: jQuery('<div>').attr({
                     id: 'importantInfo'
+                }),
+                $BACinfo: jQuery('<div>').attr({
+                    id: 'BACinfo',
+                    class: 'funcButtons'
+                }).text('BAC/Dealer Code'),
+                $BACtable: jQuery('<div>').css({
+                    //                    display: 'inline-table',
+                    display: 'none',
+                    position: 'absolute',
+                    'margin-top': '23px',
+                    background: 'rgb(255, 255, 255)',
+                    border: '1px solid rgb(0, 0, 0)'
                 })
             };
         },
@@ -265,6 +294,10 @@
             this.childCaseID = '#' + this.caseID + '_RelatedChildCaseList_link';
             this.childCases = jQuery.trim(jQuery('#' + this.caseID + '_RelatedChildCaseList_body').text());
             this.commentsID = '#' + this.caseID + '_RelatedCommentsList_link';
+            this.host = window.location.hostname;
+            console.log('this.host : ' + this.host);
+            this.protocol = window.location.protocol;
+            console.log('this.protocol : ' + this.protocol);
         },
         changeTab: function () {
             //            switch (this.pageToChange) {
@@ -384,6 +417,14 @@
                     break;
             }
         },
+        openAccountInfoPage: function () {
+            //this.accountInfo = jQuery('#CF00N40000002aUDp_ileinner a').attr('href');
+            //            console.log(this.accountInfo);
+            var openThis = this.protocol + '//' + this.host + '' + this.accountInfo;
+            console.log('openThis : ' + openThis);
+            //            var openThis = 'https://cdk.my.salesforce.com/0014000000JvwMC';
+            openInTab(openThis);
+        },
         bindEvents: function () {
             launchToolbar.config.$toggleOn.on('click', this.animate);
             launchToolbar.config.$toggleOn.on('click', this.showBox);
@@ -393,6 +434,20 @@
             launchToolbar.config.$launchID.on('click', this.clipboardCopy.bind(this));
             launchToolbar.config.$copyWebID.on('click', this.clipboardCopy.bind(this));
             launchToolbar.config.$folderImage.on('click', this.clipboardCopy.bind(this));
+            launchToolbar.config.$BACinfo.on('click', this.toggleThis.bind(this));
+        },
+        toggleThis: function (event) {
+            var $event = jQuery(event.target),
+                id = $event.attr('id');
+            console.log('$event');
+            console.log($event);
+            console.log('id : ' + id);
+            switch (id) {
+                case 'BACinfo':
+                    launchToolbar.config.$BACtable.toggle(1000);
+                    break;
+            }
+            //            return .toggle(1000)
         },
         addStyles: function () {
             launchToolbar.config.$toolbarStyles
@@ -427,6 +482,8 @@
             launchToolbar.config.$launchID.text(this.launchID);
             launchToolbar.config.$copyWebID.text(this.webID);
 
+            //            launchToolbar.config.$BACinfo.append(launchToolbar.config.$BACtable);
+
             launchToolbar.config.$uiBox.append(launchToolbar.config.$toggleOn)
                 .append(launchToolbar.config.$toggleOff)
                 .append(launchToolbar.config.$status)
@@ -438,7 +495,9 @@
                 .append(launchToolbar.config.$copyFolderPath)
                 //                .append(launchToolbar.config.$commentCaseContainer)
                 //                .append(launchToolbar.config.$changeCaseOwner)
-                .append(launchToolbar.config.$importantInfo);
+                .append(launchToolbar.config.$importantInfo)
+                //                .append(launchToolbar.config.$BACinfo)
+                .append(launchToolbar.config.$BACtable);
         },
         attachTool: function () {
             this.$head.append(launchToolbar.config.$toolbarStyles);
@@ -457,7 +516,20 @@
                     color: '#ccc'
                 });
                 launchToolbar.config.$toggleOn.trigger('click');
-            }, 2000);
+            }, 2500);
+        },
+        BACtable: function () {
+            var BACvariable = 'BSCtable';
+
+            //            setTimeout(launchToolbar.config.$BACtable.html(getValue(BACvariable)), 5000);
+            setTimeout(function () {
+                launchToolbar.config.$BACtable.html(getValue(BACvariable));
+                setTimeout(function () {
+                    launchToolbar.config.$uiBox.append(launchToolbar.config.$BACinfo);
+                    launchToolbar.config.$BACinfo.toggle(500);
+                });
+            }, 5000);
+            //            launchToolbar.config.$BACinfo.toggle(500);
         },
         // ----------------------------------------
         // TIER 2
@@ -514,17 +586,23 @@
             this.getBAC();
         },
         getBAC: function () {
-            console.log('getBAC entered');
-            if (window.location.href.indexOf('AccountDetailPageOverride') > -1) {
+
+            jQuery(document).ready(function () {
+                console.log('getBAC entered');
+                console.log('account page detected');
+                //                if (window.location.href.indexOf('AccountDetailPageOverride') > -1) {
                 var beginning = 'j_id0_j_id5_',
                     accountID = '',
                     end = '_00N40000002aU57',
                     location = window.location.href,
                     locationText = jQuery.trim(window.location.href),
+                    body = '_body',
                     startLocation, endLocation,
                     findID = 'id=',
-                    tableID;
+                    tableID, tableBody,
+                    BACvariable = 'BSCtable';
 
+                console.log('location : ' + location);
                 console.log('locationText : ' + locationText);
                 // search url for account id
                 startLocation = location.indexOf(findID) + findID.length;
@@ -536,17 +614,39 @@
                 tableID = '#' + beginning + '' + accountID + '' + end;
                 console.log('tableID : ' + tableID);
 
-                var testOBJ = jQuery(tableID);
-                console.log(testOBJ);
-            }
+                var $testOBJ = jQuery(tableID);
+                $testOBJ.css({
+                    background: 'purple'
+                });
+
+                tableBody = tableID + body;
+                var $BACbody = jQuery(tableBody);
+                $BACbody.css({
+                    background: 'purple'
+                });
+
+
+                //                console.log('testOBJ');
+                //                console.log($testOBJ);
+                //                var testOBJbody = jQuery(tableID).find('.pbBody');
+                //                console.log('testOBJbody');
+                //                console.log(testOBJbody);
+
+                setValue(BACvariable, $BACbody.html());
+
+                console.log(getValue(BACvariable));
+
+                window.close();
+            });
         }
     };
 
-    if (window.location.href.indexOf('cdk.my.salesforce.com/') > -1) {
+    if (window.location.hostname === 'cdk.my.salesforce.com') {
         launchToolbar.init();
     }
 
-    if (window.location.href.indexOf('visual.force.com/') > -1) {
+    //        if (window.location.href.indexOf('visual.force.com/') > 0) {
+    if (window.location.hostname === 'cdk--c.na27.visual.force.com') {
         getBAC.init();
     }
 })();

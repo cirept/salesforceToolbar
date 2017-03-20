@@ -1,7 +1,12 @@
-/*global jQuery, window, document, setTimeout, GM_setClipboard */
-
+/*global jQuery, window, document, setTimeout, GM_setClipboard, GM_openInTab, GM_getValue */
 
 (function () {
+
+    // ----------------------------------------
+    function getValue(variable) {
+        console.log('retrived ' + variable + ' : ' + GM_getValue(variable, false));
+        return GM_getValue(variable, false);
+    }
 
     var caseToolbar = {
         init: function () {
@@ -17,6 +22,7 @@
             this.buildTool();
             this.attachTool();
             this.startTool();
+            this.getBACtable();
         },
         createElements: function () {
             caseToolbar.config = {
@@ -164,15 +170,18 @@
                 }).css({
                     float: 'right'
                 }),
-                $copyFolderPath: jQuery('<div>').css({
+                $copyFolderPath: jQuery('<div>').attr({
+                    class: 'funcButtons'
+                }).css({
                     float: 'right',
                 }),
                 $folderImage: jQuery('<i>').attr({
-                    class: 'fa fa-folder-open fa-lg funcButtons',
+                    class: 'fa fa-folder-open fa-lg',
                     title: 'Project Folder Location',
                     id: 'copyFolderPath'
                 }).css({
-                    float: 'right'
+                    float: 'right',
+                    display: 'block'
                 }),
                 $commentCaseContainer: jQuery('<div>').attr({
                     class: 'funcButtons'
@@ -216,9 +225,10 @@
             };
         },
         cacheDOM: function () {
-            console.log('cacheDOM');
             this.path = window.location.pathname;
+            console.log('this.path : ' + this.path);
             this.caseID = this.path.slice(1);
+            console.log('this.caseID : ' + this.caseID);
             this.enterCommentURL = 'https://cdk.my.salesforce.com/00a/e?parent_id=' + this.caseID + '&retURL=%2F' + this.caseID;
             this.createdBy = jQuery('#CreatedBy_ileinner a').text();
             this.changeCaseOwner = 'https://cdk.my.salesforce.com/' + this.caseID + '/a?retURL=%2F' + this.caseID + '&newOwn=' + this.createdBy;
@@ -240,7 +250,9 @@
             this.rawParentLaunch = this.$rawParent.text();
             this.$trimParentLaunch = jQuery.trim(this.rawParentLaunch);
             this.childCaseID = '#' + this.caseID + '_RelatedChildCaseList_link';
+            console.log(this.childCaseID);
             this.childCases = jQuery.trim(jQuery('#' + this.caseID + '_RelatedChildCaseList_body').text());
+            console.log(this.childCases);
             this.commentsID = '#' + this.caseID + '_RelatedCommentsList_link';
         },
         changeTab: function () {
@@ -279,7 +291,7 @@
             if (this.childCases !== 'No records to display') {
                 jQuery('.ptBody .content').append(caseToolbar.config.$childCase);
 
-                jQuery('.listHoverLinks').on('load', setTimeout(this.colorRelatedCases, 2000));
+                jQuery('.listHoverLinks').on('load', setTimeout(this.colorRelatedCases, 3000));
             }
         },
         parentCheck: function () {
@@ -429,6 +441,11 @@
                 caseToolbar.config.$toggleOn.trigger('click');
             }, 2000);
         },
+        getBACtable: function () {
+            var x = getValue('BSCtable');
+
+            console.log(x);
+        },
         // ----------------------------------------
         // TIER 2
         // ----------------------------------------
@@ -474,7 +491,7 @@
                     variable = caseToolbar.config.folderPath;
                     break;
             }
-            console.log('copy clipboard ' + variable);
+            //            console.log('copy clipboard ' + variable);
             GM_setClipboard(variable, 'text');
         }
     };
