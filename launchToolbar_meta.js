@@ -5,9 +5,10 @@
 // @include https://cdk--c.na27.visual.force.com/*
 // @version 3.0
 // @run-at document-end
+// @download https://rawgit.com/cirept/salesforceToolbar/master/toolbar_meta.js
 // @require https://use.fontawesome.com/3953f47d82.js
 // @require https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js
-// @require file://C:\Users\tanakae\Documents\CONTENT\Projects\Tampermonkey\Salesforce Tool\salesforceToolbar\launchToolbar.js
+// @require https://rawgit.com/cirept/salesforceToolbar/master/launchToolbar.js
 // @author cire
 // @grant unsafeWindow
 // @grant GM_setClipboard
