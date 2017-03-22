@@ -1,5 +1,19 @@
 /*global jQuery, window, document, setTimeout, GM_setClipboard, GM_openInTab, GM_setValue, GM_getValue */
 
+//TODO
+//Launch Id - done
+//Account - done
+//WebID - done
+//WebID Text - done
+//Webnum
+//Proof Due Date
+//Expected Launch Date
+//BAC code
+//Account number
+
+
+
+
 (function () {
 
     // Tampermonkey functions
@@ -130,6 +144,16 @@
                     height: '15px',
                     'padding-top': '0px'
                 }),
+                $accountName: jQuery('<div>').attr({
+                    id: 'accountName'
+                }).css({
+                    display: 'none',
+                    'float': 'left',
+                    padding: '3px 15px 0',
+                    height: '15px',
+                    color: 'rgb(110, 55, 215)',
+                    'padding-top': '0px'
+                }),
                 $EditLink: jQuery('<a>').attr({
                     target: '_new',
                 }),
@@ -146,7 +170,8 @@
                     class: 'funcButtons',
                     title: 'Copy Launch ID'
                 }).css({
-                    float: 'right'
+                    float: 'right',
+                    color: 'rgb(255, 0, 0)'
                 }),
                 $idCombo: jQuery('<div>').attr({
                     title: 'Copy WebID and Launch',
@@ -161,6 +186,8 @@
                     id: 'copyWebid',
                     title: 'Copy WebID',
                     class: 'funcButtons'
+                }).css({
+                    color: 'rgb(255, 20, 155)'
                 }),
                 $desktopIcon: jQuery('<i>').attr({
                     class: 'fa fa-desktop fa-lg',
@@ -244,17 +271,28 @@
                     'margin-top': '23px',
                     background: 'rgb(255, 255, 255)',
                     border: '1px solid rgb(0, 0, 0)'
-                })
+                }),
+                accountPage: ''
             };
         },
         cacheDOM: function () {
             // launch stuff
-            this.$launchID = jQuery('#Name_ileinner');
+            this.$launchID = jQuery('#Name_ileinner').css({
+                background: 'rgb(255, 0, 0)',
+                color: 'white'
+            });
             this.launchID = jQuery('#Name_ileinner').text();
-            this.$webID = jQuery('#CF00N40000002aUF9_ileinner');
-            this.webID = jQuery('#CF00N40000002aUF9_ileinner a').text();
-            this.$account = jQuery('#CF00N40000002aUDp_ileinner a');
-            this.accountInfo = jQuery('#CF00N40000002aUDp_ileinner a').attr('href');
+            this.$webID = jQuery('#CF00N40000002aUF9_ileinner a').css({
+                background: 'rgb(255, 20, 155)',
+                color: 'white'
+            });
+            this.webID = this.$webID.text();
+            this.$account = jQuery('#CF00N40000002aUDp_ileinner a').css({
+                background: 'rgb(110, 55, 215)',
+                color: 'white'
+            });
+            this.accountInfo = this.$account.attr('href');
+            this.accountName = this.$account.text();
             this.accountID = this.accountInfo.slice(1);
             this.$webIDtext = jQuery('#00N40000002aUF8_ileinner');
             this.webIDtext = jQuery('#00N40000002aUF8_ileinner').text();
@@ -298,6 +336,8 @@
             console.log('this.host : ' + this.host);
             this.protocol = window.location.protocol;
             console.log('this.protocol : ' + this.protocol);
+
+            //            this.win = '';
         },
         changeTab: function () {
             //            switch (this.pageToChange) {
@@ -423,7 +463,11 @@
             var openThis = this.protocol + '//' + this.host + '' + this.accountInfo;
             console.log('openThis : ' + openThis);
             //            var openThis = 'https://cdk.my.salesforce.com/0014000000JvwMC';
-            openInTab(openThis);
+            launchToolbar.config.accountPage = openInTab(openThis);
+
+            //            launchToolbar.config.accountPage = window.open(openThis, '_blank');
+            //            var win = window.open(openThis, '_blank');
+            //            win.focus();
         },
         bindEvents: function () {
             launchToolbar.config.$toggleOn.on('click', this.animate);
@@ -456,6 +500,7 @@
         },
         buildTool: function () {
             launchToolbar.config.$status.append(this.statusText);
+            launchToolbar.config.$accountName.append(this.accountName);
             launchToolbar.config.$EditLink.append(launchToolbar.config.$Edit);
             launchToolbar.config.$EditLink.attr({
                 href: launchToolbar.config.wsmLink
@@ -486,7 +531,8 @@
 
             launchToolbar.config.$uiBox.append(launchToolbar.config.$toggleOn)
                 .append(launchToolbar.config.$toggleOff)
-                .append(launchToolbar.config.$status)
+                //                .append(launchToolbar.config.$status)
+                .append(launchToolbar.config.$accountName)
                 .append(launchToolbar.config.$EditLink)
                 .append(launchToolbar.config.$launchID)
                 .append(launchToolbar.config.$idCombo)
@@ -544,7 +590,8 @@
             var $funcButts = jQuery('.funcButtons');
             launchToolbar.config.$toggleOn.toggle();
             launchToolbar.config.$toggleOff.toggle();
-            launchToolbar.config.$status.toggle();
+            //            launchToolbar.config.$status.toggle();
+            launchToolbar.config.$accountName.toggle();
             $funcButts.toggle();
         },
         showBox: function () {
@@ -636,7 +683,11 @@
 
                 console.log(getValue(BACvariable));
 
-                //                window.close();
+                //                if (window.location.href.indexOf('closeMe') >= 0) {
+                //                    window.close();
+                //                }
+                console.log(launchToolbar.config.accountPage);
+                //                this.win.close();
             });
         }
     };
