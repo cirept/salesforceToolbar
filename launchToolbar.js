@@ -236,7 +236,7 @@
                 $BACinfo: jQuery('<div>').attr({
                     id: 'BACinfo',
                     class: 'funcButtons'
-                }).text('BAC/Dealer Code'),
+                }).text('Business Sites'),
                 $BACtable: jQuery('<div>').css({
                     //                    display: 'inline-table',
                     display: 'none',
@@ -636,7 +636,7 @@
 
                 console.log(getValue(BACvariable));
 
-                window.close();
+                //                window.close();
             });
         }
     };
