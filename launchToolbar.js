@@ -640,7 +640,10 @@
         clipboardCopy: function (event) {
             var $clickedElement = jQuery(event.target),
                 id = $clickedElement.attr('id'),
-                variable = '';
+                variable = '',
+                $display = jQuery('<div>').css({
+                    display: 'none'
+                });
 
             switch (id) {
                 case 'idCombo':
@@ -658,9 +661,12 @@
             }
             //            console.log('copy clipboard ' + variable);
             GM_setClipboard(variable, 'text');
-            launchToolbar.config.$dynoDisplay.text('COPIED ' + variable);
-            launchToolbar.config.$dynoDisplay.slideToggle(500).delay(3000).slideToggle(500, function () {
-                launchToolbar.config.$dynoDisplay.empty();
+            $display.text('COPIED ' + variable);
+            //            launchToolbar.config.$dynoDisplay.toggle().append($display);
+            $display.slideToggle(500).delay(3000).slideToggle(500, function () {
+                //                $display.empty();
+                $display.remove();
+                //                launchToolbar.config.$dynoDisplay.toggle();
             });
         }
     };
