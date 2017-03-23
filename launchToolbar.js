@@ -145,10 +145,10 @@
                     'padding-top': '0px'
                 }),
                 $accountName: jQuery('<div>').attr({
-                    id: 'accountName'
+                    id: 'accountName',
+                    class: 'funcButtons imp'
                 }).css({
-                    display: 'none',
-                    'float': 'left',
+                    //                    'float': 'left',
                     padding: '3px 15px 0',
                     height: '15px',
                     color: 'rgb(110, 55, 215)',
@@ -167,10 +167,10 @@
                 }).text('EDIT'),
                 $launchID: jQuery('<div>').attr({
                     id: 'launchID',
-                    class: 'funcButtons',
+                    class: 'funcButtons imp',
                     title: 'Copy Launch ID'
                 }).css({
-                    float: 'right',
+                    //                    float: 'left',
                     color: 'rgb(255, 0, 0)'
                 }),
                 $idCombo: jQuery('<div>').attr({
@@ -185,9 +185,18 @@
                 $copyWebID: jQuery('<div>').attr({
                     id: 'copyWebid',
                     title: 'Copy WebID',
-                    class: 'funcButtons'
+                    class: 'funcButtons imp'
                 }).css({
+                    //                    float: 'left',
                     color: 'rgb(255, 20, 155)'
+                }),
+                $webnum: jQuery('<div>').attr({
+                    //                                        id: 'copyWebid',
+                    title: 'Webnum',
+                    class: 'funcButtons imp'
+                }).css({
+                    //                    float: 'left',
+                    color: 'rgb(219, 112, 147)'
                 }),
                 $desktopIcon: jQuery('<i>').attr({
                     class: 'fa fa-desktop fa-lg',
@@ -262,7 +271,7 @@
                 }),
                 $BACinfo: jQuery('<div>').attr({
                     id: 'BACinfo',
-                    class: 'funcButtons'
+                    class: 'funcButtons imp'
                 }).text('Business Sites'),
                 $BACtable: jQuery('<div>').css({
                     //                    display: 'inline-table',
@@ -270,9 +279,21 @@
                     position: 'absolute',
                     'margin-top': '23px',
                     background: 'rgb(255, 255, 255)',
-                    border: '1px solid rgb(0, 0, 0)'
+                    border: '1px solid rgb(0, 0, 0)',
+                    //                    float: 'left'
                 }),
-                accountPage: ''
+                accountPage: '',
+                $dynoDisplay: jQuery('<div>').attr({
+                    id: 'dynoDisplay'
+                }).css({
+                    position: 'absolute',
+                    left: '35%',
+                    background: 'purple',
+                    padding: '5px 20px',
+                    top: '100%',
+                    display: 'none',
+                    color: 'white'
+                })
             };
         },
         cacheDOM: function () {
@@ -294,8 +315,16 @@
             this.accountInfo = this.$account.attr('href');
             this.accountName = this.$account.text();
             this.accountID = this.accountInfo.slice(1);
-            this.$webIDtext = jQuery('#00N40000002aUF8_ileinner');
-            this.webIDtext = jQuery('#00N40000002aUF8_ileinner').text();
+            this.$webIDtext = jQuery('#00N40000002aUF8_ileinner').css({
+                background: 'rgb(0, 0, 0)',
+                color: 'white'
+            });
+            this.$webnum = jQuery('#00N40000002cgmd_ileinner').css({
+                background: 'rgb(219, 112, 147)',
+                color: 'white'
+            });
+            this.webnumText = this.$webnum.text();
+            this.webIDtext = this.$webIDtext.text();
             this.$proofDate = jQuery('#00N330000038W91_ileinner');
             this.$launchDate = jQuery('#00N33000002yrbp_ileinner');
             this.$status = jQuery('#00N40000002aUF4_ileinner');
@@ -452,7 +481,7 @@
                     launchToolbar.config.folderPath = launchToolbar.config.baseManuLoc + 'toyota\\' + this.id.charAt(0) + '\\' + this.id;
                     break;
                 case 'infiniti':
-                    launchToolbar.config.liveSiteURL = launchToolbar.config.nitra + 'infinitthis.idealer.com/' + this.id + launchToolbar.config.reload;
+                    launchToolbar.config.liveSiteURL = launchToolbar.config.nitra + 'infiniti.dealer.com/' + this.id + launchToolbar.config.reload;
                     launchToolbar.config.folderPath = launchToolbar.config.baseManuLoc + this.oem + '\\' + this.id.charAt(0) + '\\' + this.id;
                     break;
             }
@@ -496,7 +525,8 @@
         addStyles: function () {
             launchToolbar.config.$toolbarStyles
                 // general toolbox styles
-                .append('.funcButtons { display: none; float: right; padding: 3px 15px 0; cursor: pointer; border-right: 1px rgb(112, 160, 121) solid; height: 15px; padding-top: 0px; } '); // end
+                .append('.funcButtons { display: none; float: right; padding: 3px 15px 0; cursor: pointer; border-right: 1px rgb(112, 160, 121) solid; height: 15px; padding-top: 0px; } ')
+                .append('.imp { float: left !important; } '); // end
         },
         buildTool: function () {
             launchToolbar.config.$status.append(this.statusText);
@@ -526,6 +556,7 @@
             });
             launchToolbar.config.$launchID.text(this.launchID);
             launchToolbar.config.$copyWebID.text(this.webID);
+            launchToolbar.config.$webnum.text(this.webnumText);
 
             //            launchToolbar.config.$BACinfo.append(launchToolbar.config.$BACtable);
 
@@ -537,11 +568,13 @@
                 .append(launchToolbar.config.$launchID)
                 .append(launchToolbar.config.$idCombo)
                 .append(launchToolbar.config.$copyWebID)
+                .append(launchToolbar.config.$webnum)
                 .append(launchToolbar.config.$liveSite)
                 .append(launchToolbar.config.$copyFolderPath)
                 //                .append(launchToolbar.config.$commentCaseContainer)
                 //                .append(launchToolbar.config.$changeCaseOwner)
                 .append(launchToolbar.config.$importantInfo)
+                .append(launchToolbar.config.$dynoDisplay)
                 //                .append(launchToolbar.config.$BACinfo)
                 .append(launchToolbar.config.$BACtable);
         },
@@ -591,7 +624,7 @@
             launchToolbar.config.$toggleOn.toggle();
             launchToolbar.config.$toggleOff.toggle();
             //            launchToolbar.config.$status.toggle();
-            launchToolbar.config.$accountName.toggle();
+            //            launchToolbar.config.$accountName.toggle();
             $funcButts.toggle();
         },
         showBox: function () {
@@ -623,8 +656,12 @@
                     variable = launchToolbar.config.folderPath;
                     break;
             }
-            console.log('copy clipboard ' + variable);
+            //            console.log('copy clipboard ' + variable);
             GM_setClipboard(variable, 'text');
+            launchToolbar.config.$dynoDisplay.text('COPIED ' + variable);
+            launchToolbar.config.$dynoDisplay.slideToggle(500).delay(3000).slideToggle(500, function () {
+                launchToolbar.config.$dynoDisplay.empty();
+            });
         }
     };
 
