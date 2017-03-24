@@ -5,11 +5,11 @@
 //Account - done
 //WebID - done
 //WebID Text - done
-//Webnum
+//Webnum - done
 //Proof Due Date
 //Expected Launch Date
-//BAC code
-//Account number
+//BAC code - Done
+//Account number - Done
 
 
 
@@ -300,7 +300,8 @@
             // launch stuff
             this.$launchID = jQuery('#Name_ileinner').css({
                 background: 'rgb(255, 0, 0)',
-                color: 'white'
+                color: 'white',
+                display: 'table'
             });
             this.launchID = jQuery('#Name_ileinner').text();
             this.$webID = jQuery('#CF00N40000002aUF9_ileinner a').css({
@@ -317,11 +318,13 @@
             this.accountID = this.accountInfo.slice(1);
             this.$webIDtext = jQuery('#00N40000002aUF8_ileinner').css({
                 background: 'rgb(0, 0, 0)',
-                color: 'white'
+                color: 'white',
+                display: 'table'
             });
             this.$webnum = jQuery('#00N40000002cgmd_ileinner').css({
                 background: 'rgb(219, 112, 147)',
-                color: 'white'
+                color: 'white',
+                display: 'table'
             });
             this.webnumText = this.$webnum.text();
             this.webIDtext = this.$webIDtext.text();
