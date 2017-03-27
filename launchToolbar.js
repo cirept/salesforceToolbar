@@ -12,8 +12,6 @@
 //Account number - Done
 
 
-
-
 (function () {
 
     // Tampermonkey functions
@@ -665,11 +663,11 @@
             //            console.log('copy clipboard ' + variable);
             GM_setClipboard(variable, 'text');
             $display.text('COPIED ' + variable);
-            //            launchToolbar.config.$dynoDisplay.toggle().append($display);
+            launchToolbar.config.$dynoDisplay.toggle().append($display);
             $display.slideToggle(500).delay(3000).slideToggle(500, function () {
                 //                $display.empty();
                 $display.remove();
-                //                launchToolbar.config.$dynoDisplay.toggle();
+                launchToolbar.config.$dynoDisplay.toggle();
             });
         }
     };
