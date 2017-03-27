@@ -58,7 +58,7 @@
                     'text-align': 'left',
                     'font-family': 'Arial',
                     'font-size': '12px',
-                    height: '22px',
+                    //                    height: '25px',
                     width: '150px',
                     'font-weight': 'bold',
                     top: '0',
@@ -67,7 +67,7 @@
                     'border-radius': '10px 0 0 10px',
                     border: '1px #AAA solid',
                     'border-right': '0',
-                    'padding-top': '7px',
+                    'padding': '7px 0px',
                     'padding-right': '80px'
                 }),
                 $toggleOn: jQuery('<div>').attr({
@@ -144,14 +144,15 @@
                 }),
                 $accountName: jQuery('<div>').attr({
                     id: 'accountName',
-                    class: 'funcButtons imp'
+                    class: 'funcButtons imp',
+                    title: 'Copy Account Name'
                 }).css({
                     //                    'float': 'left',
                     padding: '3px 15px 0',
                     height: '15px',
                     color: 'rgb(110, 55, 215)',
                     'padding-top': '0px'
-                }),
+                }).html('<div class="myTitle">Account</div>'),
                 $EditLink: jQuery('<a>').attr({
                     target: '_new',
                 }),
@@ -170,7 +171,7 @@
                 }).css({
                     //                    float: 'left',
                     color: 'rgb(255, 0, 0)'
-                }),
+                }).html('<div class="myTitle">Launch ID</div>'),
                 $idCombo: jQuery('<div>').attr({
                     title: 'Copy WebID and Launch',
                     id: 'idCombo',
@@ -187,15 +188,32 @@
                 }).css({
                     //                    float: 'left',
                     color: 'rgb(255, 20, 155)'
-                }),
+                }).html('<div class="myTitle">Web ID</div>'),
                 $webnum: jQuery('<div>').attr({
                     //                                        id: 'copyWebid',
-                    title: 'Webnum',
+                    id: 'copyWebnum',
+                    title: 'Copy Webnum',
                     class: 'funcButtons imp'
                 }).css({
                     //                    float: 'left',
                     color: 'rgb(219, 112, 147)'
-                }),
+                }).html('<div class="myTitle">Webnum</div>'),
+                $proofDate: jQuery('<div>').attr({
+                    //                                                            id: 'copyWebid',
+                    title: 'Proof Date',
+                    class: 'funcButtons imp'
+                }).css({
+                    //                    float: 'left',
+                    color: 'rgb(140, 255, 55)'
+                }).html('<div class="myTitle">Proof Date</div>'),
+                $launchDate: jQuery('<div>').attr({
+                    //                                                            id: 'copyWebid',
+                    title: 'Launch Date',
+                    class: 'funcButtons imp'
+                }).css({
+                    //                    float: 'left',
+                    color: 'rgb(165, 115, 50)'
+                }).html('<div class="myTitle">Launch Date</div>'),
                 $desktopIcon: jQuery('<i>').attr({
                     class: 'fa fa-desktop fa-lg',
                     'aira-hidden': 'true',
@@ -211,11 +229,13 @@
                 }),
                 $liveSite: jQuery('<a>').attr({
                     target: '_new',
+                    class: 'funcButtons'
                 }).css({
                     float: 'right'
                 }),
                 $copyFolderPath: jQuery('<div>').css({
                     float: 'right',
+                    class: 'funcButtons'
                 }),
                 $folderImage: jQuery('<i>').attr({
                     class: 'fa fa-folder-open fa-lg funcButtons',
@@ -302,11 +322,13 @@
                 display: 'table'
             });
             this.launchID = jQuery('#Name_ileinner').text();
+
             this.$webID = jQuery('#CF00N40000002aUF9_ileinner a').css({
                 background: 'rgb(255, 20, 155)',
                 color: 'white'
             });
             this.webID = this.$webID.text();
+
             this.$account = jQuery('#CF00N40000002aUDp_ileinner a').css({
                 background: 'rgb(110, 55, 215)',
                 color: 'white'
@@ -314,20 +336,35 @@
             this.accountInfo = this.$account.attr('href');
             this.accountName = this.$account.text();
             this.accountID = this.accountInfo.slice(1);
+
             this.$webIDtext = jQuery('#00N40000002aUF8_ileinner').css({
                 background: 'rgb(0, 0, 0)',
                 color: 'white',
                 display: 'table'
             });
+            this.webIDtext = this.$webIDtext.text();
+
             this.$webnum = jQuery('#00N40000002cgmd_ileinner').css({
                 background: 'rgb(219, 112, 147)',
                 color: 'white',
                 display: 'table'
             });
             this.webnumText = this.$webnum.text();
-            this.webIDtext = this.$webIDtext.text();
-            this.$proofDate = jQuery('#00N330000038W91_ileinner');
-            this.$launchDate = jQuery('#00N33000002yrbp_ileinner');
+
+            this.$proofDate = jQuery('#00N330000038W91_ileinner').css({
+                background: 'rgb(140, 255, 55)',
+                color: 'black',
+                display: 'table'
+            });
+            this.proofDateText = this.$proofDate.text();
+
+            this.$launchDate = jQuery('#00N33000002yrbp_ileinner').css({
+                background: 'rgb(165, 115, 50)',
+                color: 'white',
+                display: 'table'
+            });
+            this.launchDateText = this.$launchDate.text();
+
             this.$status = jQuery('#00N40000002aUF4_ileinner');
             this.statusText = jQuery('#00N40000002aUF4_ileinner').text();
             this.owner = jQuery('#Owner_ileinner').find('[id*="Owner"]').text();
@@ -526,7 +563,8 @@
         addStyles: function () {
             launchToolbar.config.$toolbarStyles
                 // general toolbox styles
-                .append('.funcButtons { display: none; float: right; padding: 3px 15px 0; cursor: pointer; border-right: 1px rgb(112, 160, 121) solid; height: 15px; padding-top: 0px; } ')
+                .append('.funcButtons { display: none; float: right; padding: 3px 15px 0; cursor: pointer; border-right: 1px rgb(112, 160, 121) solid; padding-top: 0px; } ')
+                .append('.myTitle { color: #000000; } ')
                 .append('.imp { float: left !important; } '); // end
         },
         buildTool: function () {
@@ -548,16 +586,18 @@
             });
             launchToolbar.config.$commentCaseContainer.append(launchToolbar.config.$commentCase);
             launchToolbar.config.$changeCaseOwner.append(launchToolbar.config.$followInfo);
-            launchToolbar.config.$changeCaseOwner.text(this.followUp);
+            launchToolbar.config.$changeCaseOwner.append(this.followUp);
             launchToolbar.config.$changeCaseOwner.attr({
                 href: this.changeCaseOwner
             });
             launchToolbar.config.$closeCase.attr({
                 href: this.changeCaseOwner
             });
-            launchToolbar.config.$launchID.text(this.launchID);
-            launchToolbar.config.$copyWebID.text(this.webID);
-            launchToolbar.config.$webnum.text(this.webnumText);
+            launchToolbar.config.$launchID.append(this.launchID);
+            launchToolbar.config.$copyWebID.append(this.webID);
+            launchToolbar.config.$webnum.append(this.webnumText);
+            launchToolbar.config.$proofDate.append(this.proofDateText);
+            launchToolbar.config.$launchDate.append(this.launchDateText);
 
             //            launchToolbar.config.$BACinfo.append(launchToolbar.config.$BACtable);
 
@@ -570,6 +610,8 @@
                 .append(launchToolbar.config.$idCombo)
                 .append(launchToolbar.config.$copyWebID)
                 .append(launchToolbar.config.$webnum)
+                .append(launchToolbar.config.$proofDate)
+                .append(launchToolbar.config.$launchDate)
                 .append(launchToolbar.config.$liveSite)
                 .append(launchToolbar.config.$copyFolderPath)
                 //                .append(launchToolbar.config.$commentCaseContainer)
