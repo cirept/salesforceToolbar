@@ -673,7 +673,7 @@
                     console.log('accountNameText : ' + accountNameText);
 
                     setTimeout(function () {
-                        while (getValue(BACvariable) === undefined || getValue(BACvariable) === false || getValue('accountName') !== accountName) {
+                        while (getValue(BACvariable) === undefined || getValue(BACvariable) === false) {
 
                             console.log('accountName : ' + accountName);
 
@@ -709,11 +709,12 @@
         launchToolbar.init();
     }
 
-    //    if (window.location.hostname === 'cdk--c.na27.visual.force.com') {
-    //        var $getData = jQuery('<script>').attr({
-    //            type: 'text/javascript',
-    //            src: 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'
-    //        });
-    //    }
+    if (window.location.hostname === 'cdk--c.na27.visual.force.com') {
+        //            var $getData = jQuery('<script>').attr({
+        //                type: 'text/javascript',
+        //                src: 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'
+        //            });
+        getBAC.init();
+    }
 
 })();
