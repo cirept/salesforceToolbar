@@ -382,7 +382,7 @@
                         oemPart = 'gmcldealer.com/';
                         break;
                     case 'vw':
-                        oemPart = 'vwdealer.com/';
+                        oemPart = 'vwcdkdealer.com/';
                         break;
                     case 'hyun':
                         oemPart = 'hyundaistores.com/';
@@ -425,11 +425,11 @@
                         oem = 'toyota\\';
                         break;
                     case 'infiniti':
-                        oemPart = 'infiniti.dealer.com/';
+                        oemPart = 'infinitidealer.com/';
                         break;
                 }
-                launchToolbar.config.wipSiteURL = launchToolbar.config.nitra + oemPart + this.id + launchToolbar.config.reload;
-                launchToolbar.config.proofSiteURL = launchToolbar.config.nitra + oemPart + this.id + launchToolbar.config.reload;
+                launchToolbar.config.wipSiteURL = launchToolbar.config.nitra + launchToolbar.config.wip + oemPart + this.id + launchToolbar.config.reload;
+                launchToolbar.config.proofSiteURL = launchToolbar.config.nitra + launchToolbar.config.proof + oemPart + this.id + launchToolbar.config.reload;
                 launchToolbar.config.liveSiteURL = launchToolbar.config.nitra + oemPart + this.id + launchToolbar.config.reload;
                 launchToolbar.config.folderPath = launchToolbar.config.baseManuLoc + oem + '\\' + this.id.charAt(0) + '\\' + this.id;
             },
