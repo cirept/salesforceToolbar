@@ -43,7 +43,7 @@
                 this.buildTool();
                 this.attachTool();
                 this.startTool();
-                this.BACtable();
+                //                this.BACtable();
             },
             createElements: function () {
                 launchToolbar.config = {
@@ -171,12 +171,12 @@
                     }).html('<div class="myTitle">Launch ID</div>'),
                     $idCombo: jQuery('<div>').attr({
                         title: 'Copy WebID and Launch',
-                        class: 'funcButtons myClass click-able'
+                        class: 'funcButtons myClass idCombo click-able'
                     }).css({
                         'float': 'right',
                     }),
                     $plusIcon: jQuery('<i>').attr({
-                        class: 'fa fa-plus fa-lg myClass idCombo click-able',
+                        class: 'fa fa-plus fa-lg myClass click-able',
                         'aira-hidden': 'true',
                         title: 'Copy Launch ID + Web ID'
                     }).css({
@@ -285,7 +285,8 @@
                 });
                 this.webID = this.$webID.text();
 
-                this.comboID = this.webID + ' ' + this.launchID;
+                this.comboID = this.launchID + ' ' + this.webID;
+                console.log(this.comboID);
 
                 this.$account = jQuery('#CF00N40000002aUDp_ileinner a').css({
                     background: 'rgb(110, 55, 215)',
@@ -599,27 +600,27 @@
                     classText = $clickedElement.attr('class');
 
                 switch (true) {
-                    case (classText.indexOf('idCombo') === 0):
+                    case (classText.indexOf('idCombo') > -1):
                         console.log('idCombo');
                         this.copyInfo(this.comboID);
                         break;
-                    case (classText.indexOf('launchID') === 0):
+                    case (classText.indexOf('launchID') > -1):
                         console.log('launchID');
                         this.copyInfo(this.launchID);
                         break;
-                    case (classText.indexOf('copyWebid') === 0):
+                    case (classText.indexOf('copyWebid') > -1):
                         console.log('copyWebid');
                         this.copyInfo(this.webID);
                         break;
-                    case (classText.indexOf('accountName') === 0):
+                    case (classText.indexOf('accountName') > -1):
                         console.log('accountName');
                         this.copyInfo(this.accountName);
                         break;
-                    case (classText.indexOf('copyFolderPath') === 0):
+                    case (classText.indexOf('copyFolderPath') > -1):
                         console.log('copyFolderPath');
                         this.copyInfo(launchToolbar.config.folderPath);
                         break;
-                    case (classText.indexOf('webIDtext') === 0):
+                    case (classText.indexOf('webIDtext') > -1):
                         console.log('webIDtext');
                         this.copyInfo(this.webIDtext);
                         break;
@@ -669,24 +670,21 @@
                     accountID = location.slice(startLocation, endLocation);
                     tableID = '#' + beginning + '' + accountID + '' + end;
                     console.log(getValue(BACvariable));
-
                     console.log('accountNameText : ' + accountNameText);
 
                     setTimeout(function () {
                         while (getValue(BACvariable) === undefined || getValue(BACvariable) === false) {
-
                             console.log('accountName : ' + accountName);
-
                             tableBody = tableID + body;
                             $BACbody = jQuery(tableBody);
                             setValue(BACvariable, $BACbody.html());
                             setValue('accountName', accountName);
-
                         }
                     }, 5000);
-                });
 
-                //            window.close();
+
+                    //                    window.close();
+                });
             },
             checkFocus: function () {
                 var window_focus = false;
@@ -709,12 +707,12 @@
         launchToolbar.init();
     }
 
-    if (window.location.hostname === 'cdk--c.na27.visual.force.com') {
-        //            var $getData = jQuery('<script>').attr({
-        //                type: 'text/javascript',
-        //                src: 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'
-        //            });
-        getBAC.init();
-    }
+    //    if (window.location.hostname === 'cdk--c.na27.visual.force.com') {
+    //        //            var $getData = jQuery('<script>').attr({
+    //        //                type: 'text/javascript',
+    //        //                src: 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'
+    //        //            });
+    //        getBAC.init();
+    //    }
 
 })();

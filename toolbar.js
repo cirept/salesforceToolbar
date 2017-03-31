@@ -238,7 +238,7 @@
             this.caseNo = jQuery('#cas2_ileinner').text();
             this.caseNumber = this.caseNo.substr(0, 8);
             this.webID = jQuery('#CF00N40000002aUB4_ileinner a').text();
-            this.comboID = this.webID + ' ' + this.caseNumber;
+            this.comboID = this.caseNumber + this.webID;
             this.idArray = this.webID.split('-');
             this.oem = this.idArray[0];
             this.id = this.webID.substr(this.webID.indexOf('-') + 1);
