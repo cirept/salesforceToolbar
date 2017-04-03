@@ -32,11 +32,12 @@
             init: function () {
                 this.createElements();
                 this.cacheDOM();
+                this.setToggle();
                 this.changeTab();
                 this.buildWSMlink();
                 this.caseCheck();
                 //            this.parentCheck();
-                this.buildFolderPath();
+                //                this.buildFolderPath();
                 this.openAccountInfoPage();
                 this.bindEvents();
                 this.addStyles();
@@ -267,6 +268,20 @@
                         top: '100%',
                         display: 'none',
                         color: 'white'
+                    }),
+                    $platformToggleIcon: jQuery('<div>').attr({
+                        id: 'nextGenToggleIcon',
+                        class: 'funcButtons'
+                    }).css({
+                        float: 'right',
+                        display: 'none'
+                    }),
+                    $label: jQuery('<div>').css({
+                        display: 'inline-block',
+                        padding: '0px 10px 0px 0px'
+                    }).text('TETRA'),
+                    $FAtoggle: jQuery('<i>').attr({
+                        class: 'fa fa-toggle-off fa-lg myClass'
                     })
                 };
             },
@@ -341,6 +356,8 @@
                 this.childCasesText = jQuery.trim(jQuery('#' + this.actualLaunchID + '_00N40000002aU8H_body').text());
                 this.host = window.location.hostname;
                 this.protocol = window.location.protocol;
+
+                this.platformSelector = this.getChecked();
             },
             changeTab: function () {
                 launchToolbar.config.$toggleOn.html('&#9666; Launch');
@@ -374,7 +391,15 @@
             },
             buildFolderPath: function () {
                 var oem = this.oem,
+                    platformSelector = this.platformSelector, // ? '&nextGen=true' : '&nextgen=false',
+                    //                    this.platformSelector = this.getChecked.bind(this), // ? '&nextGen=true' : '&nextgen=false',
                     oemPart;
+
+                console.log('platformSelector : ' + platformSelector);
+                //                console.log('platformSelector : ' + this.getChecked.bind(this));
+                //                platformSelector = platformSelector ? '&nextGen=true' : '&nextgen=false';
+                //                console.log(platformSelector);
+
                 switch (this.oem) {
                     case 'gmps':
                         oemPart = 'gmpsdealer.com/';
@@ -429,8 +454,8 @@
                         oemPart = 'infinitidealer.com/';
                         break;
                 }
-                launchToolbar.config.wipSiteURL = launchToolbar.config.nitra + launchToolbar.config.wip + oemPart + this.id + launchToolbar.config.reload;
-                launchToolbar.config.proofSiteURL = launchToolbar.config.nitra + launchToolbar.config.proof + oemPart + this.id + launchToolbar.config.reload;
+                launchToolbar.config.wipSiteURL = launchToolbar.config.nitra + launchToolbar.config.wip + oemPart + this.id + launchToolbar.config.reload + platformSelector;
+                launchToolbar.config.proofSiteURL = launchToolbar.config.nitra + launchToolbar.config.proof + oemPart + this.id + launchToolbar.config.reload + platformSelector;
                 launchToolbar.config.liveSiteURL = launchToolbar.config.nitra + oemPart + this.id + launchToolbar.config.reload;
                 launchToolbar.config.folderPath = launchToolbar.config.baseManuLoc + oem + '\\' + this.id.charAt(0) + '\\' + this.id;
             },
@@ -450,6 +475,8 @@
                 launchToolbar.config.$copyFolderPath.on('click', this.clipboardCopy.bind(this));
                 launchToolbar.config.$webIDtext.on('click', this.clipboardCopy.bind(this));
                 launchToolbar.config.$BACinfo.on('click', this.toggleThis.bind(this));
+                launchToolbar.config.$platformToggleIcon.on('click', this.flipTheSwitch.bind(this));
+                launchToolbar.config.$platformToggleIcon.on('click', this.buildFolderPath);
             },
             toggleThis: function (event) {
                 var $event = jQuery(event.target),
@@ -497,6 +524,10 @@
                 launchToolbar.config.$launchDate.append(this.launchDateText);
                 launchToolbar.config.$webIDtext.append(this.webIDtext);
                 launchToolbar.config.$BACinfo.append(launchToolbar.config.$clickMe);
+
+                launchToolbar.config.$platformToggleIcon.append(launchToolbar.config.$label);
+                launchToolbar.config.$platformToggleIcon.append(launchToolbar.config.$FAtoggle);
+
                 launchToolbar.config.$uiBox.append(launchToolbar.config.$toggleOn)
                     .append(launchToolbar.config.$toggleOff)
                     .append(launchToolbar.config.$webIDtext)
@@ -510,6 +541,7 @@
                     .append(launchToolbar.config.$wipSite)
                     .append(launchToolbar.config.$proofSite)
                     .append(launchToolbar.config.$liveSite)
+                    .append(launchToolbar.config.$platformToggleIcon)
                     .append(launchToolbar.config.$copyFolderPath)
                     .append(launchToolbar.config.$idCombo)
                     .append(launchToolbar.config.$importantInfo)
@@ -553,6 +585,17 @@
                     }, 7000);
                 }
 
+            },
+            setToggle: function () {
+                if (this.getChecked()) { // if 'site is not live'
+                    // if 'nextGen is turned on'
+                    // set toggle and apply parameters
+                    this.toggleOn();
+                } else {
+                    // if 'site is not live'
+                    // set toggle and apply parameters
+                    this.toggleOff();
+                }
             },
             // ----------------------------------------
             // TIER 2
@@ -628,6 +671,29 @@
                         console.log('nothing copied');
                 }
             },
+            getChecked: function () {
+                // grabs isNextGen value
+                var a = getValue('platform');
+                return a;
+            },
+            toggleOn: function () {
+                // set toggle on image
+                var $toggle = launchToolbar.config.$FAtoggle;
+                $toggle.removeClass('fa-toggle-off');
+                $toggle.addClass('fa-toggle-on');
+            },
+            toggleOff: function () {
+                // set toggle off image
+                var $toggle = launchToolbar.config.$FAtoggle;
+                $toggle.removeClass('fa-toggle-on');
+                $toggle.addClass('fa-toggle-off');
+            },
+            flipTheSwitch: function () {
+                // set saved variable to opposite of current value
+                this.setChecked(!this.getChecked());
+                // set toggle
+                this.setToggle();
+            },
             // ----------------------------------------
             // tier 3
             // ----------------------------------------
@@ -642,6 +708,10 @@
                     $display.remove();
                     launchToolbar.config.$dynoDisplay.toggle();
                 });
+            },
+            setChecked: function (bool) {
+                // sets isNextGen value
+                setValue('platform', bool);
             }
         },
         getBAC = {
@@ -682,10 +752,10 @@
                         }
                     }, 5000);
 
-
-                    //                    window.close();
+                    window.close();
                 });
-            },
+            }
+            /*
             checkFocus: function () {
                 var window_focus = false;
 
@@ -699,6 +769,7 @@
                     console.log('focused : ' + window_focus);
                 }, 2000);
             }
+            */
         };
 
 
@@ -707,12 +778,12 @@
         launchToolbar.init();
     }
 
-    //    if (window.location.hostname === 'cdk--c.na27.visual.force.com') {
-    //        //            var $getData = jQuery('<script>').attr({
-    //        //                type: 'text/javascript',
-    //        //                src: 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'
-    //        //            });
-    //        getBAC.init();
-    //    }
+    if (window.location.hostname === 'cdk--c.na27.visual.force.com') {
+        //            var $getData = jQuery('<script>').attr({
+        //                type: 'text/javascript',
+        //                src: 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'
+        //            });
+        getBAC.init();
+    }
 
 })();
