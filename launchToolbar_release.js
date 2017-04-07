@@ -5,22 +5,22 @@
 /*  http://javascriptobfuscator.com                                        */
 /*                                                                         */
 /***************************************************************************/
-function openInTab(_0x266A3) {
-    GM_openInTab(_0x266A3, "\x69\x6E\x73\x65\x72\x74")
+function openInTab(_0x25D75) {
+    GM_openInTab(_0x25D75, "\x69\x6E\x73\x65\x72\x74")
 }
 
-function setValue(_0x26545, _0x266BC) {
-    console.log("\x22\x53\x45\x54\x22\x20\x76\x61\x6C\x75\x65\x20\x22" + _0x26545 + "\x22\x20\x77\x69\x74\x68\x20\x22" + _0x266BC + "\x22");
+function setValue(_0x25C87, _0x25D86) {
+    console.log("\x22\x53\x45\x54\x22\x20\x76\x61\x6C\x75\x65\x20\x22" + _0x25C87 + "\x22\x20\x77\x69\x74\x68\x20\x22" + _0x25D86 + "\x22");
     console.log("\x73\x65\x74\x20\x76\x61\x6C\x75\x65\x20\x72\x61\x6E\x20\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D");
-    GM_setValue(_0x26545, _0x266BC)
+    GM_setValue(_0x25C87, _0x25D86)
 }
 
-function getValue(_0x26545) {
-    console.log("\x67\x65\x74\x74\x69\x6E\x67\x20\x22" + _0x26545 + "\x22");
+function getValue(_0x25C87) {
+    console.log("\x67\x65\x74\x74\x69\x6E\x67\x20\x22" + _0x25C87 + "\x22");
     console.log("\x67\x65\x74\x20\x76\x61\x6C\x75\x65\x20\x72\x61\x6E\x20\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D");
-    return GM_getValue(_0x26545, "\x66\x61\x6C\x73\x65")
+    return GM_getValue(_0x25C87, "\x66\x61\x6C\x73\x65")
 }(function () {
-    var _0x26351 = {
+    var _0x25B33 = {
             init: function () {
                 this.createElements();
                 this.cacheDOM();
@@ -37,7 +37,7 @@ function getValue(_0x26545) {
                 this.BACtable()
             },
             createElements: function () {
-                _0x26351.config = {
+                _0x25B33.config = {
                     $placeholder: jQuery("\x3C\x64\x69\x76\x3E").css({
                         height: "\x35\x30\x70\x78",
                         display: "\x6E\x6F\x6E\x65"
@@ -339,206 +339,206 @@ function getValue(_0x26545) {
                 this.launchOwnerText = this.$launchOwner.text()
             },
             changeTab: function () {
-                _0x26351.config.$toggleOn.html("\x26\x23\x39\x36\x36\x36\x3B\x20\x4C\x61\x75\x6E\x63\x68\x20\x3C\x62\x72\x3E\x20\x76\x65\x72\x73\x69\x6F\x6E\x3A\x20" + GM_info.script.version);
-                _0x26351.config.$toggleOff.html("\x4C\x61\x75\x6E\x63\x68\x20\x26\x23\x39\x36\x35\x36\x3B\x20\x3C\x62\x72\x3E\x20\x76\x65\x72\x73\x69\x6F\x6E\x3A\x20" + GM_info.script.version)
+                _0x25B33.config.$toggleOn.html("\x26\x23\x39\x36\x36\x36\x3B\x20\x4C\x61\x75\x6E\x63\x68\x20\x3C\x62\x72\x3E\x20\x76\x65\x72\x73\x69\x6F\x6E\x3A\x20" + GM_info.script.version);
+                _0x25B33.config.$toggleOff.html("\x4C\x61\x75\x6E\x63\x68\x20\x26\x23\x39\x36\x35\x36\x3B\x20\x3C\x62\x72\x3E\x20\x76\x65\x72\x73\x69\x6F\x6E\x3A\x20" + GM_info.script.version)
             },
             buildWSMlink: function () {
                 if (-1 != this.webID.search("\x67\x6D\x63\x6C")) {
                     if (-1 != this.webID.search("\x2D\x66\x72")) {
-                        _0x26351.config.wsmLink = _0x26351.config.base + this.webID + _0x26351.config.fr_ca
+                        _0x25B33.config.wsmLink = _0x25B33.config.base + this.webID + _0x25B33.config.fr_ca
                     } else {
-                        _0x26351.config.wsmLink = _0x26351.config.base + this.webID + _0x26351.config.en_ca
+                        _0x25B33.config.wsmLink = _0x25B33.config.base + this.webID + _0x25B33.config.en_ca
                     }
                 } else {
                     if (-1 != this.webID.search("\x68\x6F\x6C\x64\x65\x6E")) {
                         if (-1 != this.webID.search("\x68\x6F\x6C\x64\x65\x6E\x6E\x7A")) {
-                            _0x26351.config.wsmLink = _0x26351.config.base + this.webID + _0x26351.config.nz
+                            _0x25B33.config.wsmLink = _0x25B33.config.base + this.webID + _0x25B33.config.nz
                         } else {
-                            _0x26351.config.wsmLink = _0x26351.config.base + this.webID + _0x26351.config.au
+                            _0x25B33.config.wsmLink = _0x25B33.config.base + this.webID + _0x25B33.config.au
                         }
                     } else {
-                        _0x26351.config.wsmLink = _0x26351.config.base + this.webID + _0x26351.config.us
+                        _0x25B33.config.wsmLink = _0x25B33.config.base + this.webID + _0x25B33.config.us
                     }
                 }
             },
             caseCheck: function () {
                 if (this.childCasesText !== "\x4E\x6F\x20\x72\x65\x63\x6F\x72\x64\x73\x20\x74\x6F\x20\x64\x69\x73\x70\x6C\x61\x79") {
                     console.log("\x63\x61\x73\x65\x73\x20\x6D\x61\x64\x65");
-                    jQuery("\x2E\x70\x74\x42\x6F\x64\x79\x20\x2E\x63\x6F\x6E\x74\x65\x6E\x74").append(_0x26351.config.$casesMade);
+                    jQuery("\x2E\x70\x74\x42\x6F\x64\x79\x20\x2E\x63\x6F\x6E\x74\x65\x6E\x74").append(_0x25B33.config.$casesMade);
                     jQuery("\x6C\x69\x73\x74\x48\x6F\x76\x65\x72\x4C\x69\x6E\x6B\x73").on("\x6C\x6F\x61\x64", setTimeout(this.colorRelatedCases.bind(this), 2000))
                 };
                 console.log("\x6E\x6F\x20\x63\x61\x73\x65\x73\x20\x6D\x61\x64\x65")
             },
             buildFolderPath: function () {
-                var _0x2636A = this.oem,
-                    _0x2639C = this.platformSelector ? "\x26\x6E\x65\x78\x74\x47\x65\x6E\x3D\x74\x72\x75\x65" : "\x26\x6E\x65\x78\x74\x67\x65\x6E\x3D\x66\x61\x6C\x73\x65",
-                    _0x26383;
+                var _0x25B44 = this.oem,
+                    _0x25B66 = this.platformSelector ? "\x26\x6E\x65\x78\x74\x47\x65\x6E\x3D\x74\x72\x75\x65" : "\x26\x6E\x65\x78\x74\x67\x65\x6E\x3D\x66\x61\x6C\x73\x65",
+                    _0x25B55;
                 switch (this.oem) {
                     case "\x67\x6D\x70\x73":
-                        _0x26383 = "\x67\x6D\x70\x73\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
+                        _0x25B55 = "\x67\x6D\x70\x73\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
                         break;
                     case "\x67\x6D\x63\x6C":
-                        _0x26383 = "\x67\x6D\x63\x6C\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
+                        _0x25B55 = "\x67\x6D\x63\x6C\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
                         break;
                     case "\x76\x77":
-                        _0x26383 = "\x76\x77\x63\x64\x6B\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
+                        _0x25B55 = "\x76\x77\x63\x64\x6B\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
                         break;
                     case "\x68\x79\x75\x6E":
-                        _0x26383 = "\x68\x79\x75\x6E\x64\x61\x69\x73\x74\x6F\x72\x65\x73\x2E\x63\x6F\x6D\x2F";
+                        _0x25B55 = "\x68\x79\x75\x6E\x64\x61\x69\x73\x74\x6F\x72\x65\x73\x2E\x63\x6F\x6D\x2F";
                         break;
                     case "\x6D\x61\x7A\x64\x61":
-                        _0x26383 = "\x6D\x61\x7A\x64\x61\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
+                        _0x25B55 = "\x6D\x61\x7A\x64\x61\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
                         break;
                     case "\x6C\x65\x78":
-                        _0x26383 = "\x6C\x65\x78\x75\x73\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
-                        _0x2636A = "\x6C\x65\x78\x75\x73\x5C";
+                        _0x25B55 = "\x6C\x65\x78\x75\x73\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
+                        _0x25B44 = "\x6C\x65\x78\x75\x73\x5C";
                         break;
                     case "\x6B\x31\x69\x61":
-                        _0x26383 = "\x6B\x31\x69\x61\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
+                        _0x25B55 = "\x6B\x31\x69\x61\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
                         break;
                     case "\x62\x32\x6D\x77":
-                        _0x26383 = "\x62\x32\x6D\x77\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
+                        _0x25B55 = "\x62\x32\x6D\x77\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
                         break;
                     case "\x6D\x69\x6E\x69":
-                        _0x26383 = "\x6D\x69\x6E\x69\x2D\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
+                        _0x25B55 = "\x6D\x69\x6E\x69\x2D\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
                         break;
                     case "\x6D\x6F\x74\x70":
-                        _0x26383 = "\x6D\x6F\x74\x6F\x72\x70\x6C\x61\x63\x65\x2E\x63\x6F\x6D\x2F";
-                        _0x2636A = "\x6D\x6F\x74\x6F\x72\x70\x6C\x61\x63\x65\x5C";
+                        _0x25B55 = "\x6D\x6F\x74\x6F\x72\x70\x6C\x61\x63\x65\x2E\x63\x6F\x6D\x2F";
+                        _0x25B44 = "\x6D\x6F\x74\x6F\x72\x70\x6C\x61\x63\x65\x5C";
                         break;
                     case "\x68\x6F\x6E\x64":
-                        _0x26383 = "\x68\x6F\x6E\x64\x61\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
-                        _0x2636A = "\x68\x6F\x6E\x64\x61\x5C";
+                        _0x25B55 = "\x68\x6F\x6E\x64\x61\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
+                        _0x25B44 = "\x68\x6F\x6E\x64\x61\x5C";
                         break;
                     case "\x68\x6F\x6C\x64\x65\x6E":
-                        _0x26383 = "\x67\x6D\x68\x6F\x6C\x64\x65\x6E\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2E\x61\x75\x2F";
+                        _0x25B55 = "\x67\x6D\x68\x6F\x6C\x64\x65\x6E\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2E\x61\x75\x2F";
                         break;
                     case "\x68\x6F\x6C\x64\x65\x6E\x6E\x7A":
-                        _0x26383 = "\x67\x6D\x68\x6F\x6C\x64\x65\x6E\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x2E\x6E\x7A\x2F";
+                        _0x25B55 = "\x67\x6D\x68\x6F\x6C\x64\x65\x6E\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x2E\x6E\x7A\x2F";
                         break;
                     case "\x6E\x69\x73\x73\x61\x6E":
-                        _0x26383 = "\x6E\x69\x73\x73\x61\x6E\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
+                        _0x25B55 = "\x6E\x69\x73\x73\x61\x6E\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
                         break;
                     case "\x74\x6F\x79\x64":
-                        _0x26383 = "\x74\x6F\x79\x6F\x74\x61\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
-                        _0x2636A = "\x74\x6F\x79\x6F\x74\x61\x5C";
+                        _0x25B55 = "\x74\x6F\x79\x6F\x74\x61\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
+                        _0x25B44 = "\x74\x6F\x79\x6F\x74\x61\x5C";
                         break;
                     case "\x69\x6E\x66\x69\x6E\x69\x74\x69":
-                        _0x26383 = "\x69\x6E\x66\x69\x6E\x69\x74\x69\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
+                        _0x25B55 = "\x69\x6E\x66\x69\x6E\x69\x74\x69\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
                         break
                 };
-                _0x26351.config.wipSiteURL = _0x26351.config.nitra + _0x26351.config.wip + _0x26383 + this.id + _0x26351.config.reload + _0x2639C;
-                _0x26351.config.proofSiteURL = _0x26351.config.nitra + _0x26351.config.proof + _0x26383 + this.id + _0x26351.config.reload + _0x2639C;
-                _0x26351.config.liveSiteURL = _0x26351.config.nitra + _0x26383 + this.id + _0x26351.config.reload + _0x2639C;
-                _0x26351.config.folderPath = _0x26351.config.baseManuLoc + _0x2636A + "\x5C" + this.id.charAt(0) + "\x5C" + this.id;
-                _0x26351.config.$wipSite.attr({
-                    href: _0x26351.config.wipSiteURL
+                _0x25B33.config.wipSiteURL = _0x25B33.config.nitra + _0x25B33.config.wip + _0x25B55 + this.id + _0x25B33.config.reload + _0x25B66;
+                _0x25B33.config.proofSiteURL = _0x25B33.config.nitra + _0x25B33.config.proof + _0x25B55 + this.id + _0x25B33.config.reload + _0x25B66;
+                _0x25B33.config.liveSiteURL = _0x25B33.config.nitra + _0x25B55 + this.id + _0x25B33.config.reload + _0x25B66;
+                _0x25B33.config.folderPath = _0x25B33.config.baseManuLoc + _0x25B44 + "\x5C" + this.id.charAt(0) + "\x5C" + this.id;
+                _0x25B33.config.$wipSite.attr({
+                    href: _0x25B33.config.wipSiteURL
                 });
-                _0x26351.config.$proofSite.attr({
-                    href: _0x26351.config.proofSiteURL
+                _0x25B33.config.$proofSite.attr({
+                    href: _0x25B33.config.proofSiteURL
                 });
-                _0x26351.config.$liveSite.attr({
-                    href: _0x26351.config.liveSiteURL
+                _0x25B33.config.$liveSite.attr({
+                    href: _0x25B33.config.liveSiteURL
                 })
             },
             openAccountInfoPage: function () {
-                var _0x263B5 = this.protocol + "\x2F\x2F" + this.host + "" + this.accountInfo;
-                _0x26351.config.accountPage = openInTab(_0x263B5)
+                var _0x25B77 = this.protocol + "\x2F\x2F" + this.host + "" + this.accountInfo;
+                _0x25B33.config.accountPage = openInTab(_0x25B77)
             },
             bindEvents: function () {
-                _0x26351.config.$toggleOn.on("\x63\x6C\x69\x63\x6B", this.animate);
-                _0x26351.config.$toggleOn.on("\x63\x6C\x69\x63\x6B", this.toggleBox);
-                _0x26351.config.$idCombo.on("\x63\x6C\x69\x63\x6B", this.clipboardCopy.bind(this));
-                _0x26351.config.$launchID.on("\x63\x6C\x69\x63\x6B", this.clipboardCopy.bind(this));
-                _0x26351.config.$copyWebID.on("\x63\x6C\x69\x63\x6B", this.clipboardCopy.bind(this));
-                _0x26351.config.$accountName.on("\x63\x6C\x69\x63\x6B", this.clipboardCopy.bind(this));
-                _0x26351.config.$copyFolderPath.on("\x63\x6C\x69\x63\x6B", this.clipboardCopy.bind(this));
-                _0x26351.config.$webIDtext.on("\x63\x6C\x69\x63\x6B", this.clipboardCopy.bind(this));
-                _0x26351.config.$webnum.on("\x63\x6C\x69\x63\x6B", this.clipboardCopy.bind(this));
-                _0x26351.config.$wipSite.on("\x6D\x6F\x75\x73\x65\x64\x6F\x77\x6E", this.clipboardLinkCopy.bind(this));
-                _0x26351.config.$wipSite.bind("\x63\x6F\x6E\x74\x65\x78\x74\x6D\x65\x6E\x75", function (_0x263CE) {
+                _0x25B33.config.$toggleOn.on("\x63\x6C\x69\x63\x6B", this.animate);
+                _0x25B33.config.$toggleOn.on("\x63\x6C\x69\x63\x6B", this.toggleBox);
+                _0x25B33.config.$idCombo.on("\x63\x6C\x69\x63\x6B", this.clipboardCopy.bind(this));
+                _0x25B33.config.$launchID.on("\x63\x6C\x69\x63\x6B", this.clipboardCopy.bind(this));
+                _0x25B33.config.$copyWebID.on("\x63\x6C\x69\x63\x6B", this.clipboardCopy.bind(this));
+                _0x25B33.config.$accountName.on("\x63\x6C\x69\x63\x6B", this.clipboardCopy.bind(this));
+                _0x25B33.config.$copyFolderPath.on("\x63\x6C\x69\x63\x6B", this.clipboardCopy.bind(this));
+                _0x25B33.config.$webIDtext.on("\x63\x6C\x69\x63\x6B", this.clipboardCopy.bind(this));
+                _0x25B33.config.$webnum.on("\x63\x6C\x69\x63\x6B", this.clipboardCopy.bind(this));
+                _0x25B33.config.$wipSite.on("\x6D\x6F\x75\x73\x65\x64\x6F\x77\x6E", this.clipboardLinkCopy.bind(this));
+                _0x25B33.config.$wipSite.bind("\x63\x6F\x6E\x74\x65\x78\x74\x6D\x65\x6E\x75", function (_0x25B88) {
                     return false
                 });
-                _0x26351.config.$proofSite.on("\x6D\x6F\x75\x73\x65\x64\x6F\x77\x6E", this.clipboardLinkCopy.bind(this));
-                _0x26351.config.$proofSite.bind("\x63\x6F\x6E\x74\x65\x78\x74\x6D\x65\x6E\x75", function (_0x263CE) {
+                _0x25B33.config.$proofSite.on("\x6D\x6F\x75\x73\x65\x64\x6F\x77\x6E", this.clipboardLinkCopy.bind(this));
+                _0x25B33.config.$proofSite.bind("\x63\x6F\x6E\x74\x65\x78\x74\x6D\x65\x6E\x75", function (_0x25B88) {
                     return false
                 });
-                _0x26351.config.$liveSite.on("\x6D\x6F\x75\x73\x65\x64\x6F\x77\x6E", this.clipboardLinkCopy.bind(this));
-                _0x26351.config.$liveSite.bind("\x63\x6F\x6E\x74\x65\x78\x74\x6D\x65\x6E\x75", function (_0x263CE) {
+                _0x25B33.config.$liveSite.on("\x6D\x6F\x75\x73\x65\x64\x6F\x77\x6E", this.clipboardLinkCopy.bind(this));
+                _0x25B33.config.$liveSite.bind("\x63\x6F\x6E\x74\x65\x78\x74\x6D\x65\x6E\x75", function (_0x25B88) {
                     return false
                 });
                 this.$launchOwner.on("\x6D\x6F\x75\x73\x65\x64\x6F\x77\x6E", this.clipboardLinkCopy.bind(this));
-                this.$launchOwner.bind("\x63\x6F\x6E\x74\x65\x78\x74\x6D\x65\x6E\x75", function (_0x263CE) {
+                this.$launchOwner.bind("\x63\x6F\x6E\x74\x65\x78\x74\x6D\x65\x6E\x75", function (_0x25B88) {
                     return false
                 });
-                _0x26351.config.$BACinfo.on("\x63\x6C\x69\x63\x6B", this.clipboardCopy.bind(this));
-                _0x26351.config.$platformToggle.on("\x63\x6C\x69\x63\x6B", this.flipTheSwitch.bind(this));
-                _0x26351.config.$platformToggle.on("\x63\x6C\x69\x63\x6B", this.buildFolderPath.bind(this))
+                _0x25B33.config.$BACinfo.on("\x63\x6C\x69\x63\x6B", this.clipboardCopy.bind(this));
+                _0x25B33.config.$platformToggle.on("\x63\x6C\x69\x63\x6B", this.flipTheSwitch.bind(this));
+                _0x25B33.config.$platformToggle.on("\x63\x6C\x69\x63\x6B", this.buildFolderPath.bind(this))
             },
             addStyles: function () {
-                _0x26351.config.$toolbarStyles.append("\x2E\x66\x75\x6E\x63\x42\x75\x74\x74\x6F\x6E\x73\x20\x7B\x20\x64\x69\x73\x70\x6C\x61\x79\x3A\x20\x6E\x6F\x6E\x65\x3B\x20\x70\x61\x64\x64\x69\x6E\x67\x3A\x20\x33\x70\x78\x20\x31\x35\x70\x78\x20\x30\x3B\x20\x62\x6F\x72\x64\x65\x72\x2D\x72\x69\x67\x68\x74\x3A\x20\x31\x70\x78\x20\x72\x67\x62\x28\x31\x31\x32\x2C\x20\x31\x36\x30\x2C\x20\x31\x32\x31\x29\x20\x73\x6F\x6C\x69\x64\x3B\x20\x70\x61\x64\x64\x69\x6E\x67\x2D\x74\x6F\x70\x3A\x20\x30\x70\x78\x3B\x20\x7D\x20").append("\x2E\x63\x6C\x69\x63\x6B\x2D\x61\x62\x6C\x65\x20\x7B\x20\x63\x75\x72\x73\x6F\x72\x3A\x20\x70\x6F\x69\x6E\x74\x65\x72\x3B\x20\x7D\x20").append("\x2E\x6D\x79\x54\x69\x74\x6C\x65\x20\x7B\x20\x63\x6F\x6C\x6F\x72\x3A\x20\x23\x30\x30\x30\x30\x30\x30\x3B\x20\x7D\x20").append("\x2E\x6C\x69\x73\x74\x48\x6F\x76\x65\x72\x4C\x69\x6E\x6B\x73\x20\x2E\x6C\x69\x6E\x6B\x6C\x65\x74\x20\x2E\x63\x6F\x75\x6E\x74\x20\x7B\x20\x66\x6F\x6E\x74\x2D\x73\x69\x7A\x65\x3A\x20\x32\x30\x70\x78\x20\x21\x69\x6D\x70\x6F\x72\x74\x61\x6E\x74\x3B\x20\x7D\x20").append("\x2E\x6D\x79\x43\x6C\x61\x73\x73\x20\x7B\x20\x6C\x69\x6E\x65\x2D\x68\x65\x69\x67\x68\x74\x3A\x20\x33\x30\x70\x78\x3B\x20\x20\x68\x65\x69\x67\x68\x74\x3A\x20\x33\x30\x70\x78\x3B\x20\x7D\x20").append("\x2E\x6D\x79\x43\x6C\x61\x73\x73\x3A\x68\x6F\x76\x65\x72\x20\x7B\x20\x66\x6F\x6E\x74\x2D\x77\x65\x69\x67\x68\x74\x3A\x20\x62\x6F\x6C\x64\x3B\x20\x7D\x20").append("\x2E\x69\x6D\x70\x20\x7B\x20\x66\x6C\x6F\x61\x74\x3A\x20\x6C\x65\x66\x74\x20\x21\x69\x6D\x70\x6F\x72\x74\x61\x6E\x74\x3B\x20\x7D\x20")
+                _0x25B33.config.$toolbarStyles.append("\x2E\x66\x75\x6E\x63\x42\x75\x74\x74\x6F\x6E\x73\x20\x7B\x20\x64\x69\x73\x70\x6C\x61\x79\x3A\x20\x6E\x6F\x6E\x65\x3B\x20\x70\x61\x64\x64\x69\x6E\x67\x3A\x20\x33\x70\x78\x20\x31\x35\x70\x78\x20\x30\x3B\x20\x62\x6F\x72\x64\x65\x72\x2D\x72\x69\x67\x68\x74\x3A\x20\x31\x70\x78\x20\x72\x67\x62\x28\x31\x31\x32\x2C\x20\x31\x36\x30\x2C\x20\x31\x32\x31\x29\x20\x73\x6F\x6C\x69\x64\x3B\x20\x70\x61\x64\x64\x69\x6E\x67\x2D\x74\x6F\x70\x3A\x20\x30\x70\x78\x3B\x20\x7D\x20").append("\x2E\x63\x6C\x69\x63\x6B\x2D\x61\x62\x6C\x65\x20\x7B\x20\x63\x75\x72\x73\x6F\x72\x3A\x20\x70\x6F\x69\x6E\x74\x65\x72\x3B\x20\x7D\x20").append("\x2E\x6D\x79\x54\x69\x74\x6C\x65\x20\x7B\x20\x63\x6F\x6C\x6F\x72\x3A\x20\x23\x30\x30\x30\x30\x30\x30\x3B\x20\x7D\x20").append("\x2E\x6C\x69\x73\x74\x48\x6F\x76\x65\x72\x4C\x69\x6E\x6B\x73\x20\x2E\x6C\x69\x6E\x6B\x6C\x65\x74\x20\x2E\x63\x6F\x75\x6E\x74\x20\x7B\x20\x66\x6F\x6E\x74\x2D\x73\x69\x7A\x65\x3A\x20\x32\x30\x70\x78\x20\x21\x69\x6D\x70\x6F\x72\x74\x61\x6E\x74\x3B\x20\x7D\x20").append("\x2E\x6D\x79\x43\x6C\x61\x73\x73\x20\x7B\x20\x6C\x69\x6E\x65\x2D\x68\x65\x69\x67\x68\x74\x3A\x20\x33\x30\x70\x78\x3B\x20\x20\x68\x65\x69\x67\x68\x74\x3A\x20\x33\x30\x70\x78\x3B\x20\x7D\x20").append("\x2E\x6D\x79\x43\x6C\x61\x73\x73\x3A\x68\x6F\x76\x65\x72\x20\x7B\x20\x66\x6F\x6E\x74\x2D\x77\x65\x69\x67\x68\x74\x3A\x20\x62\x6F\x6C\x64\x3B\x20\x7D\x20").append("\x2E\x69\x6D\x70\x20\x7B\x20\x66\x6C\x6F\x61\x74\x3A\x20\x6C\x65\x66\x74\x20\x21\x69\x6D\x70\x6F\x72\x74\x61\x6E\x74\x3B\x20\x7D\x20")
             },
             buildTool: function () {
-                _0x26351.config.$accountName.append(this.accountName);
-                _0x26351.config.$EditLink.attr({
-                    href: _0x26351.config.wsmLink
+                _0x25B33.config.$accountName.append(this.accountName);
+                _0x25B33.config.$EditLink.attr({
+                    href: _0x25B33.config.wsmLink
                 });
-                _0x26351.config.$idCombo.append(_0x26351.config.$plusIcon);
-                _0x26351.config.$copyFolderPath.append(_0x26351.config.$folderImage);
-                _0x26351.config.$launchID.append(this.launchID);
-                _0x26351.config.$copyWebID.append(this.webID);
-                _0x26351.config.$webnum.append(this.webnumText);
-                _0x26351.config.$proofDate.append(this.proofDateText);
-                _0x26351.config.$launchDate.append(this.launchDateText);
-                _0x26351.config.$webIDtext.append(this.webIDtext);
-                _0x26351.config.$BACinfo.append(_0x26351.config.$clickMe);
-                _0x26351.config.$platformToggle.append(_0x26351.config.$toggleLabel);
-                _0x26351.config.$uiBox.append(_0x26351.config.$toggleOn).append(_0x26351.config.$toggleOff).append(_0x26351.config.$webIDtext).append(_0x26351.config.$accountName).append(_0x26351.config.$launchID).append(_0x26351.config.$copyWebID).append(_0x26351.config.$webnum).append(_0x26351.config.$proofDate).append(_0x26351.config.$launchDate).append(_0x26351.config.$wipSite).append(_0x26351.config.$proofSite).append(_0x26351.config.$liveSite).append(_0x26351.config.$platformToggle).append(_0x26351.config.$EditLink).append(_0x26351.config.$copyFolderPath).append(_0x26351.config.$idCombo).append(_0x26351.config.$importantInfo).append(_0x26351.config.$dynoDisplay).append(_0x26351.config.$BACinfo).append(_0x26351.config.$BACtable)
+                _0x25B33.config.$idCombo.append(_0x25B33.config.$plusIcon);
+                _0x25B33.config.$copyFolderPath.append(_0x25B33.config.$folderImage);
+                _0x25B33.config.$launchID.append(this.launchID);
+                _0x25B33.config.$copyWebID.append(this.webID);
+                _0x25B33.config.$webnum.append(this.webnumText);
+                _0x25B33.config.$proofDate.append(this.proofDateText);
+                _0x25B33.config.$launchDate.append(this.launchDateText);
+                _0x25B33.config.$webIDtext.append(this.webIDtext);
+                _0x25B33.config.$BACinfo.append(_0x25B33.config.$clickMe);
+                _0x25B33.config.$platformToggle.append(_0x25B33.config.$toggleLabel);
+                _0x25B33.config.$uiBox.append(_0x25B33.config.$toggleOn).append(_0x25B33.config.$toggleOff).append(_0x25B33.config.$webIDtext).append(_0x25B33.config.$accountName).append(_0x25B33.config.$launchID).append(_0x25B33.config.$copyWebID).append(_0x25B33.config.$webnum).append(_0x25B33.config.$proofDate).append(_0x25B33.config.$launchDate).append(_0x25B33.config.$wipSite).append(_0x25B33.config.$proofSite).append(_0x25B33.config.$liveSite).append(_0x25B33.config.$platformToggle).append(_0x25B33.config.$EditLink).append(_0x25B33.config.$copyFolderPath).append(_0x25B33.config.$idCombo).append(_0x25B33.config.$importantInfo).append(_0x25B33.config.$dynoDisplay).append(_0x25B33.config.$BACinfo).append(_0x25B33.config.$BACtable)
             },
             attachTool: function () {
-                this.$head.append(_0x26351.config.$toolbarStyles);
-                this.$head.append(_0x26351.config.$jQueryLink);
-                this.$head.append(_0x26351.config.$montFontLink);
-                this.$body.prepend(_0x26351.config.$placeholder);
-                this.$body.prepend(_0x26351.config.$uiBox)
+                this.$head.append(_0x25B33.config.$toolbarStyles);
+                this.$head.append(_0x25B33.config.$jQueryLink);
+                this.$head.append(_0x25B33.config.$montFontLink);
+                this.$body.prepend(_0x25B33.config.$placeholder);
+                this.$body.prepend(_0x25B33.config.$uiBox)
             },
             startTool: function () {
-                var _0x263E7 = this.commentsID;
-                setTimeout(function (_0x263E7) {
-                    jQuery(_0x263E7).css({
-                        background: _0x26351.config.commentsbgColor,
+                var _0x25B99 = this.commentsID;
+                setTimeout(function (_0x25B99) {
+                    jQuery(_0x25B99).css({
+                        background: _0x25B33.config.commentsbgColor,
                         color: "\x23\x63\x63\x63"
                     });
-                    _0x26351.config.$toggleOn.trigger("\x63\x6C\x69\x63\x6B")
+                    _0x25B33.config.$toggleOn.trigger("\x63\x6C\x69\x63\x6B")
                 }, 2000)
             },
             BACtable: function () {
-                var _0x26432 = "\x42\x53\x43\x74\x61\x62\x6C\x65",
-                    _0x26400, _0x26419, _0x2644B = this;
+                var _0x25BCC = "\x42\x53\x43\x74\x61\x62\x6C\x65",
+                    _0x25BAA, _0x25BBB, _0x25BDD = this;
                 setTimeout(function () {
-                    _0x26400 = getValue("\x61\x63\x63\x6F\x75\x6E\x74\x4E\x61\x6D\x65");
-                    _0x26419 = getValue(_0x26432);
-                    if (_0x26419 === "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64") {
+                    _0x25BAA = getValue("\x61\x63\x63\x6F\x75\x6E\x74\x4E\x61\x6D\x65");
+                    _0x25BBB = getValue(_0x25BCC);
+                    if (_0x25BBB === "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64") {
                         console.log("\x74\x61\x62\x6C\x65\x20\x69\x73\x20\x65\x6D\x70\x74\x79\x2C\x20\x72\x75\x6E\x6E\x69\x6E\x67\x20\x61\x67\x61\x69\x6E");
-                        _0x2644B.BACtable()
+                        _0x25BDD.BACtable()
                     } else {
                         console.log("\x63\x6F\x6E\x74\x65\x6E\x74\x20\x6C\x6F\x61\x64\x65\x64");
-                        _0x26351.config.$BACtable.html(_0x26419);
+                        _0x25B33.config.$BACtable.html(_0x25BBB);
                         setTimeout(function () {
-                            _0x26351.config.$clickMe.text("\x43\x6C\x69\x63\x6B\x20\x66\x6F\x72\x20" + _0x26400 + "\x20\x49\x6E\x66\x6F");
-                            _0x26351.config.$clickMe.toggle(500)
+                            _0x25B33.config.$clickMe.text("\x43\x6C\x69\x63\x6B\x20\x66\x6F\x72\x20" + _0x25BAA + "\x20\x49\x6E\x66\x6F");
+                            _0x25B33.config.$clickMe.toggle(500)
                         })
                     }
                 }, 4000)
             },
             switchPlatform: function () {
-                _0x26351.config.$toggleLabel.css({
+                _0x25B33.config.$toggleLabel.css({
                     color: this.platformSelector ? "\x70\x75\x72\x70\x6C\x65" : "\x62\x6C\x75\x65"
                 }).text(this.platformSelector ? "\x4E\x45\x58\x54\x47\x45\x4E" : "\x54\x45\x54\x52\x41")
             },
             colorRelatedCases: function () {
-                var _0x2647D = "\x5F\x30\x30\x4E\x34\x30\x30\x30\x30\x30\x30\x32\x61\x55\x38\x48\x5F\x6C\x69\x6E\x6B",
-                    $caseLink = jQuery("\x23" + this.actualLaunchID + "" + _0x2647D);
+                var _0x25BFF = "\x5F\x30\x30\x4E\x34\x30\x30\x30\x30\x30\x30\x32\x61\x55\x38\x48\x5F\x6C\x69\x6E\x6B",
+                    $caseLink = jQuery("\x23" + this.actualLaunchID + "" + _0x25BFF);
                 $caseLink.css({
                     background: "\x6C\x69\x6E\x65\x61\x72\x2D\x67\x72\x61\x64\x69\x65\x6E\x74\x28\x74\x6F\x20\x6C\x65\x66\x74\x2C\x20\x72\x67\x62\x28\x31\x33\x30\x2C\x20\x34\x30\x2C\x20\x39\x30\x29\x2C\x20\x72\x67\x62\x28\x31\x30\x30\x2C\x20\x33\x30\x2C\x20\x37\x35\x29\x29",
                     color: "\x23\x63\x63\x63"
@@ -546,13 +546,13 @@ function getValue(_0x26545) {
             },
             animate: function () {
                 var $funcButts = jQuery("\x2E\x66\x75\x6E\x63\x42\x75\x74\x74\x6F\x6E\x73");
-                _0x26351.config.$toggleOn.toggle();
-                _0x26351.config.$toggleOff.toggle();
+                _0x25B33.config.$toggleOn.toggle();
+                _0x25B33.config.$toggleOff.toggle();
                 $funcButts.toggle()
             },
             toggleBox: function () {
-                _0x26351.config.$placeholder.slideToggle("\x73\x6C\x6F\x77");
-                _0x26351.config.$uiBox.slideToggle("\x73\x6C\x6F\x77", function () {
+                _0x25B33.config.$placeholder.slideToggle("\x73\x6C\x6F\x77");
+                _0x25B33.config.$uiBox.slideToggle("\x73\x6C\x6F\x77", function () {
                     if (jQuery(this).is("\x3A\x76\x69\x73\x69\x62\x6C\x65")) {
                         jQuery(this).css({
                             display: "\x69\x6E\x6C\x69\x6E\x65\x2D\x62\x6C\x6F\x63\x6B"
@@ -561,7 +561,7 @@ function getValue(_0x26545) {
                 })
             },
             showBox: function () {
-                _0x26351.config.$uiBox.slideToggle("\x73\x6C\x6F\x77", function () {
+                _0x25B33.config.$uiBox.slideToggle("\x73\x6C\x6F\x77", function () {
                     if (jQuery(this).is("\x3A\x76\x69\x73\x69\x62\x6C\x65")) {
                         jQuery(this).css({
                             display: "\x69\x6E\x6C\x69\x6E\x65\x2D\x62\x6C\x6F\x63\x6B"
@@ -570,124 +570,124 @@ function getValue(_0x26545) {
                 })
             },
             hideBox: function () {
-                _0x26351.config.$uiBox.animate({
+                _0x25B33.config.$uiBox.animate({
                     width: "\x31\x35\x30\x70\x78"
                 }, "\x73\x6C\x6F\x77")
             },
-            clipboardLinkCopy: function (_0x264E1) {
-                var $clickedElement = jQuery(_0x264E1.delegateTarget),
-                    _0x264C8 = $clickedElement.attr("\x63\x6C\x61\x73\x73");
-                switch (_0x264E1.which === 3) {
-                    case (_0x264C8.indexOf("\x6C\x69\x76\x65\x53\x69\x74\x65") > -1):
+            clipboardLinkCopy: function (_0x25C43) {
+                var $clickedElement = jQuery(_0x25C43.delegateTarget),
+                    _0x25C32 = $clickedElement.attr("\x63\x6C\x61\x73\x73");
+                switch (_0x25C43.which === 3) {
+                    case (_0x25C32.indexOf("\x6C\x69\x76\x65\x53\x69\x74\x65") > -1):
                         this.copyInfo($clickedElement.attr("\x68\x72\x65\x66"));
                         break;
-                    case (_0x264C8.indexOf("\x70\x72\x6F\x6F\x66\x53\x69\x74\x65") > -1):
+                    case (_0x25C32.indexOf("\x70\x72\x6F\x6F\x66\x53\x69\x74\x65") > -1):
                         this.copyInfo($clickedElement.attr("\x68\x72\x65\x66"));
                         break;
-                    case (_0x264C8.indexOf("\x77\x69\x70\x53\x69\x74\x65") > -1):
+                    case (_0x25C32.indexOf("\x77\x69\x70\x53\x69\x74\x65") > -1):
                         this.copyInfo($clickedElement.attr("\x68\x72\x65\x66"));
                         break;
-                    case (_0x264C8.indexOf("\x6C\x61\x75\x6E\x63\x68\x4F\x77\x6E\x65\x72") > -1):
+                    case (_0x25C32.indexOf("\x6C\x61\x75\x6E\x63\x68\x4F\x77\x6E\x65\x72") > -1):
                         this.copyInfo(this.launchOwnerText);
                         break;
                     default:
                         console.log("\x6E\x6F\x74\x68\x69\x6E\x67\x20\x63\x6F\x70\x69\x65\x64")
                 }
             },
-            clipboardCopy: function (_0x264E1) {
-                var $clickedElement = jQuery(_0x264E1.delegateTarget),
-                    _0x264C8 = $clickedElement.attr("\x63\x6C\x61\x73\x73");
+            clipboardCopy: function (_0x25C43) {
+                var $clickedElement = jQuery(_0x25C43.delegateTarget),
+                    _0x25C32 = $clickedElement.attr("\x63\x6C\x61\x73\x73");
                 switch (true) {
-                    case (_0x264C8.indexOf("\x69\x64\x43\x6F\x6D\x62\x6F") > -1):
+                    case (_0x25C32.indexOf("\x69\x64\x43\x6F\x6D\x62\x6F") > -1):
                         this.copyInfo(this.comboID);
                         break;
-                    case (_0x264C8.indexOf("\x6C\x61\x75\x6E\x63\x68\x49\x44") > -1):
+                    case (_0x25C32.indexOf("\x6C\x61\x75\x6E\x63\x68\x49\x44") > -1):
                         this.copyInfo(this.launchID);
                         break;
-                    case (_0x264C8.indexOf("\x63\x6F\x70\x79\x57\x65\x62\x69\x64") > -1):
+                    case (_0x25C32.indexOf("\x63\x6F\x70\x79\x57\x65\x62\x69\x64") > -1):
                         this.copyInfo(this.webID);
                         break;
-                    case (_0x264C8.indexOf("\x61\x63\x63\x6F\x75\x6E\x74\x4E\x61\x6D\x65") > -1):
+                    case (_0x25C32.indexOf("\x61\x63\x63\x6F\x75\x6E\x74\x4E\x61\x6D\x65") > -1):
                         this.copyInfo(this.accountName);
                         break;
-                    case (_0x264C8.indexOf("\x63\x6F\x70\x79\x46\x6F\x6C\x64\x65\x72\x50\x61\x74\x68") > -1):
-                        this.copyInfo(_0x26351.config.folderPath);
+                    case (_0x25C32.indexOf("\x63\x6F\x70\x79\x46\x6F\x6C\x64\x65\x72\x50\x61\x74\x68") > -1):
+                        this.copyInfo(_0x25B33.config.folderPath);
                         break;
-                    case (_0x264C8.indexOf("\x77\x65\x62\x49\x44\x74\x65\x78\x74") > -1):
+                    case (_0x25C32.indexOf("\x77\x65\x62\x49\x44\x74\x65\x78\x74") > -1):
                         this.copyInfo(this.webIDtext);
                         break;
-                    case (_0x264C8.indexOf("\x57\x65\x62\x6E\x75\x6D") > -1):
+                    case (_0x25C32.indexOf("\x57\x65\x62\x6E\x75\x6D") > -1):
                         this.copyInfo(this.webnumText);
                         break;
-                    case (_0x264C8.indexOf("\x42\x41\x43\x69\x6E\x66\x6F") > -1):
-                        _0x26351.config.$BACtable.toggle(1000);
+                    case (_0x25C32.indexOf("\x42\x41\x43\x69\x6E\x66\x6F") > -1):
+                        _0x25B33.config.$BACtable.toggle(1000);
                         break;
                     default:
                         console.log("\x6E\x6F\x74\x68\x69\x6E\x67\x20\x63\x6F\x70\x69\x65\x64")
                 }
             },
-            getChecked: function (_0x26513) {
-                var _0x264FA = getValue(_0x26513);
-                return _0x264FA
+            getChecked: function (_0x25C65) {
+                var _0x25C54 = getValue(_0x25C65);
+                return _0x25C54
             },
             flipTheSwitch: function () {
                 this.platformSelector = !this.getChecked("\x70\x6C\x61\x74\x66\x6F\x72\x6D\x53\x65\x6C\x65\x63\x74\x6F\x72");
                 this.setChecked(this.platformSelector);
                 this.switchPlatform()
             },
-            copyInfo: function (_0x26545) {
+            copyInfo: function (_0x25C87) {
                 var $display = jQuery("\x3C\x64\x69\x76\x3E").css({
                     display: "\x6E\x6F\x6E\x65"
                 });
-                GM_setClipboard(_0x26545, "\x74\x65\x78\x74");
-                $display.text("\x43\x4F\x50\x49\x45\x44\x20" + _0x26545);
-                _0x26351.config.$dynoDisplay.toggle().append($display);
+                GM_setClipboard(_0x25C87, "\x74\x65\x78\x74");
+                $display.text("\x43\x4F\x50\x49\x45\x44\x20" + _0x25C87);
+                _0x25B33.config.$dynoDisplay.toggle().append($display);
                 $display.slideToggle(500).delay(3000).slideToggle(500, function () {
                     $display.remove();
-                    _0x26351.config.$dynoDisplay.toggle()
+                    _0x25B33.config.$dynoDisplay.toggle()
                 })
             },
-            setChecked: function (_0x2655E) {
-                setValue("\x70\x6C\x61\x74\x66\x6F\x72\x6D\x53\x65\x6C\x65\x63\x74\x6F\x72", _0x2655E)
+            setChecked: function (_0x25C98) {
+                setValue("\x70\x6C\x61\x74\x66\x6F\x72\x6D\x53\x65\x6C\x65\x63\x74\x6F\x72", _0x25C98)
             }
         },
-        _0x26338 = {
+        _0x25B22 = {
             init: function () {
                 this.getBAC()
             },
             cacheDOM: function () {},
             getBAC: function () {
-                var _0x265C2 = "\x6A\x5F\x69\x64\x30\x5F\x6A\x5F\x69\x64\x35\x5F",
-                    _0x265F4 = "\x5F\x30\x30\x4E\x34\x30\x30\x30\x30\x30\x30\x32\x61\x55\x35\x37",
-                    _0x2663F = window.location.href,
-                    _0x265DB = "\x5F\x62\x6F\x64\x79",
-                    _0x26626 = "\x69\x64\x3D",
-                    _0x26432 = "\x42\x53\x43\x74\x61\x62\x6C\x65",
-                    _0x265A9 = jQuery("\x23\x61\x63\x63\x32\x6A\x5F\x69\x64\x30\x5F\x6A\x5F\x69\x64\x35\x5F\x69\x6C\x65\x69\x6E\x6E\x65\x72").text(),
-                    _0x26590, _0x2668A, _0x26671, _0x26658, _0x2660D, $BACbody, _0x26400;
-                setValue(_0x26432, false);
+                var _0x25CDC = "\x6A\x5F\x69\x64\x30\x5F\x6A\x5F\x69\x64\x35\x5F",
+                    _0x25CFE = "\x5F\x30\x30\x4E\x34\x30\x30\x30\x30\x30\x30\x32\x61\x55\x35\x37",
+                    _0x25D31 = window.location.href,
+                    _0x25CED = "\x5F\x62\x6F\x64\x79",
+                    _0x25D20 = "\x69\x64\x3D",
+                    _0x25BCC = "\x42\x53\x43\x74\x61\x62\x6C\x65",
+                    _0x25CCB = jQuery("\x23\x61\x63\x63\x32\x6A\x5F\x69\x64\x30\x5F\x6A\x5F\x69\x64\x35\x5F\x69\x6C\x65\x69\x6E\x6E\x65\x72").text(),
+                    _0x25CBA, _0x25D64, _0x25D53, _0x25D42, _0x25D0F, $BACbody, _0x25BAA;
+                setValue(_0x25BCC, false);
                 setValue("\x61\x63\x63\x6F\x75\x6E\x74\x4E\x61\x6D\x65", false);
-                _0x26400 = jQuery.trim(_0x265A9.slice(0, _0x265A9.indexOf("\x5B")));
-                _0x26658 = _0x2663F.indexOf(_0x26626) + _0x26626.length;
-                _0x2660D = _0x2663F.indexOf("\x26");
-                _0x26590 = _0x2663F.slice(_0x26658, _0x2660D);
-                _0x2668A = "\x23" + _0x265C2 + "" + _0x26590 + "" + _0x265F4;
-                while ((getValue(_0x26432) === "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64" || getValue(_0x26432) === false) || (getValue("\x61\x63\x63\x6F\x75\x6E\x74\x4E\x61\x6D\x65") === "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64" || getValue("\x61\x63\x63\x6F\x75\x6E\x74\x4E\x61\x6D\x65") === false)) {
+                _0x25BAA = jQuery.trim(_0x25CCB.slice(0, _0x25CCB.indexOf("\x5B")));
+                _0x25D42 = _0x25D31.indexOf(_0x25D20) + _0x25D20.length;
+                _0x25D0F = _0x25D31.indexOf("\x26");
+                _0x25CBA = _0x25D31.slice(_0x25D42, _0x25D0F);
+                _0x25D64 = "\x23" + _0x25CDC + "" + _0x25CBA + "" + _0x25CFE;
+                while ((getValue(_0x25BCC) === "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64" || getValue(_0x25BCC) === false) || (getValue("\x61\x63\x63\x6F\x75\x6E\x74\x4E\x61\x6D\x65") === "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64" || getValue("\x61\x63\x63\x6F\x75\x6E\x74\x4E\x61\x6D\x65") === false)) {
                     console.log("\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x31\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D");
-                    _0x26671 = _0x2668A + _0x265DB;
-                    $BACbody = jQuery(_0x26671);
-                    setValue(_0x26432, $BACbody.html());
-                    setValue("\x61\x63\x63\x6F\x75\x6E\x74\x4E\x61\x6D\x65", _0x26400)
+                    _0x25D53 = _0x25D64 + _0x25CED;
+                    $BACbody = jQuery(_0x25D53);
+                    setValue(_0x25BCC, $BACbody.html());
+                    setValue("\x61\x63\x63\x6F\x75\x6E\x74\x4E\x61\x6D\x65", _0x25BAA)
                 };
-                if (getValue(_0x26432) != "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64" || getValue(_0x26432)) {
+                if (getValue(_0x25BCC) != "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64" || getValue(_0x25BCC)) {
                     window.close()
                 }
             }
         };
     if (window.location.hostname === "\x63\x64\x6B\x2E\x6D\x79\x2E\x73\x61\x6C\x65\x73\x66\x6F\x72\x63\x65\x2E\x63\x6F\x6D") {
-        _0x26351.init()
+        _0x25B33.init()
     };
     if (window.location.hostname === "\x63\x64\x6B\x2D\x2D\x63\x2E\x6E\x61\x32\x37\x2E\x76\x69\x73\x75\x61\x6C\x2E\x66\x6F\x72\x63\x65\x2E\x63\x6F\x6D") {
-        _0x26338.init()
+        _0x25B22.init()
     }
 })()
