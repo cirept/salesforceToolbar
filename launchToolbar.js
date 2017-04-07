@@ -368,6 +368,11 @@ function getValue(variable) {
 
                 this.platformSelector = this.getChecked('platformSelector');
                 //                console.log('cacheDOM platform selector ran : ' + this.platformSelector);
+
+                this.$launchOwner = jQuery('#lookup00533000004IBdfOwner').attr({
+                    class: 'launchOwner'
+                });
+                this.launchOwnerText = this.$launchOwner.text();
             },
             changeTab: function () {
                 launchToolbar.config.$toggleOn.html('&#9666; Launch');
@@ -512,6 +517,12 @@ function getValue(variable) {
                 });
                 launchToolbar.config.$liveSite.on('mousedown', this.clipboardLinkCopy.bind(this));
                 launchToolbar.config.$liveSite.bind('contextmenu', function (e) {
+                    // disables right click menu
+                    //                    console.log(e);
+                    return false;
+                });
+                this.$launchOwner.on('mousedown', this.clipboardLinkCopy.bind(this));
+                this.$launchOwner.bind('contextmenu', function (e) {
                     // disables right click menu
                     //                    console.log(e);
                     return false;
@@ -733,6 +744,10 @@ function getValue(variable) {
                     case (classText.indexOf('wipSite') > -1):
                         //                        console.log('wipSite');
                         this.copyInfo($clickedElement.attr('href'));
+                        break;
+                    case (classText.indexOf('launchOwner') > -1):
+                        //                        console.log('wipSite');
+                        this.copyInfo(this.launchOwnerText);
                         break;
                     default:
                         console.log('nothing copied');
