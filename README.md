@@ -1,37 +1,18 @@
-## Welcome to GitHub Pages
+## Welcome to the Launch Toolbar
 
-You can use the [editor on GitHub](https://github.com/cirept/salesforceToolbar/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+1. Open this link in a new tab (ctrl+click the link)
+https://raw.githubusercontent.com/cirept/salesforceToolbar/master/launchToolbar_meta.js
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+2. Copy all the code that appears
 
-### Markdown
+3. Click the Tampermonkey icon in your Chrome browser
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+4. Click 'create a new script...'
 
-```markdown
-Syntax highlighted code block
+5. ctrl+a, will highlight all the code in the text area.
 
-# Header 1
-## Header 2
-### Header 3
+6. ctrl+v, will paste the code that you copied earlier.
 
-- Bulleted
-- List
+7. Save the code
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/cirept/salesforceToolbar/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+8. You're done!
