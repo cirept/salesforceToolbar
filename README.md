@@ -21,7 +21,7 @@
 
 ## Don't Have Tampermonkey Installed???
 
-1. Open this link in a new tab
+1. Open this link in a new tab<br>
 https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en
 
 2. Click the '+ ADD TO CHROME' button
