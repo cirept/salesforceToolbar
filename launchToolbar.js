@@ -1,4 +1,4 @@
-/*global jQuery, window, document, setTimeout, GM_setClipboard, GM_openInTab, GM_setValue, GM_getValue, GM_addValueChangeListener, setInterval */
+/*global jQuery, window, document, setTimeout, GM_setClipboard, GM_openInTab, GM_setValue, GM_getValue, GM_addValueChangeListener, setInterval, GM_info */
 
 //TODO
 //Launch Id - done
@@ -10,7 +10,6 @@
 //Expected Launch Date - done
 //BAC code - Done
 //Account number - Done
-console.log('this code is not coded');
 // Tampermonkey functions
 
 function openInTab(url) {
@@ -98,8 +97,9 @@ function getValue(variable) {
                         float: 'left',
                         padding: '0px 10px',
                         display: 'none',
-                        cursor: 'pointer',
-                        'border-right': '1px black solid'
+                        //                        cursor: 'pointer',
+                        'border-right': '1px black solid',
+                        'line-height': '15px'
                     }),
                     base: 'http://websites.cobalt.com/wsm/index.do?webId=',
                     us: '&locale=en_US',
@@ -291,7 +291,10 @@ function getValue(variable) {
                     }).text('TETRA'),
                     $FAtoggle: jQuery('<i>').attr({
                         class: 'fa fa-toggle-off fa-lg myClass'
-                    })
+                    }),
+                    // toolbox version
+                    $version: jQuery('<span>')
+                        .text('version: ' + GM_info.script.version),
                 };
             },
             cacheDOM: function () {
@@ -367,16 +370,15 @@ function getValue(variable) {
                 this.protocol = window.location.protocol;
 
                 this.platformSelector = this.getChecked('platformSelector');
-                //                console.log('cacheDOM platform selector ran : ' + this.platformSelector);
-
-                this.$launchOwner = jQuery('#lookup00533000004IBdfOwner').attr({
+                this.$launchOwner = jQuery('#Owner_ileinner a[id*="Owner"]').attr({
                     class: 'launchOwner'
                 });
                 this.launchOwnerText = this.$launchOwner.text();
             },
             changeTab: function () {
-                launchToolbar.config.$toggleOn.html('&#9666; Launch');
-                launchToolbar.config.$toggleOff.html('Launch &#9656;');
+                launchToolbar.config.$toggleOn.html('&#9666; Launch <br> version: ' + GM_info.script.version);
+                launchToolbar.config.$toggleOff.html('Launch &#9656; <br> version: ' + GM_info.script.version);
+                //                launchToolbar.config.$toggleOff.append(launchToolbar.config.$version);
             },
             buildWSMlink: function () {
                 if (-1 != this.webID.search('gmcl')) {
@@ -494,8 +496,8 @@ function getValue(variable) {
             bindEvents: function () {
                 launchToolbar.config.$toggleOn.on('click', this.animate);
                 launchToolbar.config.$toggleOn.on('click', this.toggleBox);
-                launchToolbar.config.$toggleOff.on('click', this.animate);
-                launchToolbar.config.$toggleOff.on('click', this.toggleBox);
+                //                launchToolbar.config.$toggleOff.on('click', this.animate);
+                //                launchToolbar.config.$toggleOff.on('click', this.toggleBox);
                 launchToolbar.config.$idCombo.on('click', this.clipboardCopy.bind(this));
                 launchToolbar.config.$launchID.on('click', this.clipboardCopy.bind(this));
                 launchToolbar.config.$copyWebID.on('click', this.clipboardCopy.bind(this));

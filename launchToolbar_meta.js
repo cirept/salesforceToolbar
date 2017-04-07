@@ -3,7 +3,7 @@
 // @namespace www.cobaltgroup.com
 // @include https://cdk.my.salesforce.com/a1E*
 // @include https://cdk--c.na27.visual.force.com/*
-// @version 3.1
+// @version 3.2
 // @run-at document-end
 // @download https://rawgit.com/cirept/salesforceToolbar/master/toolbar_meta.js
 // @require https://use.fontawesome.com/3953f47d82.js
@@ -16,6 +16,7 @@
 // @grant GM_setValue
 // @grant GM_getValue
 // @grant window.close
+// @grant GM_info
 // ==/UserScript==
 
 ///////// TO ACTUALLY VIEW THE SUMMARY PAGE PLEASE DISABLED THE TOOLBAR
