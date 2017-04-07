@@ -8,7 +8,7 @@
 // @download https://rawgit.com/cirept/salesforceToolbar/master/toolbar_meta.js
 // @require https://use.fontawesome.com/3953f47d82.js
 // @require https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js
-// @require https://rawgit.com/cirept/salesforceToolbar/master/launchToolbar_release.js
+// @require https://raw.githubusercontent.com/cirept/salesforceToolbar/master/launchToolbar_meta.js
 // @author cire
 // @grant unsafeWindow
 // @grant GM_setClipboard
