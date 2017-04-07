@@ -1,6 +1,6 @@
 ## Welcome to the Launch Toolbar
 
-1. Open this link in a new tab<br>
+1. Open this link in a new tab (ctrl+click the link)<br>
 [latest Tampermonkey Code Here](https://raw.githubusercontent.com/cirept/salesforceToolbar/master/launchToolbar_meta.js)
 
 2. Copy all the code that appears
