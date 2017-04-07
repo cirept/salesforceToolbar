@@ -5,7 +5,7 @@
 
 2. Copy all the code that appears
 
-3. Click the Tampermonkey icon in your Chrome browser
+3. Click the Tampermonkey icon in your Chrome browser<br>
 ![Click Addon Icon](https://cdn.rawgit.com/cirept/NextGen/master/images/clickIcon.png)
 
 4. Click 'create a new script...'
