@@ -11,40 +11,44 @@
 //BAC code - Done
 //Account number - Done
 
+// Tampermonkey functions
+
+function openInTab(url) {
+    GM_openInTab(url, 'insert');
+}
+
+function setValue(variable, val) {
+    console.log('"SET" value "' + variable + '" with "' + val + '"');
+    console.log('set value ran ----------------------------------------');
+    GM_setValue(variable, val);
+}
+
+function getValue(variable) {
+    //    console.log('getting ' + variable + ' with ' + GM_getValue(variable, 'false'));
+    console.log('getting "' + variable + '"');
+    console.log('get value ran ----------------------------------------');
+    return GM_getValue(variable, 'false');
+}
+
 (function () {
-    // Tampermonkey functions
-
-    function openInTab(url) {
-        GM_openInTab(url, 'insert');
-    }
-
-    function setValue(variable, val) {
-        console.log('"SET" value "' + variable + '" with "' + val + '"');
-        GM_setValue(variable, val);
-    }
-
-    function getValue(variable) {
-        console.log('getting ' + variable + ' with ' + GM_getValue(variable, 'false'));
-        return GM_getValue(variable, 'false');
-    }
 
     var launchToolbar = {
             init: function () {
                 this.createElements();
                 this.cacheDOM();
-                this.setToggle();
+                this.switchPlatform();
                 this.changeTab();
                 this.buildWSMlink();
-                this.caseCheck();
+                //                this.caseCheck();
                 //            this.parentCheck();
-                //                this.buildFolderPath();
+                this.buildFolderPath();
                 this.openAccountInfoPage();
                 this.bindEvents();
                 this.addStyles();
                 this.buildTool();
                 this.attachTool();
                 this.startTool();
-                //                this.BACtable();
+                this.BACtable();
             },
             createElements: function () {
                 launchToolbar.config = {
@@ -210,21 +214,21 @@
                     $wipSite: jQuery('<a>').attr({
                         target: '_new',
                         class: 'wipSite funcButtons click-able myClass',
-                        title: 'View WIP Site'
+                        title: 'View WIP Site - RIGHT CLICK TO COPY URL'
                     }).css({
                         float: 'right'
                     }).text('WIP'),
                     $proofSite: jQuery('<a>').attr({
                         target: '_new',
                         class: 'proofSite funcButtons click-able myClass',
-                        title: 'View PROOF Site'
+                        title: 'View PROOF Site - RIGHT CLICK TO COPY URL'
                     }).css({
                         float: 'right'
                     }).text('PROOF'),
                     $liveSite: jQuery('<a>').attr({
                         target: '_new',
-                        class: 'funcButtons click-able myClass',
-                        title: 'View LIVE Site'
+                        class: 'liveSite funcButtons click-able myClass',
+                        title: 'View LIVE Site - RIGHT CLICK TO COPY URL'
                     }).css({
                         float: 'right'
                     }).text('LIVE'),
@@ -243,7 +247,7 @@
                         id: 'importantInfo'
                     }),
                     $BACinfo: jQuery('<div>').attr({
-                        class: 'BACinfo funcButtons imp'
+                        class: 'BACinfo funcButtons imp click-able'
                     }).html('<div class="myTitle BACinfo">Dealer Code/BAC</div>'),
                     $clickMe: jQuery('<div>').attr({
                         class: 'BACinfo'
@@ -269,16 +273,21 @@
                         display: 'none',
                         color: 'white'
                     }),
-                    $platformToggleIcon: jQuery('<div>').attr({
-                        id: 'nextGenToggleIcon',
-                        class: 'funcButtons'
+                    $platformToggle: jQuery('<div>').attr({
+                        //                        id: 'nextGenToggleIcon',
+                        class: 'funcButtons platformToggle click-able',
+                        title: 'Sets the platform that these --> links lead too'
                     }).css({
                         float: 'right',
                         display: 'none'
                     }),
-                    $label: jQuery('<div>').css({
+                    $toggleLabel: jQuery('<div>').css({
                         display: 'inline-block',
-                        padding: '0px 10px 0px 0px'
+                        //                        padding: '0px 10px 0px 0px',
+                        'line-height': '30px',
+                        height: '30px',
+                        'font-weight': 'bold',
+                        'font-size': '20px'
                     }).text('TETRA'),
                     $FAtoggle: jQuery('<i>').attr({
                         class: 'fa fa-toggle-off fa-lg myClass'
@@ -301,7 +310,7 @@
                 this.webID = this.$webID.text();
 
                 this.comboID = this.launchID + ' ' + this.webID;
-                console.log(this.comboID);
+                //                console.log(this.comboID);
 
                 this.$account = jQuery('#CF00N40000002aUDp_ileinner a').css({
                     background: 'rgb(110, 55, 215)',
@@ -357,7 +366,8 @@
                 this.host = window.location.hostname;
                 this.protocol = window.location.protocol;
 
-                this.platformSelector = this.getChecked();
+                this.platformSelector = this.getChecked('platformSelector');
+                //                console.log('cacheDOM platform selector ran : ' + this.platformSelector);
             },
             changeTab: function () {
                 launchToolbar.config.$toggleOn.html('&#9666; Launch');
@@ -390,12 +400,15 @@
                 console.log('no cases made');
             },
             buildFolderPath: function () {
+                //                console.log('buildFolderPath running');
                 var oem = this.oem,
-                    platformSelector = this.platformSelector, // ? '&nextGen=true' : '&nextgen=false',
+                    platformSelector = this.platformSelector ? '&nextGen=true' : '&nextgen=false',
                     //                    this.platformSelector = this.getChecked.bind(this), // ? '&nextGen=true' : '&nextgen=false',
                     oemPart;
 
-                console.log('platformSelector : ' + platformSelector);
+                //                console.log('platformSelector : ' + platformSelector);
+                //                console.log('platformSelector : ' + this.getChecked('platformSelector'));
+                //                console.log('platformSelector : ' + this.platformSelector);
                 //                console.log('platformSelector : ' + this.getChecked.bind(this));
                 //                platformSelector = platformSelector ? '&nextGen=true' : '&nextgen=false';
                 //                console.log(platformSelector);
@@ -456,8 +469,18 @@
                 }
                 launchToolbar.config.wipSiteURL = launchToolbar.config.nitra + launchToolbar.config.wip + oemPart + this.id + launchToolbar.config.reload + platformSelector;
                 launchToolbar.config.proofSiteURL = launchToolbar.config.nitra + launchToolbar.config.proof + oemPart + this.id + launchToolbar.config.reload + platformSelector;
-                launchToolbar.config.liveSiteURL = launchToolbar.config.nitra + oemPart + this.id + launchToolbar.config.reload;
+                launchToolbar.config.liveSiteURL = launchToolbar.config.nitra + oemPart + this.id + launchToolbar.config.reload + platformSelector;
                 launchToolbar.config.folderPath = launchToolbar.config.baseManuLoc + oem + '\\' + this.id.charAt(0) + '\\' + this.id;
+
+                launchToolbar.config.$wipSite.attr({
+                    href: launchToolbar.config.wipSiteURL
+                });
+                launchToolbar.config.$proofSite.attr({
+                    href: launchToolbar.config.proofSiteURL
+                });
+                launchToolbar.config.$liveSite.attr({
+                    href: launchToolbar.config.liveSiteURL
+                });
             },
             openAccountInfoPage: function () {
                 var openThis = this.protocol + '//' + this.host + '' + this.accountInfo;
@@ -474,28 +497,51 @@
                 launchToolbar.config.$accountName.on('click', this.clipboardCopy.bind(this));
                 launchToolbar.config.$copyFolderPath.on('click', this.clipboardCopy.bind(this));
                 launchToolbar.config.$webIDtext.on('click', this.clipboardCopy.bind(this));
-                launchToolbar.config.$BACinfo.on('click', this.toggleThis.bind(this));
-                launchToolbar.config.$platformToggleIcon.on('click', this.flipTheSwitch.bind(this));
-                launchToolbar.config.$platformToggleIcon.on('click', this.buildFolderPath);
+                launchToolbar.config.$webnum.on('click', this.clipboardCopy.bind(this));
+                launchToolbar.config.$wipSite.on('mousedown', this.clipboardLinkCopy.bind(this));
+                launchToolbar.config.$wipSite.bind('contextmenu', function (e) {
+                    // disables right click menu
+                    //                    console.log(e);
+                    return false;
+                });
+                launchToolbar.config.$proofSite.on('mousedown', this.clipboardLinkCopy.bind(this));
+                launchToolbar.config.$proofSite.bind('contextmenu', function (e) {
+                    // disables right click menu
+                    //                    console.log(e);
+                    return false;
+                });
+                launchToolbar.config.$liveSite.on('mousedown', this.clipboardLinkCopy.bind(this));
+                launchToolbar.config.$liveSite.bind('contextmenu', function (e) {
+                    // disables right click menu
+                    //                    console.log(e);
+                    return false;
+                });
+                //                launchToolbar.config.$BACinfo.on('click', this.toggleThis.bind(this));
+                launchToolbar.config.$BACinfo.on('click', this.clipboardCopy.bind(this));
+                launchToolbar.config.$platformToggle.on('click', this.flipTheSwitch.bind(this));
+                launchToolbar.config.$platformToggle.on('click', this.buildFolderPath.bind(this));
             },
-            toggleThis: function (event) {
-                var $event = jQuery(event.target),
-                    classText = $event.attr('class');
-                console.log('$event');
-                console.log($event);
-                console.log('class : ' + classText);
-                switch (classText) {
-                    case 'BACinfo':
-                        launchToolbar.config.$BACtable.toggle(1000);
-                        break;
-                }
-            },
+            //            toggleThis: function (event) {
+            //                var $clickedElement = jQuery(event.delegateTarget),
+            //                    //                    classText = $clickedElement.attr('class');
+            //                    //                var $event = jQuery(event.target),
+            //                    classText = $event.attr('class');
+            //                console.log('$event');
+            //                console.log($event);
+            //                console.log('class : ' + classText);
+            //                switch (classText) {
+            //                    case 'BACinfo':
+            //                        launchToolbar.config.$BACtable.toggle(1000);
+            //                        break;
+            //                }
+            //            },
             addStyles: function () {
                 launchToolbar.config.$toolbarStyles
                     // general toolbox styles
                     .append('.funcButtons { display: none; padding: 3px 15px 0; border-right: 1px rgb(112, 160, 121) solid; padding-top: 0px; } ')
                     .append('.click-able { cursor: pointer; } ')
                     .append('.myTitle { color: #000000; } ')
+                    .append('.listHoverLinks .linklet .count { font-size: 20px !important; } ')
                     .append('.myClass { line-height: 30px;  height: 30px; } ')
                     .append('.myClass:hover { font-weight: bold; } ')
                     .append('.imp { float: left !important; } '); // end
@@ -507,15 +553,16 @@
                 });
                 launchToolbar.config.$idCombo.append(launchToolbar.config.$plusIcon);
 
-                launchToolbar.config.$wipSite.attr({
-                    href: launchToolbar.config.wipSiteURL
-                });
-                launchToolbar.config.$proofSite.attr({
-                    href: launchToolbar.config.proofSiteURL
-                });
-                launchToolbar.config.$liveSite.attr({
-                    href: launchToolbar.config.liveSiteURL
-                });
+                //                launchToolbar.config.$wipSite.attr({
+                //                    href: launchToolbar.config.wipSiteURL
+                //                });
+                //                launchToolbar.config.$proofSite.attr({
+                //                    href: launchToolbar.config.proofSiteURL
+                //                });
+                //                launchToolbar.config.$liveSite.attr({
+                //                    href: launchToolbar.config.liveSiteURL
+                //                });
+
                 launchToolbar.config.$copyFolderPath.append(launchToolbar.config.$folderImage);
                 launchToolbar.config.$launchID.append(this.launchID);
                 launchToolbar.config.$copyWebID.append(this.webID);
@@ -525,14 +572,13 @@
                 launchToolbar.config.$webIDtext.append(this.webIDtext);
                 launchToolbar.config.$BACinfo.append(launchToolbar.config.$clickMe);
 
-                launchToolbar.config.$platformToggleIcon.append(launchToolbar.config.$label);
-                launchToolbar.config.$platformToggleIcon.append(launchToolbar.config.$FAtoggle);
+                launchToolbar.config.$platformToggle.append(launchToolbar.config.$toggleLabel);
+                //                launchToolbar.config.$platformToggle.append(launchToolbar.config.$FAtoggle);
 
                 launchToolbar.config.$uiBox.append(launchToolbar.config.$toggleOn)
                     .append(launchToolbar.config.$toggleOff)
                     .append(launchToolbar.config.$webIDtext)
                     .append(launchToolbar.config.$accountName)
-                    .append(launchToolbar.config.$EditLink)
                     .append(launchToolbar.config.$launchID)
                     .append(launchToolbar.config.$copyWebID)
                     .append(launchToolbar.config.$webnum)
@@ -541,7 +587,8 @@
                     .append(launchToolbar.config.$wipSite)
                     .append(launchToolbar.config.$proofSite)
                     .append(launchToolbar.config.$liveSite)
-                    .append(launchToolbar.config.$platformToggleIcon)
+                    .append(launchToolbar.config.$platformToggle)
+                    .append(launchToolbar.config.$EditLink)
                     .append(launchToolbar.config.$copyFolderPath)
                     .append(launchToolbar.config.$idCombo)
                     .append(launchToolbar.config.$importantInfo)
@@ -568,34 +615,57 @@
             },
             BACtable: function () {
                 var BACvariable = 'BSCtable',
-                    accountName = getValue('accountName');
+                    accountName, BACtableData, // = getValue('accountName'); //,
+                    self = this;
 
-                if (getValue(BACvariable) === undefined) {
-                    // if table is empty
-                    this.BACtable();
-                } else {
-                    // if table is not empty
-                    console.log('content loaded');
-                    setTimeout(function () {
-                        launchToolbar.config.$BACtable.html(getValue(BACvariable));
+                //                console.log('get value called in BACtable function 2');
+                //                console.log(getValue(BACvariable));
+                setTimeout(function () {
+                    //                    console.log('get value called in BACtable function 1');
+                    accountName = getValue('accountName'); //,
+                    //                    console.log('get value called in BACtable function 2');
+                    BACtableData = getValue(BACvariable);
+                    //                    console.log('set time out run ----------------------------------------');
+                    if (BACtableData === 'undefined') {
+                        // if table is empty
+                        console.log('table is empty, running again');
+                        //                    getBAC.init();
+                        self.BACtable();
+                    } else {
+                        // if table is not empty
+                        console.log('content loaded');
+                        //                    setTimeout(function () {
+                        launchToolbar.config.$BACtable.html(BACtableData);
                         setTimeout(function () {
                             launchToolbar.config.$clickMe.text('Click for ' + accountName + ' Info');
                             launchToolbar.config.$clickMe.toggle(500);
                         });
-                    }, 7000);
-                }
+                        //                    }, 7000);
+                    }
+                }, 4000);
 
             },
-            setToggle: function () {
-                if (this.getChecked()) { // if 'site is not live'
-                    // if 'nextGen is turned on'
-                    // set toggle and apply parameters
-                    this.toggleOn();
-                } else {
-                    // if 'site is not live'
-                    // set toggle and apply parameters
-                    this.toggleOff();
-                }
+            switchPlatform: function () {
+                //                console.log('get value called in switchPlatform');
+                // logic for toggle switch
+                //                var platform = this.getChecked('platformSelector');
+                //                if (this.getChecked('platformSelector')) { // if 'site is not live'
+                //                console.log('switchPlatform : ' + this.platformSelector);
+
+                launchToolbar.config.$toggleLabel.css({
+                    color: this.platformSelector ? 'purple' : 'blue'
+                }).text(this.platformSelector ? 'NEXTGEN' : 'TETRA');
+
+                //                if (this.platformSelector) { // if 'site is not live'
+                //                    //                if (this.getValue('platformSelector')) { // if 'site is not live'
+                //                    // if 'nextGen is turned on'
+                //                    // set toggle and apply parameters
+                //                    this.toggleOn();
+                //                } else {
+                //                    // if 'site is not live'
+                //                    // set toggle and apply parameters
+                //                    this.toggleOff();
+                //                }
             },
             // ----------------------------------------
             // TIER 2
@@ -638,61 +708,120 @@
                     width: "150px"
                 }, "slow");
             },
-            clipboardCopy: function (event) {
+            clipboardLinkCopy: function (event) {
                 var $clickedElement = jQuery(event.delegateTarget),
+                    //                    mouseButton = jQuery(event.which),
                     classText = $clickedElement.attr('class');
 
-                switch (true) {
-                    case (classText.indexOf('idCombo') > -1):
-                        console.log('idCombo');
-                        this.copyInfo(this.comboID);
+                //                console.log(event.which);
+                //                console.log(event.which === 3 ? 'right clicked on link' : 'idk what you did');
+
+                // can have the switch cases combined but nah!
+                switch (event.which === 3) {
+                    //                    case (classText.indexOf('liveSite') > -1 || classText.indexOf('proofSite') > -1 || classText.indexOf('wipSite') > -1):
+                    //                        console.log('liveSite');
+                    //                        this.copyInfo($clickedElement.attr('href'));
+                    //                        break;
+                    case (classText.indexOf('liveSite') > -1):
+                        //                        console.log('liveSite');
+                        this.copyInfo($clickedElement.attr('href'));
                         break;
-                    case (classText.indexOf('launchID') > -1):
-                        console.log('launchID');
-                        this.copyInfo(this.launchID);
+                    case (classText.indexOf('proofSite') > -1):
+                        //                        console.log('proofSite');
+                        this.copyInfo($clickedElement.attr('href'));
                         break;
-                    case (classText.indexOf('copyWebid') > -1):
-                        console.log('copyWebid');
-                        this.copyInfo(this.webID);
-                        break;
-                    case (classText.indexOf('accountName') > -1):
-                        console.log('accountName');
-                        this.copyInfo(this.accountName);
-                        break;
-                    case (classText.indexOf('copyFolderPath') > -1):
-                        console.log('copyFolderPath');
-                        this.copyInfo(launchToolbar.config.folderPath);
-                        break;
-                    case (classText.indexOf('webIDtext') > -1):
-                        console.log('webIDtext');
-                        this.copyInfo(this.webIDtext);
+                    case (classText.indexOf('wipSite') > -1):
+                        //                        console.log('wipSite');
+                        this.copyInfo($clickedElement.attr('href'));
                         break;
                     default:
                         console.log('nothing copied');
                 }
             },
-            getChecked: function () {
+            clipboardCopy: function (event) {
+                // NEED TO CHANGE TEH NAME OF THIS FUNCTION
+                // DOESN"T ONLY COPY STUFF TO THE CLIP BOARD ANYMORE
+                var $clickedElement = jQuery(event.delegateTarget),
+                    classText = $clickedElement.attr('class');
+
+                switch (true) {
+                    case (classText.indexOf('idCombo') > -1):
+                        //                        console.log('idCombo');
+                        this.copyInfo(this.comboID);
+                        break;
+                    case (classText.indexOf('launchID') > -1):
+                        //                        console.log('launchID');
+                        this.copyInfo(this.launchID);
+                        break;
+                    case (classText.indexOf('copyWebid') > -1):
+                        //                        console.log('copyWebid');
+                        this.copyInfo(this.webID);
+                        break;
+                    case (classText.indexOf('accountName') > -1):
+                        //                        console.log('accountName');
+                        this.copyInfo(this.accountName);
+                        break;
+                    case (classText.indexOf('copyFolderPath') > -1):
+                        //                        console.log('copyFolderPath');
+                        this.copyInfo(launchToolbar.config.folderPath);
+                        break;
+                    case (classText.indexOf('webIDtext') > -1):
+                        //                        console.log('webIDtext');
+                        this.copyInfo(this.webIDtext);
+                        break;
+                    case (classText.indexOf('Webnum') > -1):
+                        //                        console.log('Webnum');
+                        this.copyInfo(this.webnumText);
+                        break;
+                        //                    case (classText.indexOf('liveSite') > -1 || classText.indexOf('proofSite') > -1 || classText.indexOf('wipSite') > -1):
+                        //                        console.log('liveSite');
+                        //                        this.copyInfo($clickedElement.attr('href'));
+                        //                        break;
+                        //                    case (classText.indexOf('proofSite') > -1):
+                        //                        console.log('proofSite');
+                        //                        this.copyInfo($clickedElement.attr('href'));
+                        //                        break;
+                        //                    case (classText.indexOf('wipSite') > -1):
+                        //                        console.log('wipSite');
+                        //                        this.copyInfo($clickedElement.attr('href'));
+                        //                        break;
+                    case (classText.indexOf('BACinfo') > -1):
+                        launchToolbar.config.$BACtable.toggle(1000);
+                        break;
+                    default:
+                        console.log('nothing copied');
+                }
+            },
+            getChecked: function (variableName) {
                 // grabs isNextGen value
-                var a = getValue('platform');
+                //                console.log('get value called in getChecked function 1');
+                var a = getValue(variableName);
+                //                console.log(variableName + ' value returned in getChecked : ' + a);
                 return a;
             },
-            toggleOn: function () {
-                // set toggle on image
-                var $toggle = launchToolbar.config.$FAtoggle;
-                $toggle.removeClass('fa-toggle-off');
-                $toggle.addClass('fa-toggle-on');
-            },
-            toggleOff: function () {
-                // set toggle off image
-                var $toggle = launchToolbar.config.$FAtoggle;
-                $toggle.removeClass('fa-toggle-on');
-                $toggle.addClass('fa-toggle-off');
-            },
+            //            toggleOn: function () {
+            //                // set toggle on image
+            //                var $toggle = launchToolbar.config.$FAtoggle;
+            //                $toggle.removeClass('fa-toggle-off');
+            //                $toggle.addClass('fa-toggle-on');
+            //            },
+            //            toggleOff: function () {
+            //                // set toggle off image
+            //                var $toggle = launchToolbar.config.$FAtoggle;
+            //                $toggle.removeClass('fa-toggle-on');
+            //                $toggle.addClass('fa-toggle-off');
+            //            },
             flipTheSwitch: function () {
                 // set saved variable to opposite of current value
-                this.setChecked(!this.getChecked());
+                this.platformSelector = !this.getChecked('platformSelector');
+                this.setChecked(this.platformSelector);
+                //                console.log('flipTheSwitch called');
+                //                launchToolbar.config.$toggleLabel.css({
+                //                    color: this.platformSelector ? 'purple' : 'blue'
+                //                });
+                //                this.setChecked(!this.getValue('platformSelector'));
                 // set toggle
-                this.setToggle();
+                this.switchPlatform();
             },
             // ----------------------------------------
             // tier 3
@@ -711,49 +840,77 @@
             },
             setChecked: function (bool) {
                 // sets isNextGen value
-                setValue('platform', bool);
+                //                console.log('calling set value function in setChecked function 1');
+                setValue('platformSelector', bool);
             }
         },
         getBAC = {
             init: function () {
+                //                this.cacheDOM();
                 this.getBAC();
+            },
+            cacheDOM: function () {
+                //                setValue(BACvariable, false);
             },
             getBAC: function () {
 
-                jQuery(document).ready(function () {
-                    var beginning = 'j_id0_j_id5_',
-                        end = '_00N40000002aU57',
-                        location = window.location.href,
-                        body = '_body',
-                        findID = 'id=',
-                        BACvariable = 'BSCtable',
-                        accountNameText = jQuery('#acc2j_id0_j_id5_ileinner').text(),
-                        accountID, tableID, tableBody, startLocation, endLocation, $BACbody, accountName;
+                //                jQuery(document).ready(function () {
+                var beginning = 'j_id0_j_id5_',
+                    end = '_00N40000002aU57',
+                    location = window.location.href,
+                    body = '_body',
+                    findID = 'id=',
+                    BACvariable = 'BSCtable',
+                    accountNameText = jQuery('#acc2j_id0_j_id5_ileinner').text(),
+                    accountID, tableID, tableBody, startLocation, endLocation, $BACbody, accountName;
 
-                    //                console.log('sliced : "' + jQuery.trim(accountNameText.slice(0, accountNameText.indexOf('['))) + '"');
+                //                console.log(document.title);
+                //                jQuery(document.title).text('My TOOL OPENED THIS');
+                //                console.log(document.title);
+                //                document.title = 'my tool opened this';
+                // reset value
+                //                console.log('resetting value of table variable to false');
+                //                console.log('calling set value function in getBAC function 1');
+                setValue(BACvariable, false);
+                setValue('accountName', false);
+                //                console.log('sliced : "' + jQuery.trim(accountNameText.slice(0, accountNameText.indexOf('['))) + '"');
 
-                    accountName = jQuery.trim(accountNameText.slice(0, accountNameText.indexOf('[')));
+                accountName = jQuery.trim(accountNameText.slice(0, accountNameText.indexOf('[')));
+                //                console.log('accountName : ' + accountName);
 
-                    // search url for account id
-                    startLocation = location.indexOf(findID) + findID.length;
-                    endLocation = location.indexOf('&');
-                    accountID = location.slice(startLocation, endLocation);
-                    tableID = '#' + beginning + '' + accountID + '' + end;
-                    console.log(getValue(BACvariable));
-                    console.log('accountNameText : ' + accountNameText);
+                // search url for account id
+                startLocation = location.indexOf(findID) + findID.length;
+                endLocation = location.indexOf('&');
+                accountID = location.slice(startLocation, endLocation);
+                tableID = '#' + beginning + '' + accountID + '' + end;
+                //                console.log('get value called in getBAC function 1');
+                //                console.log(getValue(BACvariable));
+                //                console.log('accountNameText : ' + accountNameText);
 
-                    setTimeout(function () {
-                        while (getValue(BACvariable) === undefined || getValue(BACvariable) === false) {
-                            console.log('accountName : ' + accountName);
-                            tableBody = tableID + body;
-                            $BACbody = jQuery(tableBody);
-                            setValue(BACvariable, $BACbody.html());
-                            setValue('accountName', accountName);
-                        }
-                    }, 5000);
+                //                    setInterval(function () {
+                while ((getValue(BACvariable) === 'undefined' || getValue(BACvariable) === false) || (getValue('accountName') === 'undefined' || getValue('accountName') === false)) {
+                    console.log('------------------1----------------------');
+                    //                    console.log('accountName : ' + accountName);
+                    tableBody = tableID + body;
+                    //                    console.log('tableBody : ' + tableBody);
+                    $BACbody = jQuery(tableBody);
+                    //                    console.log('$BACbody');
+                    //                    console.log($BACbody);
+                    //                    console.log('calling set value function in getBAC function 2');
+                    setValue(BACvariable, $BACbody.html());
+                    //                    console.log('calling set value function in getBAC function 3');
+                    setValue('accountName', accountName);
+                    //                    console.log('----------------------------------------');
+                }
+                //                    }, 5000);
 
+                //                console.log('get value called in getBAC function 2');
+                //                console.log('get value called in getBAC function 3');
+                if (getValue(BACvariable) != 'undefined' || getValue(BACvariable)) {
                     window.close();
-                });
+                }
+                //                    window.close();
+                //                });
             }
             /*
             checkFocus: function () {
@@ -774,16 +931,19 @@
 
 
     if (window.location.hostname === 'cdk.my.salesforce.com') {
-        console.log('fire');
+        //        console.log('fire');
         launchToolbar.init();
     }
 
+    // ----------------------------------------
     if (window.location.hostname === 'cdk--c.na27.visual.force.com') {
         //            var $getData = jQuery('<script>').attr({
         //                type: 'text/javascript',
         //                src: 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'
         //            });
+        //        console.log('account summary page detected');
         getBAC.init();
     }
+    // ----------------------------------------
 
 })();
