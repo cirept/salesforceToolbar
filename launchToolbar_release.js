@@ -1,31 +1,25 @@
-/***************************************************************************/
-/*                                                                         */
-/*  This obfuscated code was created by Javascript Obfuscator Free Version.*/
-/*  Javascript Obfuscator Free Version can be downloaded here              */
-/*  http://javascriptobfuscator.com                                        */
-/*                                                                         */
-/***************************************************************************/
-function openInTab(_0x25D75) {
-    GM_openInTab(_0x25D75, "\x69\x6E\x73\x65\x72\x74")
+/*global jQuery, window, setTimeout, GM_setClipboard, GM_openInTab, GM_setValue, GM_getValue, GM_info */
+
+// Tampermonkey functions
+
+function openInTab(url) {
+    GM_openInTab(url, 'insert');
 }
 
-function setValue(_0x25C87, _0x25D86) {
-    console.log("\x22\x53\x45\x54\x22\x20\x76\x61\x6C\x75\x65\x20\x22" + _0x25C87 + "\x22\x20\x77\x69\x74\x68\x20\x22" + _0x25D86 + "\x22");
-    console.log("\x73\x65\x74\x20\x76\x61\x6C\x75\x65\x20\x72\x61\x6E\x20\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D");
-    GM_setValue(_0x25C87, _0x25D86)
+function setValue(variable, val) {
+    GM_setValue(variable, val);
 }
 
-function getValue(_0x25C87) {
-    console.log("\x67\x65\x74\x74\x69\x6E\x67\x20\x22" + _0x25C87 + "\x22");
-    console.log("\x67\x65\x74\x20\x76\x61\x6C\x75\x65\x20\x72\x61\x6E\x20\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D");
-    return GM_getValue(_0x25C87, "\x66\x61\x6C\x73\x65")
-}(function () {
-    var _0x25B33 = {
+function getValue(variable) {
+    return GM_getValue(variable, 'false');
+}
+
+(function () {
+
+    var launchToolbar = {
             init: function () {
                 this.createElements();
                 this.cacheDOM();
-                this.switchPlatform();
-                this.changeTab();
                 this.buildWSMlink();
                 this.buildFolderPath();
                 this.openAccountInfoPage();
@@ -33,661 +27,652 @@ function getValue(_0x25C87) {
                 this.addStyles();
                 this.buildTool();
                 this.attachTool();
+                this.switchPlatform();
                 this.startTool();
-                this.BACtable()
+                this.BACtable();
             },
             createElements: function () {
-                _0x25B33.config = {
-                    $placeholder: jQuery("\x3C\x64\x69\x76\x3E").css({
-                        height: "\x35\x30\x70\x78",
-                        display: "\x6E\x6F\x6E\x65"
+                launchToolbar.config = {
+                    $placeholder: jQuery('<div>').css({
+                        height: '50px',
+                        display: 'none'
                     }),
-                    $uiBox: jQuery("\x3C\x64\x69\x76\x3E").attr({
-                        id: "\x75\x69\x42\x6F\x78"
+                    $uiBox: jQuery('<div>').attr({
+                        id: 'uiBox'
                     }).css({
-                        position: "\x66\x69\x78\x65\x64",
-                        display: "\x6E\x6F\x6E\x65",
-                        "\x7A\x2D\x69\x6E\x64\x65\x78": "\x39\x39\x39\x39",
-                        background: "\x6C\x69\x6E\x65\x61\x72\x2D\x67\x72\x61\x64\x69\x65\x6E\x74\x28\x74\x6F\x20\x6C\x65\x66\x74\x2C\x20\x23\x46\x46\x41\x46\x42\x44\x20\x2C\x20\x23\x66\x66\x63\x33\x61\x30\x29",
-                        color: "\x23\x30\x30\x30",
-                        "\x74\x65\x78\x74\x2D\x61\x6C\x69\x67\x6E": "\x6C\x65\x66\x74",
-                        "\x66\x6F\x6E\x74\x2D\x73\x69\x7A\x65": "\x31\x32\x70\x78",
-                        width: "\x39\x39\x25",
-                        "\x66\x6F\x6E\x74\x2D\x77\x65\x69\x67\x68\x74": "\x62\x6F\x6C\x64",
-                        "\x2D\x6D\x6F\x7A\x2D\x62\x6F\x72\x64\x65\x72\x2D\x72\x61\x64\x69\x75\x73": "\x31\x30\x70\x78",
-                        "\x62\x6F\x72\x64\x65\x72\x2D\x72\x61\x64\x69\x75\x73": "\x31\x30\x70\x78",
-                        border: "\x31\x70\x78\x20\x23\x41\x41\x41\x20\x73\x6F\x6C\x69\x64",
-                        "\x62\x6F\x72\x64\x65\x72\x2D\x72\x69\x67\x68\x74": "\x30",
-                        "\x70\x61\x64\x64\x69\x6E\x67": "\x37\x70\x78\x20\x30\x70\x78",
-                        "\x66\x6F\x6E\x74\x2D\x66\x61\x6D\x69\x6C\x79": "\x22\x4D\x6F\x6E\x74\x73\x65\x72\x72\x61\x74\x22"
+                        position: 'fixed',
+                        display: 'none',
+                        'z-index': '9999',
+                        background: 'linear-gradient(to left, #FFAFBD , #ffc3a0)',
+                        color: '#000',
+                        'text-align': 'left',
+                        'font-size': '12px',
+                        width: '99%',
+                        'font-weight': 'bold',
+                        '-moz-border-radius': '10px',
+                        'border-radius': '10px',
+                        border: '1px #000 solid',
+                        'padding': '7px 0px',
+                        'font-family': '"Montserrat"'
                     }),
-                    $toggleOn: jQuery("\x3C\x64\x69\x76\x3E").attr({
-                        id: "\x74\x6F\x67\x67\x6C\x65\x4F\x6E",
-                        class: "\x6D\x79\x43\x6C\x61\x73\x73"
+                    $toggleOn: jQuery('<div>').attr({
+                        id: 'toggleOn',
+                        class: 'myClass funcButtons imp'
                     }).css({
-                        float: "\x6C\x65\x66\x74",
-                        padding: "\x30\x70\x78\x20\x31\x30\x70\x78",
-                        cursor: "\x70\x6F\x69\x6E\x74\x65\x72"
+                        'line-height': '15px'
+                    }).html('<b>Launch</b> <i class="fa fa-angle-right fa-lg">&nbsp;</i><br> version: ' + GM_info.script.version),
+                    $toolbarStyles: jQuery('<style>').attr({
+                        id: 'qa_toolbox',
+                        type: 'text/css'
                     }),
-                    $toggleOff: jQuery("\x3C\x64\x69\x76\x3E").attr({
-                        id: "\x74\x6F\x67\x67\x6C\x65\x4F\x66\x66",
-                        class: "\x6D\x79\x43\x6C\x61\x73\x73"
-                    }).css({
-                        float: "\x6C\x65\x66\x74",
-                        padding: "\x30\x70\x78\x20\x31\x30\x70\x78",
-                        display: "\x6E\x6F\x6E\x65",
-                        "\x62\x6F\x72\x64\x65\x72\x2D\x72\x69\x67\x68\x74": "\x31\x70\x78\x20\x62\x6C\x61\x63\x6B\x20\x73\x6F\x6C\x69\x64",
-                        "\x6C\x69\x6E\x65\x2D\x68\x65\x69\x67\x68\x74": "\x31\x35\x70\x78"
+                    $jQueryLink: jQuery('<script>').attr({
+                        type: 'text/javascript',
+                        src: 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'
                     }),
-                    base: "\x68\x74\x74\x70\x3A\x2F\x2F\x77\x65\x62\x73\x69\x74\x65\x73\x2E\x63\x6F\x62\x61\x6C\x74\x2E\x63\x6F\x6D\x2F\x77\x73\x6D\x2F\x69\x6E\x64\x65\x78\x2E\x64\x6F\x3F\x77\x65\x62\x49\x64\x3D",
-                    us: "\x26\x6C\x6F\x63\x61\x6C\x65\x3D\x65\x6E\x5F\x55\x53",
-                    en_ca: "\x26\x6C\x6F\x63\x61\x6C\x65\x3D\x65\x6E\x5F\x43\x41",
-                    fr_ca: "\x26\x6C\x6F\x63\x61\x6C\x65\x3D\x66\x72\x5F\x43\x41",
-                    au: "\x26\x6C\x6F\x63\x61\x6C\x65\x3D\x65\x6E\x5F\x41\x55",
-                    nz: "\x26\x6C\x6F\x63\x61\x6C\x65\x3D\x65\x6E\x5F\x4E\x5A",
-                    wsmLink: "",
-                    $resultBox: jQuery("\x3C\x64\x69\x76\x3E").attr({
-                        id: "\x72\x65\x73\x75\x6C\x74\x42\x6F\x78"
-                    }).css({
-                        display: "\x6E\x6F\x6E\x65",
-                        "\x66\x6C\x6F\x61\x74": "\x72\x69\x67\x68\x74",
-                        color: "\x72\x65\x64",
-                        "\x62\x61\x63\x6B\x67\x72\x6F\x75\x6E\x64\x2D\x63\x6F\x6C\x6F\x72": "\x77\x68\x69\x74\x65",
-                        padding: "\x30\x20\x31\x35\x70\x78",
-                        margin: "\x32\x70\x78\x20\x30\x20\x30\x20\x34\x30\x70\x78",
-                        "\x2D\x6D\x6F\x7A\x2D\x62\x6F\x72\x64\x65\x72\x2D\x72\x61\x64\x69\x75\x73": "\x38\x70\x78",
-                        "\x62\x6F\x72\x64\x65\x72\x2D\x72\x61\x64\x69\x75\x73": "\x38\x70\x78",
-                        border: "\x32\x70\x78\x20\x23\x61\x61\x61\x20\x73\x6F\x6C\x69\x64",
-                        cursor: "\x74\x65\x78\x74"
+                    $montFontLink: jQuery('<link>').attr({
+                        rel: 'stylesheet',
+                        href: 'https://fonts.googleapis.com/css?family=Montserrat:500'
                     }),
-                    $casesMade: jQuery("\x3C\x64\x69\x76\x3E").css({
-                        color: "\x70\x75\x72\x70\x6C\x65",
-                        "\x6D\x61\x72\x67\x69\x6E\x2D\x6C\x65\x66\x74": "\x35\x70\x78"
-                    }).html("\x3C\x62\x3E\x43\x61\x73\x65\x73\x20\x43\x72\x65\x61\x74\x65\x64\x3C\x2F\x62\x3E"),
-                    $toolbarStyles: jQuery("\x3C\x73\x74\x79\x6C\x65\x3E").attr({
-                        id: "\x71\x61\x5F\x74\x6F\x6F\x6C\x62\x6F\x78",
-                        type: "\x74\x65\x78\x74\x2F\x63\x73\x73"
+                    $accountName: jQuery('<div>').attr({
+                        class: 'accountName funcButtons imp click-able',
+                        title: 'Copy Account Name'
+                    }).css({
+                        padding: '3px 15px 0',
+                        color: 'rgb(110, 55, 215)',
+                        'padding-top': '0px'
+                    }).html('<div class="myTitle">Account</div>'),
+                    $EditLink: jQuery('<a>').attr({
+                        target: '_new',
+                        class: 'WSMedit funcButtons myClass',
+                        title: 'Edit in WSM'
+                    }).css({
+                        float: 'right'
+                    }).text('EDIT in WSM'),
+                    $webIDtext: jQuery('<div>').attr({
+                        class: 'webIDtext funcButtons imp click-able',
+                        title: 'Copy WebID Text'
+                    }).css({
+                        color: 'rgb(180, 120, 120)'
+                    }).html('<div class="myTitle">WebID Text</div>'),
+                    $launchID: jQuery('<div>').attr({
+                        class: 'launchID funcButtons imp click-able',
+                        title: 'Copy Launch ID'
+                    }).css({
+                        color: 'rgb(255, 0, 0)'
+                    }).html('<div class="myTitle">Launch ID</div>'),
+                    $idCombo: jQuery('<div>').attr({
+                        title: 'Copy WebID and Launch',
+                        class: 'funcButtons myClass idCombo click-able'
+                    }).css({
+                        float: 'right',
                     }),
-                    $jQueryLink: jQuery("\x3C\x73\x63\x72\x69\x70\x74\x3E").attr({
-                        type: "\x74\x65\x78\x74\x2F\x6A\x61\x76\x61\x73\x63\x72\x69\x70\x74",
-                        src: "\x68\x74\x74\x70\x73\x3A\x2F\x2F\x61\x6A\x61\x78\x2E\x67\x6F\x6F\x67\x6C\x65\x61\x70\x69\x73\x2E\x63\x6F\x6D\x2F\x61\x6A\x61\x78\x2F\x6C\x69\x62\x73\x2F\x6A\x71\x75\x65\x72\x79\x2F\x31\x2E\x31\x32\x2E\x34\x2F\x6A\x71\x75\x65\x72\x79\x2E\x6D\x69\x6E\x2E\x6A\x73"
+                    $plusIcon: jQuery('<i>').attr({
+                        class: 'fa fa-plus fa-lg myClass click-able',
+                        'aira-hidden': 'true'
+                    }).css({
+                        float: 'right'
                     }),
-                    $montFontLink: jQuery("\x3C\x6C\x69\x6E\x6B\x3E").attr({
-                        rel: "\x73\x74\x79\x6C\x65\x73\x68\x65\x65\x74",
-                        href: "\x68\x74\x74\x70\x73\x3A\x2F\x2F\x66\x6F\x6E\x74\x73\x2E\x67\x6F\x6F\x67\x6C\x65\x61\x70\x69\x73\x2E\x63\x6F\x6D\x2F\x63\x73\x73\x3F\x66\x61\x6D\x69\x6C\x79\x3D\x4D\x6F\x6E\x74\x73\x65\x72\x72\x61\x74\x3A\x35\x30\x30"
+                    $copyWebID: jQuery('<div>').attr({
+                        title: 'Copy WebID',
+                        class: 'copyWebid funcButtons imp click-able'
+                    }).css({
+                        color: 'rgb(255, 20, 155)'
+                    }).html('<div class="myTitle">Web ID</div>'),
+                    $webnum: jQuery('<div>').attr({
+                        title: 'Copy Webnum',
+                        class: 'copyWebnum funcButtons imp click-able'
+                    }).css({
+                        color: 'rgb(219, 112, 147)'
+                    }).html('<div class="myTitle">Webnum</div>'),
+                    $proofDate: jQuery('<div>').attr({
+                        title: 'Proof Date',
+                        class: 'funcButtons imp'
+                    }).css({
+                        color: 'rgb(0, 100, 0)'
+                    }).html('<div class="myTitle">Proof Date</div>'),
+                    $launchDate: jQuery('<div>').attr({
+                        title: 'Launch Date',
+                        class: 'funcButtons imp'
+                    }).css({
+                        color: 'rgb(165, 115, 50)'
+                    }).html('<div class="myTitle">Launch Date</div>'),
+                    $wipSite: jQuery('<a>').attr({
+                        target: '_new',
+                        class: 'wipSite funcButtons click-able myClass',
+                        title: 'View WIP Site - RIGHT CLICK TO COPY URL'
+                    }).css({
+                        float: 'right'
+                    }).text('WIP'),
+                    $proofSite: jQuery('<a>').attr({
+                        target: '_new',
+                        class: 'proofSite funcButtons click-able myClass',
+                        title: 'View PROOF Site - RIGHT CLICK TO COPY URL'
+                    }).css({
+                        float: 'right'
+                    }).text('PROOF'),
+                    $liveSite: jQuery('<a>').attr({
+                        target: '_new',
+                        class: 'liveSite funcButtons click-able myClass',
+                        title: 'View LIVE Site - RIGHT CLICK TO COPY URL'
+                    }).css({
+                        float: 'right'
+                    }).text('LIVE'),
+                    $copyFolderPath: jQuery('<div>').attr({
+                        class: 'funcButtons copyFolderPath click-able',
+                        title: 'Project Folder Location in Manu Folder'
+                    }).css({
+                        float: 'right',
+                        display: 'none'
                     }),
-                    baseManuLoc: "\x5C\x5C\x6C\x61\x73\x2D\x6D\x67\x6D\x74\x31\x2E\x6C\x61\x73\x69\x73\x69\x30\x31\x61\x2E\x6C\x61\x73\x2E\x73\x61\x6E\x2E\x64\x73\x67\x68\x6F\x73\x74\x2E\x6E\x65\x74\x5C\x41\x73\x73\x6F\x63\x69\x61\x74\x65\x5C\x73\x65\x61\x5C\x43\x53\x5C\x67\x72\x61\x70\x68\x69\x63\x73\x5C\x6D\x61\x6E\x75\x66\x61\x63\x74\x75\x72\x65\x72\x73\x5C",
-                    nitra: "\x68\x74\x74\x70\x3A\x2F\x2F\x6E\x69\x74\x72\x61\x2E",
-                    wip: "\x77\x69\x70\x2E",
-                    proof: "\x70\x72\x6F\x6F\x66\x2E",
-                    reload: "\x2F\x3F\x72\x65\x6C\x6F\x61\x64\x3D\x74\x72\x75\x65",
-                    liveSiteURL: "",
-                    wipSiteURL: "",
-                    proofSiteURL: "",
-                    folderPath: "",
-                    $accountName: jQuery("\x3C\x64\x69\x76\x3E").attr({
-                        class: "\x61\x63\x63\x6F\x75\x6E\x74\x4E\x61\x6D\x65\x20\x66\x75\x6E\x63\x42\x75\x74\x74\x6F\x6E\x73\x20\x69\x6D\x70\x20\x63\x6C\x69\x63\x6B\x2D\x61\x62\x6C\x65",
-                        title: "\x43\x6F\x70\x79\x20\x41\x63\x63\x6F\x75\x6E\x74\x20\x4E\x61\x6D\x65"
-                    }).css({
-                        padding: "\x33\x70\x78\x20\x31\x35\x70\x78\x20\x30",
-                        color: "\x72\x67\x62\x28\x31\x31\x30\x2C\x20\x35\x35\x2C\x20\x32\x31\x35\x29",
-                        "\x70\x61\x64\x64\x69\x6E\x67\x2D\x74\x6F\x70": "\x30\x70\x78"
-                    }).html("\x3C\x64\x69\x76\x20\x63\x6C\x61\x73\x73\x3D\x22\x6D\x79\x54\x69\x74\x6C\x65\x22\x3E\x41\x63\x63\x6F\x75\x6E\x74\x3C\x2F\x64\x69\x76\x3E"),
-                    $EditLink: jQuery("\x3C\x61\x3E").attr({
-                        target: "\x5F\x6E\x65\x77",
-                        class: "\x57\x53\x4D\x65\x64\x69\x74\x20\x66\x75\x6E\x63\x42\x75\x74\x74\x6F\x6E\x73\x20\x6D\x79\x43\x6C\x61\x73\x73",
-                        title: "\x45\x64\x69\x74\x20\x69\x6E\x20\x57\x53\x4D"
-                    }).css({
-                        float: "\x72\x69\x67\x68\x74"
-                    }).text("\x45\x44\x49\x54\x20\x69\x6E\x20\x57\x53\x4D"),
-                    $webIDtext: jQuery("\x3C\x64\x69\x76\x3E").attr({
-                        class: "\x77\x65\x62\x49\x44\x74\x65\x78\x74\x20\x66\x75\x6E\x63\x42\x75\x74\x74\x6F\x6E\x73\x20\x69\x6D\x70\x20\x63\x6C\x69\x63\x6B\x2D\x61\x62\x6C\x65",
-                        title: "\x43\x6F\x70\x79\x20\x57\x65\x62\x49\x44\x20\x54\x65\x78\x74"
-                    }).css({
-                        color: "\x72\x67\x62\x28\x31\x38\x30\x2C\x20\x31\x32\x30\x2C\x20\x31\x32\x30\x29"
-                    }).html("\x3C\x64\x69\x76\x20\x63\x6C\x61\x73\x73\x3D\x22\x6D\x79\x54\x69\x74\x6C\x65\x22\x3E\x57\x65\x62\x49\x44\x20\x54\x65\x78\x74\x3C\x2F\x64\x69\x76\x3E"),
-                    $launchID: jQuery("\x3C\x64\x69\x76\x3E").attr({
-                        class: "\x6C\x61\x75\x6E\x63\x68\x49\x44\x20\x66\x75\x6E\x63\x42\x75\x74\x74\x6F\x6E\x73\x20\x69\x6D\x70\x20\x63\x6C\x69\x63\x6B\x2D\x61\x62\x6C\x65",
-                        title: "\x43\x6F\x70\x79\x20\x4C\x61\x75\x6E\x63\x68\x20\x49\x44"
-                    }).css({
-                        color: "\x72\x67\x62\x28\x32\x35\x35\x2C\x20\x30\x2C\x20\x30\x29"
-                    }).html("\x3C\x64\x69\x76\x20\x63\x6C\x61\x73\x73\x3D\x22\x6D\x79\x54\x69\x74\x6C\x65\x22\x3E\x4C\x61\x75\x6E\x63\x68\x20\x49\x44\x3C\x2F\x64\x69\x76\x3E"),
-                    $idCombo: jQuery("\x3C\x64\x69\x76\x3E").attr({
-                        title: "\x43\x6F\x70\x79\x20\x57\x65\x62\x49\x44\x20\x61\x6E\x64\x20\x4C\x61\x75\x6E\x63\x68",
-                        class: "\x66\x75\x6E\x63\x42\x75\x74\x74\x6F\x6E\x73\x20\x6D\x79\x43\x6C\x61\x73\x73\x20\x69\x64\x43\x6F\x6D\x62\x6F\x20\x63\x6C\x69\x63\x6B\x2D\x61\x62\x6C\x65"
-                    }).css({
-                        "\x66\x6C\x6F\x61\x74": "\x72\x69\x67\x68\x74"
+                    $folderImage: jQuery('<i>').attr({
+                        class: 'fa fa-folder-open fa-lg myClass'
                     }),
-                    $plusIcon: jQuery("\x3C\x69\x3E").attr({
-                        class: "\x66\x61\x20\x66\x61\x2D\x70\x6C\x75\x73\x20\x66\x61\x2D\x6C\x67\x20\x6D\x79\x43\x6C\x61\x73\x73\x20\x63\x6C\x69\x63\x6B\x2D\x61\x62\x6C\x65",
-                        "\x61\x69\x72\x61\x2D\x68\x69\x64\x64\x65\x6E": "\x74\x72\x75\x65",
-                        title: "\x43\x6F\x70\x79\x20\x4C\x61\x75\x6E\x63\x68\x20\x49\x44\x20\x2B\x20\x57\x65\x62\x20\x49\x44"
-                    }).css({
-                        float: "\x72\x69\x67\x68\x74"
+                    $importantInfo: jQuery('<div>').attr({
+                        id: 'importantInfo'
                     }),
-                    $copyWebID: jQuery("\x3C\x64\x69\x76\x3E").attr({
-                        title: "\x43\x6F\x70\x79\x20\x57\x65\x62\x49\x44",
-                        class: "\x63\x6F\x70\x79\x57\x65\x62\x69\x64\x20\x66\x75\x6E\x63\x42\x75\x74\x74\x6F\x6E\x73\x20\x69\x6D\x70\x20\x63\x6C\x69\x63\x6B\x2D\x61\x62\x6C\x65"
+                    $BACinfo: jQuery('<div>').attr({
+                        class: 'BACinfo funcButtons imp click-able'
+                    }).html('<div class="myTitle BACinfo">Dealer Code/BAC</div>'),
+                    $clickMe: jQuery('<div>').attr({
+                        class: 'BACinfo'
                     }).css({
-                        color: "\x72\x67\x62\x28\x32\x35\x35\x2C\x20\x32\x30\x2C\x20\x31\x35\x35\x29"
-                    }).html("\x3C\x64\x69\x76\x20\x63\x6C\x61\x73\x73\x3D\x22\x6D\x79\x54\x69\x74\x6C\x65\x22\x3E\x57\x65\x62\x20\x49\x44\x3C\x2F\x64\x69\x76\x3E"),
-                    $webnum: jQuery("\x3C\x64\x69\x76\x3E").attr({
-                        title: "\x43\x6F\x70\x79\x20\x57\x65\x62\x6E\x75\x6D",
-                        class: "\x63\x6F\x70\x79\x57\x65\x62\x6E\x75\x6D\x20\x66\x75\x6E\x63\x42\x75\x74\x74\x6F\x6E\x73\x20\x69\x6D\x70\x20\x63\x6C\x69\x63\x6B\x2D\x61\x62\x6C\x65"
-                    }).css({
-                        color: "\x72\x67\x62\x28\x32\x31\x39\x2C\x20\x31\x31\x32\x2C\x20\x31\x34\x37\x29"
-                    }).html("\x3C\x64\x69\x76\x20\x63\x6C\x61\x73\x73\x3D\x22\x6D\x79\x54\x69\x74\x6C\x65\x22\x3E\x57\x65\x62\x6E\x75\x6D\x3C\x2F\x64\x69\x76\x3E"),
-                    $proofDate: jQuery("\x3C\x64\x69\x76\x3E").attr({
-                        title: "\x50\x72\x6F\x6F\x66\x20\x44\x61\x74\x65",
-                        class: "\x66\x75\x6E\x63\x42\x75\x74\x74\x6F\x6E\x73\x20\x69\x6D\x70"
-                    }).css({
-                        color: "\x72\x67\x62\x28\x30\x2C\x20\x31\x30\x30\x2C\x20\x30\x29"
-                    }).html("\x3C\x64\x69\x76\x20\x63\x6C\x61\x73\x73\x3D\x22\x6D\x79\x54\x69\x74\x6C\x65\x22\x3E\x50\x72\x6F\x6F\x66\x20\x44\x61\x74\x65\x3C\x2F\x64\x69\x76\x3E"),
-                    $launchDate: jQuery("\x3C\x64\x69\x76\x3E").attr({
-                        title: "\x4C\x61\x75\x6E\x63\x68\x20\x44\x61\x74\x65",
-                        class: "\x66\x75\x6E\x63\x42\x75\x74\x74\x6F\x6E\x73\x20\x69\x6D\x70"
-                    }).css({
-                        color: "\x72\x67\x62\x28\x31\x36\x35\x2C\x20\x31\x31\x35\x2C\x20\x35\x30\x29"
-                    }).html("\x3C\x64\x69\x76\x20\x63\x6C\x61\x73\x73\x3D\x22\x6D\x79\x54\x69\x74\x6C\x65\x22\x3E\x4C\x61\x75\x6E\x63\x68\x20\x44\x61\x74\x65\x3C\x2F\x64\x69\x76\x3E"),
-                    $wipSite: jQuery("\x3C\x61\x3E").attr({
-                        target: "\x5F\x6E\x65\x77",
-                        class: "\x77\x69\x70\x53\x69\x74\x65\x20\x66\x75\x6E\x63\x42\x75\x74\x74\x6F\x6E\x73\x20\x63\x6C\x69\x63\x6B\x2D\x61\x62\x6C\x65\x20\x6D\x79\x43\x6C\x61\x73\x73",
-                        title: "\x56\x69\x65\x77\x20\x57\x49\x50\x20\x53\x69\x74\x65\x20\x2D\x20\x52\x49\x47\x48\x54\x20\x43\x4C\x49\x43\x4B\x20\x54\x4F\x20\x43\x4F\x50\x59\x20\x55\x52\x4C"
-                    }).css({
-                        float: "\x72\x69\x67\x68\x74"
-                    }).text("\x57\x49\x50"),
-                    $proofSite: jQuery("\x3C\x61\x3E").attr({
-                        target: "\x5F\x6E\x65\x77",
-                        class: "\x70\x72\x6F\x6F\x66\x53\x69\x74\x65\x20\x66\x75\x6E\x63\x42\x75\x74\x74\x6F\x6E\x73\x20\x63\x6C\x69\x63\x6B\x2D\x61\x62\x6C\x65\x20\x6D\x79\x43\x6C\x61\x73\x73",
-                        title: "\x56\x69\x65\x77\x20\x50\x52\x4F\x4F\x46\x20\x53\x69\x74\x65\x20\x2D\x20\x52\x49\x47\x48\x54\x20\x43\x4C\x49\x43\x4B\x20\x54\x4F\x20\x43\x4F\x50\x59\x20\x55\x52\x4C"
-                    }).css({
-                        float: "\x72\x69\x67\x68\x74"
-                    }).text("\x50\x52\x4F\x4F\x46"),
-                    $liveSite: jQuery("\x3C\x61\x3E").attr({
-                        target: "\x5F\x6E\x65\x77",
-                        class: "\x6C\x69\x76\x65\x53\x69\x74\x65\x20\x66\x75\x6E\x63\x42\x75\x74\x74\x6F\x6E\x73\x20\x63\x6C\x69\x63\x6B\x2D\x61\x62\x6C\x65\x20\x6D\x79\x43\x6C\x61\x73\x73",
-                        title: "\x56\x69\x65\x77\x20\x4C\x49\x56\x45\x20\x53\x69\x74\x65\x20\x2D\x20\x52\x49\x47\x48\x54\x20\x43\x4C\x49\x43\x4B\x20\x54\x4F\x20\x43\x4F\x50\x59\x20\x55\x52\x4C"
-                    }).css({
-                        float: "\x72\x69\x67\x68\x74"
-                    }).text("\x4C\x49\x56\x45"),
-                    $copyFolderPath: jQuery("\x3C\x64\x69\x76\x3E").attr({
-                        class: "\x66\x75\x6E\x63\x42\x75\x74\x74\x6F\x6E\x73\x20\x63\x6F\x70\x79\x46\x6F\x6C\x64\x65\x72\x50\x61\x74\x68\x20\x63\x6C\x69\x63\x6B\x2D\x61\x62\x6C\x65",
-                        title: "\x50\x72\x6F\x6A\x65\x63\x74\x20\x46\x6F\x6C\x64\x65\x72\x20\x4C\x6F\x63\x61\x74\x69\x6F\x6E\x20\x69\x6E\x20\x4D\x61\x6E\x75\x20\x46\x6F\x6C\x64\x65\x72"
-                    }).css({
-                        float: "\x72\x69\x67\x68\x74",
-                        display: "\x6E\x6F\x6E\x65"
+                        display: 'none',
                     }),
-                    $folderImage: jQuery("\x3C\x69\x3E").attr({
-                        class: "\x66\x61\x20\x66\x61\x2D\x66\x6F\x6C\x64\x65\x72\x2D\x6F\x70\x65\x6E\x20\x66\x61\x2D\x6C\x67\x20\x6D\x79\x43\x6C\x61\x73\x73"
+                    $BACtable: jQuery('<div>').css({
+                        display: 'none',
+                        position: 'absolute',
+                        'margin-top': '38px',
+                        background: 'rgb(255, 255, 255)',
+                        border: '1px solid rgb(0, 0, 0)',
                     }),
-                    commentsbgColor: "\x6C\x69\x6E\x65\x61\x72\x2D\x67\x72\x61\x64\x69\x65\x6E\x74\x28\x74\x6F\x20\x6C\x65\x66\x74\x2C\x20\x23\x46\x46\x35\x31\x32\x46\x20\x2C\x20\x23\x44\x44\x32\x34\x37\x36\x29",
-                    $importantInfo: jQuery("\x3C\x64\x69\x76\x3E").attr({
-                        id: "\x69\x6D\x70\x6F\x72\x74\x61\x6E\x74\x49\x6E\x66\x6F"
-                    }),
-                    $BACinfo: jQuery("\x3C\x64\x69\x76\x3E").attr({
-                        class: "\x42\x41\x43\x69\x6E\x66\x6F\x20\x66\x75\x6E\x63\x42\x75\x74\x74\x6F\x6E\x73\x20\x69\x6D\x70\x20\x63\x6C\x69\x63\x6B\x2D\x61\x62\x6C\x65"
-                    }).html("\x3C\x64\x69\x76\x20\x63\x6C\x61\x73\x73\x3D\x22\x6D\x79\x54\x69\x74\x6C\x65\x20\x42\x41\x43\x69\x6E\x66\x6F\x22\x3E\x44\x65\x61\x6C\x65\x72\x20\x43\x6F\x64\x65\x2F\x42\x41\x43\x3C\x2F\x64\x69\x76\x3E"),
-                    $clickMe: jQuery("\x3C\x64\x69\x76\x3E").attr({
-                        class: "\x42\x41\x43\x69\x6E\x66\x6F"
+                    $dynoDisplay: jQuery('<div>').attr({
+                        id: 'dynoDisplay'
                     }).css({
-                        display: "\x6E\x6F\x6E\x65"
+                        position: 'absolute',
+                        left: '35%',
+                        background: 'purple',
+                        padding: '5px 20px',
+                        top: '100%',
+                        display: 'none',
+                        color: 'white'
                     }),
-                    $BACtable: jQuery("\x3C\x64\x69\x76\x3E").css({
-                        display: "\x6E\x6F\x6E\x65",
-                        position: "\x61\x62\x73\x6F\x6C\x75\x74\x65",
-                        "\x6D\x61\x72\x67\x69\x6E\x2D\x74\x6F\x70": "\x33\x38\x70\x78",
-                        background: "\x72\x67\x62\x28\x32\x35\x35\x2C\x20\x32\x35\x35\x2C\x20\x32\x35\x35\x29",
-                        border: "\x31\x70\x78\x20\x73\x6F\x6C\x69\x64\x20\x72\x67\x62\x28\x30\x2C\x20\x30\x2C\x20\x30\x29"
-                    }),
-                    accountPage: "",
-                    $dynoDisplay: jQuery("\x3C\x64\x69\x76\x3E").attr({
-                        id: "\x64\x79\x6E\x6F\x44\x69\x73\x70\x6C\x61\x79"
+                    $platformToggle: jQuery('<div>').attr({
+                        class: 'funcButtons platformToggle click-able',
+                        title: 'Sets the platform that these --> links lead too'
                     }).css({
-                        position: "\x61\x62\x73\x6F\x6C\x75\x74\x65",
-                        left: "\x33\x35\x25",
-                        background: "\x70\x75\x72\x70\x6C\x65",
-                        padding: "\x35\x70\x78\x20\x32\x30\x70\x78",
-                        top: "\x31\x30\x30\x25",
-                        display: "\x6E\x6F\x6E\x65",
-                        color: "\x77\x68\x69\x74\x65"
+                        float: 'right',
+                        display: 'none'
                     }),
-                    $platformToggle: jQuery("\x3C\x64\x69\x76\x3E").attr({
-                        class: "\x66\x75\x6E\x63\x42\x75\x74\x74\x6F\x6E\x73\x20\x70\x6C\x61\x74\x66\x6F\x72\x6D\x54\x6F\x67\x67\x6C\x65\x20\x63\x6C\x69\x63\x6B\x2D\x61\x62\x6C\x65",
-                        title: "\x53\x65\x74\x73\x20\x74\x68\x65\x20\x70\x6C\x61\x74\x66\x6F\x72\x6D\x20\x74\x68\x61\x74\x20\x74\x68\x65\x73\x65\x20\x2D\x2D\x3E\x20\x6C\x69\x6E\x6B\x73\x20\x6C\x65\x61\x64\x20\x74\x6F\x6F"
+                    $toggleLabel: jQuery('<div>').css({
+                        display: 'inline-block',
+                        'line-height': '30px',
+                        height: '30px',
+                        'font-weight': 'bold',
+                        'font-size': '12px'
+                    }).text('TETRA'),
+                    // toolbox version
+                    $version: jQuery('<span>').text('version: ' + GM_info.script.version),
+                    // email launch owner
+                    $emailOwner: jQuery('<a>').attr({
+                        title: 'Email Owner',
+                        class: 'funcButtons myClass click-able'
                     }).css({
-                        float: "\x72\x69\x67\x68\x74",
-                        display: "\x6E\x6F\x6E\x65"
+                        float: 'right'
                     }),
-                    $toggleLabel: jQuery("\x3C\x64\x69\x76\x3E").css({
-                        display: "\x69\x6E\x6C\x69\x6E\x65\x2D\x62\x6C\x6F\x63\x6B",
-                        "\x6C\x69\x6E\x65\x2D\x68\x65\x69\x67\x68\x74": "\x33\x30\x70\x78",
-                        height: "\x33\x30\x70\x78",
-                        "\x66\x6F\x6E\x74\x2D\x77\x65\x69\x67\x68\x74": "\x62\x6F\x6C\x64",
-                        "\x66\x6F\x6E\x74\x2D\x73\x69\x7A\x65": "\x32\x30\x70\x78"
-                    }).text("\x54\x45\x54\x52\x41"),
-                    $FAtoggle: jQuery("\x3C\x69\x3E").attr({
-                        class: "\x66\x61\x20\x66\x61\x2D\x74\x6F\x67\x67\x6C\x65\x2D\x6F\x66\x66\x20\x66\x61\x2D\x6C\x67\x20\x6D\x79\x43\x6C\x61\x73\x73"
+                    $mailIcon: jQuery('<i>').attr({
+                        class: 'fa fa-envelope fa-lg myClass'
                     }),
-                    $version: jQuery("\x3C\x73\x70\x61\x6E\x3E").text("\x76\x65\x72\x73\x69\x6F\x6E\x3A\x20" + GM_info.script.version)
-                }
+                    $howToGuide: jQuery('<a>').attr({
+                        title: 'Info About Tool',
+                        class: 'funcButtons myClass click-able'
+                    }).css({
+                        float: 'right'
+                    }),
+                    $howToIcon: jQuery('<i>').attr({
+                        class: 'fa fa-question-circle-o fa-lg myClass'
+                    })
+                };
             },
             cacheDOM: function () {
-                this.$launchID = jQuery("\x23\x4E\x61\x6D\x65\x5F\x69\x6C\x65\x69\x6E\x6E\x65\x72").css({
-                    background: "\x72\x67\x62\x28\x32\x35\x35\x2C\x20\x30\x2C\x20\x30\x29",
-                    color: "\x77\x68\x69\x74\x65",
-                    display: "\x74\x61\x62\x6C\x65"
+                // launch stuff
+                this.$launchID = jQuery('#Name_ileinner').css({
+                    background: 'rgb(255, 0, 0)',
+                    color: 'white',
+                    display: 'table'
                 });
-                this.launchID = this.$launchID.text();
-                this.$webID = jQuery("\x23\x43\x46\x30\x30\x4E\x34\x30\x30\x30\x30\x30\x30\x32\x61\x55\x46\x39\x5F\x69\x6C\x65\x69\x6E\x6E\x65\x72\x20\x61").css({
-                    background: "\x72\x67\x62\x28\x32\x35\x35\x2C\x20\x32\x30\x2C\x20\x31\x35\x35\x29",
-                    color: "\x77\x68\x69\x74\x65"
+                this.launchID = this.$launchID.text(); // launch ID
+                this.$webID = jQuery('#CF00N40000002aUF9_ileinner a').css({
+                    background: 'rgb(255, 20, 155)',
+                    color: 'white'
                 });
-                this.webID = this.$webID.text();
-                this.comboID = this.launchID + "\x20" + this.webID;
-                this.$account = jQuery("\x23\x43\x46\x30\x30\x4E\x34\x30\x30\x30\x30\x30\x30\x32\x61\x55\x44\x70\x5F\x69\x6C\x65\x69\x6E\x6E\x65\x72\x20\x61").css({
-                    background: "\x72\x67\x62\x28\x31\x31\x30\x2C\x20\x35\x35\x2C\x20\x32\x31\x35\x29",
-                    color: "\x77\x68\x69\x74\x65"
+                this.webID = this.$webID.text(); // web id
+
+                this.comboID = this.launchID + ' ' + this.webID; // combo id
+                this.$account = jQuery('#CF00N40000002aUDp_ileinner a').css({
+                    background: 'rgb(110, 55, 215)',
+                    color: 'white'
                 });
-                this.accountInfo = this.$account.attr("\x68\x72\x65\x66");
-                this.accountName = this.$account.text();
-                this.accountID = this.accountInfo.slice(1);
-                this.$webIDtext = jQuery("\x23\x30\x30\x4E\x34\x30\x30\x30\x30\x30\x30\x32\x61\x55\x46\x38\x5F\x69\x6C\x65\x69\x6E\x6E\x65\x72").css({
-                    background: "\x72\x67\x62\x28\x31\x38\x30\x2C\x20\x31\x32\x30\x2C\x20\x31\x32\x30\x29",
-                    color: "\x77\x68\x69\x74\x65",
-                    display: "\x74\x61\x62\x6C\x65"
+                this.accountInfo = this.$account.attr('href'); // account info
+                this.accountName = this.$account.text(); // acount name
+                this.accountID = this.accountInfo.slice(1); // account id
+                this.$webIDtext = jQuery('#00N40000002aUF8_ileinner').css({
+                    background: 'rgb(180, 120, 120)',
+                    color: 'white',
+                    display: 'table'
                 });
-                this.webIDtext = this.$webIDtext.text();
-                this.$webnum = jQuery("\x23\x30\x30\x4E\x34\x30\x30\x30\x30\x30\x30\x32\x63\x67\x6D\x64\x5F\x69\x6C\x65\x69\x6E\x6E\x65\x72").css({
-                    background: "\x72\x67\x62\x28\x32\x31\x39\x2C\x20\x31\x31\x32\x2C\x20\x31\x34\x37\x29",
-                    color: "\x77\x68\x69\x74\x65",
-                    display: "\x74\x61\x62\x6C\x65"
+                this.webIDtext = this.$webIDtext.text(); // webid text
+                this.$webnum = jQuery('#00N40000002cgmd_ileinner').css({
+                    background: 'rgb(219, 112, 147)',
+                    color: 'white',
+                    display: 'table'
                 });
-                this.webnumText = this.$webnum.text();
-                this.$proofDate = jQuery("\x23\x30\x30\x4E\x33\x33\x30\x30\x30\x30\x30\x33\x38\x57\x39\x31\x5F\x69\x6C\x65\x69\x6E\x6E\x65\x72").css({
-                    background: "\x72\x67\x62\x28\x30\x2C\x20\x31\x30\x30\x2C\x20\x30\x29",
-                    color: "\x77\x68\x69\x74\x65",
-                    display: "\x74\x61\x62\x6C\x65"
+                this.webnum = this.$webnum.text(); // webnum
+                this.$proofDate = jQuery('#00N330000038W91_ileinner').css({
+                    background: 'rgb(0, 100, 0)',
+                    color: 'white',
+                    display: 'table'
                 });
-                this.proofDateText = this.$proofDate.text();
-                this.$launchDate = jQuery("\x23\x30\x30\x4E\x33\x33\x30\x30\x30\x30\x30\x32\x79\x72\x62\x70\x5F\x69\x6C\x65\x69\x6E\x6E\x65\x72").css({
-                    background: "\x72\x67\x62\x28\x31\x36\x35\x2C\x20\x31\x31\x35\x2C\x20\x35\x30\x29",
-                    color: "\x77\x68\x69\x74\x65",
-                    display: "\x74\x61\x62\x6C\x65"
+                this.proofDateText = this.$proofDate.text(); // proof date
+                this.$launchDate = jQuery('#00N33000002yrbp_ileinner').css({
+                    background: 'rgb(165, 115, 50)',
+                    color: 'white',
+                    display: 'table'
                 });
-                this.launchDateText = this.$launchDate.text();
-                this.owner = jQuery("\x23\x4F\x77\x6E\x65\x72\x5F\x69\x6C\x65\x69\x6E\x6E\x65\x72").find("\x5B\x69\x64\x2A\x3D\x22\x4F\x77\x6E\x65\x72\x22\x5D").text();
-                this.$builder = jQuery("\x23\x43\x46\x30\x30\x4E\x34\x30\x30\x30\x30\x30\x30\x32\x61\x55\x45\x32\x5F\x69\x6C\x65\x69\x6E\x6E\x65\x72");
-                this.bizBeginning = "\x6A\x5F\x69\x64\x30\x5F\x6A\x5F\x69\x64\x35\x5F";
-                this.accountID = "";
-                this.bizEnd = "\x5F\x30\x30\x4E\x34\x30\x30\x30\x30\x30\x30\x32\x61\x55\x35\x37";
-                this.bizSiteTable = this.bizBeginning + this.accountID + this.bizEnd;
-                this.path = window.location.pathname;
-                this.actualLaunchID = this.path.slice(1);
-                this.$body = jQuery("\x62\x6F\x64\x79");
-                this.$head = jQuery("\x68\x65\x61\x64");
-                this.idArray = this.webID.split("\x2D");
-                this.oem = this.idArray[0];
-                this.id = this.webID.substr(this.webID.indexOf("\x2D") + 1);
-                this.childCasesID = "\x23" + this.actualLaunchID + "\x5F\x30\x30\x4E\x34\x30\x30\x30\x30\x30\x30\x32\x61\x55\x38\x48\x5F\x62\x6F\x64\x79";
-                this.childCasesText = jQuery.trim(jQuery("\x23" + this.actualLaunchID + "\x5F\x30\x30\x4E\x34\x30\x30\x30\x30\x30\x30\x32\x61\x55\x38\x48\x5F\x62\x6F\x64\x79").text());
-                this.host = window.location.hostname;
-                this.protocol = window.location.protocol;
-                this.platformSelector = this.getChecked("\x70\x6C\x61\x74\x66\x6F\x72\x6D\x53\x65\x6C\x65\x63\x74\x6F\x72");
-                this.$launchOwner = jQuery("\x23\x4F\x77\x6E\x65\x72\x5F\x69\x6C\x65\x69\x6E\x6E\x65\x72\x20\x61\x5B\x69\x64\x2A\x3D\x22\x4F\x77\x6E\x65\x72\x22\x5D").attr({
-                    class: "\x6C\x61\x75\x6E\x63\x68\x4F\x77\x6E\x65\x72"
+                this.launchDateText = this.$launchDate.text(); // launch date
+                this.owner = jQuery('#Owner_ileinner').find('[id*="Owner"]').text(); // launch owner name
+                this.$builder = jQuery('#CF00N40000002aUE2_ileinner'); // builder
+                this.$body = jQuery('body'); // target body tag
+                this.$head = jQuery('head'); // target head tag
+                this.platformSelector = this.getChecked('platformSelector'); // platform selector
+                this.$launchOwner = jQuery('#Owner_ileinner a[id*="Owner"]').attr({
+                    class: 'launchOwner'
                 });
-                this.launchOwnerText = this.$launchOwner.text()
-            },
-            changeTab: function () {
-                _0x25B33.config.$toggleOn.html("\x26\x23\x39\x36\x36\x36\x3B\x20\x4C\x61\x75\x6E\x63\x68\x20\x3C\x62\x72\x3E\x20\x76\x65\x72\x73\x69\x6F\x6E\x3A\x20" + GM_info.script.version);
-                _0x25B33.config.$toggleOff.html("\x4C\x61\x75\x6E\x63\x68\x20\x26\x23\x39\x36\x35\x36\x3B\x20\x3C\x62\x72\x3E\x20\x76\x65\x72\x73\x69\x6F\x6E\x3A\x20" + GM_info.script.version)
+                this.launchOwnerText = this.$launchOwner.text(); // launch owner
             },
             buildWSMlink: function () {
-                if (-1 != this.webID.search("\x67\x6D\x63\x6C")) {
-                    if (-1 != this.webID.search("\x2D\x66\x72")) {
-                        _0x25B33.config.wsmLink = _0x25B33.config.base + this.webID + _0x25B33.config.fr_ca
+                var base = 'http://websites.cobalt.com/wsm/index.do?webId=',
+                    wsmLink = '';
+
+                if (-1 != this.webID.search('gmcl')) {
+                    if (-1 != this.webID.search('-fr')) {
+                        wsmLink = base + this.webID + '&locale=fr_CA';
                     } else {
-                        _0x25B33.config.wsmLink = _0x25B33.config.base + this.webID + _0x25B33.config.en_ca
+                        wsmLink = base + this.webID + '&locale=en_CA';
+                    }
+                } else if (-1 != this.webID.search('holden')) {
+                    if (-1 != this.webID.search('holdennz')) {
+                        wsmLink = base + this.webID + '&locale=en_NZ';
+                    } else {
+                        wsmLink = base + this.webID + '&locale=en_AU';
                     }
                 } else {
-                    if (-1 != this.webID.search("\x68\x6F\x6C\x64\x65\x6E")) {
-                        if (-1 != this.webID.search("\x68\x6F\x6C\x64\x65\x6E\x6E\x7A")) {
-                            _0x25B33.config.wsmLink = _0x25B33.config.base + this.webID + _0x25B33.config.nz
-                        } else {
-                            _0x25B33.config.wsmLink = _0x25B33.config.base + this.webID + _0x25B33.config.au
-                        }
-                    } else {
-                        _0x25B33.config.wsmLink = _0x25B33.config.base + this.webID + _0x25B33.config.us
-                    }
+                    wsmLink = base + this.webID + '&locale=en_US';
                 }
-            },
-            caseCheck: function () {
-                if (this.childCasesText !== "\x4E\x6F\x20\x72\x65\x63\x6F\x72\x64\x73\x20\x74\x6F\x20\x64\x69\x73\x70\x6C\x61\x79") {
-                    console.log("\x63\x61\x73\x65\x73\x20\x6D\x61\x64\x65");
-                    jQuery("\x2E\x70\x74\x42\x6F\x64\x79\x20\x2E\x63\x6F\x6E\x74\x65\x6E\x74").append(_0x25B33.config.$casesMade);
-                    jQuery("\x6C\x69\x73\x74\x48\x6F\x76\x65\x72\x4C\x69\x6E\x6B\x73").on("\x6C\x6F\x61\x64", setTimeout(this.colorRelatedCases.bind(this), 2000))
-                };
-                console.log("\x6E\x6F\x20\x63\x61\x73\x65\x73\x20\x6D\x61\x64\x65")
+
+                launchToolbar.config.$EditLink.attr({
+                    href: wsmLink
+                });
             },
             buildFolderPath: function () {
-                var _0x25B44 = this.oem,
-                    _0x25B66 = this.platformSelector ? "\x26\x6E\x65\x78\x74\x47\x65\x6E\x3D\x74\x72\x75\x65" : "\x26\x6E\x65\x78\x74\x67\x65\x6E\x3D\x66\x61\x6C\x73\x65",
-                    _0x25B55;
-                switch (this.oem) {
-                    case "\x67\x6D\x70\x73":
-                        _0x25B55 = "\x67\x6D\x70\x73\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
+                var //oem = this.oem,
+                    platformSelector = this.platformSelector ? '&nextGen=true' : '&nextgen=false',
+                    nitra = 'http://nitra.',
+                    wip = 'wip.',
+                    proof = 'proof.',
+                    reload = '/?reload=true',
+                    baseManuLoc = '\\\\las-mgmt1.lasisi01a.las.san.dsghost.net\\Associate\\sea\\CS\\graphics\\manufacturers\\',
+                    oem = this.webID.split('-')[0],
+                    id = this.webID.substr(this.webID.indexOf('-') + 1),
+                    oemPart;
+
+                switch (oem) {
+                    case 'gmps':
+                        oemPart = 'gmpsdealer.com/';
                         break;
-                    case "\x67\x6D\x63\x6C":
-                        _0x25B55 = "\x67\x6D\x63\x6C\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
+                    case 'gmcl':
+                        oemPart = 'gmcldealer.com/';
                         break;
-                    case "\x76\x77":
-                        _0x25B55 = "\x76\x77\x63\x64\x6B\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
+                    case 'vw':
+                        oemPart = 'vwcdkdealer.com/';
                         break;
-                    case "\x68\x79\x75\x6E":
-                        _0x25B55 = "\x68\x79\x75\x6E\x64\x61\x69\x73\x74\x6F\x72\x65\x73\x2E\x63\x6F\x6D\x2F";
+                    case 'hyun':
+                        oemPart = 'hyundaistores.com/';
                         break;
-                    case "\x6D\x61\x7A\x64\x61":
-                        _0x25B55 = "\x6D\x61\x7A\x64\x61\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
+                    case 'mazda':
+                        oemPart = 'mazdadealer.com/';
                         break;
-                    case "\x6C\x65\x78":
-                        _0x25B55 = "\x6C\x65\x78\x75\x73\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
-                        _0x25B44 = "\x6C\x65\x78\x75\x73\x5C";
+                    case 'lex':
+                        oemPart = 'lexusdealer.com/';
+                        oem = 'lexus\\';
                         break;
-                    case "\x6B\x31\x69\x61":
-                        _0x25B55 = "\x6B\x31\x69\x61\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
+                    case 'k1ia':
+                        oemPart = 'k1iadealer.com/';
                         break;
-                    case "\x62\x32\x6D\x77":
-                        _0x25B55 = "\x62\x32\x6D\x77\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
+                    case 'b2mw':
+                        oemPart = 'b2mwdealer.com/';
                         break;
-                    case "\x6D\x69\x6E\x69":
-                        _0x25B55 = "\x6D\x69\x6E\x69\x2D\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
+                    case 'mini':
+                        oemPart = 'mini-dealer.com/';
                         break;
-                    case "\x6D\x6F\x74\x70":
-                        _0x25B55 = "\x6D\x6F\x74\x6F\x72\x70\x6C\x61\x63\x65\x2E\x63\x6F\x6D\x2F";
-                        _0x25B44 = "\x6D\x6F\x74\x6F\x72\x70\x6C\x61\x63\x65\x5C";
+                    case 'motp':
+                        oemPart = 'motorplace.com/';
+                        oem = 'motorplace\\';
                         break;
-                    case "\x68\x6F\x6E\x64":
-                        _0x25B55 = "\x68\x6F\x6E\x64\x61\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
-                        _0x25B44 = "\x68\x6F\x6E\x64\x61\x5C";
+                    case 'hond':
+                        oemPart = 'hondadealer.com/';
+                        oem = 'honda\\';
                         break;
-                    case "\x68\x6F\x6C\x64\x65\x6E":
-                        _0x25B55 = "\x67\x6D\x68\x6F\x6C\x64\x65\x6E\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2E\x61\x75\x2F";
+                    case 'holden':
+                        oemPart = 'gmholdendealer.com.au/';
                         break;
-                    case "\x68\x6F\x6C\x64\x65\x6E\x6E\x7A":
-                        _0x25B55 = "\x67\x6D\x68\x6F\x6C\x64\x65\x6E\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x2E\x6E\x7A\x2F";
+                    case 'holdennz':
+                        oemPart = 'gmholdendealer.co.nz/';
                         break;
-                    case "\x6E\x69\x73\x73\x61\x6E":
-                        _0x25B55 = "\x6E\x69\x73\x73\x61\x6E\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
+                    case 'nissan':
+                        oemPart = 'nissandealer.com/';
                         break;
-                    case "\x74\x6F\x79\x64":
-                        _0x25B55 = "\x74\x6F\x79\x6F\x74\x61\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
-                        _0x25B44 = "\x74\x6F\x79\x6F\x74\x61\x5C";
+                    case 'toyd':
+                        oemPart = 'toyotadealer.com/';
+                        oem = 'toyota\\';
                         break;
-                    case "\x69\x6E\x66\x69\x6E\x69\x74\x69":
-                        _0x25B55 = "\x69\x6E\x66\x69\x6E\x69\x74\x69\x64\x65\x61\x6C\x65\x72\x2E\x63\x6F\x6D\x2F";
-                        break
-                };
-                _0x25B33.config.wipSiteURL = _0x25B33.config.nitra + _0x25B33.config.wip + _0x25B55 + this.id + _0x25B33.config.reload + _0x25B66;
-                _0x25B33.config.proofSiteURL = _0x25B33.config.nitra + _0x25B33.config.proof + _0x25B55 + this.id + _0x25B33.config.reload + _0x25B66;
-                _0x25B33.config.liveSiteURL = _0x25B33.config.nitra + _0x25B55 + this.id + _0x25B33.config.reload + _0x25B66;
-                _0x25B33.config.folderPath = _0x25B33.config.baseManuLoc + _0x25B44 + "\x5C" + this.id.charAt(0) + "\x5C" + this.id;
-                _0x25B33.config.$wipSite.attr({
-                    href: _0x25B33.config.wipSiteURL
+                    case 'infiniti':
+                        oemPart = 'infinitidealer.com/';
+                        break;
+                }
+
+                launchToolbar.config.folderPath = baseManuLoc + oem + '\\' + id.charAt(0) + '\\' + id;
+
+                launchToolbar.config.$wipSite.attr({
+                    href: nitra + wip + oemPart + id + reload + platformSelector
                 });
-                _0x25B33.config.$proofSite.attr({
-                    href: _0x25B33.config.proofSiteURL
+                launchToolbar.config.$proofSite.attr({
+                    href: nitra + proof + oemPart + id + reload + platformSelector
                 });
-                _0x25B33.config.$liveSite.attr({
-                    href: _0x25B33.config.liveSiteURL
-                })
+                launchToolbar.config.$liveSite.attr({
+                    href: nitra + oemPart + id + reload + platformSelector
+                });
             },
             openAccountInfoPage: function () {
-                var _0x25B77 = this.protocol + "\x2F\x2F" + this.host + "" + this.accountInfo;
-                _0x25B33.config.accountPage = openInTab(_0x25B77)
+                var host = window.location.hostname,
+                    protocol = window.location.protocol,
+                    openThis = protocol + '//' + host + '' + this.accountInfo;
+                openInTab(openThis);
             },
             bindEvents: function () {
-                _0x25B33.config.$toggleOn.on("\x63\x6C\x69\x63\x6B", this.animate);
-                _0x25B33.config.$toggleOn.on("\x63\x6C\x69\x63\x6B", this.toggleBox);
-                _0x25B33.config.$idCombo.on("\x63\x6C\x69\x63\x6B", this.clipboardCopy.bind(this));
-                _0x25B33.config.$launchID.on("\x63\x6C\x69\x63\x6B", this.clipboardCopy.bind(this));
-                _0x25B33.config.$copyWebID.on("\x63\x6C\x69\x63\x6B", this.clipboardCopy.bind(this));
-                _0x25B33.config.$accountName.on("\x63\x6C\x69\x63\x6B", this.clipboardCopy.bind(this));
-                _0x25B33.config.$copyFolderPath.on("\x63\x6C\x69\x63\x6B", this.clipboardCopy.bind(this));
-                _0x25B33.config.$webIDtext.on("\x63\x6C\x69\x63\x6B", this.clipboardCopy.bind(this));
-                _0x25B33.config.$webnum.on("\x63\x6C\x69\x63\x6B", this.clipboardCopy.bind(this));
-                _0x25B33.config.$wipSite.on("\x6D\x6F\x75\x73\x65\x64\x6F\x77\x6E", this.clipboardLinkCopy.bind(this));
-                _0x25B33.config.$wipSite.bind("\x63\x6F\x6E\x74\x65\x78\x74\x6D\x65\x6E\x75", function (_0x25B88) {
-                    return false
+                launchToolbar.config.$idCombo.on('click', this.clipboardCopy.bind(this));
+                launchToolbar.config.$launchID.on('click', this.clipboardCopy.bind(this));
+                launchToolbar.config.$copyWebID.on('click', this.clipboardCopy.bind(this));
+                launchToolbar.config.$accountName.on('click', this.clipboardCopy.bind(this));
+                launchToolbar.config.$copyFolderPath.on('click', this.clipboardCopy.bind(this));
+                launchToolbar.config.$webIDtext.on('click', this.clipboardCopy.bind(this));
+                launchToolbar.config.$webnum.on('click', this.clipboardCopy.bind(this));
+                launchToolbar.config.$wipSite.on('mousedown', this.clipboardLinkCopy.bind(this));
+                launchToolbar.config.$wipSite.bind('contextmenu', function () {
+                    return false;
                 });
-                _0x25B33.config.$proofSite.on("\x6D\x6F\x75\x73\x65\x64\x6F\x77\x6E", this.clipboardLinkCopy.bind(this));
-                _0x25B33.config.$proofSite.bind("\x63\x6F\x6E\x74\x65\x78\x74\x6D\x65\x6E\x75", function (_0x25B88) {
-                    return false
+                launchToolbar.config.$proofSite.on('mousedown', this.clipboardLinkCopy.bind(this));
+                launchToolbar.config.$proofSite.bind('contextmenu', function () {
+                    return false;
                 });
-                _0x25B33.config.$liveSite.on("\x6D\x6F\x75\x73\x65\x64\x6F\x77\x6E", this.clipboardLinkCopy.bind(this));
-                _0x25B33.config.$liveSite.bind("\x63\x6F\x6E\x74\x65\x78\x74\x6D\x65\x6E\x75", function (_0x25B88) {
-                    return false
+                launchToolbar.config.$liveSite.on('mousedown', this.clipboardLinkCopy.bind(this));
+                launchToolbar.config.$liveSite.bind('contextmenu', function () {
+                    return false;
                 });
-                this.$launchOwner.on("\x6D\x6F\x75\x73\x65\x64\x6F\x77\x6E", this.clipboardLinkCopy.bind(this));
-                this.$launchOwner.bind("\x63\x6F\x6E\x74\x65\x78\x74\x6D\x65\x6E\x75", function (_0x25B88) {
-                    return false
+                this.$launchOwner.on('mousedown', this.clipboardLinkCopy.bind(this));
+                this.$launchOwner.bind('contextmenu', function () {
+                    return false;
                 });
-                _0x25B33.config.$BACinfo.on("\x63\x6C\x69\x63\x6B", this.clipboardCopy.bind(this));
-                _0x25B33.config.$platformToggle.on("\x63\x6C\x69\x63\x6B", this.flipTheSwitch.bind(this));
-                _0x25B33.config.$platformToggle.on("\x63\x6C\x69\x63\x6B", this.buildFolderPath.bind(this))
+                launchToolbar.config.$BACinfo.on('click', this.clipboardCopy.bind(this));
+                launchToolbar.config.$platformToggle.on('click', this.flipTheSwitch.bind(this));
+                launchToolbar.config.$platformToggle.on('click', this.buildFolderPath.bind(this));
             },
             addStyles: function () {
-                _0x25B33.config.$toolbarStyles.append("\x2E\x66\x75\x6E\x63\x42\x75\x74\x74\x6F\x6E\x73\x20\x7B\x20\x64\x69\x73\x70\x6C\x61\x79\x3A\x20\x6E\x6F\x6E\x65\x3B\x20\x70\x61\x64\x64\x69\x6E\x67\x3A\x20\x33\x70\x78\x20\x31\x35\x70\x78\x20\x30\x3B\x20\x62\x6F\x72\x64\x65\x72\x2D\x72\x69\x67\x68\x74\x3A\x20\x31\x70\x78\x20\x72\x67\x62\x28\x31\x31\x32\x2C\x20\x31\x36\x30\x2C\x20\x31\x32\x31\x29\x20\x73\x6F\x6C\x69\x64\x3B\x20\x70\x61\x64\x64\x69\x6E\x67\x2D\x74\x6F\x70\x3A\x20\x30\x70\x78\x3B\x20\x7D\x20").append("\x2E\x63\x6C\x69\x63\x6B\x2D\x61\x62\x6C\x65\x20\x7B\x20\x63\x75\x72\x73\x6F\x72\x3A\x20\x70\x6F\x69\x6E\x74\x65\x72\x3B\x20\x7D\x20").append("\x2E\x6D\x79\x54\x69\x74\x6C\x65\x20\x7B\x20\x63\x6F\x6C\x6F\x72\x3A\x20\x23\x30\x30\x30\x30\x30\x30\x3B\x20\x7D\x20").append("\x2E\x6C\x69\x73\x74\x48\x6F\x76\x65\x72\x4C\x69\x6E\x6B\x73\x20\x2E\x6C\x69\x6E\x6B\x6C\x65\x74\x20\x2E\x63\x6F\x75\x6E\x74\x20\x7B\x20\x66\x6F\x6E\x74\x2D\x73\x69\x7A\x65\x3A\x20\x32\x30\x70\x78\x20\x21\x69\x6D\x70\x6F\x72\x74\x61\x6E\x74\x3B\x20\x7D\x20").append("\x2E\x6D\x79\x43\x6C\x61\x73\x73\x20\x7B\x20\x6C\x69\x6E\x65\x2D\x68\x65\x69\x67\x68\x74\x3A\x20\x33\x30\x70\x78\x3B\x20\x20\x68\x65\x69\x67\x68\x74\x3A\x20\x33\x30\x70\x78\x3B\x20\x7D\x20").append("\x2E\x6D\x79\x43\x6C\x61\x73\x73\x3A\x68\x6F\x76\x65\x72\x20\x7B\x20\x66\x6F\x6E\x74\x2D\x77\x65\x69\x67\x68\x74\x3A\x20\x62\x6F\x6C\x64\x3B\x20\x7D\x20").append("\x2E\x69\x6D\x70\x20\x7B\x20\x66\x6C\x6F\x61\x74\x3A\x20\x6C\x65\x66\x74\x20\x21\x69\x6D\x70\x6F\x72\x74\x61\x6E\x74\x3B\x20\x7D\x20")
+                launchToolbar.config.$toolbarStyles
+                    // general toolbox styles
+                    .append('.funcButtons { display: none; padding: 3px 15px 0; border-right: 1px rgb(0, 0, 0) solid; padding-top: 0px; } ')
+                    .append('.click-able { cursor: pointer; } ')
+                    .append('.myTitle { color: #000000; } ')
+                    .append('.listHoverLinks .linklet .count { font-size: 20px !important; } ')
+                    .append('.myClass { line-height: 30px;  height: 30px; } ')
+                    .append('.myClass:hover { font-weight: bold; } ')
+                    .append('.imp { float: left !important; } '); // end
             },
             buildTool: function () {
-                _0x25B33.config.$accountName.append(this.accountName);
-                _0x25B33.config.$EditLink.attr({
-                    href: _0x25B33.config.wsmLink
-                });
-                _0x25B33.config.$idCombo.append(_0x25B33.config.$plusIcon);
-                _0x25B33.config.$copyFolderPath.append(_0x25B33.config.$folderImage);
-                _0x25B33.config.$launchID.append(this.launchID);
-                _0x25B33.config.$copyWebID.append(this.webID);
-                _0x25B33.config.$webnum.append(this.webnumText);
-                _0x25B33.config.$proofDate.append(this.proofDateText);
-                _0x25B33.config.$launchDate.append(this.launchDateText);
-                _0x25B33.config.$webIDtext.append(this.webIDtext);
-                _0x25B33.config.$BACinfo.append(_0x25B33.config.$clickMe);
-                _0x25B33.config.$platformToggle.append(_0x25B33.config.$toggleLabel);
-                _0x25B33.config.$uiBox.append(_0x25B33.config.$toggleOn).append(_0x25B33.config.$toggleOff).append(_0x25B33.config.$webIDtext).append(_0x25B33.config.$accountName).append(_0x25B33.config.$launchID).append(_0x25B33.config.$copyWebID).append(_0x25B33.config.$webnum).append(_0x25B33.config.$proofDate).append(_0x25B33.config.$launchDate).append(_0x25B33.config.$wipSite).append(_0x25B33.config.$proofSite).append(_0x25B33.config.$liveSite).append(_0x25B33.config.$platformToggle).append(_0x25B33.config.$EditLink).append(_0x25B33.config.$copyFolderPath).append(_0x25B33.config.$idCombo).append(_0x25B33.config.$importantInfo).append(_0x25B33.config.$dynoDisplay).append(_0x25B33.config.$BACinfo).append(_0x25B33.config.$BACtable)
+                launchToolbar.config.$accountName.append(this.accountName);
+                launchToolbar.config.$idCombo.append(launchToolbar.config.$plusIcon);
+                launchToolbar.config.$copyFolderPath.append(launchToolbar.config.$folderImage);
+                launchToolbar.config.$launchID.append(this.launchID);
+                launchToolbar.config.$copyWebID.append(this.webID);
+                launchToolbar.config.$webnum.append(this.webnum);
+                launchToolbar.config.$proofDate.append(this.proofDateText);
+                launchToolbar.config.$launchDate.append(this.launchDateText);
+                launchToolbar.config.$webIDtext.append(this.webIDtext);
+                launchToolbar.config.$BACinfo.append(launchToolbar.config.$clickMe);
+                launchToolbar.config.$platformToggle.append(launchToolbar.config.$toggleLabel);
+                launchToolbar.config.$emailOwner.append(launchToolbar.config.$mailIcon);
+                launchToolbar.config.$emailOwner.attr(({
+                    href: encodeURI('mailto:' + this.launchOwnerText.replace(' ', '.') + '@cdk.com' + '?cc=Jennifer.Walker@cdk.com&subject=' + this.comboID)
+                }));
+                launchToolbar.config.$howToGuide.append(launchToolbar.config.$howToIcon);
+                launchToolbar.config.$uiBox.append(launchToolbar.config.$toggleOn)
+                    .append(launchToolbar.config.$webIDtext)
+                    .append(launchToolbar.config.$accountName)
+                    .append(launchToolbar.config.$launchID)
+                    .append(launchToolbar.config.$copyWebID)
+                    .append(launchToolbar.config.$webnum)
+                    .append(launchToolbar.config.$proofDate)
+                    .append(launchToolbar.config.$launchDate)
+                    .append(launchToolbar.config.$howToGuide)
+                    .append(launchToolbar.config.$wipSite)
+                    .append(launchToolbar.config.$proofSite)
+                    .append(launchToolbar.config.$liveSite)
+                    .append(launchToolbar.config.$platformToggle)
+                    .append(launchToolbar.config.$EditLink)
+                    .append(launchToolbar.config.$emailOwner)
+                    .append(launchToolbar.config.$copyFolderPath)
+                    .append(launchToolbar.config.$idCombo)
+                    .append(launchToolbar.config.$importantInfo)
+                    .append(launchToolbar.config.$dynoDisplay)
+                    .append(launchToolbar.config.$BACinfo)
+                    .append(launchToolbar.config.$BACtable);
             },
             attachTool: function () {
-                this.$head.append(_0x25B33.config.$toolbarStyles);
-                this.$head.append(_0x25B33.config.$jQueryLink);
-                this.$head.append(_0x25B33.config.$montFontLink);
-                this.$body.prepend(_0x25B33.config.$placeholder);
-                this.$body.prepend(_0x25B33.config.$uiBox)
-            },
-            startTool: function () {
-                var _0x25B99 = this.commentsID;
-                setTimeout(function (_0x25B99) {
-                    jQuery(_0x25B99).css({
-                        background: _0x25B33.config.commentsbgColor,
-                        color: "\x23\x63\x63\x63"
-                    });
-                    _0x25B33.config.$toggleOn.trigger("\x63\x6C\x69\x63\x6B")
-                }, 2000)
-            },
-            BACtable: function () {
-                var _0x25BCC = "\x42\x53\x43\x74\x61\x62\x6C\x65",
-                    _0x25BAA, _0x25BBB, _0x25BDD = this;
-                setTimeout(function () {
-                    _0x25BAA = getValue("\x61\x63\x63\x6F\x75\x6E\x74\x4E\x61\x6D\x65");
-                    _0x25BBB = getValue(_0x25BCC);
-                    if (_0x25BBB === "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64") {
-                        console.log("\x74\x61\x62\x6C\x65\x20\x69\x73\x20\x65\x6D\x70\x74\x79\x2C\x20\x72\x75\x6E\x6E\x69\x6E\x67\x20\x61\x67\x61\x69\x6E");
-                        _0x25BDD.BACtable()
-                    } else {
-                        console.log("\x63\x6F\x6E\x74\x65\x6E\x74\x20\x6C\x6F\x61\x64\x65\x64");
-                        _0x25B33.config.$BACtable.html(_0x25BBB);
-                        setTimeout(function () {
-                            _0x25B33.config.$clickMe.text("\x43\x6C\x69\x63\x6B\x20\x66\x6F\x72\x20" + _0x25BAA + "\x20\x49\x6E\x66\x6F");
-                            _0x25B33.config.$clickMe.toggle(500)
-                        })
-                    }
-                }, 4000)
+                this.$head.append(launchToolbar.config.$toolbarStyles);
+                this.$head.append(launchToolbar.config.$jQueryLink);
+                this.$head.append(launchToolbar.config.$montFontLink);
+                this.$body.prepend(launchToolbar.config.$placeholder);
+                this.$body.prepend(launchToolbar.config.$uiBox);
             },
             switchPlatform: function () {
-                _0x25B33.config.$toggleLabel.css({
-                    color: this.platformSelector ? "\x70\x75\x72\x70\x6C\x65" : "\x62\x6C\x75\x65"
-                }).text(this.platformSelector ? "\x4E\x45\x58\x54\x47\x45\x4E" : "\x54\x45\x54\x52\x41")
+                launchToolbar.config.$toggleLabel.css({
+                    color: this.platformSelector ? 'purple' : 'blue'
+                }).text(this.platformSelector ? 'NEXTGEN' : 'TETRA');
             },
-            colorRelatedCases: function () {
-                var _0x25BFF = "\x5F\x30\x30\x4E\x34\x30\x30\x30\x30\x30\x30\x32\x61\x55\x38\x48\x5F\x6C\x69\x6E\x6B",
-                    $caseLink = jQuery("\x23" + this.actualLaunchID + "" + _0x25BFF);
-                $caseLink.css({
-                    background: "\x6C\x69\x6E\x65\x61\x72\x2D\x67\x72\x61\x64\x69\x65\x6E\x74\x28\x74\x6F\x20\x6C\x65\x66\x74\x2C\x20\x72\x67\x62\x28\x31\x33\x30\x2C\x20\x34\x30\x2C\x20\x39\x30\x29\x2C\x20\x72\x67\x62\x28\x31\x30\x30\x2C\x20\x33\x30\x2C\x20\x37\x35\x29\x29",
-                    color: "\x23\x63\x63\x63"
-                })
+            startTool: function () {
+                var $funcButts = jQuery('.funcButtons');
+
+                setTimeout(function () {
+                    $funcButts.toggle();
+
+                    launchToolbar.config.$placeholder.slideToggle("slow");
+                    launchToolbar.config.$uiBox.slideToggle("slow", function () {
+                        if (jQuery(this).is(':visible')) {
+                            jQuery(this).css({
+                                display: 'inline-block'
+                            });
+                        }
+                    });
+                }, 2000);
             },
-            animate: function () {
-                var $funcButts = jQuery("\x2E\x66\x75\x6E\x63\x42\x75\x74\x74\x6F\x6E\x73");
-                _0x25B33.config.$toggleOn.toggle();
-                _0x25B33.config.$toggleOff.toggle();
-                $funcButts.toggle()
-            },
-            toggleBox: function () {
-                _0x25B33.config.$placeholder.slideToggle("\x73\x6C\x6F\x77");
-                _0x25B33.config.$uiBox.slideToggle("\x73\x6C\x6F\x77", function () {
-                    if (jQuery(this).is("\x3A\x76\x69\x73\x69\x62\x6C\x65")) {
-                        jQuery(this).css({
-                            display: "\x69\x6E\x6C\x69\x6E\x65\x2D\x62\x6C\x6F\x63\x6B"
-                        })
+            BACtable: function () {
+                var BACvariable = 'BSCtable',
+                    accountName, BACtableData, // = getValue('accountName'); //,
+                    self = this;
+
+                setTimeout(function () {
+                    accountName = getValue('accountName'); //,
+                    BACtableData = getValue(BACvariable);
+                    if (BACtableData === 'undefined' || BACtableData === false || accountName === 'undefined' || accountName === false) {
+                        // if table is empty
+                        console.log('table is empty, running again');
+                        //                    getBAC.init();
+                        self.BACtable();
+                    } else {
+                        // if table is not empty
+                        console.log('content loaded');
+                        launchToolbar.config.$BACtable.html(BACtableData);
+                        setTimeout(function () {
+                            launchToolbar.config.$clickMe.text('Click for ' + accountName + ' Info');
+                            launchToolbar.config.$clickMe.toggle(500);
+                        });
                     }
-                })
+                }, 4000);
+
             },
-            showBox: function () {
-                _0x25B33.config.$uiBox.slideToggle("\x73\x6C\x6F\x77", function () {
-                    if (jQuery(this).is("\x3A\x76\x69\x73\x69\x62\x6C\x65")) {
-                        jQuery(this).css({
-                            display: "\x69\x6E\x6C\x69\x6E\x65\x2D\x62\x6C\x6F\x63\x6B"
-                        })
-                    }
-                })
+            // ----------------------------------------
+            // TIER 2
+            // ----------------------------------------
+            clipboardCopy: function (event) {
+                var $clickedElement = jQuery(event.delegateTarget),
+                    classText = $clickedElement.attr('class');
+
+                switch (true) {
+                    case (classText.indexOf('idCombo') > -1):
+                        console.log('switch case');
+                        this.copyInfo(this.comboID);
+                        break;
+                    case (classText.indexOf('launchID') > -1):
+                        this.copyInfo(this.launchID);
+                        break;
+                    case (classText.indexOf('copyWebid') > -1):
+                        this.copyInfo(this.webID);
+                        break;
+                    case (classText.indexOf('accountName') > -1):
+                        this.copyInfo(this.accountName);
+                        break;
+                    case (classText.indexOf('copyFolderPath') > -1):
+                        this.copyInfo(launchToolbar.config.folderPath);
+                        break;
+                    case (classText.indexOf('webIDtext') > -1):
+                        this.copyInfo(this.webIDtext);
+                        break;
+                    case (classText.indexOf('Webnum') > -1):
+                        this.copyInfo(this.webnum);
+                        break;
+                    case (classText.indexOf('BACinfo') > -1):
+                        launchToolbar.config.$BACtable.toggle(1000);
+                        break;
+                    default:
+                        console.log('nothing copied');
+                }
             },
-            hideBox: function () {
-                _0x25B33.config.$uiBox.animate({
-                    width: "\x31\x35\x30\x70\x78"
-                }, "\x73\x6C\x6F\x77")
-            },
-            clipboardLinkCopy: function (_0x25C43) {
-                var $clickedElement = jQuery(_0x25C43.delegateTarget),
-                    _0x25C32 = $clickedElement.attr("\x63\x6C\x61\x73\x73");
-                switch (_0x25C43.which === 3) {
-                    case (_0x25C32.indexOf("\x6C\x69\x76\x65\x53\x69\x74\x65") > -1):
-                        this.copyInfo($clickedElement.attr("\x68\x72\x65\x66"));
+            clipboardLinkCopy: function (event) {
+                var $clickedElement = jQuery(event.delegateTarget),
+                    classText = $clickedElement.attr('class');
+
+                switch (true) {
+                    case (event.which === 1):
+                        return;
+                    case (event.which === 3 || classText.indexOf('liveSite') >= 0):
+                        console.log('liveSite switch case');
+                        this.copyInfo($clickedElement.attr('href'));
                         break;
-                    case (_0x25C32.indexOf("\x70\x72\x6F\x6F\x66\x53\x69\x74\x65") > -1):
-                        this.copyInfo($clickedElement.attr("\x68\x72\x65\x66"));
+                    case (event.which === 3 || classText.indexOf('proofSite') > -1):
+                        console.log('proofSite switch case');
+                        this.copyInfo($clickedElement.attr('href'));
                         break;
-                    case (_0x25C32.indexOf("\x77\x69\x70\x53\x69\x74\x65") > -1):
-                        this.copyInfo($clickedElement.attr("\x68\x72\x65\x66"));
+                    case (event.which === 3 || classText.indexOf('wipSite') > -1):
+                        console.log('wipSite switch case');
+                        this.copyInfo($clickedElement.attr('href'));
                         break;
-                    case (_0x25C32.indexOf("\x6C\x61\x75\x6E\x63\x68\x4F\x77\x6E\x65\x72") > -1):
+                    case (event.which === 3 || classText.indexOf('launchOwner') > -1):
+                        console.log('launchOwner switch case');
                         this.copyInfo(this.launchOwnerText);
                         break;
                     default:
-                        console.log("\x6E\x6F\x74\x68\x69\x6E\x67\x20\x63\x6F\x70\x69\x65\x64")
+                        console.log('nothing copied');
                 }
-            },
-            clipboardCopy: function (_0x25C43) {
-                var $clickedElement = jQuery(_0x25C43.delegateTarget),
-                    _0x25C32 = $clickedElement.attr("\x63\x6C\x61\x73\x73");
-                switch (true) {
-                    case (_0x25C32.indexOf("\x69\x64\x43\x6F\x6D\x62\x6F") > -1):
-                        this.copyInfo(this.comboID);
-                        break;
-                    case (_0x25C32.indexOf("\x6C\x61\x75\x6E\x63\x68\x49\x44") > -1):
-                        this.copyInfo(this.launchID);
-                        break;
-                    case (_0x25C32.indexOf("\x63\x6F\x70\x79\x57\x65\x62\x69\x64") > -1):
-                        this.copyInfo(this.webID);
-                        break;
-                    case (_0x25C32.indexOf("\x61\x63\x63\x6F\x75\x6E\x74\x4E\x61\x6D\x65") > -1):
-                        this.copyInfo(this.accountName);
-                        break;
-                    case (_0x25C32.indexOf("\x63\x6F\x70\x79\x46\x6F\x6C\x64\x65\x72\x50\x61\x74\x68") > -1):
-                        this.copyInfo(_0x25B33.config.folderPath);
-                        break;
-                    case (_0x25C32.indexOf("\x77\x65\x62\x49\x44\x74\x65\x78\x74") > -1):
-                        this.copyInfo(this.webIDtext);
-                        break;
-                    case (_0x25C32.indexOf("\x57\x65\x62\x6E\x75\x6D") > -1):
-                        this.copyInfo(this.webnumText);
-                        break;
-                    case (_0x25C32.indexOf("\x42\x41\x43\x69\x6E\x66\x6F") > -1):
-                        _0x25B33.config.$BACtable.toggle(1000);
-                        break;
-                    default:
-                        console.log("\x6E\x6F\x74\x68\x69\x6E\x67\x20\x63\x6F\x70\x69\x65\x64")
-                }
-            },
-            getChecked: function (_0x25C65) {
-                var _0x25C54 = getValue(_0x25C65);
-                return _0x25C54
             },
             flipTheSwitch: function () {
-                this.platformSelector = !this.getChecked("\x70\x6C\x61\x74\x66\x6F\x72\x6D\x53\x65\x6C\x65\x63\x74\x6F\x72");
+                // set saved variable to opposite of current value
+                this.platformSelector = !this.getChecked('platformSelector');
                 this.setChecked(this.platformSelector);
-                this.switchPlatform()
+                // set toggle
+                this.switchPlatform();
             },
-            copyInfo: function (_0x25C87) {
-                var $display = jQuery("\x3C\x64\x69\x76\x3E").css({
-                    display: "\x6E\x6F\x6E\x65"
+            // ----------------------------------------
+            // tier 3
+            // ----------------------------------------
+            copyInfo: function (variable) {
+                var $display = jQuery('<div>').css({
+                    display: 'none'
                 });
-                GM_setClipboard(_0x25C87, "\x74\x65\x78\x74");
-                $display.text("\x43\x4F\x50\x49\x45\x44\x20" + _0x25C87);
-                _0x25B33.config.$dynoDisplay.toggle().append($display);
+                GM_setClipboard(variable, 'text');
+                $display.text('COPIED ' + variable);
+                launchToolbar.config.$dynoDisplay.toggle().append($display);
                 $display.slideToggle(500).delay(3000).slideToggle(500, function () {
                     $display.remove();
-                    _0x25B33.config.$dynoDisplay.toggle()
-                })
+                    launchToolbar.config.$dynoDisplay.toggle();
+                });
             },
-            setChecked: function (_0x25C98) {
-                setValue("\x70\x6C\x61\x74\x66\x6F\x72\x6D\x53\x65\x6C\x65\x63\x74\x6F\x72", _0x25C98)
+            getChecked: function (variableName) {
+                // grabs isNextGen value
+                var a = getValue(variableName);
+                return a;
+            },
+            setChecked: function (bool) {
+                // sets isNextGen value
+                setValue('platformSelector', bool);
             }
         },
-        _0x25B22 = {
+        getBAC = {
             init: function () {
-                this.getBAC()
+                this.getBAC();
             },
-            cacheDOM: function () {},
             getBAC: function () {
-                var _0x25CDC = "\x6A\x5F\x69\x64\x30\x5F\x6A\x5F\x69\x64\x35\x5F",
-                    _0x25CFE = "\x5F\x30\x30\x4E\x34\x30\x30\x30\x30\x30\x30\x32\x61\x55\x35\x37",
-                    _0x25D31 = window.location.href,
-                    _0x25CED = "\x5F\x62\x6F\x64\x79",
-                    _0x25D20 = "\x69\x64\x3D",
-                    _0x25BCC = "\x42\x53\x43\x74\x61\x62\x6C\x65",
-                    _0x25CCB = jQuery("\x23\x61\x63\x63\x32\x6A\x5F\x69\x64\x30\x5F\x6A\x5F\x69\x64\x35\x5F\x69\x6C\x65\x69\x6E\x6E\x65\x72").text(),
-                    _0x25CBA, _0x25D64, _0x25D53, _0x25D42, _0x25D0F, $BACbody, _0x25BAA;
-                setValue(_0x25BCC, false);
-                setValue("\x61\x63\x63\x6F\x75\x6E\x74\x4E\x61\x6D\x65", false);
-                _0x25BAA = jQuery.trim(_0x25CCB.slice(0, _0x25CCB.indexOf("\x5B")));
-                _0x25D42 = _0x25D31.indexOf(_0x25D20) + _0x25D20.length;
-                _0x25D0F = _0x25D31.indexOf("\x26");
-                _0x25CBA = _0x25D31.slice(_0x25D42, _0x25D0F);
-                _0x25D64 = "\x23" + _0x25CDC + "" + _0x25CBA + "" + _0x25CFE;
-                while ((getValue(_0x25BCC) === "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64" || getValue(_0x25BCC) === false) || (getValue("\x61\x63\x63\x6F\x75\x6E\x74\x4E\x61\x6D\x65") === "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64" || getValue("\x61\x63\x63\x6F\x75\x6E\x74\x4E\x61\x6D\x65") === false)) {
-                    console.log("\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x31\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D");
-                    _0x25D53 = _0x25D64 + _0x25CED;
-                    $BACbody = jQuery(_0x25D53);
-                    setValue(_0x25BCC, $BACbody.html());
-                    setValue("\x61\x63\x63\x6F\x75\x6E\x74\x4E\x61\x6D\x65", _0x25BAA)
-                };
-                if (getValue(_0x25BCC) != "\x75\x6E\x64\x65\x66\x69\x6E\x65\x64" || getValue(_0x25BCC)) {
-                    window.close()
+
+                var beginning = 'j_id0_j_id5_',
+                    end = '_00N40000002aU57',
+                    location = window.location.href,
+                    body = '_body',
+                    findID = 'id=',
+                    BACvariable = 'BSCtable',
+                    accountNameText = jQuery('#acc2j_id0_j_id5_ileinner').text(),
+                    accountID, tableID, tableBody, startLocation, endLocation, $BACbody, accountName;
+
+                // reset value
+                setValue(BACvariable, false);
+                setValue('accountName', false);
+
+                accountName = jQuery.trim(accountNameText.slice(0, accountNameText.indexOf('[')));
+
+                // search url for account id
+                startLocation = location.indexOf(findID) + findID.length;
+                endLocation = location.indexOf('&');
+                accountID = location.slice(startLocation, endLocation);
+                tableID = '#' + beginning + '' + accountID + '' + end;
+
+                while ((getValue(BACvariable) === 'undefined' || getValue(BACvariable) === false) || (getValue('accountName') === 'undefined' || getValue('accountName') === false)) {
+                    tableBody = tableID + body;
+                    $BACbody = jQuery(tableBody);
+                    setValue(BACvariable, $BACbody.html());
+                    setValue('accountName', accountName);
+                }
+                if (getValue(BACvariable) != 'undefined' || getValue(BACvariable)) {
+                    window.close();
                 }
             }
         };
-    if (window.location.hostname === "\x63\x64\x6B\x2E\x6D\x79\x2E\x73\x61\x6C\x65\x73\x66\x6F\x72\x63\x65\x2E\x63\x6F\x6D") {
-        _0x25B33.init()
-    };
-    if (window.location.hostname === "\x63\x64\x6B\x2D\x2D\x63\x2E\x6E\x61\x32\x37\x2E\x76\x69\x73\x75\x61\x6C\x2E\x66\x6F\x72\x63\x65\x2E\x63\x6F\x6D") {
-        _0x25B22.init()
+
+
+    if (window.location.hostname === 'cdk.my.salesforce.com') {
+        launchToolbar.init();
     }
-})()
+
+    // ----------------------------------------
+    if (window.location.hostname === 'cdk--c.na27.visual.force.com') {
+        getBAC.init();
+    }
+    // ----------------------------------------
+
+})();
