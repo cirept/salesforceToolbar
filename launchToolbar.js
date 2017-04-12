@@ -1,5 +1,4 @@
 /*global jQuery, window, setTimeout, GM_setClipboard, GM_openInTab, GM_setValue, GM_getValue, GM_info */
-1
 // Tampermonkey functions
 
 function openInTab(url) {
@@ -176,8 +175,8 @@ function getValue(variable) {
                     $clickMe: jQuery('<div>').attr({
                         class: 'BACinfo'
                     }).css({
-                        display: 'none',
-                    }),
+                        //                        display: 'none',
+                    }).text('Content Loading'),
                     $BACtable: jQuery('<div>').css({
                         display: 'none',
                         position: 'absolute',
@@ -524,11 +523,12 @@ function getValue(variable) {
                         console.log('content loaded');
                         launchToolbar.config.$BACtable.html(BACtableData);
                         setTimeout(function () {
-                            launchToolbar.config.$clickMe.text('Click for ' + accountName + ' Info');
-                            launchToolbar.config.$clickMe.toggle(500);
+                            launchToolbar.config.$clickMe.fadeOut(200, function () {
+                                launchToolbar.config.$clickMe.text('Click for ' + accountName + ' Info').fadeIn(200);
+                            });
                         });
                     }
-                }, 4000);
+                }, 6000);
 
             },
             // ----------------------------------------
@@ -632,7 +632,7 @@ function getValue(variable) {
                 this.getBAC();
             },
             getBAC: function () {
-
+                console.log('function run');
                 setTimeout(function () {
 
                     var beginning = 'j_id0_j_id5_',
@@ -671,10 +671,11 @@ function getValue(variable) {
                         }
                     }
                     if (getValue(BACvariable) !== 'undefined' || getValue(BACvariable)) {
-                        window.close();
+                        //                        window.close();
+                        console.log('window is okay to close');
                     }
 
-                }, 2000);
+                }, 5000);
             }
         };
 
