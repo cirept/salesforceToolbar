@@ -512,6 +512,8 @@ function getValue(variable) {
                 setTimeout(function () {
                     accountName = getValue('accountName'); //,
                     BACtableData = getValue(BACvariable);
+                    console.log(accountName);
+                    console.log(BACtableData);
                     if (BACtableData === 'undefined' || BACtableData === false || accountName === 'undefined' || accountName === false) {
                         // if table is empty
                         console.log('table is empty, running again');
