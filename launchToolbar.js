@@ -1,5 +1,5 @@
 /*global jQuery, window, setTimeout, GM_setClipboard, GM_openInTab, GM_setValue, GM_getValue, GM_info */
-
+1
 // Tampermonkey functions
 
 function openInTab(url) {
