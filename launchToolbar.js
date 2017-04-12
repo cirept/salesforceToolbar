@@ -671,8 +671,8 @@ function getValue(variable) {
                         }
                     }
                     if (getValue(BACvariable) !== 'undefined' || getValue(BACvariable)) {
-                        //                        window.close();
-                        console.log('window is okay to close');
+                        window.close();
+                        //                        console.log('window is okay to close');
                     }
 
                 }, 5000);
