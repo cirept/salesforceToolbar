@@ -1,11 +1,12 @@
-/*global jQuery, window, setTimeout, GM_setClipboard, GM_openInTab, GM_setValue, GM_getValue, GM_info */
+/*global jQuery, window, setTimeout, GM_setClipboard, GM_openInTab, GM_setValue, GM_getValue, GM_info, setInterval, clearInterval */
 // Tampermonkey functions
 
 function openInTab(url) {
-    GM_openInTab(url, 'insert');
+    GM_openInTab(url);
 }
 
 function setValue(variable, val) {
+    console.log('set value of "' + variable + '" to ' + val);
     GM_setValue(variable, val);
 }
 
@@ -488,7 +489,11 @@ function getValue(variable) {
                 }).text(this.platformSelector ? 'NEXTGEN' : 'TETRA');
             },
             startTool: function () {
-                var $funcButts = jQuery('.funcButtons');
+                var $funcButts = jQuery('.funcButtons'),
+                    BACvariable = 'BSCtable';
+
+                setValue('accountName', false); //,
+                setValue(BACvariable, false);
 
                 setTimeout(function () {
                     $funcButts.toggle();
@@ -506,31 +511,83 @@ function getValue(variable) {
             BACtable: function () {
                 var BACvariable = 'BSCtable',
                     accountName, BACtableData, // = getValue('accountName'); //,
-                    self = this;
+                    self = this,
+                    dataGathered = false,
+                    attempts = 1,
+                    gatherInfo;
 
                 setTimeout(function () {
-                    accountName = getValue('accountName'); //,
-                    BACtableData = getValue(BACvariable);
-                    console.log(accountName);
-                    console.log(BACtableData);
-                    if (BACtableData === 'undefined' || BACtableData === false || accountName === 'undefined' || accountName === false) {
-                        // if table is empty
-                        console.log('table is empty, running again');
-                        //                    getBAC.init();
-                        self.BACtable();
-                    } else {
-                        // if table is not empty
-                        console.log('content loaded');
-                        launchToolbar.config.$BACtable.html(BACtableData);
-                        setTimeout(function () {
+                    //                    accountName = getValue('accountName'); //,
+                    //                    BACtableData = getValue(BACvariable);
+                    //                    console.log(accountName);
+                    //                    console.log(BACtableData);
+
+
+                    /// set interval start
+
+                    gatherInfo = setInterval(function () {
+                        accountName = getValue('accountName'); //,
+                        BACtableData = getValue(BACvariable);
+                        console.log(accountName);
+                        console.log(BACtableData);
+
+                        if (BACtableData === 'undefined' || BACtableData === false || accountName === 'undefined' || accountName === false) {
+                            // if table is empty
+                            console.log('attempt ' + attempts);
+                            console.log('table is empty, running again');
+                            //                    getBAC.init();
+                            attempts += 1;
+
+                            if (attempts === 10) {
+                                clearInterval(gatherInfo);
+                            } //else {
+                            //                                self.BACtable();
+                            //                            }
+                        } else {
+                            dataGathered = true;
+                            // if table is not empty
+                            console.log('content loaded');
+                            launchToolbar.config.$BACtable.html(BACtableData);
+                            //                            setTimeout(function () {
+                            //                            this.fadeText(accountName);
                             launchToolbar.config.$clickMe.fadeOut(200, function () {
                                 launchToolbar.config.$clickMe.text('Click for ' + accountName + ' Info').fadeIn(200);
                             });
-                        });
-                    }
-                }, 6000);
+                            clearInterval(gatherInfo);
+                            //                                launchToolbar.config.$clickMe.fadeOut(200, function () {
+                            //                                    launchToolbar.config.$clickMe.text('Click for ' + accountName + ' Info').fadeIn(200);
+                            //                                });
+                            //                            });
+                        }
+                    }, 2000);
 
+                    // set interval end
+
+                    //                    while (!dataGathered) {
+
+                    //                    }
+                    //                    if (BACtableData === 'undefined' || BACtableData === false || accountName === 'undefined' || accountName === false) {
+                    //                        // if table is empty
+                    //                        console.log('table is empty, running again');
+                    //                        //                    getBAC.init();
+                    //                        self.BACtable();
+                    //                    } else {
+                    //                        // if table is not empty
+                    //                        console.log('content loaded');
+                    //                        launchToolbar.config.$BACtable.html(BACtableData);
+                    //                        setTimeout(function () {
+                    //                            launchToolbar.config.$clickMe.fadeOut(200, function () {
+                    //                                launchToolbar.config.$clickMe.text('Click for ' + accountName + ' Info').fadeIn(200);
+                    //                            });
+                    //                        });
+                    //                    }
+                }, 2000);
             },
+            //            fadeText: function (accountName) {
+            //                launchToolbar.config.$clickMe.fadeOut(200, function () {
+            //                    launchToolbar.config.$clickMe.text('Click for ' + accountName + ' Info').fadeIn(200);
+            //                });
+            //            },
             // ----------------------------------------
             // TIER 2
             // ----------------------------------------
@@ -632,50 +689,82 @@ function getValue(variable) {
                 this.getBAC();
             },
             getBAC: function () {
-                console.log('function run');
-                setTimeout(function () {
+                var BACvariable = 'BSCtable',
+                    findID = 'id=',
+                    counter = 0,
+                    gatherData, accountID, tableID, tableBody, startLocation, endLocation, $BACbody, accountName;
 
-                    var beginning = 'j_id0_j_id5_',
-                        end = '_00N40000002aU57',
+                // reset value
+                setValue(BACvariable, false);
+                setValue('accountName', false);
+
+                //                console.log('function run');
+
+                // set interval start
+
+                gatherData = setInterval(function () {
+
+                    var //beginning = 'j_id0_j_id5_',
+                        //end = '_00N40000002aU57',
                         location = window.location.href,
-                        body = '_body',
-                        findID = 'id=',
-                        BACvariable = 'BSCtable',
-                        accountNameText = jQuery('#acc2j_id0_j_id5_ileinner').text(),
-                        accountID, tableID, tableBody, startLocation, endLocation, $BACbody, accountName;
+                        //body = '_body',
+                        //                        findID = 'id=',
+                        accountNameText = jQuery('#acc2j_id0_j_id5_ileinner').text();
 
-                    // reset value
-                    setValue(BACvariable, false);
-                    setValue('accountName', false);
+                    //                    console.log(location);
+                    //                    console.log(location.indexOf('cdk--c.na27.visual.force.com') > -1);
 
-                    accountName = jQuery.trim(accountNameText.slice(0, accountNameText.indexOf('[')));
+                    if (location.indexOf('cdk--c.na27.visual.force.com') > -1) {
+                        accountName = jQuery.trim(accountNameText.slice(0, accountNameText.indexOf('[')));
 
-                    // search url for account id
-                    startLocation = location.indexOf(findID) + findID.length;
-                    endLocation = location.indexOf('&');
-                    accountID = location.slice(startLocation, endLocation);
-                    tableID = '#' + beginning + '' + accountID + '' + end;
+                        // search url for account id
+                        startLocation = location.indexOf(findID) + findID.length;
+                        endLocation = location.indexOf('&');
+                        accountID = location.slice(startLocation, endLocation);
+                        tableID = '#' + 'j_id0_j_id5_' + '' + accountID + '' + '_00N40000002aU57';
 
-                    while ((getValue(BACvariable) === 'undefined' || getValue(BACvariable) === false) || (getValue('accountName') === 'undefined' || getValue('accountName') === false)) {
-                        var counter = 0;
+                        //                        while ((getValue(BACvariable) === 'undefined' || getValue(BACvariable) === false) || (getValue('accountName') === 'undefined' || getValue('accountName') === false)) {
+                        //                            var counter = 0;
                         console.log('get BAC');
-                        tableBody = tableID + body;
+                        tableBody = tableID + '_body';
                         $BACbody = jQuery(tableBody);
                         setValue(BACvariable, $BACbody.html());
                         setValue('accountName', accountName);
 
                         counter += 1;
-                        if (counter === 6) {
-                            console.log('data not gathered');
-                            break;
+                        console.log(counter);
+                        //                            if (counter === 6) {
+                        //                                console.log('data not gathered');
+                        //                                break;
+                        //                            }
+                        //                        }
+                        //                        if (getValue(BACvariable) !== 'undefined' || getValue(BACvariable)) {
+
+                        if (counter === 10) {
+                            console.log('counter limit reached');
+                            clearInterval(gatherData);
+                        }
+
+                        //                        console.log((getValue(BACvariable) !== false));
+                        //                        console.log((getValue('accountName') !== false));
+
+                        if (getValue(BACvariable) !== false && getValue('accountName') !== false) {
+                            //                            clearInterval(gatherData);
+                            //                            window.close();
+
+                            //                            console.log(getValue(BACvariable, $BACbody.html()));
+                            //                            console.log(getValue('accountName', accountName));
+
+                            console.log('window is okay to close');
+                            clearInterval(gatherData);
+                            window.close();
                         }
                     }
-                    if (getValue(BACvariable) !== 'undefined' || getValue(BACvariable)) {
-                        window.close();
-                        //                        console.log('window is okay to close');
-                    }
 
-                }, 5000);
+                }, 1000);
+
+                //                console.log('window okay to close');
+
             }
         };
 
