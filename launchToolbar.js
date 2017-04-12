@@ -631,43 +631,48 @@ function getValue(variable) {
             },
             getBAC: function () {
 
-                var beginning = 'j_id0_j_id5_',
-                    end = '_00N40000002aU57',
-                    location = window.location.href,
-                    body = '_body',
-                    findID = 'id=',
-                    BACvariable = 'BSCtable',
-                    accountNameText = jQuery('#acc2j_id0_j_id5_ileinner').text(),
-                    accountID, tableID, tableBody, startLocation, endLocation, $BACbody, accountName;
+                setTimeout(function () {
 
-                // reset value
-                setValue(BACvariable, false);
-                setValue('accountName', false);
+                    var beginning = 'j_id0_j_id5_',
+                        end = '_00N40000002aU57',
+                        location = window.location.href,
+                        body = '_body',
+                        findID = 'id=',
+                        BACvariable = 'BSCtable',
+                        accountNameText = jQuery('#acc2j_id0_j_id5_ileinner').text(),
+                        accountID, tableID, tableBody, startLocation, endLocation, $BACbody, accountName;
 
-                accountName = jQuery.trim(accountNameText.slice(0, accountNameText.indexOf('[')));
+                    // reset value
+                    setValue(BACvariable, false);
+                    setValue('accountName', false);
 
-                // search url for account id
-                startLocation = location.indexOf(findID) + findID.length;
-                endLocation = location.indexOf('&');
-                accountID = location.slice(startLocation, endLocation);
-                tableID = '#' + beginning + '' + accountID + '' + end;
+                    accountName = jQuery.trim(accountNameText.slice(0, accountNameText.indexOf('[')));
 
-                while ((getValue(BACvariable) === 'undefined' || getValue(BACvariable) === false) || (getValue('accountName') === 'undefined' || getValue('accountName') === false)) {
-                    var counter = 0;
-                    console.log('get BAC');
-                    tableBody = tableID + body;
-                    $BACbody = jQuery(tableBody);
-                    setValue(BACvariable, $BACbody.html());
-                    setValue('accountName', accountName);
+                    // search url for account id
+                    startLocation = location.indexOf(findID) + findID.length;
+                    endLocation = location.indexOf('&');
+                    accountID = location.slice(startLocation, endLocation);
+                    tableID = '#' + beginning + '' + accountID + '' + end;
 
-                    counter += 1;
-                    if (counter === 6) {
-                        break;
+                    while ((getValue(BACvariable) === 'undefined' || getValue(BACvariable) === false) || (getValue('accountName') === 'undefined' || getValue('accountName') === false)) {
+                        var counter = 0;
+                        console.log('get BAC');
+                        tableBody = tableID + body;
+                        $BACbody = jQuery(tableBody);
+                        setValue(BACvariable, $BACbody.html());
+                        setValue('accountName', accountName);
+
+                        counter += 1;
+                        if (counter === 6) {
+                            console.log('data not gathered');
+                            break;
+                        }
                     }
-                }
-                if (getValue(BACvariable) !== 'undefined' || getValue(BACvariable)) {
-                    window.close();
-                }
+                    if (getValue(BACvariable) !== 'undefined' || getValue(BACvariable)) {
+                        window.close();
+                    }
+
+                }, 2000);
             }
         };
 
