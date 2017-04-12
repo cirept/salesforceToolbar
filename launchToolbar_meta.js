@@ -16,6 +16,7 @@
 // @grant GM_setValue
 // @grant GM_getValue
 // @grant window.close
+// @grant window.focus
 // @grant GM_info
 // ==/UserScript==
 

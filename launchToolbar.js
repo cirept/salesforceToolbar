@@ -653,12 +653,13 @@ function getValue(variable) {
                 tableID = '#' + beginning + '' + accountID + '' + end;
 
                 while ((getValue(BACvariable) === 'undefined' || getValue(BACvariable) === false) || (getValue('accountName') === 'undefined' || getValue('accountName') === false)) {
+                    console.log('get BAC');
                     tableBody = tableID + body;
                     $BACbody = jQuery(tableBody);
                     setValue(BACvariable, $BACbody.html());
                     setValue('accountName', accountName);
                 }
-                if (getValue(BACvariable) != 'undefined' || getValue(BACvariable)) {
+                if (getValue(BACvariable) !== 'undefined' || getValue(BACvariable)) {
                     window.close();
                 }
             }
