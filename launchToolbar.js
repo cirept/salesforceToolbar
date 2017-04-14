@@ -1,4 +1,4 @@
-/*global jQuery, window, setTimeout, GM_setClipboard, GM_openInTab, GM_setValue, GM_getValue, GM_info, setInterval, clearInterval */
+/*global jQuery, window, setTimeout, GM_setClipboard, GM_openInTab, GM_setValue, GM_getValue, GM_info, setInterval, clearInterval, document */
 // Tampermonkey functions
 
 function openInTab(url) {
@@ -20,6 +20,10 @@ function getValue(variable) {
             init: function () {
                 this.createElements();
                 this.cacheDOM();
+
+                this.getEmail(); //test function
+                this.getLogURL(); //test function
+
                 this.buildWSMlink();
                 this.buildFolderPath();
                 this.openAccountInfoPage();
@@ -199,29 +203,42 @@ function getValue(variable) {
                     $platformToggle: jQuery('<div>').attr({
                         class: 'funcButtons platformToggle click-able',
                         title: 'Sets the platform that these --> links lead too'
-                    }).css({
+                    }).addClass('myClass').css({
                         float: 'right',
                         display: 'none'
                     }),
                     $toggleLabel: jQuery('<div>').css({
                         display: 'inline-block',
-                        'line-height': '30px',
-                        height: '30px',
-                        'font-weight': 'bold',
-                        'font-size': '12px'
-                    }).text('TETRA'),
+                        //                        'line-height': '30px',
+                        //                        height: '30px',
+                        //                        'font-weight': 'bold',
+                        //                        'font-size': '12px'
+                    }), //.addClass('myClass'), //.text('TETRA'),
+                    $arrowIcon: jQuery('<i>').attr({
+                        class: 'fa fa-angle-double-right fa-lg myClass',
+                        style: 'vertical-align: -1px; margin: 0px 0px 0px 5px;'
+                    }),
                     // toolbox version
                     $version: jQuery('<span>').text('version: ' + GM_info.script.version),
                     // email launch owner
-                    $emailOwner: jQuery('<a>').attr({
-                        title: 'Email Owner',
+                    //                    $emailOwner: jQuery('<a>').attr({
+                    //                        title: 'Email Owner (Opens in Default Mail Program)',
+                    //                        class: 'funcButtons myClass click-able'
+                    //                    }).css({
+                    //                        float: 'right'
+                    //                    }),
+                    //                    $mailIcon: jQuery('<i>').attr({
+                    //                        class: 'fa fa-envelope fa-lg myClass'
+                    //                    }).prepend('O'),
+                    $salesforceEmailOwner: jQuery('<a>').attr({
+                        title: 'Email Owner (Opens in a New Tab)',
                         class: 'funcButtons myClass click-able'
                     }).css({
                         float: 'right'
                     }),
-                    $mailIcon: jQuery('<i>').attr({
-                        class: 'fa fa-envelope fa-lg myClass'
-                    }),
+                    $salesforceEmailIcon: jQuery('<i>').attr({
+                        class: 'fa fa-envelope-o fa-lg myClass'
+                    }).prepend('SF'),
                     $howToGuide: jQuery('<a>').attr({
                         title: 'Info About Tool',
                         class: 'funcButtons myClass click-able'
@@ -230,7 +247,17 @@ function getValue(variable) {
                     }),
                     $howToIcon: jQuery('<i>').attr({
                         class: 'fa fa-question-circle-o fa-lg myClass'
-                    })
+                    }),
+                    //log call or chat
+                    $logActivity: jQuery('<a>').attr({
+                        title: 'Info About Tool',
+                        class: 'funcButtons myClass click-able'
+                    }).css({
+                        float: 'right'
+                    }),
+                    $logActivityIcon: jQuery('<i>').attr({
+                        class: 'fa fa-edit fa-lg myClass'
+                    }).prepend('LOG')
                 };
             },
             cacheDOM: function () {
@@ -239,19 +266,26 @@ function getValue(variable) {
                     background: 'rgb(255, 0, 0)',
                     color: 'white',
                     display: 'table'
-                });
+                }).addClass('myClass2');
                 this.launchID = this.$launchID.text(); // launch ID
+                console.log('this.launchID : ' + this.launchID);
+
                 this.$webID = jQuery('#CF00N40000002aUF9_ileinner a').css({
                     background: 'rgb(255, 20, 155)',
                     color: 'white'
-                });
+                }).addClass('myClass2');
                 this.webID = this.$webID.text(); // web id
+                console.log('this.webID : ' + this.webID);
+
+                this.launchSFID = window.location.pathname;
+                console.log('this.launchSFID : ' + this.launchSFID);
 
                 this.comboID = this.launchID + ' ' + this.webID; // combo id
                 this.$account = jQuery('#CF00N40000002aUDp_ileinner a').css({
                     background: 'rgb(110, 55, 215)',
                     color: 'white'
-                });
+                }).addClass('myClass2');
+
                 this.accountInfo = this.$account.attr('href'); // account info
                 this.accountName = this.$account.text(); // acount name
                 this.accountID = this.accountInfo.slice(1); // account id
@@ -259,27 +293,30 @@ function getValue(variable) {
                     background: 'rgb(180, 120, 120)',
                     color: 'white',
                     display: 'table'
-                });
+                }).addClass('myClass2');
                 this.webIDtext = this.$webIDtext.text(); // webid text
+
                 this.$webnum = jQuery('#00N40000002cgmd_ileinner').css({
                     background: 'rgb(219, 112, 147)',
                     color: 'white',
                     display: 'table'
-                });
+                }).addClass('myClass2');
                 this.webnum = this.$webnum.text(); // webnum
+
                 this.$proofDate = jQuery('#00N330000038W91_ileinner').css({
                     background: 'rgb(0, 100, 0)',
                     color: 'white',
                     display: 'table'
-                });
+                }).addClass('myClass2');
                 this.proofDateText = this.$proofDate.text(); // proof date
+
                 this.$launchDate = jQuery('#00N33000002yrbp_ileinner').css({
                     background: 'rgb(165, 115, 50)',
                     color: 'white',
                     display: 'table'
-                });
+                }).addClass('myClass2');
                 this.launchDateText = this.$launchDate.text(); // launch date
-                this.owner = jQuery('#Owner_ileinner').find('[id*="Owner"]').text(); // launch owner name
+
                 this.$builder = jQuery('#CF00N40000002aUE2_ileinner'); // builder
                 this.$body = jQuery('body'); // target body tag
                 this.$head = jQuery('head'); // target head tag
@@ -287,7 +324,73 @@ function getValue(variable) {
                 this.$launchOwner = jQuery('#Owner_ileinner a[id*="Owner"]').attr({
                     class: 'launchOwner'
                 });
+                //Launch owner hover info
+                this.launchMouseover = jQuery('#Owner_ileinner a[id*="Owner"]').attr('onmouseover');
+                this.launchOwnerID = this.$launchOwner.attr('href').slice(1); // launch owner ID
                 this.launchOwnerText = this.$launchOwner.text(); // launch owner
+
+
+
+            },
+            getEmail: function () {
+                var ajaxRequestURL = this.launchMouseover.split("'")[3],
+                    self = this, // can be re-written to loop through array to find info.
+                    emailAddress;
+
+                jQuery.ajax({
+                    url: ajaxRequestURL,
+                    context: document.body,
+                    success: function (data) {
+                        var trList = jQuery('<div>').html(data).find('.detailList').find('tr');
+                        emailAddress = jQuery(trList[1]).find('a').text();
+
+
+                        /// ----------------------------------------
+                        //build salesForce Link
+                        // add to url link
+                        // find id "a1E33000002eEQo_RelatedHistoryList"
+                        var id = self.launchSFID.slice(1) + '_RelatedHistoryList',
+                            emailLink = jQuery('#' + id).find('input[value="Send an Email"]').attr('onclick').split("'")[1];
+
+                        //                        console.log(email);
+                        //                console.log(jQuery('#' + id).find('input[value="Send an Email"]').attr('onclick').split("'")[1]);
+                        emailLink = emailLink + '&p24=' + emailAddress + '&p4=Jennifer.Walker@cdk.com;Erika.Myrick@cdk.com&p6=' + self.comboID;
+                        //                        emailLink = emailLink + '&p24=eric.tanaka@cdk.com&p4=Ian.Gahagan@cdk.com;jun.kim@cdk.com;jennifer.walker@cdk.com&p6=' + self.comboID;
+
+                        //                console.log(emailLink);
+                        launchToolbar.config.$salesforceEmailOwner.attr(({
+                            //                    href: encodeURI('mailto:' + emailAddress + '?cc=Jennifer.Walker@cdk.com&subject=' + self.comboID)
+                            href: encodeURI(emailLink),
+                            target: '_blank'
+                        }));
+                        //                        console.log('email link : ' + launchToolbar.config.$emailOwner.attr('href'));
+                        //                &p24='+emailAddress+'&p4=Jennifer.Walker%40cdk.com&p6='+self.comboID
+                        /// ----------------------------------------
+
+                        //build default email link
+                        //                        fa-envelope-o
+
+                        //                        launchToolbar.config.$emailOwner.attr(({
+                        //                            href: encodeURI('mailto:' + emailAddress + '?cc=Jennifer.Walker@cdk.com&subject=' + self.comboID)
+                        //                            //                    href: encodeURI(emailLink)
+                        //                        }));
+
+                    }
+                });
+
+                //                launchToolbar.config.$emailOwner.attr(({
+                //                    href: encodeURI('mailto:' + emailAddress + '?cc=Jennifer.Walker@cdk.com&subject=' + self.comboID)
+                //                    //                    href: encodeURI(emailLink)
+                //                }));
+
+            },
+            getLogURL: function () {
+                //Log note
+                //a1E33000002eDfr_RelatedHistoryList
+                var logID = this.launchSFID.replace('/', '#') + '_RelatedHistoryList';
+                console.log('logID : ' + logID);
+                var logURL = jQuery(logID).find('input[value="Log a Call"]').attr('onclick').split("'")[1];
+                console.log('logURL : ' + logURL);
             },
             buildWSMlink: function () {
                 var base = 'http://websites.cobalt.com/wsm/index.do?webId=',
@@ -343,7 +446,7 @@ function getValue(variable) {
                         break;
                     case 'lex':
                         oemPart = 'lexusdealer.com/';
-                        oem = 'lexus\\';
+                        oem = 'lexus';
                         break;
                     case 'k1ia':
                         oemPart = 'k1iadealer.com/';
@@ -356,11 +459,11 @@ function getValue(variable) {
                         break;
                     case 'motp':
                         oemPart = 'motorplace.com/';
-                        oem = 'motorplace\\';
+                        oem = 'motorplace';
                         break;
                     case 'hond':
                         oemPart = 'hondadealer.com/';
-                        oem = 'honda\\';
+                        oem = 'honda';
                         break;
                     case 'holden':
                         oemPart = 'gmholdendealer.com.au/';
@@ -373,7 +476,7 @@ function getValue(variable) {
                         break;
                     case 'toyd':
                         oemPart = 'toyotadealer.com/';
-                        oem = 'toyota\\';
+                        oem = 'toyota';
                         break;
                     case 'infiniti':
                         oemPart = 'infinitidealer.com/';
@@ -429,11 +532,13 @@ function getValue(variable) {
             addStyles: function () {
                 launchToolbar.config.$toolbarStyles
                     // general toolbox styles
-                    .append('.funcButtons { display: none; padding: 3px 15px 0; border-right: 1px rgb(0, 0, 0) solid; padding-top: 0px; } ')
+                    .append('.funcButtons { display: none; padding: 0px 15px; border-right: 1px rgb(0, 0, 0) solid; padding-top: 0px; } ')
                     .append('.click-able { cursor: pointer; } ')
                     .append('.myTitle { color: #000000; } ')
-                    .append('.listHoverLinks .linklet .count { font-size: 20px !important; } ')
+                    .append('.listHoverLinks { font-size: 1rem; } ')
+                    .append('.listHoverLinks .linklet .count { font-weight: bold; } ')
                     .append('.myClass { line-height: 30px;  height: 30px; } ')
+                    .append('.myClass2 { font-size: 1rem; } ')
                     .append('.myClass:hover { font-weight: bold; } ')
                     .append('.imp { float: left !important; } '); // end
             },
@@ -448,12 +553,15 @@ function getValue(variable) {
                 launchToolbar.config.$launchDate.append(this.launchDateText);
                 launchToolbar.config.$webIDtext.append(this.webIDtext);
                 launchToolbar.config.$BACinfo.append(launchToolbar.config.$clickMe);
-                launchToolbar.config.$platformToggle.append(launchToolbar.config.$toggleLabel);
-                launchToolbar.config.$emailOwner.append(launchToolbar.config.$mailIcon);
-                launchToolbar.config.$emailOwner.attr(({
-                    href: encodeURI('mailto:' + this.launchOwnerText.replace(' ', '.') + '@cdk.com' + '?cc=Jennifer.Walker@cdk.com&subject=' + this.comboID)
-                }));
+                launchToolbar.config.$platformToggle.append(launchToolbar.config.$toggleLabel).append(launchToolbar.config.$arrowIcon);
+                //                launchToolbar.config.$emailOwner.append(launchToolbar.config.$mailIcon);
+
+                launchToolbar.config.$salesforceEmailOwner.append(launchToolbar.config.$salesforceEmailIcon); //tester
+
                 launchToolbar.config.$howToGuide.append(launchToolbar.config.$howToIcon);
+
+                launchToolbar.config.$logActivity.append(launchToolbar.config.$logActivityIcon); //tester
+
                 launchToolbar.config.$uiBox.append(launchToolbar.config.$toggleOn)
                     .append(launchToolbar.config.$webIDtext)
                     .append(launchToolbar.config.$accountName)
@@ -468,13 +576,19 @@ function getValue(variable) {
                     .append(launchToolbar.config.$liveSite)
                     .append(launchToolbar.config.$platformToggle)
                     .append(launchToolbar.config.$EditLink)
-                    .append(launchToolbar.config.$emailOwner)
+                    //                    .append(launchToolbar.config.$emailOwner)
+
+                    .append(launchToolbar.config.$salesforceEmailOwner) //tester
+                    //                    .append(launchToolbar.config.$logActivity) //tester
+
                     .append(launchToolbar.config.$copyFolderPath)
                     .append(launchToolbar.config.$idCombo)
                     .append(launchToolbar.config.$importantInfo)
                     .append(launchToolbar.config.$dynoDisplay)
                     .append(launchToolbar.config.$BACinfo)
                     .append(launchToolbar.config.$BACtable);
+
+                jQuery(':last');
             },
             attachTool: function () {
                 this.$head.append(launchToolbar.config.$toolbarStyles);
@@ -492,7 +606,7 @@ function getValue(variable) {
                 var $funcButts = jQuery('.funcButtons'),
                     BACvariable = 'BSCtable';
 
-                setValue('accountName', false); //,
+                setValue('accountName', false);
                 setValue(BACvariable, false);
 
                 setTimeout(function () {
@@ -510,84 +624,38 @@ function getValue(variable) {
             },
             BACtable: function () {
                 var BACvariable = 'BSCtable',
-                    accountName, BACtableData, // = getValue('accountName'); //,
-                    self = this,
+                    accountName, BACtableData,
                     dataGathered = false,
                     attempts = 1,
                     gatherInfo;
 
                 setTimeout(function () {
-                    //                    accountName = getValue('accountName'); //,
-                    //                    BACtableData = getValue(BACvariable);
-                    //                    console.log(accountName);
-                    //                    console.log(BACtableData);
-
-
                     /// set interval start
-
                     gatherInfo = setInterval(function () {
-                        accountName = getValue('accountName'); //,
+                        accountName = getValue('accountName');
                         BACtableData = getValue(BACvariable);
-                        console.log(accountName);
-                        console.log(BACtableData);
 
                         if (BACtableData === 'undefined' || BACtableData === false || accountName === 'undefined' || accountName === false) {
                             // if table is empty
-                            console.log('attempt ' + attempts);
-                            console.log('table is empty, running again');
-                            //                    getBAC.init();
                             attempts += 1;
 
                             if (attempts === 10) {
                                 clearInterval(gatherInfo);
-                            } //else {
-                            //                                self.BACtable();
-                            //                            }
+                            }
                         } else {
                             dataGathered = true;
                             // if table is not empty
                             console.log('content loaded');
                             launchToolbar.config.$BACtable.html(BACtableData);
-                            //                            setTimeout(function () {
-                            //                            this.fadeText(accountName);
                             launchToolbar.config.$clickMe.fadeOut(200, function () {
                                 launchToolbar.config.$clickMe.text('Click for ' + accountName + ' Info').fadeIn(200);
                             });
                             clearInterval(gatherInfo);
-                            //                                launchToolbar.config.$clickMe.fadeOut(200, function () {
-                            //                                    launchToolbar.config.$clickMe.text('Click for ' + accountName + ' Info').fadeIn(200);
-                            //                                });
-                            //                            });
                         }
-                    }, 2000);
+                    }, 2000); //set interval end
 
-                    // set interval end
-
-                    //                    while (!dataGathered) {
-
-                    //                    }
-                    //                    if (BACtableData === 'undefined' || BACtableData === false || accountName === 'undefined' || accountName === false) {
-                    //                        // if table is empty
-                    //                        console.log('table is empty, running again');
-                    //                        //                    getBAC.init();
-                    //                        self.BACtable();
-                    //                    } else {
-                    //                        // if table is not empty
-                    //                        console.log('content loaded');
-                    //                        launchToolbar.config.$BACtable.html(BACtableData);
-                    //                        setTimeout(function () {
-                    //                            launchToolbar.config.$clickMe.fadeOut(200, function () {
-                    //                                launchToolbar.config.$clickMe.text('Click for ' + accountName + ' Info').fadeIn(200);
-                    //                            });
-                    //                        });
-                    //                    }
-                }, 2000);
+                }, 2000); //set time out end
             },
-            //            fadeText: function (accountName) {
-            //                launchToolbar.config.$clickMe.fadeOut(200, function () {
-            //                    launchToolbar.config.$clickMe.text('Click for ' + accountName + ' Info').fadeIn(200);
-            //                });
-            //            },
             // ----------------------------------------
             // TIER 2
             // ----------------------------------------
@@ -630,21 +698,19 @@ function getValue(variable) {
                     classText = $clickedElement.attr('class');
 
                 switch (true) {
-                    case (event.which === 1):
-                        return;
-                    case (event.which === 3 || classText.indexOf('liveSite') >= 0):
+                    case (event.which === 3 && classText.indexOf('liveSite') >= 0):
                         console.log('liveSite switch case');
                         this.copyInfo($clickedElement.attr('href'));
                         break;
-                    case (event.which === 3 || classText.indexOf('proofSite') > -1):
+                    case (event.which === 3 && classText.indexOf('proofSite') > -1):
                         console.log('proofSite switch case');
                         this.copyInfo($clickedElement.attr('href'));
                         break;
-                    case (event.which === 3 || classText.indexOf('wipSite') > -1):
+                    case (event.which === 3 && classText.indexOf('wipSite') > -1):
                         console.log('wipSite switch case');
                         this.copyInfo($clickedElement.attr('href'));
                         break;
-                    case (event.which === 3 || classText.indexOf('launchOwner') > -1):
+                    case (event.which === 3 && classText.indexOf('launchOwner') > -1):
                         console.log('launchOwner switch case');
                         this.copyInfo(this.launchOwnerText);
                         break;
@@ -698,21 +764,11 @@ function getValue(variable) {
                 setValue(BACvariable, false);
                 setValue('accountName', false);
 
-                //                console.log('function run');
-
                 // set interval start
-
                 gatherData = setInterval(function () {
 
-                    var //beginning = 'j_id0_j_id5_',
-                        //end = '_00N40000002aU57',
-                        location = window.location.href,
-                        //body = '_body',
-                        //                        findID = 'id=',
+                    var location = window.location.href,
                         accountNameText = jQuery('#acc2j_id0_j_id5_ileinner').text();
-
-                    //                    console.log(location);
-                    //                    console.log(location.indexOf('cdk--c.na27.visual.force.com') > -1);
 
                     if (location.indexOf('cdk--c.na27.visual.force.com') > -1) {
                         accountName = jQuery.trim(accountNameText.slice(0, accountNameText.indexOf('[')));
@@ -723,8 +779,6 @@ function getValue(variable) {
                         accountID = location.slice(startLocation, endLocation);
                         tableID = '#' + 'j_id0_j_id5_' + '' + accountID + '' + '_00N40000002aU57';
 
-                        //                        while ((getValue(BACvariable) === 'undefined' || getValue(BACvariable) === false) || (getValue('accountName') === 'undefined' || getValue('accountName') === false)) {
-                        //                            var counter = 0;
                         console.log('get BAC');
                         tableBody = tableID + '_body';
                         $BACbody = jQuery(tableBody);
@@ -733,38 +787,20 @@ function getValue(variable) {
 
                         counter += 1;
                         console.log(counter);
-                        //                            if (counter === 6) {
-                        //                                console.log('data not gathered');
-                        //                                break;
-                        //                            }
-                        //                        }
-                        //                        if (getValue(BACvariable) !== 'undefined' || getValue(BACvariable)) {
 
                         if (counter === 10) {
                             console.log('counter limit reached');
                             clearInterval(gatherData);
                         }
 
-                        //                        console.log((getValue(BACvariable) !== false));
-                        //                        console.log((getValue('accountName') !== false));
-
                         if (getValue(BACvariable) !== false && getValue('accountName') !== false) {
-                            //                            clearInterval(gatherData);
-                            //                            window.close();
-
-                            //                            console.log(getValue(BACvariable, $BACbody.html()));
-                            //                            console.log(getValue('accountName', accountName));
-
                             console.log('window is okay to close');
                             clearInterval(gatherData);
                             window.close();
                         }
                     }
 
-                }, 1000);
-
-                //                console.log('window okay to close');
-
+                }, 1000); //set interval end
             }
         };
 
