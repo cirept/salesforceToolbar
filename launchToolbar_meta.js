@@ -18,6 +18,7 @@
 // @grant window.close
 // @grant window.focus
 // @grant GM_info
+// @noframes
 // ==/UserScript==
 
 ///////// TO ACTUALLY VIEW THE SUMMARY PAGE PLEASE DISABLED THE TOOLBAR
