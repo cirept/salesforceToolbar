@@ -20,7 +20,7 @@
 
 ---
 
-##Email Function
+## Email Function
 
 1. Click the Email icon
 
