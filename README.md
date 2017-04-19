@@ -20,6 +20,19 @@
 
 ---
 
+## Don't Have Tampermonkey Installed???
+
+1. Open this link in a new tab<br>
+https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en
+
+2. Click the '+ ADD TO CHROME' button
+
+3. Click 'Add Extension' on the pop-up.
+
+### WOOHOO You installed Tampermonkey!
+
+---
+
 ## Email Function
 
 1. Click the Email icon
@@ -38,16 +51,3 @@
 6. Close the tab.
 
 7. DONE!
-
----
-
-## Don't Have Tampermonkey Installed???
-
-1. Open this link in a new tab<br>
-https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en
-
-2. Click the '+ ADD TO CHROME' button
-
-3. Click 'Add Extension' on the pop-up.
-
-### WOOHOO You installed Tampermonkey!
