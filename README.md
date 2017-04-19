@@ -18,6 +18,27 @@
 
 8. You're done!
 
+---
+
+Email Function
+1. Click the Email icon
+
+2. The email text areas will be filled out.
+    - To: (auto filled with owner email)
+    - CC: (auto filled with Jennifer W. and Erika M.)
+    - Subject:  (auto filled with Launch and Web-ID)
+    
+3. Fill out the body of the email.
+
+4. Press Send once email has been written.
+
+5. Please ignore the page that comes up once the email is sent.  (This is due to the custom URL that was used to pre-fill the email areas.)
+
+6. Close the tab.
+
+7. DONE!
+
+---
 
 ## Don't Have Tampermonkey Installed???
 
