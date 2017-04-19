@@ -20,7 +20,8 @@
 
 ---
 
-Email Function
+##Email Function
+
 1. Click the Email icon
 
 2. The email text areas will be filled out.
