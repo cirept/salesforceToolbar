@@ -21,10 +21,9 @@ header h1 {
   width: 790px;
 }
 
-nav,
-footer {
+nav {
  width: 300px;
-  left: 43%;
+ left: 43%;
 }
 
 section {
@@ -32,7 +31,8 @@ section {
 }
 
 footer {
- margin-left: -580px; 
+  margin-left: -580px; 
+  width: 300px;
 }
 
 #banner {
