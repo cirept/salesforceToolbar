@@ -13,6 +13,10 @@ header {
   background: linear-gradient(to left, #56B4D3, #348F50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+header h1 {
+ font-family: inherit; 
+}
+
 .wrapper {
   width: 790px;
 }
