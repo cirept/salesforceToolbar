@@ -37,17 +37,45 @@ https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldm
 
 1. Click the Email icon
 
-2. The email text areas will be filled out.
-    - To: (auto filled with owner email)
-    - CC: (auto filled with Jennifer W. and Erika M.)
+2. A new tab will open with the Salesforce 'Send an Email' page
+
+3. The email text areas will be filled out.
+    - To:   (auto filled with owner email)
+    - CC:   (auto filled with Jennifer W. and Erika M.)
     - Subject:  (auto filled with Launch and Web-ID)
     
 3. Fill out the body of the email.
 
-4. Press Send once email has been written.
+4. Press 'Send' once your email has been written.
 
-5. Please ignore the page that comes up once the email is sent.  (This is due to the custom URL that was used to pre-fill the email areas.)
+5. A 'url no longer exists' page will appear.
 
 6. Close the tab.
 
 7. DONE!
+
+---
+
+## Log a Chat / Call
+
+1. Click the Log Chat icon
+
+2. A new tab will open up with the Salesforce log page
+
+3. The 'contact' field will be filled out with launch owner's name
+
+4. Update the 'subject' field.  (Chat or Call)
+
+5. Update the 'type' field.  (Spoke To or Chat)
+
+6. Update the 'comments' field.
+
+7. Update the 'Attendees' field. (Internal)
+
+8. Click 'save'
+
+9. A 'url no longer exists' page will appear.
+
+10. Close the tab.
+
+11. DONE!
