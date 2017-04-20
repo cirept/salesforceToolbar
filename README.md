@@ -1,4 +1,4 @@
-## Welcome to the Launch Toolbar
+## How to Install Launch Toolbar
 
 1. Open this link in a new tab (ctrl+click the link)<br>
 [latest Tampermonkey Code Here](https://raw.githubusercontent.com/cirept/salesforceToolbar/master/launchToolbar_meta.js)
