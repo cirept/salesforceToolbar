@@ -84,7 +84,7 @@ https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldm
 
 ## Report Issues / Suggest Enhancements
 
-1. Open this link in a new tab
+1. Open this link in a new tab.<br>
 https://github.com/cirept/salesforceToolbar/issues
 
 2. Create a Github account.
