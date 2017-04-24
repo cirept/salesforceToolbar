@@ -16,7 +16,7 @@
 
 7. Save the code
 
-8. Please Read 'Email Function' 'and Log a Chat / Call'
+8. **Please Read 'Email Function' 'and Log a Chat / Call'**
 
 9. You're done!
 
