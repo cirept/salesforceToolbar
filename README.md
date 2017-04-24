@@ -58,6 +58,9 @@ https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldm
 
 ---
 
+# Tool Info
+
+
 ## Log a Chat / Call
 
 1. Click the Log Chat icon
