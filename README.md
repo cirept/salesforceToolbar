@@ -74,7 +74,7 @@ https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldm
 
 8. Click 'save'
 
-9. A 'url no longer exists' page will appear.
+9. <div style="color: red;">**A 'url no longer exists' page will appear.**</div>
 
 10. Close the tab.
 
