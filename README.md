@@ -51,7 +51,8 @@ https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldm
 4. Press 'Send' once your email has been written.
 
 5. **A 'url no longer exists' page will appear.**<br>
-![Error Page](https://github.com/cirept/salesforceToolbar/raw/master/assets/css/images/errorImage.png)
+![Error Page](https://github.com/cirept/salesforceToolbar/raw/master/assets/css/images/errorImage.png)<br>
+It's okay!  The email was sent successfully!
 
 6. Close the tab.
 
@@ -81,7 +82,8 @@ https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldm
 8. Click 'save'
 
 9. **A 'url no longer exists' page will appear.**<br>
-![Error Page](https://github.com/cirept/salesforceToolbar/raw/master/assets/css/images/errorImage.png)
+![Error Page](https://github.com/cirept/salesforceToolbar/raw/master/assets/css/images/errorImage.png)<br>
+It's okay!  The activity was logged succesfully!
 
 10. Close the tab.
 
