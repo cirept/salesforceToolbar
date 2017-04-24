@@ -16,9 +16,9 @@
 
 7. Save the code
 
-8. **Please Read '[Email Function](#email-function)' and '[Log a Chat / Call](#log-a-chat--call)'**
+8. Tool is ready for use!
 
-9. You're done!
+9. **Please Read '[Email Function](#email-function)' and '[Log a Chat / Call](#log-a-chat--call)'**
 
 ---
 
