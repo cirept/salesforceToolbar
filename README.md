@@ -16,7 +16,7 @@
 
 7. Save the code
 
-8. **Please Read '![Email Function](#email-function)' and ![Log a Chat / Call](#log-a-chat--call)'**
+8. **Please Read '[Email Function](#email-function)' and '[Log a Chat / Call](#log-a-chat--call)'**
 
 9. You're done!
 
