@@ -16,7 +16,9 @@
 
 7. Save the code
 
-8. You're done!
+8. Please Read 'Email Function' 'and Log a Chat / Call'
+
+9. You're done!
 
 ---
 
@@ -48,7 +50,7 @@ https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldm
 
 4. Press 'Send' once your email has been written.
 
-5. A 'url no longer exists' page will appear.
+5. **A 'url no longer exists' page will appear.**
 
 6. Close the tab.
 
@@ -74,7 +76,7 @@ https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldm
 
 8. Click 'save'
 
-9. <div style="color: red;">**A 'url no longer exists' page will appear.**</div>
+9. **A 'url no longer exists' page will appear.**
 
 10. Close the tab.
 
