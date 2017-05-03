@@ -40,7 +40,7 @@ https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldm
 1. Click the Email icon
 
 ~2. A new tab will open with the Salesforce 'Send an Email' page~<br>
-2. You will be lead to the 'Send Email' screen.
+**2. You will be lead to the 'Send Email' screen.**<br>
 
 3. The email text areas will be filled out.
     - To:   (auto filled with owner email)
@@ -57,7 +57,7 @@ It's okay!  The email was sent successfully!~<br>
 
 ~6. Close the tab.~
 
-5. DONE!  You will be redirected to the launch.
+**5. DONE!  You will be redirected to the launch.**<br>
 
 ---
 
@@ -69,7 +69,7 @@ It's okay!  The email was sent successfully!~<br>
 1. Click the Log Chat icon
 
 ~2. A new tab will open up with the Salesforce log page~<br>
-2. You will be lead to the 'Log Activity' screen.
+**2. You will be lead to the 'Log Activity' screen.**<br>
 
 3. The 'contact' field will be filled out with launch owner's name
 
@@ -89,7 +89,7 @@ It's okay!  The activity was logged succesfully!~<br>
 
 ~10. Close the tab.~
 
-9. DONE! You will be redirected to the launch.
+**9. DONE! You will be redirected to the launch.**<br>
 
 ---
 
