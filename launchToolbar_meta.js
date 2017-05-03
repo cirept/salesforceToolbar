@@ -6,8 +6,10 @@
 // @version 4.0
 // @run-at document-end
 // @downloadURL https://raw.githubusercontent.com/cirept/salesforceToolbar/master/launchToolbar_meta.js
-// @require https://use.fontawesome.com/3953f47d82.js
 // @require https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js
+// @resource fontAwe https://use.fontawesome.com/3953f47d82.js
+// @resource googFont https://fonts.googleapis.com/css?family=Raleway:600,900
+// @resource jqueryUI https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css
 // @require https://raw.githubusercontent.com/cirept/salesforceToolbar/v4.0/launchToolbar_release.js
 // @author cire
 // @grant unsafeWindow
@@ -17,9 +19,8 @@
 // @grant GM_getValue
 // @grant window.close
 // @grant window.focus
-// @grant GM_info
 // @grant GM_getResourceURL
+// @grant GM_info
+// @grant GM_listValues
 // @noframes
 // ==/UserScript==
-
-///////// TO ACTUALLY VIEW THE SUMMARY PAGE PLEASE DISABLED THE TOOLBAR
