@@ -53,11 +53,11 @@ https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldm
 
 ~5. **A 'url no longer exists' page will appear.**<br>
 ![Error Page](https://github.com/cirept/salesforceToolbar/raw/master/assets/css/images/errorImage.png)<br>
-It's okay!  The email was sent successfully!~
+It's okay!  The email was sent successfully!~<br>
 
 ~6. Close the tab.~
 
-7. DONE!  You will be redirected to the launch.
+5. DONE!  You will be redirected to the launch.
 
 ---
 
@@ -85,11 +85,11 @@ It's okay!  The email was sent successfully!~
 
 ~9. **A 'url no longer exists' page will appear.**<br>
 ![Error Page](https://github.com/cirept/salesforceToolbar/raw/master/assets/css/images/errorImage.png)<br>
-It's okay!  The activity was logged succesfully!~
+It's okay!  The activity was logged succesfully!~<br>
 
 ~10. Close the tab.~
 
-11. DONE! You will be redirected to the launch.
+9. DONE! You will be redirected to the launch.
 
 ---
 
