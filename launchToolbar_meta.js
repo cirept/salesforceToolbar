@@ -18,6 +18,7 @@
 // @grant window.close
 // @grant window.focus
 // @grant GM_info
+// @grant GM_getResourceURL
 // @noframes
 // ==/UserScript==
 
