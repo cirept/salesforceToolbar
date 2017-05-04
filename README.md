@@ -109,3 +109,16 @@ https://github.com/cirept/salesforceToolbar/issues
 6. Click 'submit new issue'
 
 7. Done!
+
+---
+
+## Change Log
+
+### 5/4/2017
+1. Settings added to tool
+    - Coloring of launch feilds
+    - Font re-sizing
+    
+2. Added "Account Number" to tool
+
+3. Made "Email" and "Log Activity" open in current window.
