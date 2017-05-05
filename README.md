@@ -49,6 +49,14 @@ https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldm
     
 3. Fill out the body of the email.
 
+5. Just fill in the body of your email, SalesForce will auto append your signature settings made through SalesForce : My Settings.
+    - If not set up yet.
+        - [Link to SalesForce Settings](https://cdk.my.salesforce.com/ui/setup/Setup?setupid=PersonalSetup)
+        - "email" link (left menu)
+        - My Email Settings
+        - Update Your Email Settings
+        - Save
+
 4. Press 'Send' once your email has been written.
 
 5. DONE!  You will be redirected to the launch.
