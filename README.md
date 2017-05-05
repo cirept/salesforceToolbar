@@ -39,11 +39,11 @@ https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldm
 
 1. Click the Email icon
 
-~2. A new tab will open with the Salesforce 'Send an Email' page~<br>
-**2. You will be lead to the 'Send Email' screen.**<br>
+2. You will be lead to the 'Send Email' screen.
 
 3. The email text areas will be filled out.
-    - To:   (auto filled with owner email)
+    - To:  Will be empty (please leave blank, recipient email placed in 'Additional To:'
+    - Additional To:   (auto filled with owner email)
     - CC:   (auto filled with Jennifer W. and Erika M.)
     - Subject:  (auto filled with Launch and Web-ID)
     
@@ -51,13 +51,7 @@ https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldm
 
 4. Press 'Send' once your email has been written.
 
-~5. **A 'url no longer exists' page will appear.**<br>
-![Error Page](https://github.com/cirept/salesforceToolbar/raw/master/assets/css/images/errorImage.png)<br>
-It's okay!  The email was sent successfully!~<br>
-
-~6. Close the tab.~
-
-**5. DONE!  You will be redirected to the launch.**<br>
+5. DONE!  You will be redirected to the launch.
 
 ---
 
@@ -68,8 +62,7 @@ It's okay!  The email was sent successfully!~<br>
 
 1. Click the Log Chat icon
 
-~2. A new tab will open up with the Salesforce log page~<br>
-**2. You will be lead to the 'Log Activity' screen.**<br>
+2. You will be lead to the 'Log Activity' screen.
 
 3. The 'contact' field will be filled out with launch owner's name
 
@@ -83,13 +76,7 @@ It's okay!  The email was sent successfully!~<br>
 
 8. Click 'save'
 
-~9. **A 'url no longer exists' page will appear.**<br>
-![Error Page](https://github.com/cirept/salesforceToolbar/raw/master/assets/css/images/errorImage.png)<br>
-It's okay!  The activity was logged succesfully!~<br>
-
-~10. Close the tab.~
-
-**9. DONE! You will be redirected to the launch.**<br>
+9. DONE! You will be redirected to the launch.
 
 ---
 
