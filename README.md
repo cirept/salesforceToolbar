@@ -107,7 +107,7 @@ https://github.com/cirept/salesforceToolbar/issues
 
 ---
 
-## Change Log
+## Change Log :new:
 
 ### v4.3 5/22/2017
 1. Updated URL check to match the new SalesForce Account Summary URL
