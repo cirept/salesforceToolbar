@@ -109,7 +109,10 @@ https://github.com/cirept/salesforceToolbar/issues
 
 ## Change Log
 
-### 5/4/2017
+### v4.3 5/22/2017
+1. Updated URL check to match the new SalesForce Account Summary URL
+
+### v4.2 5/4/2017
 1. Settings added to tool
     - Coloring of launch feilds
     - Font re-sizing
