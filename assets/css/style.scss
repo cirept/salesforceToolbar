@@ -12,7 +12,8 @@ header {
   /*background: -webkit-linear-gradient(to left, #56B4D3, #348F50);  /* Chrome 10-25, Safari 5.1-6 */
   /*background: linear-gradient(to left, #56B4D3, #348F50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: linear-gradient(to right, rgba(0,0,0,.5), rgba(0,0,0,.5)), url(https://source.unsplash.com/random/1920x920) fixed no-repeat;
-  padding: 25px 20px 85px 20px;
+  padding: 330px 20px 85px 20px;
+  height: 300px;
 }
 
 .wrapper {
@@ -26,6 +27,7 @@ nav {
   padding-top: 15px;
   left: 43%;
   width: 305px;
+  z-index: -1;
 }
 
 section {
@@ -48,6 +50,8 @@ footer {
   background: -webkit-linear-gradient(to left, #4ca2cd, #67B26F);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to left, #4ca2cd, #67B26F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   border: 1px solid #f4f4f4;
+  position: absolute;
+  top: 75%;
 }
 
 #banner .button {
