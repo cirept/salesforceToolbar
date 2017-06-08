@@ -1,3 +1,5 @@
+[![GitHub release](https://img.shields.io/github/release/cirept/salesforceToolbar.svg)](https://github.com/cirept/salesforceToolbar/releases)
+
 ## How to Install Launch Toolbar
 
 1. Open this link in a new tab (ctrl+click the link)<br>
