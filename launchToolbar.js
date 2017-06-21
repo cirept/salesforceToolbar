@@ -214,7 +214,9 @@ function programVariables() {
                     $clickMe2: jQuery('<div>').attr({
                         class: 'BACinfo'
                     }).text('Content Loading'),
-                    $BACtable: jQuery('<div>').css({
+                    $BACtable: jQuery('<div>').attr({
+                        class: 'dealerCodeInfo'
+                    }).css({
                         display: 'none',
                         position: 'absolute',
                         'margin-top': '38px',
@@ -562,7 +564,8 @@ function programVariables() {
                     .append('.makeBolder { font-weight: 900; } ')
                     .append('.myClass { line-height: 30px !important;  height: 30px; vertical-align: -5% !important; } ')
                     .append('.myClass:hover, .fa.myClass:hover { font-weight: 900; } ')
-                    .append('.imp { float: left !important; } '); // end
+                    .append('.imp { float: left !important; } ')
+                    .append('.dealerCodeInfo th { text-align: center; } '); // end
             },
             buildSettings: function () {
                 var $otherSettings = launchToolbar.config.$container.clone(true).text('Other Features').removeClass('click-able'),
