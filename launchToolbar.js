@@ -1,4 +1,4 @@
-/* global jQuery, window, setTimeout, GM_setClipboard, GM_openInTab, GM_setValue, GM_getValue, GM_info, setInterval, clearInterval, document, GM_getResourceURL, GM_listValues */
+/* global jQuery, window, setTimeout, GM_setClipboard, GM_openInTab, GM_setValue, GM_getValue, GM_info, setInterval, clearInterval, document, GM_getResourceURL, GM_listValues, unsafeWindow */
 // Tampermonkey functions
 
 function openInTab(url) {
@@ -47,7 +47,7 @@ function programVariables() {
             this.buildToolComponents();
             this.buildMainTool();
             this.attachTool();
-//            this.turnSettingsOn();
+            //            this.turnSettingsOn();
             this.switchPlatform();
             this.startTool();
             this.bacTable();
@@ -266,33 +266,13 @@ function programVariables() {
                     'id': 'emailTargets',
                     'class': 'click-able targetsPanel',
                     'tabindex': '1',
-                }), // .css({
-                //                    'display': 'none',
-                //                    'position': 'absolute',
-                //                    'background': 'linear-gradient(to right, rgb(178, 254, 250), rgb(14, 210, 200))',
-                //                    'margin-top': '38px',
-                //                    'margin-left': '1305px',
-                //                    'padding': '0px 10px',
-                //                    'border-left': '1px solid rgb(0, 0, 0)',
-                //                    'border-bottom': '1px solid rgb(0, 0, 0)',
-                //                    'border-right': '1px solid rgb(0, 0, 0)',
-                //                }),
+                }),
                 // logs
                 '$logTargetsPanel': jQuery('<div>').attr({
                     'id': 'logTargets',
                     'class': 'click-able targetsPanel',
                     'tabindex': '2',
-                }), // .css({
-                //                    'display': 'none',
-                //                    'position': 'absolute',
-                //                    'background': 'linear-gradient(to right, rgb(178, 254, 250), rgb(14, 210, 200))',
-                //                    'margin-top': '38px',
-                //                    'margin-left': '1305px',
-                //                    'padding': '0px 10px',
-                //                    'border-left': '1px solid rgb(0, 0, 0)',
-                //                    'border-bottom': '1px solid rgb(0, 0, 0)',
-                //                    'border-right': '1px solid rgb(0, 0, 0)',
-                //                }),
+                }),
                 '$salesforceEmailOwner': jQuery('<div>').attr({
                     'title': 'Email Launch Team Member',
                     'class': 'funcButtons myClass click-able',
@@ -412,61 +392,64 @@ function programVariables() {
             // Designer
             this.designer = jQuery('#CF00N40000002aUE2_ileinner a');
             this.designerName = this.designer.text();
-            //            this.designerSummaryURL = this.designer.attr('onfocus');
-            //            var start = this.designerSummaryURL.indexOf('(');
-            //            var end = this.designerSummaryURL.indexOf(')');
-            //            this.designerSummaryURL = this.designerSummaryURL.slice(start + 1, end);
-            //            var arr = this.designerSummaryURL.replace(/[\s']/g, '');
-            // slice at , then take the 2nd
-            //            console.log(arr.slice(','));
             // pre-designer
             this.preDesign = jQuery('#CF00N330000038wsz_ileinner a');
             this.preDesignName = this.preDesign.text();
             this.preDesignInfo = this.preDesign.attr('on');
-            //                        console.log(this.preDesign);
             // qa designer
             this.qaDesigner = jQuery('#CF00N40000002cgmH_ileinner a');
             this.qaDesignerName = this.qaDesigner.text();
-            //                        console.log(this.qaDesigner);
+            // current user
             this.userName = unsafeWindow.UserContext.userName;
-            //            console.log(unsafeWindow.UserContext.userName);
         },
+        /**
+         * Checks siblind elements of clicked element and removes 'selectedTarget' class if found.
+         * @currentTarget {object} contains click event details.
+         */
         'removeSelectedTarget': function (currentTarget) {
             jQuery(currentTarget).siblings('.selectedTarget').removeClass('selectedTarget');
         },
+        /**
+         * Will pass the related details to be binded on the 'callingPanel' onclick attribute.
+         * @currentTarget {object} contains click event details.
+         * @callingPanel {string} represents what panel called the function.
+         */
         'bindTargetPanelActions': function (currentTarget, callingPanel) {
-
-            switch (callingPanel) {
-                case 'email':
-                    if (currentTarget.className.indexOf('ic') > -1) {
-                        this.getEmail(this.$launchOwner.attr('onmouseover'));
-                    } else if (currentTarget.className.indexOf('designer') > -1) {
-                        this.getEmail(this.designer.attr('onmouseover'));
-                    } else if (currentTarget.className.indexOf('preDesign') > -1) {
-                        this.getEmail(this.preDesign.attr('onmouseover'));
-                    } else
-                    if (currentTarget.className.indexOf('qaDesigner') > -1) {
-                        this.getEmail(this.qaDesigner.attr('onmouseover'));
-                    }
-                    break;
-                case 'logActivity':
-                    if (currentTarget.className.indexOf('ic') > -1) {
-                        this.activityLog(this.$launchOwner.attr('onmouseover'));
-                    } else if (currentTarget.className.indexOf('designer') > -1) {
-                        this.activityLog(this.designer.attr('onmouseover'));
-                    } else if (currentTarget.className.indexOf('preDesign') > -1) {
-                        this.activityLog(this.preDesign.attr('onmouseover'));
-                    } else if (currentTarget.className.indexOf('qaDesigner') > -1) {
-                        this.activityLog(this.qaDesigner.attr('onmouseover'));
-                    }
-                    break;
+            if (currentTarget.className.indexOf('ic') > -1 && callingPanel.indexOf('email') > -1) {
+                this.getEmail(this.$launchOwner.attr('onmouseover'));
+            } else if (currentTarget.className.indexOf('designer') > -1 && callingPanel.indexOf('email') > -1) {
+                this.getEmail(this.designer.attr('onmouseover'));
+            } else if (currentTarget.className.indexOf('preDesign') > -1 && callingPanel.indexOf('email') > -1) {
+                this.getEmail(this.preDesign.attr('onmouseover'));
+            } else if (currentTarget.className.indexOf('qaDesigner') > -1 && callingPanel.indexOf('email') > -1) {
+                this.getEmail(this.qaDesigner.attr('onmouseover'));
+            } else if (currentTarget.className.indexOf('ic') > -1 && callingPanel.indexOf('logActivity') > -1) {
+                this.activityLog(this.$launchOwner.attr('onmouseover'));
+            } else if (currentTarget.className.indexOf('designer') > -1 && callingPanel.indexOf('logActivity') > -1) {
+                this.activityLog(this.designer.attr('onmouseover'));
+            } else if (currentTarget.className.indexOf('preDesign') > -1 && callingPanel.indexOf('logActivity') > -1) {
+                this.activityLog(this.preDesign.attr('onmouseover'));
+            } else if (currentTarget.className.indexOf('qaDesigner') > -1 && callingPanel.indexOf('logActivity') > -1) {
+                this.activityLog(this.qaDesigner.attr('onmouseover'));
             }
         },
+        /**
+         * Will run group of functions related to the launch members panel.
+         * Specifically related to the 'log actitivy tool' and 'email team memeber tool'.
+         * @currentTarget {object} contains click event details.
+         * @callingPanel {string} represents what panel called the function.
+         */
         'selectItem': function (currentTarget, callingPanel) {
             this.removeSelectedTarget(currentTarget);
             jQuery(currentTarget).addClass('selectedTarget');
             this.bindTargetPanelActions(currentTarget, callingPanel);
         },
+        /**
+         * Will build the email target panel for the 'email team member tool'.
+         * Step 1. Build the team member panel.
+         * Step 2. Hide current user IF user is one of team members.
+         * Step 3. Bind even listener to fire selectItem function.
+         */
         'buildEmailTargets': function () {
             var self = this;
 
@@ -474,7 +457,7 @@ function programVariables() {
 
             self.hideSelf(launchToolbar.config.$emailTargetsPanel);
 
-            launchToolbar.config.$emailTargetsPanel.on('click', function () {
+            launchToolbar.config.$emailTargetsPanel.on('click', function (event) {
                 self.selectItem(event.target, 'email');
             });
         },
@@ -484,7 +467,6 @@ function programVariables() {
          * bool will determine if the first letter of the names will be capitalized, optional
          */
         'extractNameFromEmail': function (emailAddress, bool) {
-            //            var ownerName;
             var wordArr;
             bool = bool ? bool : false;
 
@@ -501,7 +483,7 @@ function programVariables() {
 
             self.hideSelf(launchToolbar.config.$logTargetsPanel);
 
-            launchToolbar.config.$logTargetsPanel.on('click', function () {
+            launchToolbar.config.$logTargetsPanel.on('click', function (event) {
                 self.selectItem(event.target, 'logActivity');
             });
         },
@@ -848,9 +830,9 @@ function programVariables() {
             this.$body.prepend(launchToolbar.config.$settingContainer);
             this.$body.prepend(launchToolbar.config.$uiBox);
         },
-//        'turnSettingsOn': function () {
-//
-//        },
+        //        'turnSettingsOn': function () {
+        //
+        //        },
         'switchPlatform': function () {
             launchToolbar.config.$toggleLabel.css({
                 'color': this.platformSelector ? 'purple' : 'blue',
