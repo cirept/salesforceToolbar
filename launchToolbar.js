@@ -261,37 +261,37 @@ function programVariables() {
                 // email launch owner
                 '$emailTargetsPanel': jQuery('<div>').attr({
                     'id': 'emailTargets',
-                    'class': 'click-able',
+                    'class': 'click-able targetsPanel',
                     'tabindex': '1',
-                }).css({
-                    'display': 'none',
-                    'position': 'absolute',
-                    'background': 'linear-gradient(to right, rgb(178, 254, 250), rgb(14, 210, 200))',
-                    'margin-top': '38px',
-                    'margin-left': '1305px',
-                    'padding': '0px 10px',
-                    'border-left': '1px solid rgb(0, 0, 0)',
-                    'border-bottom': '1px solid rgb(0, 0, 0)',
-                    'border-right': '1px solid rgb(0, 0, 0)',
-                }),
+                }), // .css({
+                //                    'display': 'none',
+                //                    'position': 'absolute',
+                //                    'background': 'linear-gradient(to right, rgb(178, 254, 250), rgb(14, 210, 200))',
+                //                    'margin-top': '38px',
+                //                    'margin-left': '1305px',
+                //                    'padding': '0px 10px',
+                //                    'border-left': '1px solid rgb(0, 0, 0)',
+                //                    'border-bottom': '1px solid rgb(0, 0, 0)',
+                //                    'border-right': '1px solid rgb(0, 0, 0)',
+                //                }),
                 // logs
                 '$logTargetsPanel': jQuery('<div>').attr({
                     'id': 'logTargets',
-                    'class': 'click-able',
+                    'class': 'click-able targetsPanel',
                     'tabindex': '2',
-                }).css({
-                    'display': 'none',
-                    'position': 'absolute',
-                    'background': 'linear-gradient(to right, rgb(178, 254, 250), rgb(14, 210, 200))',
-                    'margin-top': '38px',
-                    'margin-left': '1305px',
-                    'padding': '0px 10px',
-                    'border-left': '1px solid rgb(0, 0, 0)',
-                    'border-bottom': '1px solid rgb(0, 0, 0)',
-                    'border-right': '1px solid rgb(0, 0, 0)',
-                }),
+                }), // .css({
+                //                    'display': 'none',
+                //                    'position': 'absolute',
+                //                    'background': 'linear-gradient(to right, rgb(178, 254, 250), rgb(14, 210, 200))',
+                //                    'margin-top': '38px',
+                //                    'margin-left': '1305px',
+                //                    'padding': '0px 10px',
+                //                    'border-left': '1px solid rgb(0, 0, 0)',
+                //                    'border-bottom': '1px solid rgb(0, 0, 0)',
+                //                    'border-right': '1px solid rgb(0, 0, 0)',
+                //                }),
                 '$salesforceEmailOwner': jQuery('<div>').attr({
-                    'title': 'Email Owner',
+                    'title': 'Email Launch Team Member',
                     'class': 'funcButtons myClass click-able',
                 }).css({
                     'float': 'right',
@@ -428,44 +428,51 @@ function programVariables() {
             this.userName = unsafeWindow.UserContext.userName;
             //            console.log(unsafeWindow.UserContext.userName);
         },
+        'removeSelectedTarget': function (currentTarget) {
+            jQuery(currentTarget).siblings('.selectedTarget').removeClass('selectedTarget');
+        },
+        'bindTargetPanelActions': function (currentTarget, callingPanel) {
+
+            switch (callingPanel) {
+                case 'email':
+                    if (currentTarget.className.indexOf('ic') > -1) {
+                        this.getEmail(this.$launchOwner.attr('onmouseover'));
+                    } else if (currentTarget.className.indexOf('designer') > -1) {
+                        this.getEmail(this.designer.attr('onmouseover'));
+                    } else if (currentTarget.className.indexOf('preDesign') > -1) {
+                        this.getEmail(this.preDesign.attr('onmouseover'));
+                    } else
+                    if (currentTarget.className.indexOf('qaDesigner') > -1) {
+                        this.getEmail(this.qaDesigner.attr('onmouseover'));
+                    }
+                    break;
+                case 'logActivity':
+                    if (currentTarget.className.indexOf('ic') > -1) {
+                        this.activityLog(this.$launchOwner.attr('onmouseover'));
+                    } else if (currentTarget.className.indexOf('designer') > -1) {
+                        this.activityLog(this.designer.attr('onmouseover'));
+                    } else if (currentTarget.className.indexOf('preDesign') > -1) {
+                        this.activityLog(this.preDesign.attr('onmouseover'));
+                    } else if (currentTarget.className.indexOf('qaDesigner') > -1) {
+                        this.activityLog(this.qaDesigner.attr('onmouseover'));
+                    }
+                    break;
+            }
+        },
+        'selectItem': function (currentTarget, callingPanel) {
+            this.removeSelectedTarget(currentTarget);
+            jQuery(currentTarget).addClass('selectedTarget');
+            this.bindTargetPanelActions(currentTarget, callingPanel);
+        },
         'buildEmailTargets': function () {
             var self = this;
 
-            function removeSelectedTarget(currentTarget) {
-                jQuery(currentTarget).siblings('.selectedTarget').removeClass('selectedTarget');
-            }
+            self.buildLaunchMembersPanel(launchToolbar.config.$emailTargetsPanel);
 
-            function updateAction(currentTarget) {
-                if (currentTarget.className.indexOf('ic') > -1) {
-                    self.getEmail(self.$launchOwner.attr('onmouseover'));
-                } else if (currentTarget.className.indexOf('designer') > -1) {
-                    self.getEmail(self.designer.attr('onmouseover'));
-                } else if (currentTarget.className.indexOf('preDesign') > -1) {
-                    self.getEmail(self.preDesign.attr('onmouseover'));
-                } else if (currentTarget.className.indexOf('qaDesigner') > -1) {
-                    self.getEmail(self.qaDesigner.attr('onmouseover'));
-                }
-            }
-
-            function selectItem(currentTarget) {
-                removeSelectedTarget(currentTarget);
-                jQuery(currentTarget).addClass('selectedTarget');
-                updateAction(currentTarget);
-            }
+            self.hideSelf(launchToolbar.config.$emailTargetsPanel);
 
             launchToolbar.config.$emailTargetsPanel.on('click', function () {
-                selectItem(event.target);
-            });
-
-            launchToolbar.config.$emailTargetsPanel
-                .append(jQuery('<div class="myClass ic">IC: ' + this.launchOwnerText + '</div>'))
-                .append(jQuery('<div class="myClass designer">WDS: ' + this.designerName + '</div>'))
-                .append(jQuery('<div class="myClass preDesign">PD: ' + this.preDesignName + '</div>'))
-                .append(jQuery('<div class="myClass qaDesigner">QA: ' + this.qaDesignerName + '</div>'));
-
-            launchToolbar.config.$emailTargetsPanel.children().each(function (index, elem) {
-                // hides element if it is the user
-                elem.innerHTML.indexOf(self.extractNameFromEmail(self.userName, true)) > -1 ? jQuery(elem).hide() : jQuery(elem).show();
+                self.selectItem(event.target, 'email');
             });
         },
         /**
@@ -487,42 +494,27 @@ function programVariables() {
         'buildLogTargets': function () {
             var self = this;
 
-            function removeSelectedTarget(currentTarget) {
-                jQuery(currentTarget).siblings('.selectedTarget').removeClass('selectedTarget');
-            }
+            self.buildLaunchMembersPanel(launchToolbar.config.$logTargetsPanel);
 
-            function updateAction(currentTarget) {
-                if (currentTarget.className.indexOf('ic') > -1) {
-                    self.activityLog(self.$launchOwner.attr('onmouseover'));
-                } else if (currentTarget.className.indexOf('designer') > -1) {
-                    self.activityLog(self.designer.attr('onmouseover'));
-                } else if (currentTarget.className.indexOf('preDesign') > -1) {
-                    self.activityLog(self.preDesign.attr('onmouseover'));
-                } else if (currentTarget.className.indexOf('qaDesigner') > -1) {
-                    self.activityLog(self.qaDesigner.attr('onmouseover'));
-                }
-            }
-
-            function selectItem(currentTarget) {
-                removeSelectedTarget(currentTarget);
-                jQuery(currentTarget).addClass('selectedTarget');
-                updateAction(currentTarget);
-            }
+            self.hideSelf(launchToolbar.config.$logTargetsPanel);
 
             launchToolbar.config.$logTargetsPanel.on('click', function () {
-                selectItem(event.target);
+                self.selectItem(event.target, 'logActivity');
             });
+        },
+        'hideSelf': function ($panel) {
+            var self = this;
 
-            launchToolbar.config.$logTargetsPanel
-                .append(jQuery('<div class="myClass ic">IC: ' + this.launchOwnerText + '</div>'))
-                .append(jQuery('<div class="myClass designer">WDS: ' + this.designerName + '</div>'))
-                .append(jQuery('<div class="myClass preDesign">PD: ' + this.preDesignName + '</div>'))
-                .append(jQuery('<div class="myClass qaDesigner">QA: ' + this.qaDesignerName + '</div>'));
-
-            launchToolbar.config.$logTargetsPanel.children().each(function (index, elem) {
+            $panel.children().each(function (index, elem) {
                 // hides element if it is the user
                 elem.innerHTML.indexOf(self.extractNameFromEmail(self.userName, true)) > -1 ? jQuery(elem).hide() : jQuery(elem).show();
             });
+        },
+        'buildLaunchMembersPanel': function ($panel) {
+            $panel.append(jQuery('<div class="myClass ic">IC: ' + this.launchOwnerText + '</div>'))
+                .append(jQuery('<div class="myClass designer">WDS: ' + this.designerName + '</div>'))
+                .append(jQuery('<div class="myClass preDesign">PD: ' + this.preDesignName + '</div>'))
+                .append(jQuery('<div class="myClass qaDesigner">QA: ' + this.qaDesignerName + '</div>'));
         },
         'getEmail': function (emailTarget) {
             var ajaxRequestURL = emailTarget.split("'")[3]; // eslint-disable-line quotes
@@ -779,6 +771,7 @@ function programVariables() {
                 .append('.imp { float: left !important; } ')
                 .append('.selectedTarget { background: white; color: green; }')
                 .append('.activeFunction { background: teal; color: white; }')
+                .append('.targetsPanel { display: none; position: absolute; background: linear-gradient(to right, rgb(178, 254, 250), rgb(14, 210, 200)); margin-top: 38px; margin-left: 1305px; padding: 0px 10px; border-left: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0) }')
                 .append('.dealerCodeInfo th { text-align: center; } '); // end
         },
         'buildSettings': function () {
