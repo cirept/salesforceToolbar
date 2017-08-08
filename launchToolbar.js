@@ -66,7 +66,7 @@ function programVariables() {
                     'position': 'fixed',
                     'display': 'none',
                     'z-index': '9999',
-                    'background': 'linear-gradient(to right, rgb(178, 254, 250), rgb(14, 210, 200))',
+                    'background': 'linear-gradient(to left, rgb(133, 162, 255), rgb(18, 216, 250), rgb(35, 233, 154))',
                     'color': '#000',
                     'text-align': 'center',
                     'font-size': '11px',
@@ -82,7 +82,7 @@ function programVariables() {
                     'height': '40px',
                     'display': 'none',
                     'position': 'fixed',
-                    'background': 'linear-gradient(to right, #b2fefa, #0ed2f7)',
+                    'background': 'linear-gradient(to left, rgb(133, 162, 255), rgb(18, 216, 250), rgb(35, 233, 154))',
                     'border': '1px #000 solid',
                     'top': '40px',
                     'z-index': 500,
@@ -239,11 +239,9 @@ function programVariables() {
                 }).css({
                     'position': 'absolute',
                     'left': '35%',
-                    'background': 'purple',
                     'padding': '5px 20px',
-                    'top': '100%',
+                    'top': '90%',
                     'display': 'none',
-                    'color': 'white',
                 }),
                 '$platformToggle': jQuery('<div>').attr({
                     'class': 'funcButtons platformSelector click-able',
@@ -1025,13 +1023,17 @@ function programVariables() {
         'copyInfo': function (variable) {
             var $display = jQuery('<div>').css({
                 'display': 'none',
+                'background': 'red',
+                'padding': '5px',
+                'color': 'white',
             });
             GM_setClipboard(variable, 'text'); // eslint-disable-line new-cap
-            $display.text('COPIED ' + variable);
-            launchToolbar.config.$dynoDisplay.toggle().append($display);
-            $display.slideToggle(500).delay(3000).slideToggle(500, function () {
-                $display.remove();
-                launchToolbar.config.$dynoDisplay.toggle();
+            $display.text(`COPIED : ${variable}`);
+            launchToolbar.config.$dynoDisplay.show().append($display);
+            $display.slideToggle(500, function () {
+                setTimeout(function () {
+                    $display.remove();
+                }, 2000);
             });
         },
         'programData': function () {
