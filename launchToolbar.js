@@ -32,7 +32,10 @@ function programVariables() {
         'init': function () {
             this.createElements();
             this.cacheDOM();
-            this.getEmail();
+            // test element
+            this.buildEmailTargets();
+            this.buildLogTargets();
+            //            this.getEmail();
             this.buildWSMlink();
             this.buildFolderPath();
             this.openAccountInfoPage();
@@ -258,13 +261,45 @@ function programVariables() {
                 // email launch owner
                 '$emailTargetsPanel': jQuery('<div>').attr({
                     'id': 'emailTargets',
+                    'class': 'click-able',
+                    'tabindex': '1',
+                }).css({
+                    'display': 'none',
+                    'position': 'absolute',
+                    'background': 'linear-gradient(to right, rgb(178, 254, 250), rgb(14, 210, 200))',
+                    'margin-top': '38px',
+                    'margin-left': '1305px',
+                    'padding': '0px 10px',
+                    'border-left': '1px solid rgb(0, 0, 0)',
+                    'border-bottom': '1px solid rgb(0, 0, 0)',
+                    'border-right': '1px solid rgb(0, 0, 0)',
                 }),
-                '$salesforceEmailOwner': jQuery('<a>').attr({
+                // logs
+                '$logTargetsPanel': jQuery('<div>').attr({
+                    'id': 'logTargets',
+                    'class': 'click-able',
+                    'tabindex': '2',
+                }).css({
+                    'display': 'none',
+                    'position': 'absolute',
+                    'background': 'linear-gradient(to right, rgb(178, 254, 250), rgb(14, 210, 200))',
+                    'margin-top': '38px',
+                    'margin-left': '1305px',
+                    'padding': '0px 10px',
+                    'border-left': '1px solid rgb(0, 0, 0)',
+                    'border-bottom': '1px solid rgb(0, 0, 0)',
+                    'border-right': '1px solid rgb(0, 0, 0)',
+                }),
+                '$salesforceEmailOwner': jQuery('<div>').attr({
                     'title': 'Email Owner',
                     'class': 'funcButtons myClass click-able',
                 }).css({
                     'float': 'right',
                 }),
+                '$salesforceEmailOwnerConfirm': jQuery('<button>').css({
+                    'height': '30px',
+                    'width': '100%',
+                }).text('Send Email'),
                 '$salesforceEmailIcon': jQuery('<i>').attr({
                     'class': 'fa fa-envelope-o fa-lg myClass',
                 }),
@@ -280,7 +315,7 @@ function programVariables() {
                     'class': 'fa fa-question-circle-o fa-lg myClass',
                 }),
                 // ---------------------------------------- log call or chat
-                '$logActivity': jQuery('<a>').attr({
+                '$logActivity': jQuery('<div>').attr({
                     'title': 'Log Chat',
                     'class': 'funcButtons myClass click-able',
                 }).css({
@@ -361,7 +396,7 @@ function programVariables() {
                 'class': 'launchOwner',
             });
             // Launch owner hover info
-            this.launchMouseover = jQuery('#Owner_ileinner a[id*="Owner"]').attr('onmouseover');
+            this.launchMouseover = this.$launchOwner.attr('onmouseover');
             this.launchOwnerID = this.$launchOwner.attr('href').slice(1); // launch owner ID
             this.launchOwnerText = this.$launchOwner.text(); // launch owner
             // launch quick links
@@ -371,16 +406,129 @@ function programVariables() {
                 'overflow': 'auto',
                 'word-wrap': 'break-word',
             });
+            // Designer
+            this.designer = jQuery('#CF00N40000002aUE2_ileinner a');
+            this.designerName = this.designer.text();
+            //            this.designerSummaryURL = this.designer.attr('onfocus');
+            //            var start = this.designerSummaryURL.indexOf('(');
+            //            var end = this.designerSummaryURL.indexOf(')');
+            //            this.designerSummaryURL = this.designerSummaryURL.slice(start + 1, end);
+            //            var arr = this.designerSummaryURL.replace(/[\s']/g, '');
+            // slice at , then take the 2nd
+            //            console.log(arr.slice(','));
+            // pre-designer
+            this.preDesign = jQuery('#CF00N330000038wsz_ileinner a');
+            this.preDesignName = this.preDesign.text();
+            this.preDesignInfo = this.preDesign.attr('on');
+            //                        console.log(this.preDesign);
+            // qa designer
+            this.qaDesigner = jQuery('#CF00N40000002cgmH_ileinner a');
+            this.qaDesignerName = this.qaDesigner.text();
+            //                        console.log(this.qaDesigner);
+            this.userName = unsafeWindow.UserContext.userName;
+            //            console.log(unsafeWindow.UserContext.userName);
         },
-        'getEmail': function () {
-            var ajaxRequestURL = this.launchMouseover.split("'")[3]; // eslint-disable-line quotes
+        'buildEmailTargets': function () {
+            var self = this;
+
+            function removeSelectedTarget(currentTarget) {
+                jQuery(currentTarget).siblings('.selectedTarget').removeClass('selectedTarget');
+            }
+
+            function updateAction(currentTarget) {
+                if (currentTarget.className.indexOf('ic') > -1) {
+                    self.getEmail(self.$launchOwner.attr('onmouseover'));
+                } else if (currentTarget.className.indexOf('designer') > -1) {
+                    self.getEmail(self.designer.attr('onmouseover'));
+                } else if (currentTarget.className.indexOf('preDesign') > -1) {
+                    self.getEmail(self.preDesign.attr('onmouseover'));
+                } else if (currentTarget.className.indexOf('qaDesigner') > -1) {
+                    self.getEmail(self.qaDesigner.attr('onmouseover'));
+                }
+            }
+
+            function selectItem(currentTarget) {
+                removeSelectedTarget(currentTarget);
+                jQuery(currentTarget).addClass('selectedTarget');
+                updateAction(currentTarget);
+            }
+
+            launchToolbar.config.$emailTargetsPanel.on('click', function () {
+                selectItem(event.target);
+            });
+
+            launchToolbar.config.$emailTargetsPanel
+                .append(jQuery('<div class="myClass ic">IC: ' + this.launchOwnerText + '</div>'))
+                .append(jQuery('<div class="myClass designer">WDS: ' + this.designerName + '</div>'))
+                .append(jQuery('<div class="myClass preDesign">PD: ' + this.preDesignName + '</div>'))
+                .append(jQuery('<div class="myClass qaDesigner">QA: ' + this.qaDesignerName + '</div>'));
+
+            launchToolbar.config.$emailTargetsPanel.children().each(function (index, elem) {
+                // hides element if it is the user
+                elem.innerHTML.indexOf(self.extractNameFromEmail(self.userName, true)) > -1 ? jQuery(elem).hide() : jQuery(elem).show();
+            });
+        },
+        /**
+         * Will extract the name out of a CDK email
+         * emailAddress will contain the email that will have the name extracted from
+         * bool will determine if the first letter of the names will be capitalized, optional
+         */
+        'extractNameFromEmail': function (emailAddress, bool) {
+            //            var ownerName;
+            var wordArr;
+            bool = bool ? bool : false;
+
+            return emailAddress.split('@')[0].split('.').map((word) => {
+                wordArr = word.split('');
+                wordArr[0] = bool ? wordArr[0].toUpperCase() : wordArr[0];
+                return wordArr.join('');
+            }).join(' ');
+        },
+        'buildLogTargets': function () {
+            var self = this;
+
+            function removeSelectedTarget(currentTarget) {
+                jQuery(currentTarget).siblings('.selectedTarget').removeClass('selectedTarget');
+            }
+
+            function updateAction(currentTarget) {
+                if (currentTarget.className.indexOf('ic') > -1) {
+                    self.activityLog(self.$launchOwner.attr('onmouseover'));
+                } else if (currentTarget.className.indexOf('designer') > -1) {
+                    self.activityLog(self.designer.attr('onmouseover'));
+                } else if (currentTarget.className.indexOf('preDesign') > -1) {
+                    self.activityLog(self.preDesign.attr('onmouseover'));
+                } else if (currentTarget.className.indexOf('qaDesigner') > -1) {
+                    self.activityLog(self.qaDesigner.attr('onmouseover'));
+                }
+            }
+
+            function selectItem(currentTarget) {
+                removeSelectedTarget(currentTarget);
+                jQuery(currentTarget).addClass('selectedTarget');
+                updateAction(currentTarget);
+            }
+
+            launchToolbar.config.$logTargetsPanel.on('click', function () {
+                selectItem(event.target);
+            });
+
+            launchToolbar.config.$logTargetsPanel
+                .append(jQuery('<div class="myClass ic">IC: ' + this.launchOwnerText + '</div>'))
+                .append(jQuery('<div class="myClass designer">WDS: ' + this.designerName + '</div>'))
+                .append(jQuery('<div class="myClass preDesign">PD: ' + this.preDesignName + '</div>'))
+                .append(jQuery('<div class="myClass qaDesigner">QA: ' + this.qaDesignerName + '</div>'));
+
+            launchToolbar.config.$logTargetsPanel.children().each(function (index, elem) {
+                // hides element if it is the user
+                elem.innerHTML.indexOf(self.extractNameFromEmail(self.userName, true)) > -1 ? jQuery(elem).hide() : jQuery(elem).show();
+            });
+        },
+        'getEmail': function (emailTarget) {
+            var ajaxRequestURL = emailTarget.split("'")[3]; // eslint-disable-line quotes
             var self = this;
             var retURL = this.launchSFID;
             var emailAddress;
-            var logID;
-            var logURL;
-            var newLogURL;
-            var ownerName;
             var trList;
             var id;
             var emailLink;
@@ -399,18 +547,48 @@ function programVariables() {
                     newEmailLink = emailLink.slice(1, emailLink.indexOf('&retURL='));
 
                     launchToolbar.config.$salesforceEmailOwner.attr({
-                        'href': encodeURI(newEmailLink + '&p24=' + emailAddress + '&p4=' + 'Jennifer.Walker@cdk.com;Erika.Myrick@cdk.com' + '&p6=' + self.comboID + '&retURL=' + retURL),
+                        'onclick': window.location.href = encodeURI(newEmailLink + '&p24=' + emailAddress + '&p4=' + 'Jennifer.Walker@cdk.com;Erika.Myrick@cdk.com' + '&p6=' + self.comboID + '&retURL=' + retURL),
                     });
+                },
+            });
+        },
+        'activityLog': function (emailTarget) {
+            var ajaxRequestURL = emailTarget.split("'")[3]; // eslint-disable-line quotes
+            var self = this;
+            var retURL = this.launchSFID;
+            var emailAddress;
+            var logID;
+            var logURL;
+            var newLogURL;
+            var ownerName;
+            var trList;
+
+            jQuery.ajax({
+                'url': ajaxRequestURL,
+                'context': document.body,
+                'success': function (data) {
+                    trList = jQuery('<div>').html(data).find('.detailList').find('tr');
+                    emailAddress = jQuery(trList[1]).find('a').text();
 
                     // build log activity URL
                     logID = self.launchSFID.replace('/', '#') + '_RelatedHistoryList';
                     logURL = jQuery(logID).find('input[value="Log a Call"]').attr('onclick').split("'")[1]; // eslint-disable-line quotes
                     newLogURL = logURL.slice(1, logURL.indexOf('&retURL='));
-                    ownerName = emailAddress.split('@')[0].replace('.', ' ');
+
+                    // 1. cut out name from email address
+                    // 2. split name into two parts
+                    // 3. capitalize the first letter of each name
+                    // 4. combine into full name
+                    ownerName = emailAddress.split('@')[0].split('.').map((word) => {
+                        var wordArr = word.split('');
+                        wordArr[0] = wordArr[0].toUpperCase();
+                        return wordArr.join('');
+                    }).join(' ');
 
                     launchToolbar.config.$logActivity.attr({
-                        'href': encodeURI(newLogURL + '&tsk2=' + ownerName + '&retURL=' + retURL),
+                        'onclick': window.location.href = encodeURI(newLogURL + '&tsk2=' + ownerName + '&retURL=' + retURL),
                     });
+
                 },
             });
         },
@@ -558,6 +736,25 @@ function programVariables() {
             launchToolbar.config.$container.on('click', this.flipTheSwitch.bind(this));
             launchToolbar.config.$accountNum.on('click', this.doWork.bind(this));
             launchToolbar.config.$EditLink.on('click', this.doWork.bind(this));
+
+            launchToolbar.config.$salesforceEmailOwner.on('click', function () {
+                launchToolbar.config.$emailTargetsPanel.toggle();
+                launchToolbar.config.$emailTargetsPanel.focus();
+                launchToolbar.config.$salesforceEmailOwner.toggleClass('activeFunction');
+            });
+            launchToolbar.config.$logActivity.on('click', function () {
+                launchToolbar.config.$logTargetsPanel.toggle();
+                launchToolbar.config.$logTargetsPanel.focus();
+                launchToolbar.config.$logActivity.toggleClass('activeFunction');
+            });
+            launchToolbar.config.$emailTargetsPanel.on('focusout', function () {
+                launchToolbar.config.$emailTargetsPanel.toggle();
+                launchToolbar.config.$salesforceEmailOwner.toggleClass('activeFunction');
+            });
+            launchToolbar.config.$logTargetsPanel.on('focusout', function () {
+                launchToolbar.config.$logTargetsPanel.toggle();
+                launchToolbar.config.$logActivity.toggleClass('activeFunction');
+            });
         },
         'addStyles': function () {
             launchToolbar.config.$toolbarStyles
@@ -580,6 +777,8 @@ function programVariables() {
                 .append('.myClass { line-height: 30px !important;  height: 30px; vertical-align: -5% !important; } ')
                 .append('.myClass:hover, .fa.myClass:hover { font-weight: 900; } ')
                 .append('.imp { float: left !important; } ')
+                .append('.selectedTarget { background: white; color: green; }')
+                .append('.activeFunction { background: teal; color: white; }')
                 .append('.dealerCodeInfo th { text-align: center; } '); // end
         },
         'buildSettings': function () {
@@ -645,6 +844,8 @@ function programVariables() {
                 .append(launchToolbar.config.$platformToggle)
                 .append(launchToolbar.config.$EditLink)
                 .append(launchToolbar.config.$salesforceEmailOwner)
+                .append(launchToolbar.config.$logTargetsPanel)
+                .append(launchToolbar.config.$emailTargetsPanel)
                 .append(launchToolbar.config.$logActivity)
                 .append(launchToolbar.config.$copyFolderPath)
                 .append(launchToolbar.config.$idCombo)
@@ -820,22 +1021,6 @@ function programVariables() {
                 case event.which === 3 && classText.indexOf('launchOwner') > -1:
                     this.copyInfo(this.launchOwnerText);
                     break;
-                    // ---------------------------------------- change background color
-                    //                    case (classText.indexOf('changeToolColor') > -1):
-                    //                        this.copyInfo(this.launchOwnerText);
-                    //                        var startColor =
-                    //                        var isOk  = /^#[0-9A-F]{6}$/i.test('#aabbcc');
-                    //                        launchToolbar.config.$uiBox.css({
-                    //                            background: 'linear-gradient(to left, ' + jQuery('.startColor.changeToolColor') + ', ' + jQuery('.endColor.changeToolColor') + ')'
-                    //                        }),
-                    //                            background: 'linear-gradient(to left, #00ff00, #00ffff)'
-                    //                        });
-                    //                        console.log('change tool color');
-                    //                        break;
-                default:
-                    //                        console.log('nothing copied');
-                    //                        console.log($clickedElement);
-                    //                        console.log(event.which);
             }
         },
         'flipTheSwitch': function (event) {
@@ -851,40 +1036,21 @@ function programVariables() {
                     // set toggle
                     this.switchPlatform();
                     break;
-                    // --------------------------------------------------------------------------------
                 case classText.indexOf('quickLinksSize') > -1:
                     tempBool = !getValue('quickLinksSize');
                     setValue('quickLinksSize', tempBool);
                     this.setToggle('quickLinksSize', tempBool);
-
                     break;
-                    // --------------------------------------------------------------------------------
                 case classText.indexOf('largeInfo') > -1:
-
                     tempBool = !getValue('largeInfo');
                     setValue('largeInfo', tempBool);
                     this.setToggle('largeInfo', tempBool);
-
                     break;
-                    // --------------------------------------------------------------------------------
                 case classText.indexOf('colorizeLaunch') > -1:
-
                     tempBool = !getValue('colorizeLaunch');
                     setValue('colorizeLaunch', tempBool);
                     this.setToggle('colorizeLaunch', tempBool);
-
                     break;
-                case classText.indexOf('changeToolColor') > -1:
-
-                    //                        tempBool = !getValue('colorizeLaunch');
-                    //                        setValue('colorizeLaunch', tempBool);
-                    //                        $clickedElement.find('.fa.colorizeLaunch').toggleClass('fa-check-square');
-                    //                        this.setToggle('colorizeLaunch', tempBool);
-                    //                        console.log('change background color');
-
-                    break;
-                default:
-                    //                        console.log('nothing done');
             }
         },
         // ----------------------------------------
@@ -1000,10 +1166,6 @@ function programVariables() {
 
     if (window.location.hostname === 'cdk.my.salesforce.com') {
         launchToolbar.init();
-
-        //        if (window.location.pathname === '_ui/core/email/author/%2Fa1E33000002eCIY') {
-        //
-        //        }
     }
 
     if (window.location.hostname === 'cdk--c.na57.visual.force.com') {
