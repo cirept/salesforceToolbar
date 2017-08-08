@@ -41,10 +41,13 @@ function programVariables() {
             this.openAccountInfoPage();
             this.bindEvents();
             this.addStyles();
+            this.addFunctionStyles();
+            this.addOptionStyles();
             this.buildSettings();
-            this.buildTool();
+            this.buildToolComponents();
+            this.buildMainTool();
             this.attachTool();
-            this.turnSettingsOn();
+//            this.turnSettingsOn();
             this.switchPlatform();
             this.startTool();
             this.bacTable();
@@ -517,70 +520,50 @@ function programVariables() {
                 .append(jQuery('<div class="myClass qaDesigner">QA: ' + this.qaDesignerName + '</div>'));
         },
         'getEmail': function (emailTarget) {
-            var ajaxRequestURL = emailTarget.split("'")[3]; // eslint-disable-line quotes
-            var self = this;
-            var retURL = this.launchSFID;
-            var emailAddress;
+            var self = this; // save reference to this
             var trList;
-            var id;
-            var emailLink;
-            var newEmailLink; // can be re-written to loop through array to find info.
+            var emailAddress;
+            var retURL = this.launchSFID;
+            var id = this.launchSFID.slice(1) + '_RelatedHistoryList';
+            var emailLink = jQuery('#' + id).find('input[value="Send an Email"]').attr('onclick').split("'")[1]; // eslint-disable-line quotes
+            var newEmailLink = emailLink.slice(1, emailLink.indexOf('&retURL='));
+            var managerEmails = 'Jennifer.Walker@cdk.com;Erika.Myrick@cdk.com';
 
             jQuery.ajax({
-                'url': ajaxRequestURL,
+                'url': emailTarget.split("'")[3], // eslint-disable-line quotes
                 'context': document.body,
                 'success': function (data) {
                     trList = jQuery('<div>').html(data).find('.detailList').find('tr');
                     emailAddress = jQuery(trList[1]).find('a').text();
 
-                    // build email link URL
-                    id = self.launchSFID.slice(1) + '_RelatedHistoryList';
-                    emailLink = jQuery('#' + id).find('input[value="Send an Email"]').attr('onclick').split("'")[1]; // eslint-disable-line quotes
-                    newEmailLink = emailLink.slice(1, emailLink.indexOf('&retURL='));
-
                     launchToolbar.config.$salesforceEmailOwner.attr({
-                        'onclick': window.location.href = encodeURI(newEmailLink + '&p24=' + emailAddress + '&p4=' + 'Jennifer.Walker@cdk.com;Erika.Myrick@cdk.com' + '&p6=' + self.comboID + '&retURL=' + retURL),
+                        'onclick': window.location.href = encodeURI(`${newEmailLink}&p24=${emailAddress}&p4=${managerEmails}&p6=${self.comboID}&retURL=${retURL}`),
                     });
                 },
             });
         },
         'activityLog': function (emailTarget) {
-            var ajaxRequestURL = emailTarget.split("'")[3]; // eslint-disable-line quotes
-            var self = this;
+            var self = this; // save reference to this
             var retURL = this.launchSFID;
             var emailAddress;
-            var logID;
-            var logURL;
-            var newLogURL;
+            var logID = this.launchSFID.replace('/', '#') + '_RelatedHistoryList';
+            var logURL = jQuery(logID).find('input[value="Log a Call"]').attr('onclick').split("'")[1]; // eslint-disable-line quotes
+            var newLogURL = logURL.slice(1, logURL.indexOf('&retURL='));
             var ownerName;
             var trList;
 
             jQuery.ajax({
-                'url': ajaxRequestURL,
+                'url': emailTarget.split("'")[3], // eslint-disable-line quotes
                 'context': document.body,
                 'success': function (data) {
                     trList = jQuery('<div>').html(data).find('.detailList').find('tr');
                     emailAddress = jQuery(trList[1]).find('a').text();
+                    ownerName = self.extractNameFromEmail(emailAddress, true);
 
-                    // build log activity URL
-                    logID = self.launchSFID.replace('/', '#') + '_RelatedHistoryList';
-                    logURL = jQuery(logID).find('input[value="Log a Call"]').attr('onclick').split("'")[1]; // eslint-disable-line quotes
-                    newLogURL = logURL.slice(1, logURL.indexOf('&retURL='));
-
-                    // 1. cut out name from email address
-                    // 2. split name into two parts
-                    // 3. capitalize the first letter of each name
-                    // 4. combine into full name
-                    ownerName = emailAddress.split('@')[0].split('.').map((word) => {
-                        var wordArr = word.split('');
-                        wordArr[0] = wordArr[0].toUpperCase();
-                        return wordArr.join('');
-                    }).join(' ');
-
+                    // bind onclick event for div
                     launchToolbar.config.$logActivity.attr({
-                        'onclick': window.location.href = encodeURI(newLogURL + '&tsk2=' + ownerName + '&retURL=' + retURL),
+                        'onclick': window.location.href = encodeURI(`${newLogURL}&tsk2=${ownerName}&retURL=${retURL}`),
                     });
-
                 },
             });
         },
@@ -590,7 +573,7 @@ function programVariables() {
 
             if (this.webID.search('gmcl') !== -1) {
                 if (this.webID.search('-fr') !== -1) {
-                    wsmLink = base + this.webID + '&locale=fr_CA';
+                    wsmLink = `${base}${this.webID}&locale=fr_CA`;
                 } else {
                     wsmLink = base + this.webID + '&locale=en_CA';
                 }
@@ -753,6 +736,22 @@ function programVariables() {
                 // general toolbox styles
                 .append('.funcButtons { display: none; padding: 0px 15px; border-right: 1px rgb(0, 0, 0) solid; padding-top: 0px; } ')
                 .append('.click-able { cursor: pointer; } ')
+                .append('.myTitle { color: #000000; font-weight: 900; } ')
+                .append('.myClass { line-height: 30px !important;  height: 30px; vertical-align: -5% !important; } ')
+                .append('.myClass:hover, .fa.myClass:hover { font-weight: 900; } ')
+                .append('.imp { float: left !important; } ')
+                .append('.dealerCodeInfo th { text-align: center; } '); // end
+        },
+        'addFunctionStyles': function () {
+            launchToolbar.config.$toolbarStyles
+                .append('.selectedTarget { background: white; color: green; }')
+                .append('.activeFunction { background: teal; color: white; }')
+                .append('.targetsPanel { display: none; position: absolute; background: linear-gradient(to right, rgb(178, 254, 250), rgb(14, 210, 200)); margin-top: 38px; margin-left: 1305px; padding: 0px 10px; border-left: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0) }');
+        },
+        'addOptionStyles': function () {
+            launchToolbar.config.$toolbarStyles
+                .append('.makeLarger { font-size: 1rem; } ')
+                .append('.makeBolder { font-weight: 900; } ')
                 .append('.hFont { color: white !important; display: table; } ')
                 .append('.hlaunchID { background: rgb(255, 0, 0); } ')
                 .append('.hwebID { background: rgb(255, 20, 155); } ')
@@ -762,17 +761,7 @@ function programVariables() {
                 .append('.hproofDate { background: rgb(0, 100, 0); } ')
                 .append('.hlaunchDate { background: rgb(165, 115, 50); } ')
                 .append('.hproductType { background: rgb(19, 106, 138); } ')
-                .append('.hdealerCode { background: rgb(199, 121, 208); } ')
-                .append('.myTitle { color: #000000; font-weight: 900; } ')
-                .append('.makeLarger { font-size: 1rem; } ')
-                .append('.makeBolder { font-weight: 900; } ')
-                .append('.myClass { line-height: 30px !important;  height: 30px; vertical-align: -5% !important; } ')
-                .append('.myClass:hover, .fa.myClass:hover { font-weight: 900; } ')
-                .append('.imp { float: left !important; } ')
-                .append('.selectedTarget { background: white; color: green; }')
-                .append('.activeFunction { background: teal; color: white; }')
-                .append('.targetsPanel { display: none; position: absolute; background: linear-gradient(to right, rgb(178, 254, 250), rgb(14, 210, 200)); margin-top: 38px; margin-left: 1305px; padding: 0px 10px; border-left: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0) }')
-                .append('.dealerCodeInfo th { text-align: center; } '); // end
+                .append('.hdealerCode { background: rgb(199, 121, 208); } ');
         },
         'buildSettings': function () {
             var $otherSettings = launchToolbar.config.$container.clone(true).text('Other Features').removeClass('click-able');
@@ -797,13 +786,13 @@ function programVariables() {
             $colorTool.append($colorStartInputField).append($colorEndInputField).append($colorInputFieldButt);
 
             // Add 'other panel tools' to ther Features Panel
-            launchToolbar.config.$settingContainer.append($otherSettings);
-            launchToolbar.config.$settingContainer.append($quickLinksSizing);
-            launchToolbar.config.$settingContainer.append($largeInfo);
-            // test element - colorize
-            launchToolbar.config.$settingContainer.append($colorizeLaunch);
+            launchToolbar.config.$settingContainer
+                .append($otherSettings)
+                .append($quickLinksSizing)
+                .append($largeInfo)
+                .append($colorizeLaunch);
         },
-        'buildTool': function () {
+        'buildToolComponents': function () {
             launchToolbar.config.$accountName.append(this.accountName);
             launchToolbar.config.$idCombo.append(launchToolbar.config.$plusIcon);
             launchToolbar.config.$copyFolderPath.append(launchToolbar.config.$folderImage);
@@ -820,8 +809,10 @@ function programVariables() {
             launchToolbar.config.$howToGuide.append(launchToolbar.config.$howToIcon);
             launchToolbar.config.$settings.append(launchToolbar.config.$settingsIcon);
             launchToolbar.config.$logActivity.append(launchToolbar.config.$logActivityIcon);
-
-            launchToolbar.config.$uiBox.append(launchToolbar.config.$toggleOn)
+        },
+        'buildMainTool': function () {
+            launchToolbar.config.$uiBox
+                .append(launchToolbar.config.$toggleOn)
                 .append(launchToolbar.config.$webIDtext)
                 .append(launchToolbar.config.$accountName)
                 .append(launchToolbar.config.$launchID)
@@ -857,9 +848,9 @@ function programVariables() {
             this.$body.prepend(launchToolbar.config.$settingContainer);
             this.$body.prepend(launchToolbar.config.$uiBox);
         },
-        'turnSettingsOn': function () {
-
-        },
+//        'turnSettingsOn': function () {
+//
+//        },
         'switchPlatform': function () {
             launchToolbar.config.$toggleLabel.css({
                 'color': this.platformSelector ? 'purple' : 'blue',
