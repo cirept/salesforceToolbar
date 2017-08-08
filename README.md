@@ -41,17 +41,19 @@ https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldm
 
 1. Click the Email icon
 
-2. You will be lead to the 'Send Email' screen.
+2. Choose the launch team member that you would like to send an email too.
 
-3. The email text areas will be filled out.
+3. You will be lead to the 'Send Email' screen.
+
+4. The email text areas will be filled out.
     - To:  Will be empty (please leave blank, recipient email placed in 'Additional To:'
     - Additional To:   (auto filled with owner email)
     - CC:   (auto filled with Jennifer W. and Erika M.)
     - Subject:  (auto filled with Launch and Web-ID)
 
-3. Fill out the body of the email.
+5. Fill out the body of the email.
 
-5. Just fill in the body of your email, SalesForce will auto append your signature settings made through SalesForce : My Settings.
+6. Just fill in the body of your email, SalesForce will auto append your signature settings made through SalesForce : My Settings.
     - If not set up yet.
         - [Link to SalesForce Settings](https://cdk.my.salesforce.com/ui/setup/Setup?setupid=PersonalSetup)
         - "email" link (left menu)
@@ -59,34 +61,35 @@ https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldm
         - Update Your Email Settings
         - Save
 
-4. Press 'Send' once your email has been written.
+7. Press 'Send' once your email has been written.
 
-5. DONE!  You will be redirected to the launch.
+8. DONE!  You will be redirected to the launch.
 
 ---
 
 # Tool Info
 
-
 ## Log a Chat / Call
 
 1. Click the Log Chat icon
 
-2. You will be lead to the 'Log Activity' screen.
+2. Choose the launch team member you would like to send an email too.
 
-3. The 'contact' field will be filled out with launch owner's name
+3. You will be lead to the 'Log Activity' screen.
 
-4. Update the 'subject' field.  (Chat or Call)
+4. The 'contact' field will be filled out with launch owner's name
 
-5. Update the 'type' field.  (Spoke To or Chat)
+5. Update the 'subject' field.  (Chat or Call)
 
-6. Update the 'comments' field.
+6. Update the 'type' field.  (Spoke To or Chat)
 
-7. Update the 'Attendees' field. (Internal)
+7. Update the 'comments' field.
 
-8. Click 'save'
+8. Update the 'Attendees' field. (Internal)
 
-9. DONE! You will be redirected to the launch.
+9. Click 'save'
+
+10. DONE! You will be redirected to the launch.
 
 ---
 
@@ -110,6 +113,10 @@ https://github.com/cirept/salesforceToolbar/issues
 ---
 
 ## Change Log
+
+### v4.5 8/8/2017
+1. Updated Nextgen text links - Removed the Proof link
+2. Added additional functionality to the 'log activity' and 'email team member' tool
 
 ### v4.4 6/15/2017
 1. Updated Edit in WSM link --> Copy WSM link
