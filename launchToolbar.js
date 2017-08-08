@@ -66,7 +66,7 @@ function programVariables() {
                     'position': 'fixed',
                     'display': 'none',
                     'z-index': '9999',
-                    'background': 'linear-gradient(to left, rgb(133, 162, 255), rgb(18, 216, 250), rgb(35, 233, 154))',
+                    'background': 'linear-gradient(to bottom, rgb(100, 242, 255), rgb(1, 255, 138))',
                     'color': '#000',
                     'text-align': 'center',
                     'font-size': '11px',
@@ -82,7 +82,7 @@ function programVariables() {
                     'height': '40px',
                     'display': 'none',
                     'position': 'fixed',
-                    'background': 'linear-gradient(to left, rgb(133, 162, 255), rgb(18, 216, 250), rgb(35, 233, 154))',
+                    'background': 'rgb(1, 255, 138)',
                     'border': '1px #000 solid',
                     'top': '40px',
                     'z-index': 500,
@@ -635,8 +635,6 @@ function programVariables() {
                 case 'infiniti':
                     oemPart = 'infinitidealer.com/';
                     break;
-                default:
-                    // console.log('OEM NOT FOUND, please add OEM to code : ' + oem);
             }
 
             launchToolbar.config.folderPath = baseManuLoc + oem + '\\' + id.charAt(0) + '\\' + id;
@@ -835,6 +833,11 @@ function programVariables() {
             launchToolbar.config.$toggleLabel.css({
                 'color': this.platformSelector ? 'purple' : 'blue',
             }).text(this.platformSelector ? 'Nextgen' : 'Tetra');
+            // hide proof link if Nextgen
+            this.nextGenHideProof();
+        },
+        'nextGenHideProof': function () {
+            getValue('platformSelector') ? launchToolbar.config.$proofSite.hide() : launchToolbar.config.$proofSite.show();
         },
         'largerQuickLinks': function () {
             this.$quickLinks.toggleClass('makeLarger');
@@ -872,6 +875,7 @@ function programVariables() {
 
             setTimeout(function () {
                 $funcButts.toggle();
+                self.nextGenHideProof();
 
                 launchToolbar.config.$placeholder.slideToggle('slow');
                 launchToolbar.config.$uiBox.slideToggle('slow', function () {
