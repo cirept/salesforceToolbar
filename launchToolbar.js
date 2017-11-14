@@ -38,7 +38,6 @@ function programVariables() {
             //            this.getEmail();
             this.buildWSMlink();
             this.buildFolderPath();
-            this.openAccountInfoPage();
             this.bindEvents();
             this.addStyles();
             this.addFunctionStyles();
@@ -66,17 +65,17 @@ function programVariables() {
                     'position': 'fixed',
                     'display': 'none',
                     'z-index': '9999',
-                    'background': 'linear-gradient(to bottom, rgb(100, 242, 255), rgb(1, 255, 138))',
+                    'background': 'linear-gradient(to bottom, rgb(192, 229, 248), #F6F6F6)',
                     'color': '#000',
                     'text-align': 'center',
                     'font-size': '11px',
                     'width': '99%',
                     'font-weight': '700',
-                    '-moz-border-radius': '10px',
-                    'border-radius': '10px',
-                    'border': '1px #000 solid',
+                    '-moz-border-radius': '0',
+                    'border-radius': '0',
+                    'border': '0 #000 solid',
                     'padding': '7px 0px',
-                    'font-family': '"Raleway", sans-serif',
+                    'font-family': '"Century Gothic", sans-serif',
                 }),
                 '$settingContainer': jQuery('<div>').css({
                     'height': '40px',
@@ -211,20 +210,14 @@ function programVariables() {
                 '$importantInfo': jQuery('<div>').attr({
                     'id': 'importantInfo',
                 }),
-                '$BACinfo': jQuery('<div>').attr({
-                    'class': 'BACinfo funcButtons imp click-able',
-                }).html('<div class="myTitle BACinfo">Dealer Code/BAC</div>'),
-                '$clickMe': jQuery('<div>').attr({
-                    'class': 'BACinfo',
-                }).text('Content Loading').css({
-                    'color': 'rgb(255, 0, 255)',
-                }),
-                '$accountNum': jQuery('<div>').attr({
+				
+				'$accountNum': jQuery('<div>').attr({
                     'class': 'accountNum funcButtons imp click-able',
-                }).html('<div class="myTitle accountNum">Acc. Number</div>'),
-                '$clickMe2': jQuery('<div>').attr({
-                    'class': 'BACinfo',
-                }).text('Content Loading'),
+                    'title': 'Copy Account Number',
+                }).css({
+                    'color': 'rgb(0, 0, 0)',
+                }).html('<div class="myTitle">Account Number</div>'),
+				
                 '$bacTable': jQuery('<div>').attr({
                     'class': 'dealerCodeInfo',
                 }).css({
@@ -376,6 +369,14 @@ function programVariables() {
             this.$launchOwner = jQuery('#Owner_ileinner a[id*="Owner"]').attr({
                 'class': 'launchOwner',
             });
+			
+			
+            this.$accountNum = jQuery('#00N0b000003Cy2r_ileinner');
+            this.accountNum = this.$accountNum.text(); // Account Number
+			
+			
+			
+			
             // Launch owner hover info
             this.launchMouseover = this.$launchOwner.attr('onmouseover');
             this.launchOwnerID = this.$launchOwner.attr('href').slice(1); // launch owner ID
@@ -649,12 +650,6 @@ function programVariables() {
                 'href': nitra + oemPart + id + reload + platformSelector,
             });
         },
-        'openAccountInfoPage': function () {
-            var host = window.location.hostname;
-            var protocol = window.location.protocol;
-            var openThis = protocol + '//' + host + '' + this.accountInfo;
-            openInTab(openThis);
-        },
         'bindEvents': function () {
             launchToolbar.config.$idCombo.on('click', this.doWork.bind(this));
             launchToolbar.config.$launchID.on('click', this.doWork.bind(this));
@@ -679,7 +674,6 @@ function programVariables() {
             this.$launchOwner.bind('contextmenu', function () {
                 return false;
             });
-            launchToolbar.config.$BACinfo.on('click', this.doWork.bind(this));
             launchToolbar.config.$platformToggle.on('click', this.flipTheSwitch.bind(this));
             launchToolbar.config.$platformToggle.on('click', this.buildFolderPath.bind(this));
             launchToolbar.config.$settings.on('click', function () {
@@ -712,7 +706,7 @@ function programVariables() {
         'addStyles': function () {
             launchToolbar.config.$toolbarStyles
                 // general toolbox styles
-                .append('.funcButtons { display: none; padding: 0px 15px; border-right: 1px rgb(0, 0, 0) solid; padding-top: 0px; } ')
+                .append('.funcButtons { display: none; padding: 0px 15px; <!--border-right: 1px rgb(0, 0, 0) solid;--> padding-top: 0px; }')
                 .append('.click-able { cursor: pointer; } ')
                 .append('.myTitle { color: #000000; font-weight: 900; } ')
                 .append('.myClass { line-height: 30px !important;  height: 30px; vertical-align: -5% !important; } ')
@@ -780,8 +774,9 @@ function programVariables() {
             launchToolbar.config.$proofDate.append(this.proofDateText);
             launchToolbar.config.$launchDate.append(this.launchDateText);
             launchToolbar.config.$webIDtext.append(this.webIDtext);
-            launchToolbar.config.$BACinfo.append(launchToolbar.config.$clickMe);
-            launchToolbar.config.$accountNum.append(launchToolbar.config.$clickMe2);
+
+            launchToolbar.config.$accountNum.append(this.accountNum);
+			
             launchToolbar.config.$platformToggle.append(launchToolbar.config.$toggleLabel).append(launchToolbar.config.$arrowIcon);
             launchToolbar.config.$salesforceEmailOwner.append(launchToolbar.config.$salesforceEmailIcon);
             launchToolbar.config.$howToGuide.append(launchToolbar.config.$howToIcon);
@@ -813,7 +808,6 @@ function programVariables() {
                 .append(launchToolbar.config.$idCombo)
                 .append(launchToolbar.config.$importantInfo)
                 .append(launchToolbar.config.$dynoDisplay)
-                .append(launchToolbar.config.$BACinfo)
                 .append(launchToolbar.config.$accountNum)
                 .append(launchToolbar.config.$bacTable);
         },
@@ -890,54 +884,6 @@ function programVariables() {
                 self.programData();
             }, 1000);
         },
-        'bacTable': function () {
-            var BACvariable = 'BSCtable';
-            var accountName;
-            var bacTableData;
-            var accountNumber;
-            //            var dataGathered;
-            //            var dataGathered = false;
-            var attempts = 1;
-            var gatherInfo;
-
-            setTimeout(function () {
-                // set interval start
-                gatherInfo = setInterval(function () {
-                    accountName = getValue('accountName');
-                    accountNumber = getValue('accountNumber');
-                    bacTableData = getValue(BACvariable);
-
-                    if (bacTableData === 'undefined' || bacTableData === false || accountName === 'undefined' || accountName === false || accountNumber === 'undefined' || accountNumber === false) {
-                        //                        dataGathered = false;
-                        // if table is empty
-                        attempts += 1;
-
-                        if (attempts === 10) {
-                            clearInterval(gatherInfo);
-                        }
-                    } else {
-                        //                        dataGathered = true;
-                        // if table is not empty
-                        launchToolbar.config.$bacTable.html(bacTableData);
-                        launchToolbar.config.$clickMe.fadeOut(200, function () {
-                            launchToolbar.config.$BACinfo.attr({
-                                'title': 'Click for ' + accountName + ' Info',
-                            });
-                            launchToolbar.config.$clickMe.text('Click for Dealer Info').fadeIn(200);
-                        });
-                        launchToolbar.config.$clickMe2.fadeOut(200, function () {
-                            launchToolbar.config.$accountNum.attr({
-                                'title': 'Click for account number',
-                            });
-                            launchToolbar.config.$clickMe2.text(accountNumber).fadeIn(200);
-                        });
-
-                        clearInterval(gatherInfo);
-                    }
-                }, 2000); // set interval end
-
-            }, 2000); // set time out end
-        },
         // ----------------------------------------
         // TIER 2
         // ----------------------------------------
@@ -967,11 +913,8 @@ function programVariables() {
                 case classText.indexOf('Webnum') > -1:
                     this.copyInfo(this.webnum);
                     break;
-                case classText.indexOf('BACinfo') > -1:
-                    launchToolbar.config.$bacTable.toggle(1000);
-                    break;
                 case classText.indexOf('accountNum') > -1:
-                    this.copyInfo(launchToolbar.config.$clickMe2.text());
+                    this.copyInfo(this.accountNum);
                     break;
                 case classText.indexOf('WSMedit') > -1:
                     this.copyInfo(launchToolbar.config.$EditLink.data('link'));
@@ -1121,16 +1064,6 @@ function programVariables() {
                     setValue('accountName', accountName);
 
                     counter += 1;
-                    if (counter === 10) {
-                        //                            console.log('Data not gathered, function timing out');
-                        clearInterval(gatherData);
-                        window.close();
-                    }
-
-                    if (getValue(BACvariable) !== false && getValue('accountName') !== false && getValue('accountNumber')) {
-                        clearInterval(gatherData);
-                        window.close();
-                    }
                 }
             }, 1000); // set interval end
         },
