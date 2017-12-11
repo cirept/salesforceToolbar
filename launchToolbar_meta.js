@@ -3,7 +3,7 @@
 // @namespace www.cobaltgroup.com
 // @include https://cdk.my.salesforce.com/a1E*
 // @include https://cdk--c.na57.visual.force.com/*
-// @version 4.6
+// @version 4.7
 // @run-at document-end
 // @downloadURL https://raw.githubusercontent.com/cirept/salesforceToolbar/master/launchToolbar_meta.js
 // @require https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js
