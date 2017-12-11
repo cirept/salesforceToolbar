@@ -379,7 +379,7 @@ function programVariables() {
 			
             // Launch owner hover info
             this.launchMouseover = this.$launchOwner.attr('onmouseover');
-            this.launchOwnerID = this.$launchOwner.attr('href').slice(1); // launch owner ID
+            this.launchOwnerID = this.$launchOwner.attr('href'); // launch owner ID
             this.launchOwnerText = this.$launchOwner.text(); // launch owner
             // launch quick links
             this.$quickLinks = jQuery('.listHoverLinks');
