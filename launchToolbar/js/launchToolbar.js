@@ -1,20 +1,11 @@
 /* global jQuery, window, setTimeout, GM_setClipboard, GM_openInTab, GM_setValue, GM_getValue, GM_info, setInterval, clearInterval, document, GM_getResourceURL, GM_listValues, unsafeWindow */
+
 // Tampermonkey functions
 
 /**
- * Tampermonkey function to open a new tab in the browser
- * @param {String} url - the url to open in a new tab
- */
-function openInTab(url) {
-  'use strict';
-  GM_openInTab(url); // eslint-disable-line new-cap
-}
-
-/**
- * Tampermonkey function to save values locally
- * @param {String} variable - the name of the variable that is saved locally
- *                            will create a new varible if one doesn't exist.
- * @param {String} val - the value to save to the variable
+ * Built in Tampermonkey functions
+ * @param {string} variable - the variable to change the value
+ * @param {string} val - the value to set the variable too
  */
 function setValue(variable, val) {
   'use strict';
@@ -22,10 +13,9 @@ function setValue(variable, val) {
 }
 
 /**
- * Tampermonkey function to get variable saved to local computer memory
- * @param {String} variable - the variable name to retrive from local memory
- * @return {String} the value of the input variable, if variable does not exist
- *                  will return FALSE.
+ * Built in Tampermonkey functions
+ * @param {string} variable - the variable to change the value
+ * @return {string} the value of the variable
  */
 function getValue(variable) {
   'use strict';
@@ -33,10 +23,9 @@ function getValue(variable) {
 }
 
 /**
- * Tampermonkey function to get the resource URL that is mentioned in the
- * userscript entry in Tampermonkey
- * @param {String} resource - the name of the resource URL to get
- * @return {String} the value of the resource URL
+ * Built in Tampermonkey functions
+ * @param {string} resource - the resource to grab from the meta script
+ * @return {string} the defined resource from the meta script
  */
 function getResourceURL(resource) {
   'use strict';
@@ -44,25 +33,24 @@ function getResourceURL(resource) {
 }
 
 /**
- * Tampermonkey function to get all local variables
- * @return {String} list of all variables saved to local memory
+ * Built in Tampermonkey functions, returns all saved variables from
+ * from local storage
+ * @return {object} an array of all the saved variables in local storage
  */
 function programVariables() {
   'use strict';
   return GM_listValues(); // eslint-disable-line new-cap
 }
 
-
-(function runNow() {
+(function () {
   'use strict';
-  const launchToolbar = {
+  var launchToolbar = {
     'init': function () {
       this.createElements();
       this.cacheDOM();
       // test element
       this.buildEmailTargets();
       this.buildLogTargets();
-      //            this.getEmail();
       this.buildWSMlink();
       this.buildFolderPath();
       this.bindEvents();
@@ -73,7 +61,6 @@ function programVariables() {
       this.buildToolComponents();
       this.buildMainTool();
       this.attachTool();
-      //            this.turnSettingsOn();
       this.switchPlatform();
       this.startTool();
       this.bacTable();
@@ -130,7 +117,9 @@ function programVariables() {
           .css({
             'line-height': '15px',
           })
-          .html('<b>Launch</b> <i class="fa fa-angle-right fa-lg">&nbsp;</i><br> v: ' + GM_info.script.version), // eslint-disable-line camelcase
+          .html('<b>Launch</b> ' +
+            '<i class="fa fa-angle-right fa-lg">&nbsp;</i><br> v: ' +
+            GM_info.script.version), // eslint-disable-line camelcase
         '$toolbarStyles': jQuery('<style>')
           .attr({
             'id': 'qa_toolbox',
@@ -518,7 +507,7 @@ function programVariables() {
     },
     /**
      * Checks siblind elements of clicked element and removes 'selectedTarget' class if found.
-     * @currentTarget {object} contains click event details.
+     * @param {Object} currentTarget  contains click event details.
      */
     'removeSelectedTarget': function (currentTarget) {
       jQuery(currentTarget)
@@ -527,33 +516,41 @@ function programVariables() {
     },
     /**
      * Will pass the related details to be binded on the 'callingPanel' onclick attribute.
-     * @currentTarget {object} contains click event details.
-     * @callingPanel {string} represents what panel called the function.
+     * @param {Object} currentTarget contains click event details.
+     * @param {String} callingPanel represents what panel called the function.
      */
     'bindTargetPanelActions': function (currentTarget, callingPanel) {
-      if (currentTarget.className.indexOf('ic') > -1 && callingPanel.indexOf('email') > -1) {
+      if (currentTarget.className.indexOf('ic') > -1 &&
+        callingPanel.indexOf('email') > -1) {
         this.getEmail(this.$launchOwner.attr('onmouseover'));
-      } else if (currentTarget.className.indexOf('designer') > -1 && callingPanel.indexOf('email') > -1) {
+      } else if (currentTarget.className.indexOf('designer') > -1 &&
+        callingPanel.indexOf('email') > -1) {
         this.getEmail(this.designer.attr('onmouseover'));
-      } else if (currentTarget.className.indexOf('preDesign') > -1 && callingPanel.indexOf('email') > -1) {
+      } else if (currentTarget.className.indexOf('preDesign') > -1 &&
+        callingPanel.indexOf('email') > -1) {
         this.getEmail(this.preDesign.attr('onmouseover'));
-      } else if (currentTarget.className.indexOf('qaDesigner') > -1 && callingPanel.indexOf('email') > -1) {
+      } else if (currentTarget.className.indexOf('qaDesigner') > -1 &&
+        callingPanel.indexOf('email') > -1) {
         this.getEmail(this.qaDesigner.attr('onmouseover'));
-      } else if (currentTarget.className.indexOf('ic') > -1 && callingPanel.indexOf('logActivity') > -1) {
+      } else if (currentTarget.className.indexOf('ic') > -1 &&
+        callingPanel.indexOf('logActivity') > -1) {
         this.activityLog(this.$launchOwner.attr('onmouseover'));
-      } else if (currentTarget.className.indexOf('designer') > -1 && callingPanel.indexOf('logActivity') > -1) {
+      } else if (currentTarget.className.indexOf('designer') > -1 &&
+        callingPanel.indexOf('logActivity') > -1) {
         this.activityLog(this.designer.attr('onmouseover'));
-      } else if (currentTarget.className.indexOf('preDesign') > -1 && callingPanel.indexOf('logActivity') > -1) {
+      } else if (currentTarget.className.indexOf('preDesign') > -1 &&
+        callingPanel.indexOf('logActivity') > -1) {
         this.activityLog(this.preDesign.attr('onmouseover'));
-      } else if (currentTarget.className.indexOf('qaDesigner') > -1 && callingPanel.indexOf('logActivity') > -1) {
+      } else if (currentTarget.className.indexOf('qaDesigner') > -1 &&
+        callingPanel.indexOf('logActivity') > -1) {
         this.activityLog(this.qaDesigner.attr('onmouseover'));
       }
     },
     /**
      * Will run group of functions related to the launch members panel.
      * Specifically related to the 'log actitivy tool' and 'email team memeber tool'.
-     * @currentTarget {object} contains click event details.
-     * @callingPanel {string} represents what panel called the function.
+     * @param {Object} currentTarget - contains click event details.
+     * @param {String} callingPanel - represents what panel called the function.
      */
     'selectItem': function (currentTarget, callingPanel) {
       this.removeSelectedTarget(currentTarget);
@@ -568,7 +565,7 @@ function programVariables() {
      * Step 3. Bind even listener to fire selectItem function.
      */
     'buildEmailTargets': function () {
-      let self = this;
+      var self = this;
 
       self.buildLaunchMembersPanel(launchToolbar.config.$emailTargetsPanel);
 
@@ -580,11 +577,12 @@ function programVariables() {
     },
     /**
      * Will extract the name out of a CDK email
-     * emailAddress will contain the email that will have the name extracted from
-     * bool will determine if the first letter of the names will be capitalized, optional
+     * @param {String} emailAddress - will contain the email that will have the name extracted from
+     * @param {Boolean} bool - will determine if the first letter of the names will be capitalized, optional
+     * @return {Object} the extracted email address of the user
      */
     'extractNameFromEmail': function (emailAddress, bool) {
-      let wordArr;
+      var wordArr;
       bool = bool ? bool : false;
 
       return emailAddress.split('@')[0].split('.')
@@ -596,7 +594,7 @@ function programVariables() {
         .join(' ');
     },
     'buildLogTargets': function () {
-      let self = this;
+      var self = this;
 
       self.buildLaunchMembersPanel(launchToolbar.config.$logTargetsPanel);
 
@@ -607,34 +605,48 @@ function programVariables() {
       });
     },
     'hideSelf': function ($panel) {
-      let self = this;
+      var self = this;
 
       $panel.children()
         .each(function (index, elem) {
           // hides element if it is the user
-          elem.innerHTML.indexOf(self.extractNameFromEmail(self.userName, true)) > -1 ? jQuery(elem)
-            .hide() : jQuery(elem)
-            .show();
+          // elem.innerHTML.indexOf(self.extractNameFromEmail(self.userName, true)) > -1 ? jQuery(elem)
+          //   .hide() : jQuery(elem)
+          //   .show();
+          if (elem.innerHTML
+            .indexOf(self
+              .extractNameFromEmail(self
+                .userName, true)) > -1) {
+            jQuery(elem)
+              .hide();
+          } else {
+            jQuery(elem)
+              .show();
+          }
         });
     },
     'buildLaunchMembersPanel': function ($panel) {
-      $panel.append(jQuery('<div class="myClass ic">IC: ' + this.launchOwnerText + '</div>'))
-        .append(jQuery('<div class="myClass designer">WDS: ' + this.designerName + '</div>'))
-        .append(jQuery('<div class="myClass preDesign">PD: ' + this.preDesignName + '</div>'))
-        .append(jQuery('<div class="myClass qaDesigner">QA: ' + this.qaDesignerName + '</div>'));
+      $panel.append(jQuery('<div class="myClass ic">IC: ' + this.launchOwnerText +
+          '</div>'))
+        .append(jQuery('<div class="myClass designer">WDS: ' + this.designerName +
+          '</div>'))
+        .append(jQuery('<div class="myClass preDesign">PD: ' + this.preDesignName +
+          '</div>'))
+        .append(jQuery('<div class="myClass qaDesigner">QA: ' + this.qaDesignerName +
+          '</div>'));
     },
     'getEmail': function (emailTarget) {
-      let self = this; // save reference to this
-      let trList;
-      let emailAddress;
-      let retURL = this.launchSFID;
-      let id = this.launchSFID.slice(1) + '_RelatedHistoryList';
-      let emailLink = jQuery('#' + id)
+      var self = this; // save reference to this
+      var trList;
+      var emailAddress;
+      var retURL = this.launchSFID;
+      var id = this.launchSFID.slice(1) + '_RelatedHistoryList';
+      var emailLink = jQuery('#' + id)
         .find('input[value="Send an Email"]')
         .attr('onclick')
         .split("'")[1]; // eslint-disable-line quotes
-      let newEmailLink = emailLink.slice(1, emailLink.indexOf('&retURL='));
-      let managerEmails = 'Jennifer.Walker@cdk.com;Erika.Myrick@cdk.com';
+      var newEmailLink = emailLink.slice(1, emailLink.indexOf('&retURL='));
+      var managerEmails = 'Jennifer.Walker@cdk.com;Erika.Myrick@cdk.com';
 
       jQuery.ajax({
         'url': emailTarget.split("'")[3], // eslint-disable-line quotes
@@ -649,23 +661,26 @@ function programVariables() {
             .text();
 
           launchToolbar.config.$salesforceEmailOwner.attr({
-            'onclick': window.location.href = encodeURI(`${newEmailLink}&p24=${emailAddress}&p4=${managerEmails}&p6=${self.comboID}&retURL=${retURL}`),
+            'onclick': window.location.href = encodeURI(
+              `${newEmailLink}&p24=${emailAddress}&p4=${managerEmails}&p6=${self.comboID}&retURL=${retURL}`
+            ),
           });
         },
       });
     },
     'activityLog': function (emailTarget) {
-      let self = this; // save reference to this
-      let retURL = this.launchSFID;
-      let emailAddress;
-      let logID = this.launchSFID.replace('/', '#') + '_RelatedHistoryList';
-      let logURL = jQuery(logID)
+      var self = this; // save reference to this
+      var retURL = this.launchSFID;
+      var emailAddress;
+      var logID = this.launchSFID.replace('/', '#') +
+        '_RelatedHistoryList';
+      var logURL = jQuery(logID)
         .find('input[value="Log a Call"]')
         .attr('onclick')
         .split("'")[1]; // eslint-disable-line quotes
-      let newLogURL = logURL.slice(1, logURL.indexOf('&retURL='));
-      let ownerName;
-      let trList;
+      var newLogURL = logURL.slice(1, logURL.indexOf('&retURL='));
+      var ownerName;
+      var trList;
 
       jQuery.ajax({
         'url': emailTarget.split("'")[3], // eslint-disable-line quotes
@@ -682,14 +697,16 @@ function programVariables() {
 
           // bind onclick event for div
           launchToolbar.config.$logActivity.attr({
-            'onclick': window.location.href = encodeURI(`${newLogURL}&tsk2=${ownerName}&retURL=${retURL}`),
+            'onclick': window.location.href = encodeURI(
+              `${newLogURL}&tsk2=${ownerName}&retURL=${retURL}`
+            ),
           });
         },
       });
     },
     'buildWSMlink': function () {
-      let base = 'http://websites.cobalt.com/wsm/index.do?webId=';
-      let wsmLink = '';
+      var base = 'http://websites.cobalt.com/wsm/index.do?webId=';
+      var wsmLink = '';
 
       if (this.webID.search('gmcl') !== -1) {
         if (this.webID.search('-fr') !== -1) {
@@ -712,15 +729,18 @@ function programVariables() {
       });
     },
     'buildFolderPath': function () {
-      let platformSelector = this.platformSelector ? '&nextGen=true' : '&nextgen=false';
-      let nitra = 'http://nitra.';
-      let wip = 'wip.';
-      let proof = 'proof.';
-      let reload = '/?reload=true';
-      let baseManuLoc = '\\\\las-mgmt1.lasisi01a.las.san.dsghost.net\\Associate\\sea\\CS\\graphics\\manufacturers\\';
-      let oem = this.webID.split('-')[0];
-      let id = this.webID.substr(this.webID.indexOf('-') + 1);
-      let oemPart;
+      var platformSelector = this.platformSelector ? '&nextGen=true' :
+        '&nextgen=false';
+      var nitra = 'http://nitra.';
+      var wip = 'wip.';
+      var proof = 'proof.';
+      var reload = '/?reload=true';
+      var baseManuLoc =
+        `\\\\las-mgmt1.lasisi01a.las.san.dsghost.net\\
+        Associate\\sea\\CS\\graphics\\manufacturers\\`;
+      var oem = this.webID.split('-')[0];
+      var id = this.webID.substr(this.webID.indexOf('-') + 1);
+      var oemPart;
 
       switch (oem) {
         case 'gmps':
@@ -775,18 +795,23 @@ function programVariables() {
         case 'infiniti':
           oemPart = 'infinitidealer.com/';
           break;
-        case 'ford':
-          oemPart = 'f1rd.com/';
+        case 'c1hr':
+          oemPart = 'c1hr.com/';
           break;
+        default:
+          // do nothing
       }
 
-      launchToolbar.config.folderPath = baseManuLoc + oem + '\\' + id.charAt(0) + '\\' + id;
+      launchToolbar.config.folderPath = baseManuLoc + oem + '\\' + id.charAt(
+        0) + '\\' + id;
 
       launchToolbar.config.$wipSite.attr({
-        'href': nitra + wip + oemPart + id + reload + platformSelector,
+        'href': nitra + wip + oemPart + id + reload +
+          platformSelector,
       });
       launchToolbar.config.$proofSite.attr({
-        'href': nitra + proof + oemPart + id + reload + platformSelector,
+        'href': nitra + proof + oemPart + id + reload +
+          platformSelector,
       });
       launchToolbar.config.$liveSite.attr({
         'href': nitra + oemPart + id + reload + platformSelector,
@@ -797,18 +822,21 @@ function programVariables() {
       launchToolbar.config.$launchID.on('click', this.doWork.bind(this));
       launchToolbar.config.$copyWebID.on('click', this.doWork.bind(this));
       launchToolbar.config.$accountName.on('click', this.doWork.bind(this));
-      launchToolbar.config.$copyFolderPath.on('click', this.doWork.bind(this));
+      launchToolbar.config.$copyFolderPath.on('click', this.doWork.bind(
+        this));
       launchToolbar.config.$webIDtext.on('click', this.doWork.bind(this));
       launchToolbar.config.$webnum.on('click', this.doWork.bind(this));
       launchToolbar.config.$wipSite.on('mousedown', this.doWork.bind(this));
       launchToolbar.config.$wipSite.bind('contextmenu', function () {
         return false;
       });
-      launchToolbar.config.$proofSite.on('mousedown', this.doWork.bind(this));
+      launchToolbar.config.$proofSite.on('mousedown', this.doWork.bind(
+        this));
       launchToolbar.config.$proofSite.bind('contextmenu', function () {
         return false;
       });
-      launchToolbar.config.$liveSite.on('mousedown', this.doWork.bind(this));
+      launchToolbar.config.$liveSite.on('mousedown', this.doWork.bind(
+        this));
       launchToolbar.config.$liveSite.bind('contextmenu', function () {
         return false;
       });
@@ -816,43 +844,62 @@ function programVariables() {
       this.$launchOwner.bind('contextmenu', function () {
         return false;
       });
-      launchToolbar.config.$platformToggle.on('click', this.flipTheSwitch.bind(this));
-      launchToolbar.config.$platformToggle.on('click', this.buildFolderPath.bind(this));
+      launchToolbar.config.$platformToggle.on('click', this.flipTheSwitch
+        .bind(this));
+      launchToolbar.config.$platformToggle.on('click', this.buildFolderPath
+        .bind(this));
       launchToolbar.config.$settings.on('click', function () {
         launchToolbar.config.$settingContainer.slideToggle(500);
       });
       launchToolbar.config.$container.on('click', this.doWork.bind(this));
-      launchToolbar.config.$container.on('click', this.flipTheSwitch.bind(this));
+      launchToolbar.config.$container.on('click', this.flipTheSwitch.bind(
+        this));
       launchToolbar.config.$accountNum.on('click', this.doWork.bind(this));
       launchToolbar.config.$EditLink.on('click', this.doWork.bind(this));
 
       launchToolbar.config.$salesforceEmailOwner.on('click', function () {
         launchToolbar.config.$emailTargetsPanel.toggle();
         launchToolbar.config.$emailTargetsPanel.focus();
-        launchToolbar.config.$salesforceEmailOwner.toggleClass('activeFunction');
+        launchToolbar.config.$salesforceEmailOwner.toggleClass(
+          'activeFunction');
       });
       launchToolbar.config.$logActivity.on('click', function () {
         launchToolbar.config.$logTargetsPanel.toggle();
         launchToolbar.config.$logTargetsPanel.focus();
-        launchToolbar.config.$logActivity.toggleClass('activeFunction');
+        launchToolbar.config.$logActivity.toggleClass(
+          'activeFunction');
       });
       launchToolbar.config.$emailTargetsPanel.on('focusout', function () {
         launchToolbar.config.$emailTargetsPanel.toggle();
-        launchToolbar.config.$salesforceEmailOwner.toggleClass('activeFunction');
+        launchToolbar.config.$salesforceEmailOwner.toggleClass(
+          'activeFunction');
       });
       launchToolbar.config.$logTargetsPanel.on('focusout', function () {
         launchToolbar.config.$logTargetsPanel.toggle();
-        launchToolbar.config.$logActivity.toggleClass('activeFunction');
+        launchToolbar.config.$logActivity.toggleClass(
+          'activeFunction');
       });
     },
     'addStyles': function () {
       launchToolbar.config.$toolbarStyles
         // general toolbox styles
-        .append('.funcButtons { display: none; padding: 0px 15px; <!--border-right: 1px rgb(0, 0, 0) solid;--> padding-top: 0px; }')
+        .append(
+          `.funcButtons {
+            display: none;
+            padding: 0px 15px;
+            <!--border-right: 1px rgb(0, 0, 0) solid;-->
+            padding-top: 0px; }`
+        )
         .append('.click-able { cursor: pointer; } ')
         .append('.myTitle { color: #000000; font-weight: 900; } ')
-        .append('.myClass { line-height: 30px !important;  height: 30px; vertical-align: -5% !important; } ')
-        .append('.myClass:hover, .fa.myClass:hover { font-weight: 900; } ')
+        .append(
+          `.myClass {
+            line-height: 30px !important;
+            height: 30px;
+            vertical-align: -5% !important; }`
+        )
+        .append(
+          '.myClass:hover, .fa.myClass:hover { font-weight: 900; } ')
         .append('.imp { float: left !important; } ')
         .append('.dealerCodeInfo th { text-align: center; } '); // end
     },
@@ -860,7 +907,19 @@ function programVariables() {
       launchToolbar.config.$toolbarStyles
         .append('.selectedTarget { background: white; color: green; }')
         .append('.activeFunction { background: teal; color: white; }')
-        .append('.targetsPanel { display: none; position: absolute; background: linear-gradient(to right, rgb(178, 254, 250), rgb(14, 210, 200)); margin-top: 38px; margin-left: 1305px; padding: 0px 10px; border-left: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0) }');
+        .append(
+          `.targetsPanel {
+          display: none;
+          position: absolute;
+          background: linear-gradient(
+            to right, rgb(178, 254, 250), rgb(14, 210, 200));
+            margin-top: 38px;
+            margin-left: 1305px;
+            padding: 0px 10px;
+            border-left: 1px solid rgb(0, 0, 0);
+            border-bottom: 1px solid rgb(0, 0, 0);
+            border-right: 1px solid rgb(0, 0, 0) }`
+        );
     },
     'addOptionStyles': function () {
       launchToolbar.config.$toolbarStyles
@@ -877,37 +936,41 @@ function programVariables() {
         .append('.hproductType { background: rgb(19, 106, 138); } ')
         .append('.hdealerCode { background: rgb(199, 121, 208); } ');
     },
-
     'buildSettings': function () {
-      let $otherSettings = launchToolbar.config.$container.clone(true)
+      var $otherSettings = launchToolbar.config.$container.clone(true)
         .text('Other Features')
         .removeClass('click-able');
-      let $settingsArrow = launchToolbar.config.$arrowIcon.clone(true);
-      let $quickLinksSizing = launchToolbar.config.$container.clone(true)
+      var $settingsArrow = launchToolbar.config.$arrowIcon.clone(true);
+      var $quickLinksSizing = launchToolbar.config.$container.clone(true)
         .addClass('quickLinksSize')
         .text('big quick links');
-      let $quickLinksSizingCheckboxIcon = launchToolbar.config.$settingCheckboxIcon.clone()
+      var $quickLinksSizingCheckboxIcon = launchToolbar.config.$settingCheckboxIcon
+        .clone()
         .addClass('quickLinksSize');
-      let $largeInfo = launchToolbar.config.$container.clone(true)
+      var $largeInfo = launchToolbar.config.$container.clone(true)
         .addClass('largeInfo')
         .text('make important info pop');
-      let $largeInfoCheckboxIcon = launchToolbar.config.$settingCheckboxIcon.clone()
+      var $largeInfoCheckboxIcon = launchToolbar.config.$settingCheckboxIcon
+        .clone()
         .addClass('largeInfo');
-      let $colorizeLaunch = launchToolbar.config.$container.clone(true)
+      var $colorizeLaunch = launchToolbar.config.$container.clone(true)
         .addClass('colorizeLaunch')
         .text('highlight important info');
-      let $colorizeLaunchCheckboxIcon = launchToolbar.config.$settingCheckboxIcon.clone()
+      var $colorizeLaunchCheckboxIcon = launchToolbar.config.$settingCheckboxIcon
+        .clone()
         .addClass('colorizeLaunch');
-      let $colorTool = launchToolbar.config.$container.clone(true)
+      var $colorTool = launchToolbar.config.$container.clone(true)
         .addClass('changeToolColor')
         .removeClass('click-able')
         .text('Change tool Color');
       // test elements - colorize
-      let $colorStartInputField = launchToolbar.config.$settingInput.clone(true)
+      var $colorStartInputField = launchToolbar.config.$settingInput
+        .clone(true)
         .addClass('startColor changeToolColor');
-      let $colorEndInputField = launchToolbar.config.$settingInput.clone(true)
+      var $colorEndInputField = launchToolbar.config.$settingInput
+        .clone(true)
         .addClass('endColor changeToolColor');
-      let $colorInputFieldButt = launchToolbar.config.$myButt.clone(true)
+      var $colorInputFieldButt = launchToolbar.config.$myButt.clone(true)
         .addClass('changeToolColor')
         .text('submit');
 
@@ -942,7 +1005,8 @@ function programVariables() {
 
       launchToolbar.config.$platformToggle.append(launchToolbar.config.$toggleLabel)
         .append(launchToolbar.config.$arrowIcon);
-      launchToolbar.config.$salesforceEmailOwner.append(launchToolbar.config.$salesforceEmailIcon);
+      launchToolbar.config.$salesforceEmailOwner.append(launchToolbar.config
+        .$salesforceEmailIcon);
       launchToolbar.config.$howToGuide.append(launchToolbar.config.$howToIcon);
       launchToolbar.config.$settings.append(launchToolbar.config.$settingsIcon);
       launchToolbar.config.$logActivity.append(launchToolbar.config.$logActivityIcon);
@@ -988,7 +1052,8 @@ function programVariables() {
     //
     //        },
     'switchPlatform': function () {
-      launchToolbar.config.$toggleLabel.css({
+      launchToolbar.config.$toggleLabel
+        .css({
           'color': this.platformSelector ? 'purple' : 'blue',
         })
         .text(this.platformSelector ? 'Nextgen' : 'Tetra');
@@ -996,7 +1061,8 @@ function programVariables() {
       this.nextGenHideProof();
     },
     'nextGenHideProof': function () {
-      getValue('platformSelector') ? launchToolbar.config.$proofSite.hide() : launchToolbar.config.$proofSite.show();
+      getValue('platformSelector') ? launchToolbar.config.$proofSite.hide() :
+        launchToolbar.config.$proofSite.show();
     },
     'largerQuickLinks': function () {
       this.$quickLinks.toggleClass('makeLarger');
@@ -1027,9 +1093,9 @@ function programVariables() {
       this.$dealerCode.toggleClass('hFont hdealerCode');
     },
     'startTool': function () {
-      let $funcButts = jQuery('.funcButtons');
-      let BACvariable = 'BSCtable';
-      let self = this;
+      var $funcButts = jQuery('.funcButtons');
+      var BACvariable = 'BSCtable';
+      var self = this;
 
       setValue('accountName', false);
       setValue(BACvariable, false);
@@ -1057,8 +1123,8 @@ function programVariables() {
     // TIER 2
     // ----------------------------------------
     'doWork': function (event) {
-      let $clickedElement = jQuery(event.delegateTarget);
-      let classText = $clickedElement.attr('class');
+      var $clickedElement = jQuery(event.delegateTarget);
+      var classText = $clickedElement.attr('class');
 
       switch (true) {
         case classText.indexOf('idCombo') > -1:
@@ -1101,12 +1167,14 @@ function programVariables() {
         case event.which === 3 && classText.indexOf('launchOwner') > -1:
           this.copyInfo(this.launchOwnerText);
           break;
+        default:
+          // do nothing
       }
     },
     'flipTheSwitch': function (event) {
-      let $clickedElement = jQuery(event.delegateTarget);
-      let classText = $clickedElement.attr('class');
-      let tempBool;
+      var $clickedElement = jQuery(event.delegateTarget);
+      var classText = $clickedElement.attr('class');
+      var tempBool;
 
       switch (true) {
         case classText.indexOf('platformSelector') > -1:
@@ -1131,13 +1199,15 @@ function programVariables() {
           setValue('colorizeLaunch', tempBool);
           this.setToggle('colorizeLaunch', tempBool);
           break;
+        default:
+          // do nothing
       }
     },
     // ----------------------------------------
     // tier 3
     // ----------------------------------------
     'copyInfo': function (variable) {
-      let $display = jQuery('<div>')
+      var $display = jQuery('<div>')
         .css({
           'display': 'none',
           'background': 'red',
@@ -1155,11 +1225,11 @@ function programVariables() {
       });
     },
     'programData': function () {
-      let allVariables = programVariables();
-      let length = allVariables.length;
-      let a = 0;
-      let variableName = '';
-      let bool = '';
+      var allVariables = programVariables();
+      var length = allVariables.length;
+      var a = 0;
+      var variableName = '';
+      var bool = '';
       // add variables to list
       for (a; a < length; a += 1) {
         variableName = allVariables[a];
@@ -1174,41 +1244,52 @@ function programVariables() {
       switch (true) {
         case variableName === 'quickLinksSize':
           jQuery('i.quickLinksSize')
-            .replaceWith(bool ? '<i class="fa fa-check-square fa-lg myClass quickLinksSize" style="padding: 5px;"></i>' : '<i class="fa fa-square fa-lg myClass quickLinksSize" style="padding: 5px;"></i>');
+            .replaceWith(bool ? '<i ' +
+              'class="fa fa-check-square fa-lg myClass quickLinksSize" ' +
+              'style="padding: 5px;"></i>' : '<i ' +
+              'class="fa fa-square fa-lg myClass quickLinksSize" ' +
+              'style="padding: 5px;"></i>');
           this.largerQuickLinks();
           break;
         case variableName === 'largeInfo':
           jQuery('i.largeInfo')
-            .replaceWith(bool ? '<i class="fa fa-check-square fa-lg myClass largeInfo" style="padding: 5px;"></i>' : '<i class="fa fa-square fa-lg myClass largeInfo" style="padding: 5px;"></i>');
+            .replaceWith(bool ? '<i ' +
+              'class="fa fa-check-square fa-lg myClass largeInfo" ' +
+              'style="padding: 5px;"></i>' : '<i ' +
+              'class="fa fa-square fa-lg myClass largeInfo" ' +
+              'style="padding: 5px;"></i>');
           this.makeLarger(bool);
           break;
         case variableName === 'colorizeLaunch':
           jQuery('i.colorizeLaunch')
-            .replaceWith(bool ? '<i class="fa fa-check-square fa-lg myClass colorizeLaunch" style="padding: 5px;"></i>' : '<i class="fa fa-square fa-lg myClass colorizeLaunch" style="padding: 5px;"></i>');
+            .replaceWith(bool ? '<i ' +
+              'class="fa fa-check-square fa-lg myClass colorizeLaunch" ' +
+              'style="padding: 5px;"></i>' : '<i ' +
+              'class="fa fa-square fa-lg myClass colorizeLaunch" ' +
+              'style="padding: 5px;"></i>');
           this.colorizeLaunch(bool);
           break;
         default:
       }
     },
   };
-
-  const getBAC = {
+  var getBAC = {
     'init': function () {
       return this.getBAC();
     },
     'getBAC': function () {
-      let BACvariable = 'BSCtable';
-      let findID = 'id=';
+      var BACvariable = 'BSCtable';
+      var findID = 'id=';
       let counter = 0;
-      let gatherData;
-      let accountID;
-      let tableID;
-      let tableBody;
-      let startLocation;
-      let endLocation;
-      let $BACbody;
-      let accountName;
-      let accountNumber;
+      // var gatherData;
+      var accountID;
+      var tableID;
+      var tableBody;
+      var startLocation;
+      var endLocation;
+      var $BACbody;
+      var accountName;
+      var accountNumber;
 
       // reset value
       setValue(BACvariable, false);
@@ -1216,24 +1297,27 @@ function programVariables() {
       setValue('accountNumber', false);
 
       // set interval start
-      gatherData = setInterval(function () {
-
-        let location = window.location.href;
-        let accountNameText = jQuery('#acc2j_id0_j_id5_ileinner')
+      // let gatherData = setInterval(function () {
+      setInterval(function () {
+        var location = window.location.href;
+        var accountNameText = jQuery('#acc2j_id0_j_id5_ileinner')
           .text();
 
         if (location.indexOf('cdk--c.na57.visual.force.com') > -1) {
-          accountNumber = jQuery('#00N40000002aU3Ij_id0_j_id5_ileinner')
+          accountNumber = jQuery(
+            '#00N40000002aU3Ij_id0_j_id5_ileinner')
             .text();
           setValue('accountNumber', accountNumber);
 
-          accountName = jQuery.trim(accountNameText.slice(0, accountNameText.indexOf('[')));
+          accountName = jQuery.trim(accountNameText.slice(0,
+            accountNameText.indexOf('[')));
 
           // search url for account id
           startLocation = location.indexOf(findID) + findID.length;
           endLocation = location.indexOf('&');
           accountID = location.slice(startLocation, endLocation);
-          tableID = '#' + 'j_id0_j_id5_' + '' + accountID + '' + '_00N40000002aU57';
+          tableID = '#' + 'j_id0_j_id5_' + '' + accountID + '' +
+            '_00N40000002aU57';
 
           tableBody = tableID + '_body';
           $BACbody = jQuery(tableBody);
