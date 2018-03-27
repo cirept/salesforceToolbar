@@ -19,7 +19,7 @@
 
 ## How to Install Launch Toolbar
 
-:new: : If you already have Tampermonkey installed, clicking the "Latest Launch Toolbar Code Here" link will cause Tampermonkey to install the script for you.  If you see a install window, click the "install" button and you are done.
+:new: If you already have Tampermonkey installed, clicking the "Latest Launch Toolbar Code Here" link will cause Tampermonkey to install the script for you.  If you see a install window, click the "install" button and you are done.
 
 1.  Open this link in a new tab (ctrl+click the link)<br>
     [Latest Launch Toolbar Code Here](https://github.com/cirept/salesforceToolbar/raw/master/launchToolbar/js/launchToolbar_meta.user.js)
@@ -119,6 +119,11 @@
 * * *
 
 ## Change Log
+
+### v4.8.1 3/27/2018
+
+1.  Updated README.md with new installation steps
+2.  Added Chrysler web-id support
 
 ### v4.5 8/8/2017
 
