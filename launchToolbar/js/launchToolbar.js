@@ -83,7 +83,7 @@ function programVariables() {
             'position': 'fixed',
             'display': 'none',
             'z-index': '9999',
-            'background': 'linear-gradient(to bottom, rgb(192, 229, 248), #F6F6F6)',
+            'background': 'linear-gradient(to bottom, rgb(192, 229, 248), rgb(255, 255, 255))',
             'color': '#000',
             'text-align': 'center',
             'font-size': '11px',
@@ -92,8 +92,13 @@ function programVariables() {
             '-moz-border-radius': '0',
             'border-radius': '0',
             'border': '0 #000 solid',
-            'padding': '7px 0px',
+            'padding': '11px 0px',
             'font-family': '"Century Gothic", sans-serif',
+            // 'bottom': 0,
+            'width': '100%',
+            // 'display': 'flex',
+            'justify-content': 'space-evenly',
+            'flex-flow': 'row wrap',
           }),
         '$settingContainer': jQuery('<div>')
           .css({
@@ -290,18 +295,17 @@ function programVariables() {
             'color': 'rgb(0, 0, 0)',
           })
           .html('<div class="myTitle">Account Number</div>'),
-
-        '$bacTable': jQuery('<div>')
-          .attr({
-            'class': 'dealerCodeInfo',
-          })
-          .css({
-            'display': 'none',
-            'position': 'absolute',
-            'margin-top': '38px',
-            'background': 'rgb(255, 255, 255)',
-            'border': '1px solid rgb(0, 0, 0)',
-          }),
+        // '$bacTable': jQuery('<div>')
+        //   .attr({
+        //     'class': 'dealerCodeInfo',
+        //   })
+        //   .css({
+        //     'display': 'none',
+        //     'position': 'absolute',
+        //     'margin-top': '38px',
+        //     'background': 'rgb(255, 255, 255)',
+        //     'border': '1px solid rgb(0, 0, 0)',
+        //   }),
         '$dynoDisplay': jQuery('<div>')
           .attr({
             'id': 'dynoDisplay',
@@ -504,6 +508,37 @@ function programVariables() {
       this.qaDesignerName = this.qaDesigner.text();
       // current user
       this.userName = unsafeWindow.UserContext.userName;
+
+      this.searchBar = this.getSearchBar();
+    },
+    /**
+     * Hide other areas of the launch details page that Builders do not use
+     */
+    hideOtherAreas() {
+      // close the sections that don't relate to me
+      jQuery('.hideListButton').each(function (ind, elem) {
+        let elemName = elem.name;
+        if (elemName === 'Other Launch Details' ||
+          elemName === 'Design' ||
+          elemName === 'Launch Notes') {
+          return true;
+        }
+        jQuery(elem).click();
+      });
+    },
+    /**
+     * Get the search bar from the top of the page
+     */
+    getSearchBar() {
+      // make the search bar sticky
+      let searchBar = jQuery('#phSearchForm');
+      //console.log(searchBar);
+      searchBar.addClass('imp');
+      searchBar.css({
+        width: '350px'
+      });
+      // jQuery('#uiBox').append(searchBar);
+      return searchBar;
     },
     /**
      * Checks siblind elements of clicked element and removes 'selectedTarget' class if found.
@@ -1021,23 +1056,25 @@ function programVariables() {
         .append(launchToolbar.config.$webnum)
         .append(launchToolbar.config.$proofDate)
         .append(launchToolbar.config.$launchDate)
-        .append(launchToolbar.config.$howToGuide)
-        .append(launchToolbar.config.$settings)
-        .append(launchToolbar.config.$wipSite)
-        .append(launchToolbar.config.$proofSite)
-        .append(launchToolbar.config.$liveSite)
-        .append(launchToolbar.config.$platformToggle)
-        .append(launchToolbar.config.$EditLink)
+        .append(launchToolbar.config.$accountNum)
+        .append(this.searchBar)
         .append(launchToolbar.config.$salesforceEmailOwner)
         .append(launchToolbar.config.$logTargetsPanel)
         .append(launchToolbar.config.$emailTargetsPanel)
         .append(launchToolbar.config.$logActivity)
         .append(launchToolbar.config.$copyFolderPath)
         .append(launchToolbar.config.$idCombo)
+        .append(launchToolbar.config.$EditLink)
+        .append(launchToolbar.config.$platformToggle)
+        .append(launchToolbar.config.$wipSite)
+        .append(launchToolbar.config.$proofSite)
+        .append(launchToolbar.config.$liveSite)
         .append(launchToolbar.config.$importantInfo)
         .append(launchToolbar.config.$dynoDisplay)
-        .append(launchToolbar.config.$accountNum)
-        .append(launchToolbar.config.$bacTable);
+        .append(launchToolbar.config.$settings)
+        .append(launchToolbar.config.$howToGuide);
+      // .append(launchToolbar.config.$accountNum);
+      // .append(launchToolbar.config.$bacTable);
     },
     'attachTool': function () {
       this.$head.append(launchToolbar.config.$toolbarStyles);
@@ -1105,13 +1142,16 @@ function programVariables() {
         self.nextGenHideProof();
 
         launchToolbar.config.$placeholder.slideToggle('slow');
-        launchToolbar.config.$uiBox.slideToggle('slow', function () {
-          if (jQuery(this)
-            .is(':visible')) {
-            jQuery(this)
-              .css({
-                'display': 'inline-block',
-              });
+        launchToolbar.config.$uiBox.slideToggle('slow', () => {
+          if (launchToolbar.config.$uiBox.is(':visible')) {
+            launchToolbar.config.$uiBox.css({
+              'display': 'flex'
+            });
+
+            jQuery('#AppBodyHeader table').css({
+              display: 'flex',
+              'justify-content': 'flex-end'
+            });
           }
         });
 
@@ -1273,68 +1313,88 @@ function programVariables() {
       }
     },
   };
-  var getBAC = {
-    'init': function () {
-      return this.getBAC();
-    },
-    'getBAC': function () {
-      var BACvariable = 'BSCtable';
-      var findID = 'id=';
-      let counter = 0;
-      // var gatherData;
-      var accountID;
-      var tableID;
-      var tableBody;
-      var startLocation;
-      var endLocation;
-      var $BACbody;
-      var accountName;
-      var accountNumber;
+  // var getBAC = {
+  //   'init': function () {
+  //     return this.getBAC();
+  //   },
+  //   'getBAC': function () {
+  //     var BACvariable = 'BSCtable';
+  //     var findID = 'id=';
+  //     let counter = 0;
+  //     // var gatherData;
+  //     var accountID;
+  //     var tableID;
+  //     var tableBody;
+  //     var startLocation;
+  //     var endLocation;
+  //     var $BACbody;
+  //     var accountName;
+  //     var accountNumber;
+  //
+  //     // reset value
+  //     setValue(BACvariable, false);
+  //     setValue('accountName', false);
+  //     setValue('accountNumber', false);
+  //
+  //     // set interval start
+  //     // let gatherData = setInterval(function () {
+  //     setInterval(function () {
+  //       var location = window.location.href;
+  //       var accountNameText = jQuery('#acc2j_id0_j_id5_ileinner')
+  //         .text();
+  //
+  //       if (location.indexOf('cdk--c.na57.visual.force.com') > -1) {
+  //         accountNumber = jQuery(
+  //           '#00N40000002aU3Ij_id0_j_id5_ileinner')
+  //           .text();
+  //         setValue('accountNumber', accountNumber);
+  //
+  //         accountName = jQuery.trim(accountNameText.slice(0,
+  //           accountNameText.indexOf('[')));
+  //
+  //         // search url for account id
+  //         startLocation = location.indexOf(findID) + findID.length;
+  //         endLocation = location.indexOf('&');
+  //         accountID = location.slice(startLocation, endLocation);
+  //         tableID = '#' + 'j_id0_j_id5_' + '' + accountID + '' +
+  //           '_00N40000002aU57';
+  //
+  //         tableBody = tableID + '_body';
+  //         $BACbody = jQuery(tableBody);
+  //         setValue(BACvariable, $BACbody.html());
+  //         setValue('accountName', accountName);
+  //
+  //         counter += 1;
+  //       }
+  //     }, 1000); // set interval end
+  //   },
+  // };
 
-      // reset value
-      setValue(BACvariable, false);
-      setValue('accountName', false);
-      setValue('accountNumber', false);
-
-      // set interval start
-      // let gatherData = setInterval(function () {
-      setInterval(function () {
-        var location = window.location.href;
-        var accountNameText = jQuery('#acc2j_id0_j_id5_ileinner')
-          .text();
-
-        if (location.indexOf('cdk--c.na57.visual.force.com') > -1) {
-          accountNumber = jQuery(
-            '#00N40000002aU3Ij_id0_j_id5_ileinner')
-            .text();
-          setValue('accountNumber', accountNumber);
-
-          accountName = jQuery.trim(accountNameText.slice(0,
-            accountNameText.indexOf('[')));
-
-          // search url for account id
-          startLocation = location.indexOf(findID) + findID.length;
-          endLocation = location.indexOf('&');
-          accountID = location.slice(startLocation, endLocation);
-          tableID = '#' + 'j_id0_j_id5_' + '' + accountID + '' +
-            '_00N40000002aU57';
-
-          tableBody = tableID + '_body';
-          $BACbody = jQuery(tableBody);
-          setValue(BACvariable, $BACbody.html());
-          setValue('accountName', accountName);
-
-          counter += 1;
-        }
-      }, 1000); // set interval end
-    },
-  };
+  //   const myOnload = () => {
+  //     // close the sections that don't relate to me
+  //     jQuery('.hideListButton').each(function(ind, elem){
+  //         let elemName = elem.name;
+  //         if(elemName === 'Other Launch Details' ||
+  //            elemName === 'Design' ||
+  //            elemName === 'Launch Notes'){
+  //             return true;
+  //         }
+  //         jQuery(elem).click();
+  //     });
+  //
+  //     // make the search bar sticky
+  //     let searchBar = jQuery('#phSearchForm');
+  //     //console.log(searchBar);
+  //     searchBar.addClass('imp');
+  // 	searchBar.css({width: '350px'});
+  //     jQuery('#uiBox').append(searchBar);
+  // };
 
   if (window.location.hostname === 'cdk.my.salesforce.com') {
     launchToolbar.init();
   }
 
-  if (window.location.hostname === 'cdk--c.na57.visual.force.com') {
-    getBAC.init();
-  }
+  // if (window.location.hostname === 'cdk--c.na57.visual.force.com') {
+  //   getBAC.init();
+  // }
 })();
