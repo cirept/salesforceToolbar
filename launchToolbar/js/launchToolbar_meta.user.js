@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name Salesforce Launch Toolbar
+// @name Salesforce Launch Toolbar (Pre-release)
 // @namespace www.cobaltgroup.com
 // @include https://cdk.my.salesforce.com/a1E*
 // @include https://cdk--c.na57.visual.force.com/*
