@@ -270,7 +270,7 @@ function programVariables() {
         '$copyFolderPath': jQuery('<div>')
           .attr({
             'class': 'funcButtons copyFolderPath click-able',
-            'title': 'Project Folder Location in Manufacturer Folder',
+            'title': 'Project Folder Location in the Manufacturers Folder',
           })
           .css({
             'float': 'right',
@@ -915,17 +915,16 @@ function programVariables() {
         .append('.activeFunction { background: teal; color: white; }')
         .append(
           `.targetsPanel {
-          display: none;
-          position: absolute;
-          background: linear-gradient(
+          	display: none;
+          	position: absolute;
+          	background: linear-gradient(
             to right, rgb(178, 254, 250), rgb(14, 210, 200));
             margin-top: 38px;
-//            margin-left: 1470px;
-            padding: 0px 10px;
+						padding: 0px 10px;
             border-left: 1px solid rgb(0, 0, 0);
             border-bottom: 1px solid rgb(0, 0, 0);
             border-right: 1px solid rgb(0, 0, 0);
-						right: 315px; }`
+            right: 315px; }`
         );
     },
     'addOptionStyles': function () {
