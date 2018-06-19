@@ -213,12 +213,12 @@ function programVariables() {
         '$webnum': jQuery('<div>')
           .attr({
             'title': 'Copy Webnum',
-            'class': 'copyWebnum funcButtons imp click-able',
+            'class': 'copyWebnum funcButtons imp click-able cdk-webnum',
           })
           .css({
             'color': 'rgb(219, 112, 147)',
           })
-          .html('<div class="myTitle">Webnum</div>Cdk-'),
+          .html('<div class="myTitle">Webnum</div>'),
         '$proofDate': jQuery('<div>')
           .attr({
             'title': 'Proof Date',
@@ -832,6 +832,10 @@ function programVariables() {
         this));
       launchToolbar.config.$webIDtext.on('click', this.doWork.bind(this));
       launchToolbar.config.$webnum.on('click', this.doWork.bind(this));
+      launchToolbar.config.$webnum.on('contextmenu', this.doWork2.bind(this));
+			launchToolbar.config.$webnum.bind('contextmenu', function () {
+        return false;
+      });
       launchToolbar.config.$wipSite.on('mousedown', this.doWork.bind(this));
       launchToolbar.config.$wipSite.bind('contextmenu', function () {
         return false;
@@ -1153,7 +1157,7 @@ function programVariables() {
           this.copyInfo(this.webIDtext);
           break;
         case classText.indexOf('Webnum') > -1:
-          this.copyInfo('Cdk-' + this.webnum);
+          this.copyInfo(this.webnum);
           break;
         case classText.indexOf('accountNum') > -1:
           this.copyInfo(this.accountNum);
@@ -1173,6 +1177,21 @@ function programVariables() {
           break;
         case event.which === 3 && classText.indexOf('launchOwner') > -1:
           this.copyInfo(this.launchOwnerText);
+          break;
+        default:
+          // do nothing
+      }
+    },
+    // ----------------------------------------
+    // EXTRA
+    // ----------------------------------------
+    'doWork2': function (event) {
+      var $clickedElement = jQuery(event.delegateTarget);
+      var classText = $clickedElement.attr('class');
+
+      switch (true) {
+        case classText.indexOf('cdk-webnum') > -1:
+          this.copyInfo('Cdk-' + this.webnum);
           break;
         default:
           // do nothing
