@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name Salesforce Launch Toolbar (Pre-release)
+// @name Salesforce Launch Toolbar
 // @namespace www.cobaltgroup.com
 // @include https://cdk.my.salesforce.com/a1E*
 // @include https://cdk--c.na57.visual.force.com/*
-// @version 4.8.3.3
+// @version 4.8.3
 // @run-at document-end
 // @downloadURL https://github.com/cirept/salesforceToolbar/raw/master/launchToolbar/js/launchToolbar_meta.user.js
 // @require https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js
