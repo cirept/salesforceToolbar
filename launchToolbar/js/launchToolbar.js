@@ -68,10 +68,6 @@ function programVariables() {
     'createElements': function () {
       launchToolbar.config = {
         '$placeholder': jQuery('<div>')
-          .css({
-//            'height': '0',
-//            'display': 'none',
-          })
           .attr({
             'id': 'ph',
           }),
@@ -83,7 +79,6 @@ function programVariables() {
             'position': 'absolute',
             'display': 'none',
             'z-index': '9999',
-//            'background': 'linear-gradient(to bottom, rgb(192, 229, 248), #F6F6F6)',
             'background': '#ffffff',
             'color': '#000',
             'text-align': 'center',
@@ -212,7 +207,7 @@ function programVariables() {
           .html('<div class="myTitle">Web ID</div>'),
         '$webnum': jQuery('<div>')
           .attr({
-            'title': 'Copy Webnum',
+            'title': 'Left click: Copy webnum / Right click: Copy Cdk-webnum',
             'class': 'copyWebnum funcButtons imp click-able cdk-webnum',
           })
           .css({
@@ -1363,8 +1358,6 @@ function programVariables() {
 				$('#uiBox').css({
 					'position' : 'fixed',
 					'top' : 'auto',
-//					'width' : '99%',
-//					'left' : 0
 				}),
 				$('#sc').css({
 					'position' : 'fixed',
@@ -1374,8 +1367,6 @@ function programVariables() {
 				$('#uiBox').css({
 					'position' : 'absolute',
 					'top' : '115px',
-//					'width' : '98.5%',
-//					'left' : '10px'
 				}),
 				$('#sc').css({
 					'position' : 'absolute',
@@ -1417,13 +1408,6 @@ function programVariables() {
 				});
 			}
 		});
-		
-//		if ($('.sidebarCell, #sidebarDiv').width() > 100) {
-//			$('#sidebarDiv, #handlebarContainer .indicator, #handlebarContainer #handle').css({
-//				'margin-top' : '60px',
-//			});
-//		}
-		
 	});
 
   if (window.location.hostname === 'cdk.my.salesforce.com') {
