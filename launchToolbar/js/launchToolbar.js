@@ -76,10 +76,10 @@ function programVariables() {
             'id': 'uiBox',
           })
           .css({
-            'position': 'absolute',
+            "position": "absolute",
             'display': 'none',
             'z-index': '9999',
-            'background': '#ffffff',
+            "background": "#ffffff",
             'color': '#000',
             'text-align': 'center',
             'font-size': '11px',
@@ -90,8 +90,8 @@ function programVariables() {
             'border': '0 #000 solid',
             'padding': '7px 0px',
             'font-family': '"Century Gothic", sans-serif',
-            'top': '115px',
-            'left': '10px',
+            "top": "115px",
+            "left": "10px",
 						'box-shadow' : 'grey 0px 5px 8px -5px',
           }),
         '$settingContainer': jQuery('<div>')
