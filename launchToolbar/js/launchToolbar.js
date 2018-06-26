@@ -1,4 +1,4 @@
-/* global jQuery, window, setTimeout, GM_setClipboard, GM_openInTab, GM_setValue, GM_getValue, GM_info, setInterval, clearInterval, document, GM_getResourceURL, GM_listValues, unsafeWindow */
+/* global jQuery, $, window, setTimeout, GM_setClipboard, GM_openInTab, GM_setValue, GM_getValue, GM_info, setInterval, clearInterval, document, GM_getResourceURL, GM_listValues, unsafeWindow */
 
 // Tampermonkey functions
 
@@ -68,10 +68,6 @@ function programVariables() {
     'createElements': function () {
       launchToolbar.config = {
         '$placeholder': jQuery('<div>')
-          .css({
-            'height': '50px',
-            'display': 'none',
-          })
           .attr({
             'id': 'ph',
           }),
@@ -80,31 +76,34 @@ function programVariables() {
             'id': 'uiBox',
           })
           .css({
-            'position': 'fixed',
-            'display': 'none',
-            'z-index': '9999',
-            'background': 'linear-gradient(to bottom, rgb(192, 229, 248), #F6F6F6)',
-            'color': '#000',
-            'text-align': 'center',
-            'font-size': '11px',
-            'width': '99%',
-            'font-weight': '700',
-            '-moz-border-radius': '0',
-            'border-radius': '0',
-            'border': '0 #000 solid',
-            'padding': '7px 0px',
-            'font-family': '"Century Gothic", sans-serif',
+            "position": "absolute",
+            "display": "none",
+            "z-index": "9999",
+            "background": "#ffffff",
+            "color": "#000",
+            "text-align": "center",
+            "font-size": "11px",
+            "width": "98.5%",
+            "font-weight": "700",
+            "-moz-border-radius": "0",
+            "border-radius": "0",
+            "border": "0 #000 solid",
+            "padding": "7px 0px",
+            "font-family": "'Century Gothic', sans-serif",
+            "top": "115px",
+            "left": "10px",
+						"box-shadow" : "grey 0px 5px 8px -5px",
           }),
         '$settingContainer': jQuery('<div>')
           .css({
-            'height': '40px',
-            'display': 'none',
-            'position': 'fixed',
-            'background': 'rgb(1, 255, 138)',
-            'border': '1px #000 solid',
-            'top': '40px',
-            'z-index': 500,
-            'width': '99%',
+            "height": "40px",
+            "display": "none",
+            "position": "absolute",
+            "background": "#eeeeee",
+            "border": "1px #000 solid",
+            "top": "150px",
+            "z-index": 500,
+            "width": "98.3%",
           })
           .attr({
             'id': 'sc',
@@ -115,7 +114,7 @@ function programVariables() {
             'class': 'funcButtons imp',
           })
           .css({
-            'line-height': '15px',
+            "line-height": "15px",
           })
           .html('<b>Launch</b> ' +
             '<i class="fa fa-angle-right fa-lg">&nbsp;</i><br> v: ' +
@@ -208,8 +207,8 @@ function programVariables() {
           .html('<div class="myTitle">Web ID</div>'),
         '$webnum': jQuery('<div>')
           .attr({
-            'title': 'Copy Webnum',
-            'class': 'copyWebnum funcButtons imp click-able',
+            'title': 'Left click: Copy webnum / Right click: Copy Cdk-webnum',
+            'class': 'copyWebnum funcButtons imp click-able cdk-webnum',
           })
           .css({
             'color': 'rgb(219, 112, 147)',
@@ -266,7 +265,7 @@ function programVariables() {
         '$copyFolderPath': jQuery('<div>')
           .attr({
             'class': 'funcButtons copyFolderPath click-able',
-            'title': 'Project Folder Location in Manu Folder',
+            'title': 'Project Folder Location in the Manufacturers Folder',
           })
           .css({
             'float': 'right',
@@ -736,8 +735,7 @@ function programVariables() {
       var proof = 'proof.';
       var reload = '/?reload=true';
       var baseManuLoc =
-        `\\\\las-mgmt1.lasisi01a.las.san.dsghost.net\\
-        Associate\\sea\\CS\\graphics\\manufacturers\\`;
+        `\\\\las-mgmt1.lasisi01a.las.san.dsghost.net\\Associate\\sea\\CS\\graphics\\manufacturers\\`;
       var oem = this.webID.split('-')[0];
       var id = this.webID.substr(this.webID.indexOf('-') + 1);
       var oemPart;
@@ -795,6 +793,9 @@ function programVariables() {
         case 'infiniti':
           oemPart = 'infinitidealer.com/';
           break;
+        case 'ford':
+          oemPart = 'f1rd.com/';
+          break;
         case 'c1hr':
           oemPart = 'c1hr.com/';
           break;
@@ -826,6 +827,10 @@ function programVariables() {
         this));
       launchToolbar.config.$webIDtext.on('click', this.doWork.bind(this));
       launchToolbar.config.$webnum.on('click', this.doWork.bind(this));
+      launchToolbar.config.$webnum.on('contextmenu', this.doWork2.bind(this));
+			launchToolbar.config.$webnum.bind('contextmenu', function () {
+        return false;
+      });
       launchToolbar.config.$wipSite.on('mousedown', this.doWork.bind(this));
       launchToolbar.config.$wipSite.bind('contextmenu', function () {
         return false;
@@ -886,12 +891,12 @@ function programVariables() {
         .append(
           `.funcButtons {
             display: none;
-            padding: 0px 15px;
+            padding: 0px 10px;
             <!--border-right: 1px rgb(0, 0, 0) solid;-->
             padding-top: 0px; }`
         )
         .append('.click-able { cursor: pointer; } ')
-        .append('.myTitle { color: #000000; font-weight: 900; } ')
+        .append('.myTitle { color: #000000; font-weight: 900; font-size: 10px; padding: 0 10px;} ')
         .append(
           `.myClass {
             line-height: 30px !important;
@@ -909,16 +914,16 @@ function programVariables() {
         .append('.activeFunction { background: teal; color: white; }')
         .append(
           `.targetsPanel {
-          display: none;
-          position: absolute;
-          background: linear-gradient(
+          	display: none;
+          	position: absolute;
+          	background: linear-gradient(
             to right, rgb(178, 254, 250), rgb(14, 210, 200));
             margin-top: 38px;
-            margin-left: 1305px;
-            padding: 0px 10px;
+						padding: 0px 10px;
             border-left: 1px solid rgb(0, 0, 0);
             border-bottom: 1px solid rgb(0, 0, 0);
-            border-right: 1px solid rgb(0, 0, 0) }`
+            border-right: 1px solid rgb(0, 0, 0);
+            right: 315px; }`
         );
     },
     'addOptionStyles': function () {
@@ -1014,10 +1019,11 @@ function programVariables() {
     'buildMainTool': function () {
       launchToolbar.config.$uiBox
         .append(launchToolbar.config.$toggleOn)
-        .append(launchToolbar.config.$webIDtext)
-        .append(launchToolbar.config.$accountName)
+			
         .append(launchToolbar.config.$launchID)
         .append(launchToolbar.config.$copyWebID)
+//        .append(launchToolbar.config.$webIDtext)
+        .append(launchToolbar.config.$accountName)
         .append(launchToolbar.config.$webnum)
         .append(launchToolbar.config.$proofDate)
         .append(launchToolbar.config.$launchDate)
@@ -1104,8 +1110,8 @@ function programVariables() {
         $funcButts.toggle();
         self.nextGenHideProof();
 
-        launchToolbar.config.$placeholder.slideToggle('slow');
-        launchToolbar.config.$uiBox.slideToggle('slow', function () {
+        launchToolbar.config.$placeholder.slideToggle('fast');
+        launchToolbar.config.$uiBox.slideToggle('fast', function () {
           if (jQuery(this)
             .is(':visible')) {
             jQuery(this)
@@ -1117,7 +1123,7 @@ function programVariables() {
 
         // set up advanced options
         self.programData();
-      }, 1000);
+      }, 100);
     },
     // ----------------------------------------
     // TIER 2
@@ -1166,6 +1172,21 @@ function programVariables() {
           break;
         case event.which === 3 && classText.indexOf('launchOwner') > -1:
           this.copyInfo(this.launchOwnerText);
+          break;
+        default:
+          // do nothing
+      }
+    },
+    // ----------------------------------------
+    // EXTRA
+    // ----------------------------------------
+    'doWork2': function (event) {
+      var $clickedElement = jQuery(event.delegateTarget);
+      var classText = $clickedElement.attr('class');
+
+      switch (true) {
+        case classText.indexOf('cdk-webnum') > -1:
+          this.copyInfo('Cdk-' + this.webnum);
           break;
         default:
           // do nothing
@@ -1329,6 +1350,64 @@ function programVariables() {
       }, 1000); // set interval end
     },
   };
+	
+	//jQuery -Jun
+	$(window).scroll(function (event) {
+		if ($(window).scrollTop() > 115)
+			$('#uiBox').css({
+				"position" : "fixed",
+				"top" : "auto",
+			}),
+			$('#sc').css({
+				"position" : "fixed",
+				"top" : "35px",
+			});
+		else
+			$('#uiBox').css({
+				"position" : "absolute",
+				"top" : "115px",
+			}),
+			$('#sc').css({
+				"position" : "absolute",
+				"top" : "150px",
+			});
+	});
+	
+	$(document).ready(function () {
+		$('.myTitle').parent().css({
+			"font-size" : "14px"
+		});
+		$('.ptBody > .links').css({
+			"position" : "absolute",
+			"right" : 0,
+			"top" : "-27px",
+		});
+		$('#sidebarDiv, #handlebarContainer .indicator, #handlebarContainer #handle').css({
+			"margin-top" : "60px",
+		});
+		
+		$('.imp').wrapAll('<div class="wrapperZ""></div>');
+	});
+	
+	$(window).resize(function(){
+		if ($(window).width() <= 1500){	
+			$('.wrapperZ').css({
+				"display": "inline-block",
+				"width": "100%",
+			});
+			$('#sidebarDiv, #handlebarContainer .indicator, #handlebarContainer #handle').css({
+				"margin-top" : "90px",
+			});
+		}	else {
+			$('.wrapperZ').css({
+				"display": "inherit",
+				"width": "inherit",
+			});
+			$('#sidebarDiv, #handlebarContainer .indicator, #handlebarContainer #handle').css({
+				"margin-top" : "60px",
+			});
+		}
+	});
 
   if (window.location.hostname === 'cdk.my.salesforce.com') {
     launchToolbar.init();
