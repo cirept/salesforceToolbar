@@ -1385,8 +1385,16 @@ function programVariables() {
 		$('#sidebarDiv, #handlebarContainer .indicator, #handlebarContainer #handle').css({
 			"margin-top" : "60px",
 		});
-		
 		$('.imp').wrapAll('<div class="wrapperZ""></div>');
+		$('.pageType').css({
+			"position" : "absolute",
+			"left" : "40%",
+			"top" : "-82px",
+			"color" : "transparent",
+		});
+		$('.pageDescription').css({
+			"margin-top" : "10px",
+		});
 	});
 	
 	$(window).resize(function(){
