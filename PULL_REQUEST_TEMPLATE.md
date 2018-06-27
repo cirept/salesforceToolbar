@@ -1,27 +1,42 @@
 # Please ensure that all information is filled out to streamline the approval of your pull request.
 
-## Pre-Release Link
+## Pre-Release
+*Create a pre-release and include the link to the tagged repo*
 - ```add link here```
 
 ## Functionality Added?
 - ```add bullet points with functionality added```
+- ``example: Added ability for spider webs to shoot out of the tool.``
 
-## Update README.md
+## Pull Request Checklist
 
-1. [ ] **README.md** - add instructions on how to use your new functionality, if applicable. ```/docs/```
+- [ ] Updated README.md?
+  - **README.md** - add instructions on how to use your new functionality, if applicable. ```/docs/```
 
-## Update Meta Script
 
-### Production Release?
+- [ ] Updated Meta Script?
 
-1. [ ] **meta.js & meta.user.js** - Updated all instance of the version numbers in both files. ```preRelease branch -> /assets/js/```
+  - Is this a **Production** Release?
+    - **meta.js & meta.user.js** - Updated all instance of the version numbers in both files.
 
-<br>OR<br>
+      ``
+      preRelease branch -> /assets/js/
+      ``
+    <br>
 
-### Pre-Release Release?
+  - Is this a **Pre-Release** Release?
+    - **preRelease.user.js** - Updated all instance of the version numbers in both files.
 
-2. [ ] **preRelease.user.js** - Updated all instance of the version numbers in both files. ```develop branch -> /assets/js/```
+      ``
+      develop branch -> /assets/js/
+      ``
 
-## Update Change Log
+- [ ] Updated Change Log
 
-3. [ ] **Changelog.md** - add bullet points on what was added. ```/docs/```
+  - All updates related to the end user (visual & functionality) will require an update to the change log.
+
+    - **Changelog.md** - add bullet points on what was added.
+
+      ``
+      /docs/
+      ``

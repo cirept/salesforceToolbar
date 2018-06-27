@@ -68,10 +68,6 @@ function programVariables() {
     'createElements': function () {
       launchToolbar.config = {
         '$placeholder': jQuery('<div>')
-          .css({
-//            'height': '0',
-//            'display': 'none',
-          })
           .attr({
             'id': 'ph',
           }),
@@ -80,35 +76,34 @@ function programVariables() {
             'id': 'uiBox',
           })
           .css({
-            'position': 'absolute',
-            'display': 'none',
-            'z-index': '9999',
-//            'background': 'linear-gradient(to bottom, rgb(192, 229, 248), #F6F6F6)',
-            'background': '#ffffff',
-            'color': '#000',
-            'text-align': 'center',
-            'font-size': '11px',
-            'width': '98.5%',
-            'font-weight': '700',
-            '-moz-border-radius': '0',
-            'border-radius': '0',
-            'border': '0 #000 solid',
-            'padding': '7px 0px',
-            'font-family': '"Century Gothic", sans-serif',
-            'top': '115px',
-            'left': '10px',
-						'box-shadow' : 'grey 0px 5px 8px -5px',
+            "position": "absolute",
+            "display": "none",
+            "z-index": "9999",
+            "background": "#ffffff",
+            "color": "#000",
+            "text-align": "center",
+            "font-size": "11px",
+            "width": "98.5%",
+            "font-weight": "700",
+            "-moz-border-radius": "0",
+            "border-radius": "0",
+            "border": "0 #000 solid",
+            "padding": "7px 0px",
+            "font-family": "'Century Gothic', sans-serif",
+            "top": "115px",
+            "left": "10px",
+						"box-shadow" : "grey 0px 5px 8px -5px",
           }),
         '$settingContainer': jQuery('<div>')
           .css({
-            'height': '40px',
-            'display': 'none',
-            'position': 'absolute',
-            'background': '#eeeeee',
-            'border': '1px #000 solid',
-            'top': '150px',
-            'z-index': 500,
-            'width': '98.3%',
+            "height": "40px",
+            "display": "none",
+            "position": "absolute",
+            "background": "#eeeeee",
+            "border": "1px #000 solid",
+            "top": "150px",
+            "z-index": 500,
+            "width": "98.3%",
           })
           .attr({
             'id': 'sc',
@@ -119,7 +114,7 @@ function programVariables() {
             'class': 'funcButtons imp',
           })
           .css({
-            'line-height': '15px',
+            "line-height": "15px",
           })
           .html('<b>Launch</b> ' +
             '<i class="fa fa-angle-right fa-lg">&nbsp;</i><br> v: ' +
@@ -212,7 +207,7 @@ function programVariables() {
           .html('<div class="myTitle">Web ID</div>'),
         '$webnum': jQuery('<div>')
           .attr({
-            'title': 'Copy Webnum',
+            'title': 'Left click: Copy webnum / Right click: Copy Cdk-webnum',
             'class': 'copyWebnum funcButtons imp click-able cdk-webnum',
           })
           .css({
@@ -1357,73 +1352,61 @@ function programVariables() {
   };
 	
 	//jQuery -Jun
+	$(window).scroll(function (event) {
+		if ($(window).scrollTop() > 115)
+			$('#uiBox').css({
+				"position" : "fixed",
+				"top" : "auto",
+			}),
+			$('#sc').css({
+				"position" : "fixed",
+				"top" : "35px",
+			});
+		else
+			$('#uiBox').css({
+				"position" : "absolute",
+				"top" : "115px",
+			}),
+			$('#sc').css({
+				"position" : "absolute",
+				"top" : "150px",
+			});
+	});
+	
 	$(document).ready(function () {
-		$(window).scroll(function (event) {
-			if ($(window).scrollTop() > 115)
-				$('#uiBox').css({
-					'position' : 'fixed',
-					'top' : 'auto',
-//					'width' : '99%',
-//					'left' : 0
-				}),
-				$('#sc').css({
-					'position' : 'fixed',
-					'top' : '35px',
-				});
-			else
-				$('#uiBox').css({
-					'position' : 'absolute',
-					'top' : '115px',
-//					'width' : '98.5%',
-//					'left' : '10px'
-				}),
-				$('#sc').css({
-					'position' : 'absolute',
-					'top' : '150px',
-				});
-		});
-		
 		$('.myTitle').parent().css({
-			'font-size' : '14px'
+			"font-size" : "14px"
 		});
 		$('.ptBody > .links').css({
-			'position' : 'absolute',
-			'right' : 0,
-			'top' : '-27px',
+			"position" : "absolute",
+			"right" : 0,
+			"top" : "-27px",
 		});
-		
 		$('#sidebarDiv, #handlebarContainer .indicator, #handlebarContainer #handle').css({
-			'margin-top' : '60px',
+			"margin-top" : "60px",
 		});
 		
 		$('.imp').wrapAll('<div class="wrapperZ""></div>');
-		
-		$(window).resize(function(){
-			if ($(window).width() <= 1500){	
-				$('.wrapperZ').css({
-					'display': 'inline-block',
-					'width': '100%',
-				});
-				$('#sidebarDiv, #handlebarContainer .indicator, #handlebarContainer #handle').css({
-					'margin-top' : '90px',
-				});
-			}	else {
-				$('.wrapperZ').css({
-					'display': 'inherit',
-					'width': 'inherit',
-				});
-				$('#sidebarDiv, #handlebarContainer .indicator, #handlebarContainer #handle').css({
-					'margin-top' : '60px',
-				});
-			}
-		});
-		
-//		if ($('.sidebarCell, #sidebarDiv').width() > 100) {
-//			$('#sidebarDiv, #handlebarContainer .indicator, #handlebarContainer #handle').css({
-//				'margin-top' : '60px',
-//			});
-//		}
-		
+	});
+	
+	$(window).resize(function(){
+		if ($(window).width() <= 1500){	
+			$('.wrapperZ').css({
+				"display": "inline-block",
+				"width": "100%",
+			});
+			$('#sidebarDiv, #handlebarContainer .indicator, #handlebarContainer #handle').css({
+				"margin-top" : "90px",
+			});
+		}	else {
+			$('.wrapperZ').css({
+				"display": "inherit",
+				"width": "inherit",
+			});
+			$('#sidebarDiv, #handlebarContainer .indicator, #handlebarContainer #handle').css({
+				"margin-top" : "60px",
+			});
+		}
 	});
 
   if (window.location.hostname === 'cdk.my.salesforce.com') {
