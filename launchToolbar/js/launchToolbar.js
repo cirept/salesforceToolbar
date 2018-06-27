@@ -1392,6 +1392,9 @@ function programVariables() {
 			"top" : "-82px",
 			"color" : "transparent",
 		});
+		$('.pageDescription').css({
+			"margin-top" : "10px",
+		});
 	});
 	
 	$(window).resize(function(){
