@@ -145,7 +145,7 @@ function programVariables() {
         '$accountName': jQuery('<div>')
           .attr({
             'class': 'accountName funcButtons imp click-able',
-            'title': 'Left click: Copy Account Name / Right click: Open Account Page',
+            "title": "Left click: Copy Account Name / Right click: Open Account Page",
           })
           .css({
             'padding': '3px 15px 0',
