@@ -823,7 +823,7 @@ function programVariables() {
       launchToolbar.config.$launchID.on('click', this.doWork.bind(this));
       launchToolbar.config.$copyWebID.on('click', this.doWork.bind(this));
       launchToolbar.config.$accountName.on('click', this.doWork.bind(this));
-      launchToolbar.config.$accountName.on('contextmenu', this.doWork3.bind(this));
+      launchToolbar.config.$accountName.on('contextmenu', this.openAccountPageLink.bind(this));
       launchToolbar.config.$accountName.bind('contextmenu', function () {
         return false;
       });
@@ -1196,7 +1196,7 @@ function programVariables() {
           // do nothing
       }
     },
-    'doWork3': function (event) {
+    'openAccountPageLink': function (event) {
       var $clickedElement = jQuery(event.delegateTarget);
       var classText = $clickedElement.attr('class');
       var accountPageLink = jQuery('#CF00N40000002aUDp_ileinner > a').attr('href');
