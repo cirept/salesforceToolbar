@@ -645,7 +645,7 @@ function programVariables() {
         .attr('onclick')
         .split("'")[1]; // eslint-disable-line quotes
       var newEmailLink = emailLink.slice(1, emailLink.indexOf('&retURL='));
-      var managerEmails = 'Jennifer.Walker@cdk.com;Erika.Myrick@cdk.com';
+      var managerEmails = 'Jennifer.Walker@cdk.com;Darcy.Miller@cdk.com';
 
       jQuery.ajax({
         'url': emailTarget.split("'")[3], // eslint-disable-line quotes
