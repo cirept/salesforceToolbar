@@ -144,8 +144,8 @@ function programVariables() {
           }),
         '$accountName': jQuery('<div>')
           .attr({
-            'class': 'accountName funcButtons imp click-able',
-            'title': 'Copy Account Name',
+            "class": "accountName funcButtons imp click-able",
+            "title": "Left click: Copy Account Name / Right click: Open Account Page",
           })
           .css({
             'padding': '3px 15px 0',
@@ -645,7 +645,7 @@ function programVariables() {
         .attr('onclick')
         .split("'")[1]; // eslint-disable-line quotes
       var newEmailLink = emailLink.slice(1, emailLink.indexOf('&retURL='));
-      var managerEmails = 'Jennifer.Walker@cdk.com;Erika.Myrick@cdk.com';
+      var managerEmails = 'Jennifer.Walker@cdk.com;Darcy.Miller@cdk.com';
 
       jQuery.ajax({
         'url': emailTarget.split("'")[3], // eslint-disable-line quotes
@@ -823,6 +823,10 @@ function programVariables() {
       launchToolbar.config.$launchID.on('click', this.doWork.bind(this));
       launchToolbar.config.$copyWebID.on('click', this.doWork.bind(this));
       launchToolbar.config.$accountName.on('click', this.doWork.bind(this));
+      launchToolbar.config.$accountName.on('contextmenu', this.openAccountPageLink.bind(this));
+      launchToolbar.config.$accountName.bind('contextmenu', function () {
+        return false;
+      });
       launchToolbar.config.$copyFolderPath.on('click', this.doWork.bind(
         this));
       launchToolbar.config.$webIDtext.on('click', this.doWork.bind(this));
@@ -1192,6 +1196,13 @@ function programVariables() {
           // do nothing
       }
     },
+    'openAccountPageLink': function (event) {
+      var $clickedElement = jQuery(event.delegateTarget);
+      var classText = $clickedElement.attr('class');
+      var accountPageLink = jQuery('#CF00N40000002aUDp_ileinner > a').attr('href');
+
+      window.open(accountPageLink, '_blank');
+    },
     'flipTheSwitch': function (event) {
       var $clickedElement = jQuery(event.delegateTarget);
       var classText = $clickedElement.attr('class');
@@ -1385,8 +1396,16 @@ function programVariables() {
 		$('#sidebarDiv, #handlebarContainer .indicator, #handlebarContainer #handle').css({
 			"margin-top" : "60px",
 		});
-		
 		$('.imp').wrapAll('<div class="wrapperZ""></div>');
+		$('.pageType').css({
+			"position" : "absolute",
+			"left" : "40%",
+			"top" : "-82px",
+			"color" : "transparent",
+		});
+		$('.pageDescription').css({
+			"margin-top" : "10px",
+		});
 	});
 	
 	$(window).resize(function(){
