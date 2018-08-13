@@ -63,7 +63,7 @@ function programVariables() {
       this.attachTool();
       this.switchPlatform();
       this.startTool();
-      this.bacTable();
+      //this.bacTable();
     },
     'createElements': function () {
       launchToolbar.config = {
