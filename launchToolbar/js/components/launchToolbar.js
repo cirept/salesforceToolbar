@@ -53,6 +53,7 @@ const launchToolbar = (function() {
       this.buildLogTargets();
       this.buildWSMlink();
       this.buildFolderPath();
+      this.buildURLs();
       this.bindEvents();
       this.addStyles();
       this.addFunctionStyles();
@@ -499,48 +500,30 @@ const launchToolbar = (function() {
     /**
      * Will pass the related details to be binded on the 'callingPanel' onclick attribute.
      * @param {Object} currentTarget contains click event details.
-     * @param {String} callingPanel represents what panel called the function.
      */
-    bindTargetPanelActions(currentTarget, callingPanel) {
-      if (
-        currentTarget.className.indexOf("ic") > -1 &&
-        callingPanel.indexOf("email") > -1
-      ) {
+    bindEmailTargetPanelActions(currentTarget) {
+      if (currentTarget.className.indexOf("ic") > -1) {
         this.getEmail(this.$launchOwner.attr("onmouseover"));
-      } else if (
-        currentTarget.className.indexOf("designer") > -1 &&
-        callingPanel.indexOf("email") > -1
-      ) {
+      } else if (currentTarget.className.indexOf("designer") > -1) {
         this.getEmail(this.designer.attr("onmouseover"));
-      } else if (
-        currentTarget.className.indexOf("preDesign") > -1 &&
-        callingPanel.indexOf("email") > -1
-      ) {
+      } else if (currentTarget.className.indexOf("preDesign") > -1) {
         this.getEmail(this.preDesign.attr("onmouseover"));
-      } else if (
-        currentTarget.className.indexOf("qaDesigner") > -1 &&
-        callingPanel.indexOf("email") > -1
-      ) {
+      } else if (currentTarget.className.indexOf("qaDesigner") > -1) {
         this.getEmail(this.qaDesigner.attr("onmouseover"));
-      } else if (
-        currentTarget.className.indexOf("ic") > -1 &&
-        callingPanel.indexOf("logActivity") > -1
-      ) {
+      }
+    },
+    /**
+     * Will pass the related details to be binded on the 'callingPanel' onclick attribute.
+     * @param {Object} currentTarget contains click event details.
+     */
+    bindActivityLogTargetPanelActions(currentTarget) {
+      if (currentTarget.className.indexOf("ic") > -1) {
         this.activityLog(this.$launchOwner.attr("onmouseover"));
-      } else if (
-        currentTarget.className.indexOf("designer") > -1 &&
-        callingPanel.indexOf("logActivity") > -1
-      ) {
+      } else if (currentTarget.className.indexOf("designer") > -1) {
         this.activityLog(this.designer.attr("onmouseover"));
-      } else if (
-        currentTarget.className.indexOf("preDesign") > -1 &&
-        callingPanel.indexOf("logActivity") > -1
-      ) {
+      } else if (currentTarget.className.indexOf("preDesign") > -1) {
         this.activityLog(this.preDesign.attr("onmouseover"));
-      } else if (
-        currentTarget.className.indexOf("qaDesigner") > -1 &&
-        callingPanel.indexOf("logActivity") > -1
-      ) {
+      } else if (currentTarget.className.indexOf("qaDesigner") > -1) {
         this.activityLog(this.qaDesigner.attr("onmouseover"));
       }
     },
@@ -553,7 +536,14 @@ const launchToolbar = (function() {
     selectItem(currentTarget, callingPanel) {
       this.removeSelectedTarget(currentTarget);
       jQuery(currentTarget).addClass("selectedTarget");
-      this.bindTargetPanelActions(currentTarget, callingPanel);
+
+      if (callingPanel === "email") {
+        this.bindEmailTargetPanelActions(currentTarget);
+      }
+
+      if (callingPanel === "logActivity") {
+        this.bindActivityLogTargetPanelActions(currentTarget);
+      }
     },
     /**
      * Will build the email target panel for the 'email team member tool'.
@@ -585,7 +575,7 @@ const launchToolbar = (function() {
       return emailAddress
         .split("@")[0]
         .split(".")
-        .map(word => {
+        .map((word) => {
           wordArr = word.split("");
           wordArr[0] = bool ? wordArr[0].toUpperCase() : wordArr[0];
           return wordArr.join("");
@@ -755,81 +745,98 @@ const launchToolbar = (function() {
       var oem = this.webID.split("-")[0];
       var id = this.webID.substr(this.webID.indexOf("-") + 1);
       var oemPart;
+      const webIDList = {
+        gmps: "gmpsdealer.com/",
+        gmcl: "gmcldealer.com/",
+        vw: "vwcdkdealer.com/",
+        hyun: "hyundaistores.com/",
+        mazda: "mazdadealer.com/",
+        lex: "lexusdealer.com/",
+        k1ia: "k1iadealer.com/",
+        b2mw: "b2mwdealer.com/",
+        mini: "mini-dealer.com/",
+        motp: "motorplace.com/",
+        hond: "hondadealer.com/",
+        holden: "gmholdendealer.com.au/",
+        holdennz: "gmholdendealer.co.nz/",
+        nissan: "nissandealer.com/",
+        toyd: "toyotadealer.com/",
+        infiniti: "infinitidealer.com/",
+        ford: "f1rd.com/",
+        c1hr: "c1hr.com/",
+      };
+      const differentOemName = {
+        lex: "lexus",
+        motp: "motorplace",
+        hond: "honda",
+        toyd: "toyota",
+      };
 
-      switch (oem) {
-        case "gmps":
-          oemPart = "gmpsdealer.com/";
-          break;
-        case "gmcl":
-          oemPart = "gmcldealer.com/";
-          break;
-        case "vw":
-          oemPart = "vwcdkdealer.com/";
-          break;
-        case "hyun":
-          oemPart = "hyundaistores.com/";
-          break;
-        case "mazda":
-          oemPart = "mazdadealer.com/";
-          break;
-        case "lex":
-          oemPart = "lexusdealer.com/";
-          oem = "lexus";
-          break;
-        case "k1ia":
-          oemPart = "k1iadealer.com/";
-          break;
-        case "b2mw":
-          oemPart = "b2mwdealer.com/";
-          break;
-        case "mini":
-          oemPart = "mini-dealer.com/";
-          break;
-        case "motp":
-          oemPart = "motorplace.com/";
-          oem = "motorplace";
-          break;
-        case "hond":
-          oemPart = "hondadealer.com/";
-          oem = "honda";
-          break;
-        case "holden":
-          oemPart = "gmholdendealer.com.au/";
-          break;
-        case "holdennz":
-          oemPart = "gmholdendealer.co.nz/";
-          break;
-        case "nissan":
-          oemPart = "nissandealer.com/";
-          break;
-        case "toyd":
-          oemPart = "toyotadealer.com/";
-          oem = "toyota";
-          break;
-        case "infiniti":
-          oemPart = "infinitidealer.com/";
-          break;
-        case "ford":
-          oemPart = "f1rd.com/";
-          break;
-        case "c1hr":
-          oemPart = "c1hr.com/";
-          break;
-        default:
-        // do nothing
+      oemPart = webIDList[oem];
+      if (Object.keys(differentOemName).includes(oemPart)) {
+        oem = differentOemName[oem];
       }
 
-      launchToolbar.config.folderPath =
-        baseManuLoc + oem + "\\" + id.charAt(0) + "\\" + id;
+      launchToolbar.config.folderPath = `${baseManuLoc}${oem}\\${id.charAt(
+        0
+      )}\\${id}`;
 
       launchToolbar.config.$wipSite.attr({
-        href: nitra + wip + oemPart + id + reload + platformSelector,
+        href: `${nitra}${wip}${oemPart}${id}${reload}${platformSelector}`,
       });
+
       launchToolbar.config.$proofSite.attr({
-        href: nitra + proof + oemPart + id + reload + platformSelector,
+        href: `${nitra}${proof}${oemPart}${id}${reload}${platformSelector}`,
       });
+
       launchToolbar.config.$liveSite.attr({
-        href: nitra + oemPart + id + reload + platformSelector,
+        href: `${nitra}${oemPart}${id}${reload}${platformSelector}`,
+      });
+    },
+    buildURLs() {
+      var platformSelector = this.platformSelector
+        ? "&nextGen=true"
+        : "&nextgen=false";
+      var nitra = "http://nitra.";
+      var wip = "wip.";
+      var proof = "proof.";
+      var reload = "/?reload=true";
+      var oem = this.webID.split("-")[0];
+      var id = this.webID.substr(this.webID.indexOf("-") + 1);
+      var oemPart;
+      const webIDList = {
+        gmps: "gmpsdealer.com/",
+        gmcl: "gmcldealer.com/",
+        vw: "vwcdkdealer.com/",
+        hyun: "hyundaistores.com/",
+        mazda: "mazdadealer.com/",
+        lex: "lexusdealer.com/",
+        k1ia: "k1iadealer.com/",
+        b2mw: "b2mwdealer.com/",
+        mini: "mini-dealer.com/",
+        motp: "motorplace.com/",
+        hond: "hondadealer.com/",
+        holden: "gmholdendealer.com.au/",
+        holdennz: "gmholdendealer.co.nz/",
+        nissan: "nissandealer.com/",
+        toyd: "toyotadealer.com/",
+        infiniti: "infinitidealer.com/",
+        ford: "f1rd.com/",
+        c1hr: "c1hr.com/",
+      };
+
+      oemPart = webIDList[oem];
+
+      launchToolbar.config.$wipSite.attr({
+        href: `${nitra}${wip}${oemPart}${id}${reload}${platformSelector}`,
+      });
+
+      launchToolbar.config.$proofSite.attr({
+        href: `${nitra}${proof}${oemPart}${id}${reload}${platformSelector}`,
+      });
+
+      launchToolbar.config.$liveSite.attr({
+        href: `${nitra}${oemPart}${id}${reload}${platformSelector}`,
       });
     },
     bindEvents() {
@@ -873,7 +880,7 @@ const launchToolbar = (function() {
       );
       launchToolbar.config.$platformToggle.on(
         "click",
-        this.buildFolderPath.bind(this)
+        this.buildURLs.bind(this)
       );
       launchToolbar.config.$settings.on("click", function() {
         launchToolbar.config.$settingContainer.slideToggle(500);
