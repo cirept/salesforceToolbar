@@ -575,7 +575,7 @@ const launchToolbar = (function() {
       return emailAddress
         .split("@")[0]
         .split(".")
-        .map((word) => {
+        .map(word => {
           wordArr = word.split("");
           wordArr[0] = bool ? wordArr[0].toUpperCase() : wordArr[0];
           return wordArr.join("");
@@ -655,7 +655,7 @@ const launchToolbar = (function() {
       jQuery.ajax({
         url: emailTarget.split("'")[3], // eslint-disable-line quotes
         context: document.body,
-        success: function(data) {
+        success: (data) => {
           trList = jQuery("<div>")
             .html(data)
             .find(".detailList")
@@ -690,7 +690,7 @@ const launchToolbar = (function() {
       jQuery.ajax({
         url: emailTarget.split("'")[3], // eslint-disable-line quotes
         context: document.body,
-        success: function(data) {
+        success: (data) => {
           trList = jQuery("<div>")
             .html(data)
             .find(".detailList")
