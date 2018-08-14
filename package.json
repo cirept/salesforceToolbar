@@ -3,13 +3,42 @@
   "version": "4.8.5",
   "private": true,
   "scripts": {
-    "test": "mocha"
+    "test": "standard && node launchToolbar.js",
+    "precommit": "lint-staged"
   },
   "devDependencies": {
     "eslint": "^5.3.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
-    "eslint-plugin-react": "^7.11.0"
+    "eslint-plugin-node": "7.0.1",
+    "eslint-plugin-react": "^7.11.0",
+    "husky": "^1.0.0-rc.13",
+    "standard": "^11.0.1"
+  },
+  "dependencies": {
+    "prettier": "^1.14.2"
+  },
+  "lint-staged": {
+    "launchToolbar.js": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "standard": {
+    "globals": [
+      "$",
+      "jQuery"
+    ],
+    "ignore": [
+      "node_modules/**"
+    ],
+    "env": [
+      "browser",
+      "es6",
+      "greasemonkey",
+      "node",
+      "jQuery"
+    ]
   }
 }

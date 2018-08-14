@@ -7,9 +7,8 @@
  * @param {string} variable - the variable to change the value
  * @param {string} val - the value to set the variable too
  */
-function setValue(variable, val) {
-  "use strict";
-  GM_setValue(variable, val); // eslint-disable-line new-cap
+function setValue (variable, val) {
+  GM_setValue(variable, val) // eslint-disable-line new-cap
 }
 
 /**
@@ -17,9 +16,8 @@ function setValue(variable, val) {
  * @param {string} variable - the variable to change the value
  * @return {string} the value of the variable
  */
-function getValue(variable) {
-  "use strict";
-  return GM_getValue(variable, "false"); // eslint-disable-line new-cap
+function getValue (variable) {
+  return GM_getValue(variable, 'false') // eslint-disable-line new-cap
 }
 
 /**
@@ -27,9 +25,8 @@ function getValue(variable) {
  * @param {string} resource - the resource to grab from the meta script
  * @return {string} the defined resource from the meta script
  */
-function getResourceURL(resource) {
-  "use strict";
-  return GM_getResourceURL(resource); // eslint-disable-line new-cap
+function getResourceURL (resource) {
+  return GM_getResourceURL(resource) // eslint-disable-line new-cap
 }
 
 /**
@@ -37,494 +34,492 @@ function getResourceURL(resource) {
  * from local storage
  * @return {object} an array of all the saved variables in local storage
  */
-function programVariables() {
-  "use strict";
-  return GM_listValues(); // eslint-disable-line new-cap
+function programVariables () {
+  return GM_listValues() // eslint-disable-line new-cap
 }
 
-(function() {
-  "use strict";
-  var launchToolbar = {
-    init() {
-      this.createElements();
-      this.cacheDOM();
+(function () {
+  let launchToolbar = {
+    init () {
+      this.createElements()
+      this.cacheDOM()
       // test element
-      this.buildEmailTargets();
-      this.buildLogTargets();
-      this.buildWSMlink();
-      this.buildFolderPath();
-      this.buildURLs();
-      this.bindEvents();
-      this.addStyles();
-      this.addFunctionStyles();
-      this.addOptionStyles();
-      this.buildSettings();
-      this.buildToolComponents();
-      this.buildMainTool();
-      this.attachTool();
-      this.switchPlatform();
-      this.startTool();
+      this.buildEmailTargets()
+      this.buildLogTargets()
+      this.buildWSMlink()
+      this.buildFolderPath()
+      this.buildURLs()
+      this.bindEvents()
+      this.addStyles()
+      this.addFunctionStyles()
+      this.addOptionStyles()
+      this.buildSettings()
+      this.buildToolComponents()
+      this.buildMainTool()
+      this.attachTool()
+      this.switchPlatform()
+      this.startTool()
     },
-    createElements() {
+    createElements () {
       launchToolbar.config = {
-        $placeholder: jQuery("<div>").attr({
-          id: "ph",
+        $placeholder: jQuery('<div>').attr({
+          id: 'ph'
         }),
-        $uiBox: jQuery("<div>")
+        $uiBox: jQuery('<div>')
           .attr({
-            id: "uiBox",
+            id: 'uiBox'
           })
           .css({
-            position: "absolute",
-            display: "none",
-            "z-index": "9999",
-            background: "#ffffff",
-            color: "#000",
-            "text-align": "center",
-            "font-size": "11px",
-            width: "98.5%",
-            "font-weight": "700",
-            "-moz-border-radius": "0",
-            "border-radius": "0",
-            border: "0 #000 solid",
-            padding: "7px 0px",
-            "font-family": "'Century Gothic', sans-serif",
-            top: "115px",
-            left: "10px",
-            "box-shadow": "grey 0px 5px 8px -5px",
+            position: 'absolute',
+            display: 'none',
+            'z-index': '9999',
+            background: '#ffffff',
+            color: '#000',
+            'text-align': 'center',
+            'font-size': '11px',
+            width: '98.5%',
+            'font-weight': '700',
+            '-moz-border-radius': '0',
+            'border-radius': '0',
+            border: '0 #000 solid',
+            padding: '7px 0px',
+            'font-family': "'Century Gothic', sans-serif",
+            top: '115px',
+            left: '10px',
+            'box-shadow': 'grey 0px 5px 8px -5px'
           }),
-        $settingContainer: jQuery("<div>")
+        $settingContainer: jQuery('<div>')
           .css({
-            height: "40px",
-            display: "none",
-            position: "absolute",
-            background: "#eeeeee",
-            border: "1px #000 solid",
-            top: "150px",
-            "z-index": 500,
-            width: "98.3%",
+            height: '40px',
+            display: 'none',
+            position: 'absolute',
+            background: '#eeeeee',
+            border: '1px #000 solid',
+            top: '150px',
+            'z-index': 500,
+            width: '98.3%'
           })
           .attr({
-            id: "sc",
+            id: 'sc'
           }),
-        $toggleOn: jQuery("<div>")
+        $toggleOn: jQuery('<div>')
           .attr({
-            id: "toggleOn",
-            class: "funcButtons imp",
+            id: 'toggleOn',
+            class: 'funcButtons imp'
           })
           .css({
-            "line-height": "15px",
+            'line-height': '15px'
           })
           .html(
-            "<b>Launch</b> " +
-              '<i class="fa fa-angle-right fa-lg">&nbsp;</i><br> v: ' +
-              GM_info.script.version
+            '<b>Launch</b> ' +
+            '<i class="fa fa-angle-right fa-lg">&nbsp;</i><br> v: ' +
+            GM_info.script.version
           ), // eslint-disable-line camelcase
-        $toolbarStyles: jQuery("<style>").attr({
-          id: "qa_toolbox",
-          type: "text/css",
+        $toolbarStyles: jQuery('<style>').attr({
+          id: 'qa_toolbox',
+          type: 'text/css'
         }),
-        $fontLink: jQuery("<link>").attr({
-          id: "googFont",
-          rel: "stylesheet",
-          href: getResourceURL("googFont"),
+        $fontLink: jQuery('<link>').attr({
+          id: 'googFont',
+          rel: 'stylesheet',
+          href: getResourceURL('googFont')
         }),
-        $jQueryUI: jQuery("<link>").attr({
-          id: "jqueryUI",
-          rel: "stylesheet",
-          href: getResourceURL("jqueryUI"),
+        $jQueryUI: jQuery('<link>').attr({
+          id: 'jqueryUI',
+          rel: 'stylesheet',
+          href: getResourceURL('jqueryUI')
         }),
-        $fontAwe: jQuery("<script>").attr({
-          id: "fontAwe",
-          type: "text/javascript",
-          src: getResourceURL("fontAwe"),
+        $fontAwe: jQuery('<script>').attr({
+          id: 'fontAwe',
+          type: 'text/javascript',
+          src: getResourceURL('fontAwe')
         }),
-        $accountName: jQuery("<div>")
+        $accountName: jQuery('<div>')
           .attr({
-            class: "accountName funcButtons imp click-able",
+            class: 'accountName funcButtons imp click-able',
             title:
-              "Left click: Copy Account Name / Right click: Open Account Page",
+              'Left click: Copy Account Name / Right click: Open Account Page'
           })
           .css({
-            padding: "3px 15px 0",
-            color: "rgb(110, 55, 215)",
-            "padding-top": "0px",
+            padding: '3px 15px 0',
+            color: 'rgb(110, 55, 215)',
+            'padding-top': '0px'
           })
           .html('<div class="myTitle">Account</div>'),
-        $EditLink: jQuery("<div>")
+        $EditLink: jQuery('<div>')
           .attr({
-            class: "WSMedit funcButtons myClass click-able",
-            title: "Copy WSM Link",
+            class: 'WSMedit funcButtons myClass click-able',
+            title: 'Copy WSM Link'
           })
           .css({
-            float: "right",
+            float: 'right'
           })
-          .text("Copy WSM Link"),
-        $webIDtext: jQuery("<div>")
+          .text('Copy WSM Link'),
+        $webIDtext: jQuery('<div>')
           .attr({
-            class: "webIDtext funcButtons imp click-able",
-            title: "Copy WebID Text",
+            class: 'webIDtext funcButtons imp click-able',
+            title: 'Copy WebID Text'
           })
           .css({
-            color: "rgb(180, 120, 120)",
+            color: 'rgb(180, 120, 120)'
           })
           .html('<div class="myTitle">WebID Text</div>'),
-        $launchID: jQuery("<div>")
+        $launchID: jQuery('<div>')
           .attr({
-            class: "launchID funcButtons imp click-able",
-            title: "Copy Launch ID",
+            class: 'launchID funcButtons imp click-able',
+            title: 'Copy Launch ID'
           })
           .css({
-            color: "rgb(255, 0, 0)",
+            color: 'rgb(255, 0, 0)'
           })
           .html('<div class="myTitle">Launch ID</div>'),
-        $idCombo: jQuery("<div>")
+        $idCombo: jQuery('<div>')
           .attr({
-            title: "Copy WebID and Launch",
-            class: "funcButtons myClass idCombo click-able",
+            title: 'Copy WebID and Launch',
+            class: 'funcButtons myClass idCombo click-able'
           })
           .css({
-            float: "right",
+            float: 'right'
           }),
-        $plusIcon: jQuery("<i>")
+        $plusIcon: jQuery('<i>')
           .attr({
-            class: "fa fa-plus fa-lg myClass click-able",
-            "aira-hidden": "true",
+            class: 'fa fa-plus fa-lg myClass click-able',
+            'aira-hidden': 'true'
           })
           .css({
-            float: "right",
+            float: 'right'
           }),
-        $copyWebID: jQuery("<div>")
+        $copyWebID: jQuery('<div>')
           .attr({
-            title: "Copy WebID",
-            class: "copyWebid funcButtons imp click-able",
+            title: 'Copy WebID',
+            class: 'copyWebid funcButtons imp click-able'
           })
           .css({
-            color: "rgb(255, 20, 155)",
+            color: 'rgb(255, 20, 155)'
           })
           .html('<div class="myTitle">Web ID</div>'),
-        $webnum: jQuery("<div>")
+        $webnum: jQuery('<div>')
           .attr({
-            title: "Left click: Copy webnum / Right click: Copy Cdk-webnum",
-            class: "copyWebnum funcButtons imp click-able cdk-webnum",
+            title: 'Left click: Copy webnum / Right click: Copy Cdk-webnum',
+            class: 'copyWebnum funcButtons imp click-able cdk-webnum'
           })
           .css({
-            color: "rgb(219, 112, 147)",
+            color: 'rgb(219, 112, 147)'
           })
           .html('<div class="myTitle">Webnum</div>'),
-        $proofDate: jQuery("<div>")
+        $proofDate: jQuery('<div>')
           .attr({
-            title: "Proof Date",
-            class: "funcButtons imp",
+            title: 'Proof Date',
+            class: 'funcButtons imp'
           })
           .css({
-            color: "rgb(0, 100, 0)",
+            color: 'rgb(0, 100, 0)'
           })
           .html('<div class="myTitle">Proof Date</div>'),
-        $launchDate: jQuery("<div>")
+        $launchDate: jQuery('<div>')
           .attr({
-            title: "Launch Date",
-            class: "funcButtons imp",
+            title: 'Launch Date',
+            class: 'funcButtons imp'
           })
           .css({
-            color: "rgb(165, 115, 50)",
+            color: 'rgb(165, 115, 50)'
           })
           .html('<div class="myTitle">Launch Date</div>'),
-        $wipSite: jQuery("<a>")
+        $wipSite: jQuery('<a>')
           .attr({
-            target: "_new",
-            class: "wipSite funcButtons click-able myClass",
-            title: "View WIP Site - RIGHT CLICK TO COPY URL",
+            target: '_new',
+            class: 'wipSite funcButtons click-able myClass',
+            title: 'View WIP Site - RIGHT CLICK TO COPY URL'
           })
           .css({
-            float: "right",
+            float: 'right'
           })
-          .text("WIP"),
-        $proofSite: jQuery("<a>")
+          .text('WIP'),
+        $proofSite: jQuery('<a>')
           .attr({
-            target: "_new",
-            class: "proofSite funcButtons click-able myClass",
-            title: "View PROOF Site - RIGHT CLICK TO COPY URL",
+            target: '_new',
+            class: 'proofSite funcButtons click-able myClass',
+            title: 'View PROOF Site - RIGHT CLICK TO COPY URL'
           })
           .css({
-            float: "right",
+            float: 'right'
           })
-          .text("PROOF"),
-        $liveSite: jQuery("<a>")
+          .text('PROOF'),
+        $liveSite: jQuery('<a>')
           .attr({
-            target: "_new",
-            class: "liveSite funcButtons click-able myClass",
-            title: "View LIVE Site - RIGHT CLICK TO COPY URL",
+            target: '_new',
+            class: 'liveSite funcButtons click-able myClass',
+            title: 'View LIVE Site - RIGHT CLICK TO COPY URL'
           })
           .css({
-            float: "right",
+            float: 'right'
           })
-          .text("LIVE"),
-        $copyFolderPath: jQuery("<div>")
+          .text('LIVE'),
+        $copyFolderPath: jQuery('<div>')
           .attr({
-            class: "funcButtons copyFolderPath click-able",
-            title: "Project Folder Location in the Manufacturers Folder",
+            class: 'funcButtons copyFolderPath click-able',
+            title: 'Project Folder Location in the Manufacturers Folder'
           })
           .css({
-            float: "right",
-            display: "none",
+            float: 'right',
+            display: 'none'
           }),
-        $folderImage: jQuery("<i>").attr({
-          class: "fa fa-folder-open fa-lg myClass",
+        $folderImage: jQuery('<i>').attr({
+          class: 'fa fa-folder-open fa-lg myClass'
         }),
-        $importantInfo: jQuery("<div>").attr({
-          id: "importantInfo",
+        $importantInfo: jQuery('<div>').attr({
+          id: 'importantInfo'
         }),
 
-        $accountNum: jQuery("<div>")
+        $accountNum: jQuery('<div>')
           .attr({
-            class: "accountNum funcButtons imp click-able",
-            title: "Copy Account Number",
+            class: 'accountNum funcButtons imp click-able',
+            title: 'Copy Account Number'
           })
           .css({
-            color: "rgb(0, 0, 0)",
+            color: 'rgb(0, 0, 0)'
           })
           .html('<div class="myTitle">Account Number</div>'),
 
-        $bacTable: jQuery("<div>")
+        $bacTable: jQuery('<div>')
           .attr({
-            class: "dealerCodeInfo",
+            class: 'dealerCodeInfo'
           })
           .css({
-            display: "none",
-            position: "absolute",
-            "margin-top": "38px",
-            background: "rgb(255, 255, 255)",
-            border: "1px solid rgb(0, 0, 0)",
+            display: 'none',
+            position: 'absolute',
+            'margin-top': '38px',
+            background: 'rgb(255, 255, 255)',
+            border: '1px solid rgb(0, 0, 0)'
           }),
-        $dynoDisplay: jQuery("<div>")
+        $dynoDisplay: jQuery('<div>')
           .attr({
-            id: "dynoDisplay",
+            id: 'dynoDisplay'
           })
           .css({
-            position: "absolute",
-            left: "35%",
-            padding: "5px 20px",
-            top: "90%",
-            display: "none",
+            position: 'absolute',
+            left: '35%',
+            padding: '5px 20px',
+            top: '90%',
+            display: 'none'
           }),
-        $platformToggle: jQuery("<div>")
+        $platformToggle: jQuery('<div>')
           .attr({
-            class: "funcButtons platformSelector click-able",
-            title: "Sets the platform that these --> links lead too",
+            class: 'funcButtons platformSelector click-able',
+            title: 'Sets the platform that these --> links lead too'
           })
-          .addClass("myClass")
+          .addClass('myClass')
           .css({
-            float: "right",
-            display: "none",
+            float: 'right',
+            display: 'none'
           }),
-        $toggleLabel: jQuery("<div>").css({
-          display: "inline-block",
+        $toggleLabel: jQuery('<div>').css({
+          display: 'inline-block'
         }),
-        $arrowIcon: jQuery("<i>").attr({
-          class: "fa fa-angle-double-right fa-lg myClass",
-          style: "vertical-align: -1px; margin: 0px 0px 0px 5px;",
+        $arrowIcon: jQuery('<i>').attr({
+          class: 'fa fa-angle-double-right fa-lg myClass',
+          style: 'vertical-align: -1px; margin: 0px 0px 0px 5px;'
         }),
         // toolbox version
-        $version: jQuery("<span>").text("version: " + GM_info.script.version), // eslint-disable-line camelcase
+        $version: jQuery('<span>').text('version: ' + GM_info.script.version), // eslint-disable-line camelcase
         // email launch owner
-        $emailTargetsPanel: jQuery("<div>").attr({
-          id: "emailTargets",
-          class: "click-able targetsPanel",
-          tabindex: "1",
+        $emailTargetsPanel: jQuery('<div>').attr({
+          id: 'emailTargets',
+          class: 'click-able targetsPanel',
+          tabindex: '1'
         }),
         // logs
-        $logTargetsPanel: jQuery("<div>").attr({
-          id: "logTargets",
-          class: "click-able targetsPanel",
-          tabindex: "2",
+        $logTargetsPanel: jQuery('<div>').attr({
+          id: 'logTargets',
+          class: 'click-able targetsPanel',
+          tabindex: '2'
         }),
-        $salesforceEmailOwner: jQuery("<div>")
+        $salesforceEmailOwner: jQuery('<div>')
           .attr({
-            title: "Email Launch Team Member",
-            class: "funcButtons myClass click-able",
+            title: 'Email Launch Team Member',
+            class: 'funcButtons myClass click-able'
           })
           .css({
-            float: "right",
+            float: 'right'
           }),
-        $salesforceEmailOwnerConfirm: jQuery("<button>")
+        $salesforceEmailOwnerConfirm: jQuery('<button>')
           .css({
-            height: "30px",
-            width: "100%",
+            height: '30px',
+            width: '100%'
           })
-          .text("Send Email"),
-        $salesforceEmailIcon: jQuery("<i>").attr({
-          class: "fa fa-envelope-o fa-lg myClass",
+          .text('Send Email'),
+        $salesforceEmailIcon: jQuery('<i>').attr({
+          class: 'fa fa-envelope-o fa-lg myClass'
         }),
-        $howToGuide: jQuery("<a>")
+        $howToGuide: jQuery('<a>')
           .attr({
-            title: "Info About Tool",
-            class: "funcButtons myClass click-able",
-            target: "_blank",
-            href: "https://cirept.github.io/salesforceToolbar/",
+            title: 'Info About Tool',
+            class: 'funcButtons myClass click-able',
+            target: '_blank',
+            href: 'https://cirept.github.io/salesforceToolbar/'
           })
           .css({
-            float: "right",
+            float: 'right'
           }),
-        $howToIcon: jQuery("<i>").attr({
-          class: "fa fa-question-circle-o fa-lg myClass",
+        $howToIcon: jQuery('<i>').attr({
+          class: 'fa fa-question-circle-o fa-lg myClass'
         }),
         // ---------------------------------------- log call or chat
-        $logActivity: jQuery("<div>")
+        $logActivity: jQuery('<div>')
           .attr({
-            title: "Log Chat",
-            class: "funcButtons myClass click-able",
+            title: 'Log Chat',
+            class: 'funcButtons myClass click-able'
           })
           .css({
-            float: "right",
+            float: 'right'
           }),
-        $logActivityIcon: jQuery("<i>").attr({
-          class: "fa fa-edit fa-lg myClass",
+        $logActivityIcon: jQuery('<i>').attr({
+          class: 'fa fa-edit fa-lg myClass'
         }),
         // ---------------------------------------- settings
-        $settings: jQuery("<div>")
+        $settings: jQuery('<div>')
           .attr({
-            title: "Settings",
-            class: "funcButtons myClass click-able",
+            title: 'Settings',
+            class: 'funcButtons myClass click-able'
           })
           .css({
-            float: "right",
+            float: 'right'
           }),
-        $settingsIcon: jQuery("<i>").attr({
-          class: "fa fa-cogs fa-lg myClass",
+        $settingsIcon: jQuery('<i>').attr({
+          class: 'fa fa-cogs fa-lg myClass'
         }),
-        $container: jQuery("<div>")
+        $container: jQuery('<div>')
           .attr({
-            class: "funcButtons click-able",
+            class: 'funcButtons click-able'
           })
           .css({
-            "line-height": "50px",
-            height: "40px",
-            float: "left",
-            "-moz-user-select": "none",
+            'line-height': '50px',
+            height: '40px',
+            float: 'left',
+            '-moz-user-select': 'none',
             /* Firefox */
-            "-ms-user-select": "none",
+            '-ms-user-select': 'none',
             /* Internet Explorer/Edge */
-            "user-select": "none",
+            'user-select': 'none'
             /* Non-prefixed version, currently supported by Chrome and Opera */
           }),
-        $settingCheckboxIcon: jQuery("<i>")
+        $settingCheckboxIcon: jQuery('<i>')
           .attr({
-            class: "fa fa-square fa-lg myClass",
+            class: 'fa fa-square fa-lg myClass'
           })
           .css({
-            padding: "5px",
+            padding: '5px'
           }),
-        $settingInput: jQuery("<input>")
+        $settingInput: jQuery('<input>')
           .attr({
-            class: "settings",
+            class: 'settings'
           })
           .css({
-            width: "100px",
-            margin: "0px 10px",
+            width: '100px',
+            margin: '0px 10px'
           }),
-        $myButt: jQuery("<button>").attr({
-          type: "button",
-          class: "myButton",
-        }),
-      };
+        $myButt: jQuery('<button>').attr({
+          type: 'button',
+          class: 'myButton'
+        })
+      }
     },
-    cacheDOM() {
+    cacheDOM () {
       // launch stuff
-      this.$launchID = jQuery("#Name_ileinner");
-      this.launchID = this.$launchID.text(); // launch ID
-      this.$webID = jQuery("#CF00N40000002aUF9_ileinner a");
-      this.webID = this.$webID.text(); // web id
-      this.launchSFID = window.location.pathname;
-      this.comboID = this.launchID + " " + this.webID; // combo id
-      this.$account = jQuery("#CF00N40000002aUDp_ileinner a");
-      this.accountInfo = this.$account.attr("href"); // account info
-      this.accountName = this.$account.text(); // acount name
-      this.accountID = this.accountInfo.slice(1); // account id
-      this.$webIDtext = jQuery("#00N40000002aUF8_ileinner");
-      this.webIDtext = this.$webIDtext.text(); // webid text
-      this.$webnum = jQuery("#00N40000002cgmd_ileinner");
-      this.webnum = this.$webnum.text(); // webnum
-      this.$proofDate = jQuery("#00N330000038W91_ileinner");
-      this.proofDateText = this.$proofDate.text(); // proof date
-      this.$launchDate = jQuery("#00N33000002yrbp_ileinner");
-      this.launchDateText = this.$launchDate.text(); // launch date
-      this.$productType = jQuery("#00N40000002aUEy_ileinner");
-      this.productTypeText = this.$productType.text(); // launch date
-      this.$dealerCode = jQuery("#00N40000002cglV_ileinner");
-      this.dealerCodeText = this.$productType.text(); // launch date
-      this.$builder = jQuery("#CF00N40000002aUE2_ileinner"); // builder
-      this.$body = jQuery("body"); // target body tag
-      this.$head = jQuery("head"); // target head tag
-      this.platformSelector = getValue("platformSelector"); // platform selector
+      this.$launchID = jQuery('#Name_ileinner')
+      this.launchID = this.$launchID.text() // launch ID
+      this.$webID = jQuery('#CF00N40000002aUF9_ileinner a')
+      this.webID = this.$webID.text() // web id
+      this.launchSFID = window.location.pathname
+      this.comboID = this.launchID + ' ' + this.webID // combo id
+      this.$account = jQuery('#CF00N40000002aUDp_ileinner a')
+      this.accountInfo = this.$account.attr('href') // account info
+      this.accountName = this.$account.text() // acount name
+      this.accountID = this.accountInfo.slice(1) // account id
+      this.$webIDtext = jQuery('#00N40000002aUF8_ileinner')
+      this.webIDtext = this.$webIDtext.text() // webid text
+      this.$webnum = jQuery('#00N40000002cgmd_ileinner')
+      this.webnum = this.$webnum.text() // webnum
+      this.$proofDate = jQuery('#00N330000038W91_ileinner')
+      this.proofDateText = this.$proofDate.text() // proof date
+      this.$launchDate = jQuery('#00N33000002yrbp_ileinner')
+      this.launchDateText = this.$launchDate.text() // launch date
+      this.$productType = jQuery('#00N40000002aUEy_ileinner')
+      this.productTypeText = this.$productType.text() // launch date
+      this.$dealerCode = jQuery('#00N40000002cglV_ileinner')
+      this.dealerCodeText = this.$productType.text() // launch date
+      this.$builder = jQuery('#CF00N40000002aUE2_ileinner') // builder
+      this.$body = jQuery('body') // target body tag
+      this.$head = jQuery('head') // target head tag
+      this.platformSelector = getValue('platformSelector') // platform selector
       this.$launchOwner = jQuery('#Owner_ileinner a[id*="Owner"]').attr({
-        class: "launchOwner",
-      });
+        class: 'launchOwner'
+      })
 
-      this.$accountNum = jQuery("#00N0b000003Cy2r_ileinner");
-      this.accountNum = this.$accountNum.text(); // Account Number
+      this.$accountNum = jQuery('#00N0b000003Cy2r_ileinner')
+      this.accountNum = this.$accountNum.text() // Account Number
 
       // Launch owner hover info
-      this.launchMouseover = this.$launchOwner.attr("onmouseover");
-      this.launchOwnerID = this.$launchOwner.attr("href"); // launch owner ID
-      this.launchOwnerText = this.$launchOwner.text(); // launch owner
+      this.launchMouseover = this.$launchOwner.attr('onmouseover')
+      this.launchOwnerID = this.$launchOwner.attr('href') // launch owner ID
+      this.launchOwnerText = this.$launchOwner.text() // launch owner
       // launch quick links
-      this.$quickLinks = jQuery(".listHoverLinks");
-      jQuery("#00N40000002aUEt_ileinner, #00N40000002aUDx_ileinner").css({
-        width: "565px",
-        overflow: "auto",
-        "word-wrap": "break-word",
-      });
+      this.$quickLinks = jQuery('.listHoverLinks')
+      jQuery('#00N40000002aUEt_ileinner, #00N40000002aUDx_ileinner').css({
+        width: '565px',
+        overflow: 'auto',
+        'word-wrap': 'break-word'
+      })
       // Designer
-      this.designer = jQuery("#CF00N40000002aUE2_ileinner a");
-      this.designerName = this.designer.text();
+      this.designer = jQuery('#CF00N40000002aUE2_ileinner a')
+      this.designerName = this.designer.text()
       // pre-designer
-      this.preDesign = jQuery("#CF00N330000038wsz_ileinner a");
-      this.preDesignName = this.preDesign.text();
-      this.preDesignInfo = this.preDesign.attr("on");
+      this.preDesign = jQuery('#CF00N330000038wsz_ileinner a')
+      this.preDesignName = this.preDesign.text()
+      this.preDesignInfo = this.preDesign.attr('on')
       // qa designer
-      this.qaDesigner = jQuery("#CF00N40000002cgmH_ileinner a");
-      this.qaDesignerName = this.qaDesigner.text();
+      this.qaDesigner = jQuery('#CF00N40000002cgmH_ileinner a')
+      this.qaDesignerName = this.qaDesigner.text()
       // current user
-      this.userName = unsafeWindow.UserContext.userName;
+      this.userName = unsafeWindow.UserContext.userName
     },
     /**
      * Checks siblind elements of clicked element and removes 'selectedTarget' class if found.
      * @param {Object} currentTarget  contains click event details.
      */
-    removeSelectedTarget(currentTarget) {
+    removeSelectedTarget (currentTarget) {
       jQuery(currentTarget)
-        .siblings(".selectedTarget")
-        .removeClass("selectedTarget");
+        .siblings('.selectedTarget')
+        .removeClass('selectedTarget')
     },
     /**
      * Will pass the related details to be binded on the 'callingPanel' onclick attribute.
      * @param {Object} currentTarget contains click event details.
      */
-    bindEmailTargetPanelActions(currentTarget) {
-      if (currentTarget.className.indexOf("ic") > -1) {
-        this.getEmail(this.$launchOwner.attr("onmouseover"));
-      } else if (currentTarget.className.indexOf("designer") > -1) {
-        this.getEmail(this.designer.attr("onmouseover"));
-      } else if (currentTarget.className.indexOf("preDesign") > -1) {
-        this.getEmail(this.preDesign.attr("onmouseover"));
-      } else if (currentTarget.className.indexOf("qaDesigner") > -1) {
-        this.getEmail(this.qaDesigner.attr("onmouseover"));
+    bindEmailTargetPanelActions (currentTarget) {
+      if (currentTarget.className.indexOf('ic') > -1) {
+        this.getEmail(this.$launchOwner.attr('onmouseover'))
+      } else if (currentTarget.className.indexOf('designer') > -1) {
+        this.getEmail(this.designer.attr('onmouseover'))
+      } else if (currentTarget.className.indexOf('preDesign') > -1) {
+        this.getEmail(this.preDesign.attr('onmouseover'))
+      } else if (currentTarget.className.indexOf('qaDesigner') > -1) {
+        this.getEmail(this.qaDesigner.attr('onmouseover'))
       }
     },
     /**
      * Will pass the related details to be binded on the 'callingPanel' onclick attribute.
      * @param {Object} currentTarget contains click event details.
      */
-    bindActivityLogTargetPanelActions(currentTarget) {
-      if (currentTarget.className.indexOf("ic") > -1) {
-        this.activityLog(this.$launchOwner.attr("onmouseover"));
-      } else if (currentTarget.className.indexOf("designer") > -1) {
-        this.activityLog(this.designer.attr("onmouseover"));
-      } else if (currentTarget.className.indexOf("preDesign") > -1) {
-        this.activityLog(this.preDesign.attr("onmouseover"));
-      } else if (currentTarget.className.indexOf("qaDesigner") > -1) {
-        this.activityLog(this.qaDesigner.attr("onmouseover"));
+    bindActivityLogTargetPanelActions (currentTarget) {
+      if (currentTarget.className.indexOf('ic') > -1) {
+        this.activityLog(this.$launchOwner.attr('onmouseover'))
+      } else if (currentTarget.className.indexOf('designer') > -1) {
+        this.activityLog(this.designer.attr('onmouseover'))
+      } else if (currentTarget.className.indexOf('preDesign') > -1) {
+        this.activityLog(this.preDesign.attr('onmouseover'))
+      } else if (currentTarget.className.indexOf('qaDesigner') > -1) {
+        this.activityLog(this.qaDesigner.attr('onmouseover'))
       }
     },
     /**
@@ -533,16 +528,16 @@ function programVariables() {
      * @param {Object} currentTarget - contains click event details.
      * @param {String} callingPanel - represents what panel called the function.
      */
-    selectItem(currentTarget, callingPanel) {
-      this.removeSelectedTarget(currentTarget);
-      jQuery(currentTarget).addClass("selectedTarget");
+    selectItem (currentTarget, callingPanel) {
+      this.removeSelectedTarget(currentTarget)
+      jQuery(currentTarget).addClass('selectedTarget')
 
-      if (callingPanel === "email") {
-        this.bindEmailTargetPanelActions(currentTarget);
+      if (callingPanel === 'email') {
+        this.bindEmailTargetPanelActions(currentTarget)
       }
 
-      if (callingPanel === "logActivity") {
-        this.bindActivityLogTargetPanelActions(currentTarget);
+      if (callingPanel === 'logActivity') {
+        this.bindActivityLogTargetPanelActions(currentTarget)
       }
     },
     /**
@@ -551,16 +546,16 @@ function programVariables() {
      * Step 2. Hide current user IF user is one of team members.
      * Step 3. Bind even listener to fire selectItem function.
      */
-    buildEmailTargets() {
-      var self = this;
+    buildEmailTargets () {
+      let self = this
 
-      self.buildLaunchMembersPanel(launchToolbar.config.$emailTargetsPanel);
+      self.buildLaunchMembersPanel(launchToolbar.config.$emailTargetsPanel)
 
-      self.hideSelf(launchToolbar.config.$emailTargetsPanel);
+      self.hideSelf(launchToolbar.config.$emailTargetsPanel)
 
-      launchToolbar.config.$emailTargetsPanel.on("click", function(event) {
-        self.selectItem(event.target, "email");
-      });
+      launchToolbar.config.$emailTargetsPanel.on('click', function (event) {
+        self.selectItem(event.target, 'email')
+      })
     },
     /**
      * Will extract the name out of a CDK email
@@ -568,35 +563,35 @@ function programVariables() {
      * @param {Boolean} bool - will determine if the first letter of the names will be capitalized, optional
      * @return {Object} the extracted email address of the user
      */
-    extractNameFromEmail(emailAddress, bool) {
-      var wordArr;
-      bool = bool ? bool : false;
+    extractNameFromEmail (emailAddress, bool) {
+      let wordArr
+      bool = bool || false
 
       return emailAddress
-        .split("@")[0]
-        .split(".")
+        .split('@')[0]
+        .split('.')
         .map(word => {
-          wordArr = word.split("");
-          wordArr[0] = bool ? wordArr[0].toUpperCase() : wordArr[0];
-          return wordArr.join("");
+          wordArr = word.split('')
+          wordArr[0] = bool ? wordArr[0].toUpperCase() : wordArr[0]
+          return wordArr.join('')
         })
-        .join(" ");
+        .join(' ')
     },
-    buildLogTargets() {
-      var self = this;
+    buildLogTargets () {
+      let self = this
 
-      self.buildLaunchMembersPanel(launchToolbar.config.$logTargetsPanel);
+      self.buildLaunchMembersPanel(launchToolbar.config.$logTargetsPanel)
 
-      self.hideSelf(launchToolbar.config.$logTargetsPanel);
+      self.hideSelf(launchToolbar.config.$logTargetsPanel)
 
-      launchToolbar.config.$logTargetsPanel.on("click", function(event) {
-        self.selectItem(event.target, "logActivity");
-      });
+      launchToolbar.config.$logTargetsPanel.on('click', function (event) {
+        self.selectItem(event.target, 'logActivity')
+      })
     },
-    hideSelf($panel) {
-      var self = this;
+    hideSelf ($panel) {
+      let self = this
 
-      $panel.children().each(function(index, elem) {
+      $panel.children().each(function (index, elem) {
         // hides element if it is the user
         // elem.innerHTML.indexOf(self.extractNameFromEmail(self.userName, true)) > -1 ? jQuery(elem)
         //   .hide() : jQuery(elem)
@@ -606,317 +601,317 @@ function programVariables() {
             self.extractNameFromEmail(self.userName, true)
           ) > -1
         ) {
-          jQuery(elem).hide();
+          jQuery(elem).hide()
         } else {
-          jQuery(elem).show();
+          jQuery(elem).show()
         }
-      });
+      })
     },
-    buildLaunchMembersPanel($panel) {
+    buildLaunchMembersPanel ($panel) {
       $panel
         .append(
           jQuery(
-            '<div class="myClass ic">IC: ' + this.launchOwnerText + "</div>"
+            '<div class="myClass ic">IC: ' + this.launchOwnerText + '</div>'
           )
         )
         .append(
           jQuery(
-            '<div class="myClass designer">WDS: ' + this.designerName + "</div>"
+            '<div class="myClass designer">WDS: ' + this.designerName + '</div>'
           )
         )
         .append(
           jQuery(
             '<div class="myClass preDesign">PD: ' +
-              this.preDesignName +
-              "</div>"
+            this.preDesignName +
+            '</div>'
           )
         )
         .append(
           jQuery(
             '<div class="myClass qaDesigner">QA: ' +
-              this.qaDesignerName +
-              "</div>"
+            this.qaDesignerName +
+            '</div>'
           )
-        );
+        )
     },
-    getEmail(emailTarget) {
-      var self = this; // save reference to this
-      var trList;
-      var emailAddress;
-      var retURL = this.launchSFID;
-      var id = this.launchSFID.slice(1) + "_RelatedHistoryList";
-      var emailLink = jQuery("#" + id)
+    getEmail (emailTarget) {
+      let self = this // save reference to this
+      let trList
+      let emailAddress
+      let retURL = this.launchSFID
+      let id = this.launchSFID.slice(1) + '_RelatedHistoryList'
+      let emailLink = jQuery('#' + id)
         .find('input[value="Send an Email"]')
-        .attr("onclick")
-        .split("'")[1]; // eslint-disable-line quotes
-      var newEmailLink = emailLink.slice(1, emailLink.indexOf("&retURL="));
-      var managerEmails = "Jennifer.Walker@cdk.com;Darcy.Miller@cdk.com";
+        .attr('onclick')
+        .split("'")[1] // eslint-disable-line quotes
+      let newEmailLink = emailLink.slice(1, emailLink.indexOf('&retURL='))
+      let managerEmails = 'Jennifer.Walker@cdk.com;Darcy.Miller@cdk.com'
 
       jQuery.ajax({
         url: emailTarget.split("'")[3], // eslint-disable-line quotes
         context: document.body,
         success: (data) => {
-          trList = jQuery("<div>")
+          trList = jQuery('<div>')
             .html(data)
-            .find(".detailList")
-            .find("tr");
+            .find('.detailList')
+            .find('tr')
           emailAddress = jQuery(trList[1])
-            .find("a")
-            .text();
+            .find('a')
+            .text()
 
           launchToolbar.config.$salesforceEmailOwner.attr({
             onclick: (window.location.href = encodeURI(
               `${newEmailLink}&p24=${emailAddress}&p4=${managerEmails}&p6=${
                 self.comboID
               }&retURL=${retURL}`
-            )),
-          });
-        },
-      });
+            ))
+          })
+        }
+      })
     },
-    activityLog(emailTarget) {
-      var self = this; // save reference to this
-      var retURL = this.launchSFID;
-      var emailAddress;
-      var logID = this.launchSFID.replace("/", "#") + "_RelatedHistoryList";
-      var logURL = jQuery(logID)
+    activityLog (emailTarget) {
+      let self = this // save reference to this
+      let retURL = this.launchSFID
+      let emailAddress
+      let logID = this.launchSFID.replace('/', '#') + '_RelatedHistoryList'
+      let logURL = jQuery(logID)
         .find('input[value="Log a Call"]')
-        .attr("onclick")
-        .split("'")[1]; // eslint-disable-line quotes
-      var newLogURL = logURL.slice(1, logURL.indexOf("&retURL="));
-      var ownerName;
-      var trList;
+        .attr('onclick')
+        .split("'")[1] // eslint-disable-line quotes
+      let newLogURL = logURL.slice(1, logURL.indexOf('&retURL='))
+      let ownerName
+      let trList
 
       jQuery.ajax({
         url: emailTarget.split("'")[3], // eslint-disable-line quotes
         context: document.body,
         success: (data) => {
-          trList = jQuery("<div>")
+          trList = jQuery('<div>')
             .html(data)
-            .find(".detailList")
-            .find("tr");
+            .find('.detailList')
+            .find('tr')
           emailAddress = jQuery(trList[1])
-            .find("a")
-            .text();
-          ownerName = self.extractNameFromEmail(emailAddress, true);
+            .find('a')
+            .text()
+          ownerName = self.extractNameFromEmail(emailAddress, true)
 
           // bind onclick event for div
           launchToolbar.config.$logActivity.attr({
             onclick: (window.location.href = encodeURI(
               `${newLogURL}&tsk2=${ownerName}&retURL=${retURL}`
-            )),
-          });
-        },
-      });
-    },
-    buildWSMlink() {
-      var base = "http://websites.cobalt.com/wsm/index.do?webId=";
-      var wsmLink = "";
-
-      if (this.webID.search("gmcl") !== -1) {
-        if (this.webID.search("-fr") !== -1) {
-          wsmLink = `${base}${this.webID}&locale=fr_CA`;
-        } else {
-          wsmLink = base + this.webID + "&locale=en_CA";
+            ))
+          })
         }
-      } else if (this.webID.search("holden") !== -1) {
-        if (this.webID.search("holdennz") !== -1) {
-          wsmLink = base + this.webID + "&locale=en_NZ";
+      })
+    },
+    buildWSMlink () {
+      let base = 'http://websites.cobalt.com/wsm/index.do?webId='
+      let wsmLink = ''
+
+      if (this.webID.search('gmcl') !== -1) {
+        if (this.webID.search('-fr') !== -1) {
+          wsmLink = `${base}${this.webID}&locale=fr_CA`
         } else {
-          wsmLink = base + this.webID + "&locale=en_AU";
+          wsmLink = base + this.webID + '&locale=en_CA'
+        }
+      } else if (this.webID.search('holden') !== -1) {
+        if (this.webID.search('holdennz') !== -1) {
+          wsmLink = base + this.webID + '&locale=en_NZ'
+        } else {
+          wsmLink = base + this.webID + '&locale=en_AU'
         }
       } else {
-        wsmLink = base + this.webID + "&locale=en_US";
+        wsmLink = base + this.webID + '&locale=en_US'
       }
 
       launchToolbar.config.$EditLink.attr({
-        "data-link": wsmLink,
-      });
+        'data-link': wsmLink
+      })
     },
-    buildFolderPath() {
-      var platformSelector = this.platformSelector
-        ? "&nextGen=true"
-        : "&nextgen=false";
-      var nitra = "http://nitra.";
-      var wip = "wip.";
-      var proof = "proof.";
-      var reload = "/?reload=true";
-      var baseManuLoc = `\\\\las-mgmt1.lasisi01a.las.san.dsghost.net\\Associate\\sea\\CS\\graphics\\manufacturers\\`;
-      var oem = this.webID.split("-")[0];
-      var id = this.webID.substr(this.webID.indexOf("-") + 1);
-      var oemPart;
+    buildFolderPath () {
+      let platformSelector = this.platformSelector
+        ? '&nextGen=true'
+        : '&nextgen=false'
+      let nitra = 'http://nitra.'
+      let wip = 'wip.'
+      let proof = 'proof.'
+      let reload = '/?reload=true'
+      let baseManuLoc = `\\\\las-mgmt1.lasisi01a.las.san.dsghost.net\\Associate\\sea\\CS\\graphics\\manufacturers\\`
+      let oem = this.webID.split('-')[0]
+      let id = this.webID.substr(this.webID.indexOf('-') + 1)
+      let oemPart
       const webIDList = {
-        gmps: "gmpsdealer.com/",
-        gmcl: "gmcldealer.com/",
-        vw: "vwcdkdealer.com/",
-        hyun: "hyundaistores.com/",
-        mazda: "mazdadealer.com/",
-        lex: "lexusdealer.com/",
-        k1ia: "k1iadealer.com/",
-        b2mw: "b2mwdealer.com/",
-        mini: "mini-dealer.com/",
-        motp: "motorplace.com/",
-        hond: "hondadealer.com/",
-        holden: "gmholdendealer.com.au/",
-        holdennz: "gmholdendealer.co.nz/",
-        nissan: "nissandealer.com/",
-        toyd: "toyotadealer.com/",
-        infiniti: "infinitidealer.com/",
-        ford: "f1rd.com/",
-        c1hr: "c1hr.com/",
-      };
+        gmps: 'gmpsdealer.com/',
+        gmcl: 'gmcldealer.com/',
+        vw: 'vwcdkdealer.com/',
+        hyun: 'hyundaistores.com/',
+        mazda: 'mazdadealer.com/',
+        lex: 'lexusdealer.com/',
+        k1ia: 'k1iadealer.com/',
+        b2mw: 'b2mwdealer.com/',
+        mini: 'mini-dealer.com/',
+        motp: 'motorplace.com/',
+        hond: 'hondadealer.com/',
+        holden: 'gmholdendealer.com.au/',
+        holdennz: 'gmholdendealer.co.nz/',
+        nissan: 'nissandealer.com/',
+        toyd: 'toyotadealer.com/',
+        infiniti: 'infinitidealer.com/',
+        ford: 'f1rd.com/',
+        c1hr: 'c1hr.com/'
+      }
       const differentOemName = {
-        lex: "lexus",
-        motp: "motorplace",
-        hond: "honda",
-        toyd: "toyota",
-      };
+        lex: 'lexus',
+        motp: 'motorplace',
+        hond: 'honda',
+        toyd: 'toyota'
+      }
 
-      oemPart = webIDList[oem];
+      oemPart = webIDList[oem]
       if (Object.keys(differentOemName).includes(oemPart)) {
-        oem = differentOemName[oem];
+        oem = differentOemName[oem]
       }
 
       launchToolbar.config.folderPath = `${baseManuLoc}${oem}\\${id.charAt(
         0
-      )}\\${id}`;
+      )}\\${id}`
 
       launchToolbar.config.$wipSite.attr({
-        href: `${nitra}${wip}${oemPart}${id}${reload}${platformSelector}`,
-      });
+        href: `${nitra}${wip}${oemPart}${id}${reload}${platformSelector}`
+      })
 
       launchToolbar.config.$proofSite.attr({
-        href: `${nitra}${proof}${oemPart}${id}${reload}${platformSelector}`,
-      });
+        href: `${nitra}${proof}${oemPart}${id}${reload}${platformSelector}`
+      })
 
       launchToolbar.config.$liveSite.attr({
-        href: `${nitra}${oemPart}${id}${reload}${platformSelector}`,
-      });
+        href: `${nitra}${oemPart}${id}${reload}${platformSelector}`
+      })
     },
-    buildURLs() {
-      var platformSelector = this.platformSelector
-        ? "&nextGen=true"
-        : "&nextgen=false";
-      var nitra = "http://nitra.";
-      var wip = "wip.";
-      var proof = "proof.";
-      var reload = "/?reload=true";
-      var oem = this.webID.split("-")[0];
-      var id = this.webID.substr(this.webID.indexOf("-") + 1);
-      var oemPart;
+    buildURLs () {
+      let platformSelector = this.platformSelector
+        ? '&nextGen=true'
+        : '&nextgen=false'
+      let nitra = 'http://nitra.'
+      let wip = 'wip.'
+      let proof = 'proof.'
+      let reload = '/?reload=true'
+      let oem = this.webID.split('-')[0]
+      let id = this.webID.substr(this.webID.indexOf('-') + 1)
+      let oemPart
       const webIDList = {
-        gmps: "gmpsdealer.com/",
-        gmcl: "gmcldealer.com/",
-        vw: "vwcdkdealer.com/",
-        hyun: "hyundaistores.com/",
-        mazda: "mazdadealer.com/",
-        lex: "lexusdealer.com/",
-        k1ia: "k1iadealer.com/",
-        b2mw: "b2mwdealer.com/",
-        mini: "mini-dealer.com/",
-        motp: "motorplace.com/",
-        hond: "hondadealer.com/",
-        holden: "gmholdendealer.com.au/",
-        holdennz: "gmholdendealer.co.nz/",
-        nissan: "nissandealer.com/",
-        toyd: "toyotadealer.com/",
-        infiniti: "infinitidealer.com/",
-        ford: "f1rd.com/",
-        c1hr: "c1hr.com/",
-      };
+        gmps: 'gmpsdealer.com/',
+        gmcl: 'gmcldealer.com/',
+        vw: 'vwcdkdealer.com/',
+        hyun: 'hyundaistores.com/',
+        mazda: 'mazdadealer.com/',
+        lex: 'lexusdealer.com/',
+        k1ia: 'k1iadealer.com/',
+        b2mw: 'b2mwdealer.com/',
+        mini: 'mini-dealer.com/',
+        motp: 'motorplace.com/',
+        hond: 'hondadealer.com/',
+        holden: 'gmholdendealer.com.au/',
+        holdennz: 'gmholdendealer.co.nz/',
+        nissan: 'nissandealer.com/',
+        toyd: 'toyotadealer.com/',
+        infiniti: 'infinitidealer.com/',
+        ford: 'f1rd.com/',
+        c1hr: 'c1hr.com/'
+      }
 
-      oemPart = webIDList[oem];
+      oemPart = webIDList[oem]
 
       launchToolbar.config.$wipSite.attr({
-        href: `${nitra}${wip}${oemPart}${id}${reload}${platformSelector}`,
-      });
+        href: `${nitra}${wip}${oemPart}${id}${reload}${platformSelector}`
+      })
 
       launchToolbar.config.$proofSite.attr({
-        href: `${nitra}${proof}${oemPart}${id}${reload}${platformSelector}`,
-      });
+        href: `${nitra}${proof}${oemPart}${id}${reload}${platformSelector}`
+      })
 
       launchToolbar.config.$liveSite.attr({
-        href: `${nitra}${oemPart}${id}${reload}${platformSelector}`,
-      });
+        href: `${nitra}${oemPart}${id}${reload}${platformSelector}`
+      })
     },
-    bindEvents() {
-      launchToolbar.config.$idCombo.on("click", this.doWork.bind(this));
-      launchToolbar.config.$launchID.on("click", this.doWork.bind(this));
-      launchToolbar.config.$copyWebID.on("click", this.doWork.bind(this));
-      launchToolbar.config.$accountName.on("click", this.doWork.bind(this));
+    bindEvents () {
+      launchToolbar.config.$idCombo.on('click', this.doWork.bind(this))
+      launchToolbar.config.$launchID.on('click', this.doWork.bind(this))
+      launchToolbar.config.$copyWebID.on('click', this.doWork.bind(this))
+      launchToolbar.config.$accountName.on('click', this.doWork.bind(this))
       launchToolbar.config.$accountName.on(
-        "contextmenu",
+        'contextmenu',
         this.openAccountPageLink.bind(this)
-      );
-      launchToolbar.config.$accountName.bind("contextmenu", function() {
-        return false;
-      });
-      launchToolbar.config.$copyFolderPath.on("click", this.doWork.bind(this));
-      launchToolbar.config.$webIDtext.on("click", this.doWork.bind(this));
-      launchToolbar.config.$webnum.on("click", this.doWork.bind(this));
-      launchToolbar.config.$webnum.on("contextmenu", this.doWork2.bind(this));
-      launchToolbar.config.$webnum.bind("contextmenu", function() {
-        return false;
-      });
-      launchToolbar.config.$wipSite.on("mousedown", this.doWork.bind(this));
-      launchToolbar.config.$wipSite.bind("contextmenu", function() {
-        return false;
-      });
-      launchToolbar.config.$proofSite.on("mousedown", this.doWork.bind(this));
-      launchToolbar.config.$proofSite.bind("contextmenu", function() {
-        return false;
-      });
-      launchToolbar.config.$liveSite.on("mousedown", this.doWork.bind(this));
-      launchToolbar.config.$liveSite.bind("contextmenu", function() {
-        return false;
-      });
-      this.$launchOwner.on("mousedown", this.doWork.bind(this));
-      this.$launchOwner.bind("contextmenu", function() {
-        return false;
-      });
+      )
+      launchToolbar.config.$accountName.bind('contextmenu', function () {
+        return false
+      })
+      launchToolbar.config.$copyFolderPath.on('click', this.doWork.bind(this))
+      launchToolbar.config.$webIDtext.on('click', this.doWork.bind(this))
+      launchToolbar.config.$webnum.on('click', this.doWork.bind(this))
+      launchToolbar.config.$webnum.on('contextmenu', this.doWork2.bind(this))
+      launchToolbar.config.$webnum.bind('contextmenu', function () {
+        return false
+      })
+      launchToolbar.config.$wipSite.on('mousedown', this.doWork.bind(this))
+      launchToolbar.config.$wipSite.bind('contextmenu', function () {
+        return false
+      })
+      launchToolbar.config.$proofSite.on('mousedown', this.doWork.bind(this))
+      launchToolbar.config.$proofSite.bind('contextmenu', function () {
+        return false
+      })
+      launchToolbar.config.$liveSite.on('mousedown', this.doWork.bind(this))
+      launchToolbar.config.$liveSite.bind('contextmenu', function () {
+        return false
+      })
+      this.$launchOwner.on('mousedown', this.doWork.bind(this))
+      this.$launchOwner.bind('contextmenu', function () {
+        return false
+      })
       launchToolbar.config.$platformToggle.on(
-        "click",
+        'click',
         this.flipTheSwitch.bind(this)
-      );
+      )
       launchToolbar.config.$platformToggle.on(
-        "click",
+        'click',
         this.buildURLs.bind(this)
-      );
-      launchToolbar.config.$settings.on("click", function() {
-        launchToolbar.config.$settingContainer.slideToggle(500);
-      });
-      launchToolbar.config.$container.on("click", this.doWork.bind(this));
+      )
+      launchToolbar.config.$settings.on('click', function () {
+        launchToolbar.config.$settingContainer.slideToggle(500)
+      })
+      launchToolbar.config.$container.on('click', this.doWork.bind(this))
       launchToolbar.config.$container.on(
-        "click",
+        'click',
         this.flipTheSwitch.bind(this)
-      );
-      launchToolbar.config.$accountNum.on("click", this.doWork.bind(this));
-      launchToolbar.config.$EditLink.on("click", this.doWork.bind(this));
+      )
+      launchToolbar.config.$accountNum.on('click', this.doWork.bind(this))
+      launchToolbar.config.$EditLink.on('click', this.doWork.bind(this))
 
-      launchToolbar.config.$salesforceEmailOwner.on("click", function() {
-        launchToolbar.config.$emailTargetsPanel.toggle();
-        launchToolbar.config.$emailTargetsPanel.focus();
+      launchToolbar.config.$salesforceEmailOwner.on('click', function () {
+        launchToolbar.config.$emailTargetsPanel.toggle()
+        launchToolbar.config.$emailTargetsPanel.focus()
         launchToolbar.config.$salesforceEmailOwner.toggleClass(
-          "activeFunction"
-        );
-      });
-      launchToolbar.config.$logActivity.on("click", function() {
-        launchToolbar.config.$logTargetsPanel.toggle();
-        launchToolbar.config.$logTargetsPanel.focus();
-        launchToolbar.config.$logActivity.toggleClass("activeFunction");
-      });
-      launchToolbar.config.$emailTargetsPanel.on("focusout", function() {
-        launchToolbar.config.$emailTargetsPanel.toggle();
+          'activeFunction'
+        )
+      })
+      launchToolbar.config.$logActivity.on('click', function () {
+        launchToolbar.config.$logTargetsPanel.toggle()
+        launchToolbar.config.$logTargetsPanel.focus()
+        launchToolbar.config.$logActivity.toggleClass('activeFunction')
+      })
+      launchToolbar.config.$emailTargetsPanel.on('focusout', function () {
+        launchToolbar.config.$emailTargetsPanel.toggle()
         launchToolbar.config.$salesforceEmailOwner.toggleClass(
-          "activeFunction"
-        );
-      });
-      launchToolbar.config.$logTargetsPanel.on("focusout", function() {
-        launchToolbar.config.$logTargetsPanel.toggle();
-        launchToolbar.config.$logActivity.toggleClass("activeFunction");
-      });
+          'activeFunction'
+        )
+      })
+      launchToolbar.config.$logTargetsPanel.on('focusout', function () {
+        launchToolbar.config.$logTargetsPanel.toggle()
+        launchToolbar.config.$logActivity.toggleClass('activeFunction')
+      })
     },
-    addStyles() {
+    addStyles () {
       launchToolbar.config.$toolbarStyles
         // general toolbox styles
         .append(
@@ -926,9 +921,9 @@ function programVariables() {
             <!--border-right: 1px rgb(0, 0, 0) solid;-->
             padding-top: 0px; }`
         )
-        .append(".click-able { cursor: pointer; } ")
+        .append('.click-able { cursor: pointer; } ')
         .append(
-          ".myTitle { color: #000000; font-weight: 900; font-size: 10px; padding: 0 10px;} "
+          '.myTitle { color: #000000; font-weight: 900; font-size: 10px; padding: 0 10px;} '
         )
         .append(
           `.myClass {
@@ -936,132 +931,132 @@ function programVariables() {
             height: 30px;
             vertical-align: -5% !important; }`
         )
-        .append(".myClass:hover, .fa.myClass:hover { font-weight: 900; } ")
-        .append(".imp { float: left !important; } ")
-        .append(".dealerCodeInfo th { text-align: center; } "); // end
+        .append('.myClass:hover, .fa.myClass:hover { font-weight: 900; } ')
+        .append('.imp { float: left !important; } ')
+        .append('.dealerCodeInfo th { text-align: center; } ') // end
     },
-    addFunctionStyles() {
+    addFunctionStyles () {
       launchToolbar.config.$toolbarStyles
-        .append(".selectedTarget { background: white; color: green; }")
-        .append(".activeFunction { background: teal; color: white; }")
+        .append('.selectedTarget { background: white; color: green; }')
+        .append('.activeFunction { background: teal; color: white; }')
         .append(
           `.targetsPanel {
-          	display: none;
-          	position: absolute;
-          	background: linear-gradient(
+            display: none;
+            position: absolute;
+            background: linear-gradient(
             to right, rgb(178, 254, 250), rgb(14, 210, 200));
             margin-top: 38px;
-						padding: 0px 10px;
+            padding: 0px 10px;
             border-left: 1px solid rgb(0, 0, 0);
             border-bottom: 1px solid rgb(0, 0, 0);
             border-right: 1px solid rgb(0, 0, 0);
             right: 315px; }`
-        );
+        )
     },
-    addOptionStyles() {
+    addOptionStyles () {
       launchToolbar.config.$toolbarStyles
-        .append(".makeLarger { font-size: 1rem; } ")
-        .append(".makeBolder { font-weight: 900; } ")
-        .append(".hFont { color: white !important; display: table; } ")
-        .append(".hlaunchID { background: rgb(255, 0, 0); } ")
-        .append(".hwebID { background: rgb(255, 20, 155); } ")
-        .append(".haccount { background: rgb(110, 55, 215); } ")
-        .append(".hwebIDtext { background: rgb(180, 120, 120); } ")
-        .append(".hwebnum { background: rgb(219, 112, 147); } ")
-        .append(".hproofDate { background: rgb(0, 100, 0); } ")
-        .append(".hlaunchDate { background: rgb(165, 115, 50); } ")
-        .append(".hproductType { background: rgb(19, 106, 138); } ")
-        .append(".hdealerCode { background: rgb(199, 121, 208); } ");
+        .append('.makeLarger { font-size: 1rem; } ')
+        .append('.makeBolder { font-weight: 900; } ')
+        .append('.hFont { color: white !important; display: table; } ')
+        .append('.hlaunchID { background: rgb(255, 0, 0); } ')
+        .append('.hwebID { background: rgb(255, 20, 155); } ')
+        .append('.haccount { background: rgb(110, 55, 215); } ')
+        .append('.hwebIDtext { background: rgb(180, 120, 120); } ')
+        .append('.hwebnum { background: rgb(219, 112, 147); } ')
+        .append('.hproofDate { background: rgb(0, 100, 0); } ')
+        .append('.hlaunchDate { background: rgb(165, 115, 50); } ')
+        .append('.hproductType { background: rgb(19, 106, 138); } ')
+        .append('.hdealerCode { background: rgb(199, 121, 208); } ')
     },
-    buildSettings() {
-      var $otherSettings = launchToolbar.config.$container
+    buildSettings () {
+      let $otherSettings = launchToolbar.config.$container
         .clone(true)
-        .text("Other Features")
-        .removeClass("click-able");
-      var $settingsArrow = launchToolbar.config.$arrowIcon.clone(true);
-      var $quickLinksSizing = launchToolbar.config.$container
+        .text('Other Features')
+        .removeClass('click-able')
+      let $settingsArrow = launchToolbar.config.$arrowIcon.clone(true)
+      let $quickLinksSizing = launchToolbar.config.$container
         .clone(true)
-        .addClass("quickLinksSize")
-        .text("big quick links");
-      var $quickLinksSizingCheckboxIcon = launchToolbar.config.$settingCheckboxIcon
+        .addClass('quickLinksSize')
+        .text('big quick links')
+      let $quickLinksSizingCheckboxIcon = launchToolbar.config.$settingCheckboxIcon
         .clone()
-        .addClass("quickLinksSize");
-      var $largeInfo = launchToolbar.config.$container
+        .addClass('quickLinksSize')
+      let $largeInfo = launchToolbar.config.$container
         .clone(true)
-        .addClass("largeInfo")
-        .text("make important info pop");
-      var $largeInfoCheckboxIcon = launchToolbar.config.$settingCheckboxIcon
+        .addClass('largeInfo')
+        .text('make important info pop')
+      let $largeInfoCheckboxIcon = launchToolbar.config.$settingCheckboxIcon
         .clone()
-        .addClass("largeInfo");
-      var $colorizeLaunch = launchToolbar.config.$container
+        .addClass('largeInfo')
+      let $colorizeLaunch = launchToolbar.config.$container
         .clone(true)
-        .addClass("colorizeLaunch")
-        .text("highlight important info");
-      var $colorizeLaunchCheckboxIcon = launchToolbar.config.$settingCheckboxIcon
+        .addClass('colorizeLaunch')
+        .text('highlight important info')
+      let $colorizeLaunchCheckboxIcon = launchToolbar.config.$settingCheckboxIcon
         .clone()
-        .addClass("colorizeLaunch");
-      var $colorTool = launchToolbar.config.$container
+        .addClass('colorizeLaunch')
+      let $colorTool = launchToolbar.config.$container
         .clone(true)
-        .addClass("changeToolColor")
-        .removeClass("click-able")
-        .text("Change tool Color");
+        .addClass('changeToolColor')
+        .removeClass('click-able')
+        .text('Change tool Color')
       // test elements - colorize
-      var $colorStartInputField = launchToolbar.config.$settingInput
+      let $colorStartInputField = launchToolbar.config.$settingInput
         .clone(true)
-        .addClass("startColor changeToolColor");
-      var $colorEndInputField = launchToolbar.config.$settingInput
+        .addClass('startColor changeToolColor')
+      let $colorEndInputField = launchToolbar.config.$settingInput
         .clone(true)
-        .addClass("endColor changeToolColor");
-      var $colorInputFieldButt = launchToolbar.config.$myButt
+        .addClass('endColor changeToolColor')
+      let $colorInputFieldButt = launchToolbar.config.$myButt
         .clone(true)
-        .addClass("changeToolColor")
-        .text("submit");
+        .addClass('changeToolColor')
+        .text('submit')
 
-      $otherSettings.append($settingsArrow);
-      $quickLinksSizing.append($quickLinksSizingCheckboxIcon);
-      $largeInfo.append($largeInfoCheckboxIcon);
-      $colorizeLaunch.append($colorizeLaunchCheckboxIcon);
+      $otherSettings.append($settingsArrow)
+      $quickLinksSizing.append($quickLinksSizingCheckboxIcon)
+      $largeInfo.append($largeInfoCheckboxIcon)
+      $colorizeLaunch.append($colorizeLaunchCheckboxIcon)
       // test elements - colorize
       $colorTool
         .append($colorStartInputField)
         .append($colorEndInputField)
-        .append($colorInputFieldButt);
+        .append($colorInputFieldButt)
 
       // Add 'other panel tools' to ther Features Panel
       launchToolbar.config.$settingContainer
         .append($otherSettings)
         .append($quickLinksSizing)
         .append($largeInfo)
-        .append($colorizeLaunch);
+        .append($colorizeLaunch)
     },
-    buildToolComponents() {
-      launchToolbar.config.$accountName.append(this.accountName);
-      launchToolbar.config.$idCombo.append(launchToolbar.config.$plusIcon);
+    buildToolComponents () {
+      launchToolbar.config.$accountName.append(this.accountName)
+      launchToolbar.config.$idCombo.append(launchToolbar.config.$plusIcon)
       launchToolbar.config.$copyFolderPath.append(
         launchToolbar.config.$folderImage
-      );
-      launchToolbar.config.$launchID.append(this.launchID);
-      launchToolbar.config.$copyWebID.append(this.webID);
-      launchToolbar.config.$webnum.append(this.webnum);
-      launchToolbar.config.$proofDate.append(this.proofDateText);
-      launchToolbar.config.$launchDate.append(this.launchDateText);
-      launchToolbar.config.$webIDtext.append(this.webIDtext);
+      )
+      launchToolbar.config.$launchID.append(this.launchID)
+      launchToolbar.config.$copyWebID.append(this.webID)
+      launchToolbar.config.$webnum.append(this.webnum)
+      launchToolbar.config.$proofDate.append(this.proofDateText)
+      launchToolbar.config.$launchDate.append(this.launchDateText)
+      launchToolbar.config.$webIDtext.append(this.webIDtext)
 
-      launchToolbar.config.$accountNum.append(this.accountNum);
+      launchToolbar.config.$accountNum.append(this.accountNum)
 
       launchToolbar.config.$platformToggle
         .append(launchToolbar.config.$toggleLabel)
-        .append(launchToolbar.config.$arrowIcon);
+        .append(launchToolbar.config.$arrowIcon)
       launchToolbar.config.$salesforceEmailOwner.append(
         launchToolbar.config.$salesforceEmailIcon
-      );
-      launchToolbar.config.$howToGuide.append(launchToolbar.config.$howToIcon);
-      launchToolbar.config.$settings.append(launchToolbar.config.$settingsIcon);
+      )
+      launchToolbar.config.$howToGuide.append(launchToolbar.config.$howToIcon)
+      launchToolbar.config.$settings.append(launchToolbar.config.$settingsIcon)
       launchToolbar.config.$logActivity.append(
         launchToolbar.config.$logActivityIcon
-      );
+      )
     },
-    buildMainTool() {
+    buildMainTool () {
       launchToolbar.config.$uiBox
         .append(launchToolbar.config.$toggleOn)
 
@@ -1088,133 +1083,133 @@ function programVariables() {
         .append(launchToolbar.config.$importantInfo)
         .append(launchToolbar.config.$dynoDisplay)
         .append(launchToolbar.config.$accountNum)
-        .append(launchToolbar.config.$bacTable);
+        .append(launchToolbar.config.$bacTable)
     },
-    attachTool() {
-      this.$head.append(launchToolbar.config.$toolbarStyles);
-      this.$head.append(launchToolbar.config.$jQueryLink);
-      this.$head.append(launchToolbar.config.$jQueryUI);
-      this.$head.append(launchToolbar.config.$fontAwe);
-      this.$body.prepend(launchToolbar.config.$placeholder);
-      this.$body.prepend(launchToolbar.config.$settingContainer);
-      this.$body.prepend(launchToolbar.config.$uiBox);
+    attachTool () {
+      this.$head.append(launchToolbar.config.$toolbarStyles)
+      this.$head.append(launchToolbar.config.$jQueryLink)
+      this.$head.append(launchToolbar.config.$jQueryUI)
+      this.$head.append(launchToolbar.config.$fontAwe)
+      this.$body.prepend(launchToolbar.config.$placeholder)
+      this.$body.prepend(launchToolbar.config.$settingContainer)
+      this.$body.prepend(launchToolbar.config.$uiBox)
     },
-    switchPlatform() {
+    switchPlatform () {
       launchToolbar.config.$toggleLabel
         .css({
-          color: this.platformSelector ? "purple" : "blue",
+          color: this.platformSelector ? 'purple' : 'blue'
         })
-        .text(this.platformSelector ? "Nextgen" : "Tetra");
+        .text(this.platformSelector ? 'Nextgen' : 'Tetra')
       // hide proof link if Nextgen
-      this.nextGenHideProof();
+      this.nextGenHideProof()
     },
-    nextGenHideProof() {
-      getValue("platformSelector")
+    nextGenHideProof () {
+      getValue('platformSelector')
         ? launchToolbar.config.$proofSite.hide()
-        : launchToolbar.config.$proofSite.show();
+        : launchToolbar.config.$proofSite.show()
     },
-    largerQuickLinks() {
-      this.$quickLinks.toggleClass("makeLarger");
+    largerQuickLinks () {
+      this.$quickLinks.toggleClass('makeLarger')
       this.$quickLinks
-        .find(".linklet")
-        .find(".count")
-        .toggleClass("makeBolder");
+        .find('.linklet')
+        .find('.count')
+        .toggleClass('makeBolder')
     },
-    makeLarger() {
-      this.$launchID.toggleClass("makeLarger");
-      this.$webID.toggleClass("makeLarger");
-      this.$account.toggleClass("makeLarger");
-      this.$webIDtext.toggleClass("makeLarger");
-      this.$webnum.toggleClass("makeLarger");
-      this.$proofDate.toggleClass("makeLarger");
-      this.$launchDate.toggleClass("makeLarger");
-      this.$productType.toggleClass("makeLarger");
-      this.$dealerCode.toggleClass("makeLarger");
+    makeLarger () {
+      this.$launchID.toggleClass('makeLarger')
+      this.$webID.toggleClass('makeLarger')
+      this.$account.toggleClass('makeLarger')
+      this.$webIDtext.toggleClass('makeLarger')
+      this.$webnum.toggleClass('makeLarger')
+      this.$proofDate.toggleClass('makeLarger')
+      this.$launchDate.toggleClass('makeLarger')
+      this.$productType.toggleClass('makeLarger')
+      this.$dealerCode.toggleClass('makeLarger')
     },
-    colorizeLaunch() {
-      this.$launchID.toggleClass("hFont hlaunchID");
-      this.$webID.toggleClass("hFont hwebID");
-      this.$account.toggleClass("hFont haccount");
-      this.$webIDtext.toggleClass("hFont hwebIDtext");
-      this.$webnum.toggleClass("hFont hwebnum");
-      this.$proofDate.toggleClass("hFont hproofDate");
-      this.$launchDate.toggleClass("hFont hlaunchDate");
-      this.$productType.toggleClass("hFont hproductType");
-      this.$dealerCode.toggleClass("hFont hdealerCode");
+    colorizeLaunch () {
+      this.$launchID.toggleClass('hFont hlaunchID')
+      this.$webID.toggleClass('hFont hwebID')
+      this.$account.toggleClass('hFont haccount')
+      this.$webIDtext.toggleClass('hFont hwebIDtext')
+      this.$webnum.toggleClass('hFont hwebnum')
+      this.$proofDate.toggleClass('hFont hproofDate')
+      this.$launchDate.toggleClass('hFont hlaunchDate')
+      this.$productType.toggleClass('hFont hproductType')
+      this.$dealerCode.toggleClass('hFont hdealerCode')
     },
-    startTool() {
-      var $funcButts = jQuery(".funcButtons");
-      var BACvariable = "BSCtable";
-      var self = this;
+    startTool () {
+      let $funcButts = jQuery('.funcButtons')
+      let BACvariable = 'BSCtable'
+      let self = this
 
-      setValue("accountName", false);
-      setValue(BACvariable, false);
+      setValue('accountName', false)
+      setValue(BACvariable, false)
 
-      setTimeout(function() {
-        $funcButts.toggle();
-        self.nextGenHideProof();
+      setTimeout(function () {
+        $funcButts.toggle()
+        self.nextGenHideProof()
 
-        launchToolbar.config.$placeholder.slideToggle("fast");
-        launchToolbar.config.$uiBox.slideToggle("fast", function() {
-          if (jQuery(this).is(":visible")) {
+        launchToolbar.config.$placeholder.slideToggle('fast')
+        launchToolbar.config.$uiBox.slideToggle('fast', function () {
+          if (jQuery(this).is(':visible')) {
             jQuery(this).css({
-              display: "inline-block",
-            });
+              display: 'inline-block'
+            })
           }
-        });
+        })
 
         // set up advanced options
-        self.programData();
-      }, 100);
+        self.programData()
+      }, 100)
     },
     // ----------------------------------------
     // TIER 2
     // ----------------------------------------
-    doWork(event) {
-      var $clickedElement = jQuery(event.delegateTarget);
-      var classText = $clickedElement.attr("class");
+    doWork (event) {
+      let $clickedElement = jQuery(event.delegateTarget)
+      let classText = $clickedElement.attr('class')
 
       switch (true) {
-        case classText.indexOf("idCombo") > -1:
-          this.copyInfo(this.comboID);
-          break;
-        case classText.indexOf("launchID") > -1:
-          this.copyInfo(this.launchID);
-          break;
-        case classText.indexOf("copyWebid") > -1:
-          this.copyInfo(this.webID);
-          break;
-        case classText.indexOf("accountName") > -1:
-          this.copyInfo(this.accountName);
-          break;
-        case classText.indexOf("copyFolderPath") > -1:
-          this.copyInfo(launchToolbar.config.folderPath);
-          break;
-        case classText.indexOf("webIDtext") > -1:
-          this.copyInfo(this.webIDtext);
-          break;
-        case classText.indexOf("Webnum") > -1:
-          this.copyInfo(this.webnum);
-          break;
-        case classText.indexOf("accountNum") > -1:
-          this.copyInfo(this.accountNum);
-          break;
-        case classText.indexOf("WSMedit") > -1:
-          this.copyInfo(launchToolbar.config.$EditLink.data("link"));
-          break;
+        case classText.indexOf('idCombo') > -1:
+          this.copyInfo(this.comboID)
+          break
+        case classText.indexOf('launchID') > -1:
+          this.copyInfo(this.launchID)
+          break
+        case classText.indexOf('copyWebid') > -1:
+          this.copyInfo(this.webID)
+          break
+        case classText.indexOf('accountName') > -1:
+          this.copyInfo(this.accountName)
+          break
+        case classText.indexOf('copyFolderPath') > -1:
+          this.copyInfo(launchToolbar.config.folderPath)
+          break
+        case classText.indexOf('webIDtext') > -1:
+          this.copyInfo(this.webIDtext)
+          break
+        case classText.indexOf('Webnum') > -1:
+          this.copyInfo(this.webnum)
+          break
+        case classText.indexOf('accountNum') > -1:
+          this.copyInfo(this.accountNum)
+          break
+        case classText.indexOf('WSMedit') > -1:
+          this.copyInfo(launchToolbar.config.$EditLink.data('link'))
+          break
         // ---------------------------------------- wip/proof/live site
-        case event.which === 3 && classText.indexOf("liveSite") >= 0:
-          this.copyInfo($clickedElement.attr("href"));
-          break;
-        case event.which === 3 && classText.indexOf("proofSite") > -1:
-          this.copyInfo($clickedElement.attr("href"));
-          break;
-        case event.which === 3 && classText.indexOf("wipSite") > -1:
-          this.copyInfo($clickedElement.attr("href"));
-          break;
-        case event.which === 3 && classText.indexOf("launchOwner") > -1:
-          this.copyInfo(this.launchOwnerText);
-          break;
+        case event.which === 3 && classText.indexOf('liveSite') >= 0:
+          this.copyInfo($clickedElement.attr('href'))
+          break
+        case event.which === 3 && classText.indexOf('proofSite') > -1:
+          this.copyInfo($clickedElement.attr('href'))
+          break
+        case event.which === 3 && classText.indexOf('wipSite') > -1:
+          this.copyInfo($clickedElement.attr('href'))
+          break
+        case event.which === 3 && classText.indexOf('launchOwner') > -1:
+          this.copyInfo(this.launchOwnerText)
+          break
         default:
         // do nothing
       }
@@ -1222,55 +1217,53 @@ function programVariables() {
     // ----------------------------------------
     // EXTRA
     // ----------------------------------------
-    doWork2(event) {
-      var $clickedElement = jQuery(event.delegateTarget);
-      var classText = $clickedElement.attr("class");
+    doWork2 (event) {
+      let $clickedElement = jQuery(event.delegateTarget)
+      let classText = $clickedElement.attr('class')
 
       switch (true) {
-        case classText.indexOf("cdk-webnum") > -1:
-          this.copyInfo("Cdk-" + this.webnum);
-          break;
+        case classText.indexOf('cdk-webnum') > -1:
+          this.copyInfo('Cdk-' + this.webnum)
+          break
         default:
         // do nothing
       }
     },
-    openAccountPageLink(event) {
-      var $clickedElement = jQuery(event.delegateTarget);
-      var classText = $clickedElement.attr("class");
-      var accountPageLink = jQuery("#CF00N40000002aUDp_ileinner > a").attr(
-        "href"
-      );
+    openAccountPageLink (event) {
+      let accountPageLink = jQuery('#CF00N40000002aUDp_ileinner > a').attr(
+        'href'
+      )
 
-      window.open(accountPageLink, "_blank");
+      window.open(accountPageLink, '_blank')
     },
-    flipTheSwitch(event) {
-      var $clickedElement = jQuery(event.delegateTarget);
-      var classText = $clickedElement.attr("class");
-      var tempBool;
+    flipTheSwitch (event) {
+      let $clickedElement = jQuery(event.delegateTarget)
+      let classText = $clickedElement.attr('class')
+      let tempBool
 
       switch (true) {
-        case classText.indexOf("platformSelector") > -1:
+        case classText.indexOf('platformSelector') > -1:
           // set saved variable to opposite of current value
-          this.platformSelector = !getValue("platformSelector");
-          setValue("platformSelector", this.platformSelector);
+          this.platformSelector = !getValue('platformSelector')
+          setValue('platformSelector', this.platformSelector)
           // set toggle
-          this.switchPlatform();
-          break;
-        case classText.indexOf("quickLinksSize") > -1:
-          tempBool = !getValue("quickLinksSize");
-          setValue("quickLinksSize", tempBool);
-          this.setToggle("quickLinksSize", tempBool);
-          break;
-        case classText.indexOf("largeInfo") > -1:
-          tempBool = !getValue("largeInfo");
-          setValue("largeInfo", tempBool);
-          this.setToggle("largeInfo", tempBool);
-          break;
-        case classText.indexOf("colorizeLaunch") > -1:
-          tempBool = !getValue("colorizeLaunch");
-          setValue("colorizeLaunch", tempBool);
-          this.setToggle("colorizeLaunch", tempBool);
-          break;
+          this.switchPlatform()
+          break
+        case classText.indexOf('quickLinksSize') > -1:
+          tempBool = !getValue('quickLinksSize')
+          setValue('quickLinksSize', tempBool)
+          this.setToggle('quickLinksSize', tempBool)
+          break
+        case classText.indexOf('largeInfo') > -1:
+          tempBool = !getValue('largeInfo')
+          setValue('largeInfo', tempBool)
+          this.setToggle('largeInfo', tempBool)
+          break
+        case classText.indexOf('colorizeLaunch') > -1:
+          tempBool = !getValue('colorizeLaunch')
+          setValue('colorizeLaunch', tempBool)
+          this.setToggle('colorizeLaunch', tempBool)
+          break
         default:
         // do nothing
       }
@@ -1278,156 +1271,159 @@ function programVariables() {
     // ----------------------------------------
     // tier 3
     // ----------------------------------------
-    copyInfo(variable) {
-      var $display = jQuery("<div>").css({
-        display: "none",
-        background: "red",
-        padding: "5px",
-        color: "white",
-      });
-      GM_setClipboard(variable, "text"); // eslint-disable-line new-cap
-      $display.text(`COPIED : ${variable}`);
-      launchToolbar.config.$dynoDisplay.show().append($display);
-      $display.slideToggle(500, function() {
-        setTimeout(function() {
-          $display.remove();
-        }, 2000);
-      });
+    copyInfo (variable) {
+      let $display = jQuery('<div>').css({
+        display: 'none',
+        background: 'red',
+        padding: '5px',
+        color: 'white'
+      })
+      GM_setClipboard(variable, 'text') // eslint-disable-line new-cap
+      $display.text(`COPIED : ${variable}`)
+      launchToolbar.config.$dynoDisplay.show().append($display)
+      $display.slideToggle(500, function () {
+        setTimeout(function () {
+          $display.remove()
+        }, 2000)
+      })
     },
-    programData() {
-      var allVariables = programVariables();
-      var length = allVariables.length;
-      var a = 0;
-      var variableName = "";
-      var bool = "";
+    programData () {
+      let allVariables = programVariables()
+      let length = allVariables.length
+      let a = 0
+      let variableName = ''
+      let bool = ''
       // add variables to list
       for (a; a < length; a += 1) {
-        variableName = allVariables[a];
-        bool = getValue(variableName);
+        variableName = allVariables[a]
+        bool = getValue(variableName)
 
         if (bool) {
-          this.setToggle(variableName, bool);
+          this.setToggle(variableName, bool)
         }
       }
     },
-    setToggle(variableName, bool) {
+    setToggle (variableName, bool) {
       switch (true) {
-        case variableName === "quickLinksSize":
-          jQuery("i.quickLinksSize").replaceWith(
+        case variableName === 'quickLinksSize':
+          jQuery('i.quickLinksSize').replaceWith(
             bool
-              ? "<i " +
-                'class="fa fa-check-square fa-lg myClass quickLinksSize" ' +
-                'style="padding: 5px;"></i>'
-              : "<i " +
-                'class="fa fa-square fa-lg myClass quickLinksSize" ' +
-                'style="padding: 5px;"></i>'
-          );
-          this.largerQuickLinks();
-          break;
-        case variableName === "largeInfo":
-          jQuery("i.largeInfo").replaceWith(
+              ? '<i ' +
+              'class="fa fa-check-square fa-lg myClass quickLinksSize" ' +
+              'style="padding: 5px;"></i>'
+              : '<i ' +
+              'class="fa fa-square fa-lg myClass quickLinksSize" ' +
+              'style="padding: 5px;"></i>'
+          )
+          this.largerQuickLinks()
+          break
+        case variableName === 'largeInfo':
+          jQuery('i.largeInfo').replaceWith(
             bool
-              ? "<i " +
-                'class="fa fa-check-square fa-lg myClass largeInfo" ' +
-                'style="padding: 5px;"></i>'
-              : "<i " +
-                'class="fa fa-square fa-lg myClass largeInfo" ' +
-                'style="padding: 5px;"></i>'
-          );
-          this.makeLarger(bool);
-          break;
-        case variableName === "colorizeLaunch":
-          jQuery("i.colorizeLaunch").replaceWith(
+              ? '<i ' +
+              'class="fa fa-check-square fa-lg myClass largeInfo" ' +
+              'style="padding: 5px;"></i>'
+              : '<i ' +
+              'class="fa fa-square fa-lg myClass largeInfo" ' +
+              'style="padding: 5px;"></i>'
+          )
+          this.makeLarger(bool)
+          break
+        case variableName === 'colorizeLaunch':
+          jQuery('i.colorizeLaunch').replaceWith(
             bool
-              ? "<i " +
-                'class="fa fa-check-square fa-lg myClass colorizeLaunch" ' +
-                'style="padding: 5px;"></i>'
-              : "<i " +
-                'class="fa fa-square fa-lg myClass colorizeLaunch" ' +
-                'style="padding: 5px;"></i>'
-          );
-          this.colorizeLaunch(bool);
-          break;
+              ? '<i ' +
+              'class="fa fa-check-square fa-lg myClass colorizeLaunch" ' +
+              'style="padding: 5px;"></i>'
+              : '<i ' +
+              'class="fa fa-square fa-lg myClass colorizeLaunch" ' +
+              'style="padding: 5px;"></i>'
+          )
+          this.colorizeLaunch(bool)
+          break
         default:
       }
-    },
-  };
+    }
+  }
 
-  //jQuery -Jun
-  $(window).scroll(function(event) {
-    if ($(window).scrollTop() > 115)
-      $("#uiBox").css({
-        position: "fixed",
-        top: "auto",
-      }),
-        $("#sc").css({
-          position: "fixed",
-          top: "35px",
-        });
-    else
-      $("#uiBox").css({
-        position: "absolute",
-        top: "115px",
-      }),
-        $("#sc").css({
-          position: "absolute",
-          top: "150px",
-        });
-  });
+  // jQuery -Jun
+  $(window).scroll(function (event) {
+    if ($(window).scrollTop() > 115) {
+      $('#uiBox').css({
+        position: 'fixed',
+        top: 'auto'
+      })
 
-  $(document).ready(function() {
-    $(".myTitle")
+      $('#sc').css({
+        position: 'fixed',
+        top: '35px'
+      })
+    } else {
+      $('#uiBox').css({
+        position: 'absolute',
+        top: '115px'
+      })
+
+      $('#sc').css({
+        position: 'absolute',
+        top: '150px'
+      })
+    }
+  })
+
+  $(document).ready(function () {
+    $('.myTitle')
       .parent()
       .css({
-        "font-size": "14px",
-      });
-    $(".ptBody > .links").css({
-      position: "absolute",
+        'font-size': '14px'
+      })
+    $('.ptBody > .links').css({
+      position: 'absolute',
       right: 0,
-      top: "-27px",
-    });
+      top: '-27px'
+    })
     $(
-      "#sidebarDiv, #handlebarContainer .indicator, #handlebarContainer #handle"
+      '#sidebarDiv, #handlebarContainer .indicator, #handlebarContainer #handle'
     ).css({
-      "margin-top": "60px",
-    });
-    $(".imp").wrapAll('<div class="wrapperZ""></div>');
-    $(".pageType").css({
-      position: "absolute",
-      left: "40%",
-      top: "-82px",
-      color: "transparent",
-    });
-    $(".pageDescription").css({
-      "margin-top": "10px",
-    });
-  });
+      'margin-top': '60px'
+    })
+    $('.imp').wrapAll('<div class="wrapperZ""></div>')
+    $('.pageType').css({
+      position: 'absolute',
+      left: '40%',
+      top: '-82px',
+      color: 'transparent'
+    })
+    $('.pageDescription').css({
+      'margin-top': '10px'
+    })
+  })
 
-  $(window).resize(function() {
+  $(window).resize(function () {
     if ($(window).width() <= 1500) {
-      $(".wrapperZ").css({
-        display: "inline-block",
-        width: "100%",
-      });
+      $('.wrapperZ').css({
+        display: 'inline-block',
+        width: '100%'
+      })
       $(
-        "#sidebarDiv, #handlebarContainer .indicator, #handlebarContainer #handle"
+        '#sidebarDiv, #handlebarContainer .indicator, #handlebarContainer #handle'
       ).css({
-        "margin-top": "90px",
-      });
+        'margin-top': '90px'
+      })
     } else {
-      $(".wrapperZ").css({
-        display: "inherit",
-        width: "inherit",
-      });
+      $('.wrapperZ').css({
+        display: 'inherit',
+        width: 'inherit'
+      })
       $(
-        "#sidebarDiv, #handlebarContainer .indicator, #handlebarContainer #handle"
+        '#sidebarDiv, #handlebarContainer .indicator, #handlebarContainer #handle'
       ).css({
-        "margin-top": "60px",
-      });
+        'margin-top': '60px'
+      })
     }
-  });
+  })
 
-  if (window.location.hostname === "cdk.my.salesforce.com") {
-    launchToolbar.init();
+  if (window.location.hostname === 'cdk.my.salesforce.com') {
+    launchToolbar.init()
   }
-})();
+}())
