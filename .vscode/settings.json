@@ -1,0 +1,10 @@
+{
+  "eslint.enable": false,
+  "standard.options": {
+    "globals": [
+      "$",
+      "jQuery"
+    ]
+  },
+  "standard.enable": true
+}
