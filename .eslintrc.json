@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "airbnb"
+  ],
+  "env": {
+    "es6": true,
+    "node": true,
+    "greasemonkey": true,
+    "jquery": true,
+    "browser": true
+  }
+}
