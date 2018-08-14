@@ -1,4 +1,4 @@
-/* global jQuery, $, window, setTimeout, GM_setClipboard, GM_openInTab, GM_setValue, GM_getValue, GM_info, setInterval, clearInterval, document, GM_getResourceURL, GM_listValues, unsafeWindow */
+/* global jQuery, window, setTimeout, GM_setClipboard, GM_setValue, GM_getValue, GM_info, setInterval, clearInterval, document, GM_getResourceURL, GM_listValues, unsafeWindow */
 
 // Tampermonkey functions
 
@@ -8,7 +8,7 @@
  * @param {string} val - the value to set the variable too
  */
 function setValue (variable, val) {
-  GM_setValue(variable, val) // eslint-disable-line new-cap
+  GM_setValue(variable, val); // eslint-disable-line new-cap
 }
 
 /**
@@ -17,7 +17,7 @@ function setValue (variable, val) {
  * @return {string} the value of the variable
  */
 function getValue (variable) {
-  return GM_getValue(variable, 'false') // eslint-disable-line new-cap
+  return GM_getValue(variable, 'false'); // eslint-disable-line new-cap
 }
 
 /**
@@ -26,7 +26,7 @@ function getValue (variable) {
  * @return {string} the defined resource from the meta script
  */
 function getResourceURL (resource) {
-  return GM_getResourceURL(resource) // eslint-disable-line new-cap
+  return GM_getResourceURL(resource); // eslint-disable-line new-cap
 }
 
 /**
@@ -35,30 +35,30 @@ function getResourceURL (resource) {
  * @return {object} an array of all the saved variables in local storage
  */
 function programVariables () {
-  return GM_listValues() // eslint-disable-line new-cap
+  return GM_listValues(); // eslint-disable-line new-cap
 }
 
 (function () {
   let launchToolbar = {
     init () {
-      this.createElements()
-      this.cacheDOM()
+      this.createElements();
+      this.cacheDOM();
       // test element
-      this.buildEmailTargets()
-      this.buildLogTargets()
-      this.buildWSMlink()
-      this.buildFolderPath()
-      this.buildURLs()
-      this.bindEvents()
-      this.addStyles()
-      this.addFunctionStyles()
-      this.addOptionStyles()
-      this.buildSettings()
-      this.buildToolComponents()
-      this.buildMainTool()
-      this.attachTool()
-      this.switchPlatform()
-      this.startTool()
+      this.buildEmailTargets();
+      this.buildLogTargets();
+      this.buildWSMlink();
+      this.buildFolderPath();
+      this.buildURLs();
+      this.bindEvents();
+      this.addStyles();
+      this.addFunctionStyles();
+      this.addOptionStyles();
+      this.buildSettings();
+      this.buildToolComponents();
+      this.buildMainTool();
+      this.attachTool();
+      this.switchPlatform();
+      this.startTool();
     },
     createElements () {
       launchToolbar.config = {
@@ -422,66 +422,67 @@ function programVariables () {
           type: 'button',
           class: 'myButton'
         })
-      }
+      };
     },
     cacheDOM () {
       // launch stuff
-      this.$launchID = jQuery('#Name_ileinner')
-      this.launchID = this.$launchID.text() // launch ID
-      this.$webID = jQuery('#CF00N40000002aUF9_ileinner a')
-      this.webID = this.$webID.text() // web id
-      this.launchSFID = window.location.pathname
-      this.comboID = this.launchID + ' ' + this.webID // combo id
-      this.$account = jQuery('#CF00N40000002aUDp_ileinner a')
-      this.accountInfo = this.$account.attr('href') // account info
-      this.accountName = this.$account.text() // acount name
-      this.accountID = this.accountInfo.slice(1) // account id
-      this.$webIDtext = jQuery('#00N40000002aUF8_ileinner')
-      this.webIDtext = this.$webIDtext.text() // webid text
-      this.$webnum = jQuery('#00N40000002cgmd_ileinner')
-      this.webnum = this.$webnum.text() // webnum
-      this.$proofDate = jQuery('#00N330000038W91_ileinner')
-      this.proofDateText = this.$proofDate.text() // proof date
-      this.$launchDate = jQuery('#00N33000002yrbp_ileinner')
-      this.launchDateText = this.$launchDate.text() // launch date
-      this.$productType = jQuery('#00N40000002aUEy_ileinner')
-      this.productTypeText = this.$productType.text() // launch date
-      this.$dealerCode = jQuery('#00N40000002cglV_ileinner')
-      this.dealerCodeText = this.$productType.text() // launch date
-      this.$builder = jQuery('#CF00N40000002aUE2_ileinner') // builder
-      this.$body = jQuery('body') // target body tag
-      this.$head = jQuery('head') // target head tag
-      this.platformSelector = getValue('platformSelector') // platform selector
+      this.$launchID = jQuery('#Name_ileinner');
+      this.launchID = this.$launchID.text(); // launch ID
+      this.$webID = jQuery('#CF00N40000002aUF9_ileinner a');
+      this.webID = this.$webID.text(); // web id
+      this.launchSFID = window.location.pathname;
+      this.comboID = this.launchID + ' ' + this.webID; // combo id
+      this.$account = jQuery('#CF00N40000002aUDp_ileinner a');
+      this.accountInfo = this.$account.attr('href'); // account info
+      this.accountName = this.$account.text(); // acount name
+      this.accountID = this.accountInfo.slice(1); // account id
+      this.$webIDtext = jQuery('#00N40000002aUF8_ileinner');
+      this.webIDtext = this.$webIDtext.text(); // webid text
+      this.oem = this.webID.split('-')[0];
+      this.$webnum = jQuery('#00N40000002cgmd_ileinner');
+      this.webnum = this.$webnum.text(); // webnum
+      this.$proofDate = jQuery('#00N330000038W91_ileinner');
+      this.proofDateText = this.$proofDate.text(); // proof date
+      this.$launchDate = jQuery('#00N33000002yrbp_ileinner');
+      this.launchDateText = this.$launchDate.text(); // launch date
+      this.$productType = jQuery('#00N40000002aUEy_ileinner');
+      this.productTypeText = this.$productType.text(); // launch date
+      this.$dealerCode = jQuery('#00N40000002cglV_ileinner');
+      this.dealerCodeText = this.$productType.text(); // launch date
+      this.$builder = jQuery('#CF00N40000002aUE2_ileinner'); // builder
+      this.$body = jQuery('body'); // target body tag
+      this.$head = jQuery('head'); // target head tag
+      this.platformSelector = getValue('platformSelector'); // platform selector
       this.$launchOwner = jQuery('#Owner_ileinner a[id*="Owner"]').attr({
         class: 'launchOwner'
-      })
+      });
 
-      this.$accountNum = jQuery('#00N0b000003Cy2r_ileinner')
-      this.accountNum = this.$accountNum.text() // Account Number
+      this.$accountNum = jQuery('#00N0b000003Cy2r_ileinner');
+      this.accountNum = this.$accountNum.text(); // Account Number
 
       // Launch owner hover info
-      this.launchMouseover = this.$launchOwner.attr('onmouseover')
-      this.launchOwnerID = this.$launchOwner.attr('href') // launch owner ID
-      this.launchOwnerText = this.$launchOwner.text() // launch owner
+      this.launchMouseover = this.$launchOwner.attr('onmouseover');
+      this.launchOwnerID = this.$launchOwner.attr('href'); // launch owner ID
+      this.launchOwnerText = this.$launchOwner.text(); // launch owner
       // launch quick links
-      this.$quickLinks = jQuery('.listHoverLinks')
+      this.$quickLinks = jQuery('.listHoverLinks');
       jQuery('#00N40000002aUEt_ileinner, #00N40000002aUDx_ileinner').css({
         width: '565px',
         overflow: 'auto',
         'word-wrap': 'break-word'
-      })
+      });
       // Designer
-      this.designer = jQuery('#CF00N40000002aUE2_ileinner a')
-      this.designerName = this.designer.text()
+      this.designer = jQuery('#CF00N40000002aUE2_ileinner a');
+      this.designerName = this.designer.text();
       // pre-designer
-      this.preDesign = jQuery('#CF00N330000038wsz_ileinner a')
-      this.preDesignName = this.preDesign.text()
-      this.preDesignInfo = this.preDesign.attr('on')
+      this.preDesign = jQuery('#CF00N330000038wsz_ileinner a');
+      this.preDesignName = this.preDesign.text();
+      this.preDesignInfo = this.preDesign.attr('on');
       // qa designer
-      this.qaDesigner = jQuery('#CF00N40000002cgmH_ileinner a')
-      this.qaDesignerName = this.qaDesigner.text()
+      this.qaDesigner = jQuery('#CF00N40000002cgmH_ileinner a');
+      this.qaDesignerName = this.qaDesigner.text();
       // current user
-      this.userName = unsafeWindow.UserContext.userName
+      this.userName = unsafeWindow.UserContext.userName;
     },
     /**
      * Checks siblind elements of clicked element and removes 'selectedTarget' class if found.
@@ -490,7 +491,7 @@ function programVariables () {
     removeSelectedTarget (currentTarget) {
       jQuery(currentTarget)
         .siblings('.selectedTarget')
-        .removeClass('selectedTarget')
+        .removeClass('selectedTarget');
     },
     /**
      * Will pass the related details to be binded on the 'callingPanel' onclick attribute.
@@ -498,13 +499,13 @@ function programVariables () {
      */
     bindEmailTargetPanelActions (currentTarget) {
       if (currentTarget.className.indexOf('ic') > -1) {
-        this.getEmail(this.$launchOwner.attr('onmouseover'))
+        this.getEmail(this.$launchOwner.attr('onmouseover'));
       } else if (currentTarget.className.indexOf('designer') > -1) {
-        this.getEmail(this.designer.attr('onmouseover'))
+        this.getEmail(this.designer.attr('onmouseover'));
       } else if (currentTarget.className.indexOf('preDesign') > -1) {
-        this.getEmail(this.preDesign.attr('onmouseover'))
+        this.getEmail(this.preDesign.attr('onmouseover'));
       } else if (currentTarget.className.indexOf('qaDesigner') > -1) {
-        this.getEmail(this.qaDesigner.attr('onmouseover'))
+        this.getEmail(this.qaDesigner.attr('onmouseover'));
       }
     },
     /**
@@ -513,13 +514,13 @@ function programVariables () {
      */
     bindActivityLogTargetPanelActions (currentTarget) {
       if (currentTarget.className.indexOf('ic') > -1) {
-        this.activityLog(this.$launchOwner.attr('onmouseover'))
+        this.activityLog(this.$launchOwner.attr('onmouseover'));
       } else if (currentTarget.className.indexOf('designer') > -1) {
-        this.activityLog(this.designer.attr('onmouseover'))
+        this.activityLog(this.designer.attr('onmouseover'));
       } else if (currentTarget.className.indexOf('preDesign') > -1) {
-        this.activityLog(this.preDesign.attr('onmouseover'))
+        this.activityLog(this.preDesign.attr('onmouseover'));
       } else if (currentTarget.className.indexOf('qaDesigner') > -1) {
-        this.activityLog(this.qaDesigner.attr('onmouseover'))
+        this.activityLog(this.qaDesigner.attr('onmouseover'));
       }
     },
     /**
@@ -529,15 +530,15 @@ function programVariables () {
      * @param {String} callingPanel - represents what panel called the function.
      */
     selectItem (currentTarget, callingPanel) {
-      this.removeSelectedTarget(currentTarget)
-      jQuery(currentTarget).addClass('selectedTarget')
+      this.removeSelectedTarget(currentTarget);
+      jQuery(currentTarget).addClass('selectedTarget');
 
       if (callingPanel === 'email') {
-        this.bindEmailTargetPanelActions(currentTarget)
+        this.bindEmailTargetPanelActions(currentTarget);
       }
 
       if (callingPanel === 'logActivity') {
-        this.bindActivityLogTargetPanelActions(currentTarget)
+        this.bindActivityLogTargetPanelActions(currentTarget);
       }
     },
     /**
@@ -547,15 +548,15 @@ function programVariables () {
      * Step 3. Bind even listener to fire selectItem function.
      */
     buildEmailTargets () {
-      let self = this
+      let self = this;
 
-      self.buildLaunchMembersPanel(launchToolbar.config.$emailTargetsPanel)
+      self.buildLaunchMembersPanel(launchToolbar.config.$emailTargetsPanel);
 
-      self.hideSelf(launchToolbar.config.$emailTargetsPanel)
+      self.hideSelf(launchToolbar.config.$emailTargetsPanel);
 
       launchToolbar.config.$emailTargetsPanel.on('click', function (event) {
-        self.selectItem(event.target, 'email')
-      })
+        self.selectItem(event.target, 'email');
+      });
     },
     /**
      * Will extract the name out of a CDK email
@@ -564,32 +565,32 @@ function programVariables () {
      * @return {Object} the extracted email address of the user
      */
     extractNameFromEmail (emailAddress, bool) {
-      let wordArr
-      bool = bool || false
+      let wordArr;
+      bool = bool || false;
 
       return emailAddress
         .split('@')[0]
         .split('.')
         .map(word => {
-          wordArr = word.split('')
-          wordArr[0] = bool ? wordArr[0].toUpperCase() : wordArr[0]
-          return wordArr.join('')
+          wordArr = word.split('');
+          wordArr[0] = bool ? wordArr[0].toUpperCase() : wordArr[0];
+          return wordArr.join('');
         })
-        .join(' ')
+        .join(' ');
     },
     buildLogTargets () {
-      let self = this
+      let self = this;
 
-      self.buildLaunchMembersPanel(launchToolbar.config.$logTargetsPanel)
+      self.buildLaunchMembersPanel(launchToolbar.config.$logTargetsPanel);
 
-      self.hideSelf(launchToolbar.config.$logTargetsPanel)
+      self.hideSelf(launchToolbar.config.$logTargetsPanel);
 
       launchToolbar.config.$logTargetsPanel.on('click', function (event) {
-        self.selectItem(event.target, 'logActivity')
-      })
+        self.selectItem(event.target, 'logActivity');
+      });
     },
     hideSelf ($panel) {
-      let self = this
+      let self = this;
 
       $panel.children().each(function (index, elem) {
         // hides element if it is the user
@@ -601,11 +602,11 @@ function programVariables () {
             self.extractNameFromEmail(self.userName, true)
           ) > -1
         ) {
-          jQuery(elem).hide()
+          jQuery(elem).hide();
         } else {
-          jQuery(elem).show()
+          jQuery(elem).show();
         }
-      })
+      });
     },
     buildLaunchMembersPanel ($panel) {
       $panel
@@ -632,20 +633,20 @@ function programVariables () {
             this.qaDesignerName +
             '</div>'
           )
-        )
+        );
     },
     getEmail (emailTarget) {
-      let self = this // save reference to this
-      let trList
-      let emailAddress
-      let retURL = this.launchSFID
-      let id = this.launchSFID.slice(1) + '_RelatedHistoryList'
+      let self = this; // save reference to this
+      let trList;
+      let emailAddress;
+      let retURL = this.launchSFID;
+      let id = this.launchSFID.slice(1) + '_RelatedHistoryList';
       let emailLink = jQuery('#' + id)
         .find('input[value="Send an Email"]')
         .attr('onclick')
-        .split("'")[1] // eslint-disable-line quotes
-      let newEmailLink = emailLink.slice(1, emailLink.indexOf('&retURL='))
-      let managerEmails = 'Jennifer.Walker@cdk.com;Darcy.Miller@cdk.com'
+        .split("'")[1]; // eslint-disable-line quotes
+      let newEmailLink = emailLink.slice(1, emailLink.indexOf('&retURL='));
+      let managerEmails = 'Jennifer.Walker@cdk.com;Darcy.Miller@cdk.com';
 
       jQuery.ajax({
         url: emailTarget.split("'")[3], // eslint-disable-line quotes
@@ -654,10 +655,10 @@ function programVariables () {
           trList = jQuery('<div>')
             .html(data)
             .find('.detailList')
-            .find('tr')
+            .find('tr');
           emailAddress = jQuery(trList[1])
             .find('a')
-            .text()
+            .text();
 
           launchToolbar.config.$salesforceEmailOwner.attr({
             onclick: (window.location.href = encodeURI(
@@ -665,22 +666,22 @@ function programVariables () {
                 self.comboID
               }&retURL=${retURL}`
             ))
-          })
+          });
         }
-      })
+      });
     },
     activityLog (emailTarget) {
-      let self = this // save reference to this
-      let retURL = this.launchSFID
-      let emailAddress
-      let logID = this.launchSFID.replace('/', '#') + '_RelatedHistoryList'
+      let self = this; // save reference to this
+      let retURL = this.launchSFID;
+      let emailAddress;
+      let logID = this.launchSFID.replace('/', '#') + '_RelatedHistoryList';
       let logURL = jQuery(logID)
         .find('input[value="Log a Call"]')
         .attr('onclick')
-        .split("'")[1] // eslint-disable-line quotes
-      let newLogURL = logURL.slice(1, logURL.indexOf('&retURL='))
-      let ownerName
-      let trList
+        .split("'")[1]; // eslint-disable-line quotes
+      let newLogURL = logURL.slice(1, logURL.indexOf('&retURL='));
+      let ownerName;
+      let trList;
 
       jQuery.ajax({
         url: emailTarget.split("'")[3], // eslint-disable-line quotes
@@ -689,57 +690,50 @@ function programVariables () {
           trList = jQuery('<div>')
             .html(data)
             .find('.detailList')
-            .find('tr')
+            .find('tr');
           emailAddress = jQuery(trList[1])
             .find('a')
-            .text()
-          ownerName = self.extractNameFromEmail(emailAddress, true)
+            .text();
+          ownerName = self.extractNameFromEmail(emailAddress, true);
 
           // bind onclick event for div
           launchToolbar.config.$logActivity.attr({
             onclick: (window.location.href = encodeURI(
               `${newLogURL}&tsk2=${ownerName}&retURL=${retURL}`
             ))
-          })
+          });
         }
-      })
+      });
     },
     buildWSMlink () {
-      let base = 'http://websites.cobalt.com/wsm/index.do?webId='
-      let wsmLink = ''
+      let base = 'http://websites.cobalt.com/wsm/index.do?webId=';
+      let wsmLink = '';
 
       if (this.webID.search('gmcl') !== -1) {
         if (this.webID.search('-fr') !== -1) {
-          wsmLink = `${base}${this.webID}&locale=fr_CA`
+          wsmLink = `${base}${this.webID}&locale=fr_CA`;
         } else {
-          wsmLink = base + this.webID + '&locale=en_CA'
+          wsmLink = base + this.webID + '&locale=en_CA';
         }
       } else if (this.webID.search('holden') !== -1) {
         if (this.webID.search('holdennz') !== -1) {
-          wsmLink = base + this.webID + '&locale=en_NZ'
+          wsmLink = base + this.webID + '&locale=en_NZ';
         } else {
-          wsmLink = base + this.webID + '&locale=en_AU'
+          wsmLink = base + this.webID + '&locale=en_AU';
         }
       } else {
-        wsmLink = base + this.webID + '&locale=en_US'
+        wsmLink = base + this.webID + '&locale=en_US';
       }
 
       launchToolbar.config.$EditLink.attr({
         'data-link': wsmLink
-      })
+      });
     },
     buildFolderPath () {
-      let platformSelector = this.platformSelector
-        ? '&nextGen=true'
-        : '&nextgen=false'
-      let nitra = 'http://nitra.'
-      let wip = 'wip.'
-      let proof = 'proof.'
-      let reload = '/?reload=true'
-      let baseManuLoc = `\\\\las-mgmt1.lasisi01a.las.san.dsghost.net\\Associate\\sea\\CS\\graphics\\manufacturers\\`
-      let oem = this.webID.split('-')[0]
-      let id = this.webID.substr(this.webID.indexOf('-') + 1)
-      let oemPart
+      let baseManuLoc = `\\\\las-mgmt1.lasisi01a.las.san.dsghost.net\\Associate\\sea\\CS\\graphics\\manufacturers\\`;
+      let id = this.webID.substr(this.webID.indexOf('-') + 1);
+      let oem = this.oem;
+      let oemPart;
       const webIDList = {
         gmps: 'gmpsdealer.com/',
         gmcl: 'gmcldealer.com/',
@@ -759,46 +753,35 @@ function programVariables () {
         infiniti: 'infinitidealer.com/',
         ford: 'f1rd.com/',
         c1hr: 'c1hr.com/'
-      }
+      };
       const differentOemName = {
         lex: 'lexus',
         motp: 'motorplace',
         hond: 'honda',
         toyd: 'toyota'
-      }
+      };
 
-      oemPart = webIDList[oem]
+      oemPart = webIDList[oem];
       if (Object.keys(differentOemName).includes(oemPart)) {
-        oem = differentOemName[oem]
+        oem = differentOemName[oem];
       }
 
       launchToolbar.config.folderPath = `${baseManuLoc}${oem}\\${id.charAt(
         0
-      )}\\${id}`
-
-      launchToolbar.config.$wipSite.attr({
-        href: `${nitra}${wip}${oemPart}${id}${reload}${platformSelector}`
-      })
-
-      launchToolbar.config.$proofSite.attr({
-        href: `${nitra}${proof}${oemPart}${id}${reload}${platformSelector}`
-      })
-
-      launchToolbar.config.$liveSite.attr({
-        href: `${nitra}${oemPart}${id}${reload}${platformSelector}`
-      })
+      )}\\${id}`;
     },
     buildURLs () {
+      let oem = this.oem;
       let platformSelector = this.platformSelector
         ? '&nextGen=true'
-        : '&nextgen=false'
-      let nitra = 'http://nitra.'
-      let wip = 'wip.'
-      let proof = 'proof.'
-      let reload = '/?reload=true'
-      let oem = this.webID.split('-')[0]
-      let id = this.webID.substr(this.webID.indexOf('-') + 1)
-      let oemPart
+        : '&nextgen=false';
+      let nitra = 'http://nitra.';
+      let wip = 'wip.';
+      let proof = 'proof.';
+      let reload = '/?reload=true';
+      // let oem = this.webID.split('-')[0]
+      let id = this.webID.substr(this.webID.indexOf('-') + 1);
+      let oemPart;
       const webIDList = {
         gmps: 'gmpsdealer.com/',
         gmcl: 'gmcldealer.com/',
@@ -818,98 +801,98 @@ function programVariables () {
         infiniti: 'infinitidealer.com/',
         ford: 'f1rd.com/',
         c1hr: 'c1hr.com/'
-      }
+      };
 
-      oemPart = webIDList[oem]
+      oemPart = webIDList[oem];
 
       launchToolbar.config.$wipSite.attr({
         href: `${nitra}${wip}${oemPart}${id}${reload}${platformSelector}`
-      })
+      });
 
       launchToolbar.config.$proofSite.attr({
         href: `${nitra}${proof}${oemPart}${id}${reload}${platformSelector}`
-      })
+      });
 
       launchToolbar.config.$liveSite.attr({
         href: `${nitra}${oemPart}${id}${reload}${platformSelector}`
-      })
+      });
     },
     bindEvents () {
-      launchToolbar.config.$idCombo.on('click', this.doWork.bind(this))
-      launchToolbar.config.$launchID.on('click', this.doWork.bind(this))
-      launchToolbar.config.$copyWebID.on('click', this.doWork.bind(this))
-      launchToolbar.config.$accountName.on('click', this.doWork.bind(this))
+      launchToolbar.config.$idCombo.on('click', this.doWork.bind(this));
+      launchToolbar.config.$launchID.on('click', this.doWork.bind(this));
+      launchToolbar.config.$copyWebID.on('click', this.doWork.bind(this));
+      launchToolbar.config.$accountName.on('click', this.doWork.bind(this));
       launchToolbar.config.$accountName.on(
         'contextmenu',
         this.openAccountPageLink.bind(this)
-      )
+      );
       launchToolbar.config.$accountName.bind('contextmenu', function () {
-        return false
-      })
-      launchToolbar.config.$copyFolderPath.on('click', this.doWork.bind(this))
-      launchToolbar.config.$webIDtext.on('click', this.doWork.bind(this))
-      launchToolbar.config.$webnum.on('click', this.doWork.bind(this))
-      launchToolbar.config.$webnum.on('contextmenu', this.doWork2.bind(this))
+        return false;
+      });
+      launchToolbar.config.$copyFolderPath.on('click', this.doWork.bind(this));
+      launchToolbar.config.$webIDtext.on('click', this.doWork.bind(this));
+      launchToolbar.config.$webnum.on('click', this.doWork.bind(this));
+      launchToolbar.config.$webnum.on('contextmenu', this.doWork2.bind(this));
       launchToolbar.config.$webnum.bind('contextmenu', function () {
-        return false
-      })
-      launchToolbar.config.$wipSite.on('mousedown', this.doWork.bind(this))
+        return false;
+      });
+      launchToolbar.config.$wipSite.on('mousedown', this.doWork.bind(this));
       launchToolbar.config.$wipSite.bind('contextmenu', function () {
-        return false
-      })
-      launchToolbar.config.$proofSite.on('mousedown', this.doWork.bind(this))
+        return false;
+      });
+      launchToolbar.config.$proofSite.on('mousedown', this.doWork.bind(this));
       launchToolbar.config.$proofSite.bind('contextmenu', function () {
-        return false
-      })
-      launchToolbar.config.$liveSite.on('mousedown', this.doWork.bind(this))
+        return false;
+      });
+      launchToolbar.config.$liveSite.on('mousedown', this.doWork.bind(this));
       launchToolbar.config.$liveSite.bind('contextmenu', function () {
-        return false
-      })
-      this.$launchOwner.on('mousedown', this.doWork.bind(this))
+        return false;
+      });
+      this.$launchOwner.on('mousedown', this.doWork.bind(this));
       this.$launchOwner.bind('contextmenu', function () {
-        return false
-      })
+        return false;
+      });
       launchToolbar.config.$platformToggle.on(
         'click',
         this.flipTheSwitch.bind(this)
-      )
+      );
       launchToolbar.config.$platformToggle.on(
         'click',
         this.buildURLs.bind(this)
-      )
+      );
       launchToolbar.config.$settings.on('click', function () {
-        launchToolbar.config.$settingContainer.slideToggle(500)
-      })
-      launchToolbar.config.$container.on('click', this.doWork.bind(this))
+        launchToolbar.config.$settingContainer.slideToggle(500);
+      });
+      launchToolbar.config.$container.on('click', this.doWork.bind(this));
       launchToolbar.config.$container.on(
         'click',
         this.flipTheSwitch.bind(this)
-      )
-      launchToolbar.config.$accountNum.on('click', this.doWork.bind(this))
-      launchToolbar.config.$EditLink.on('click', this.doWork.bind(this))
+      );
+      launchToolbar.config.$accountNum.on('click', this.doWork.bind(this));
+      launchToolbar.config.$EditLink.on('click', this.doWork.bind(this));
 
       launchToolbar.config.$salesforceEmailOwner.on('click', function () {
-        launchToolbar.config.$emailTargetsPanel.toggle()
-        launchToolbar.config.$emailTargetsPanel.focus()
+        launchToolbar.config.$emailTargetsPanel.toggle();
+        launchToolbar.config.$emailTargetsPanel.focus();
         launchToolbar.config.$salesforceEmailOwner.toggleClass(
           'activeFunction'
-        )
-      })
+        );
+      });
       launchToolbar.config.$logActivity.on('click', function () {
-        launchToolbar.config.$logTargetsPanel.toggle()
-        launchToolbar.config.$logTargetsPanel.focus()
-        launchToolbar.config.$logActivity.toggleClass('activeFunction')
-      })
+        launchToolbar.config.$logTargetsPanel.toggle();
+        launchToolbar.config.$logTargetsPanel.focus();
+        launchToolbar.config.$logActivity.toggleClass('activeFunction');
+      });
       launchToolbar.config.$emailTargetsPanel.on('focusout', function () {
-        launchToolbar.config.$emailTargetsPanel.toggle()
+        launchToolbar.config.$emailTargetsPanel.toggle();
         launchToolbar.config.$salesforceEmailOwner.toggleClass(
           'activeFunction'
-        )
-      })
+        );
+      });
       launchToolbar.config.$logTargetsPanel.on('focusout', function () {
-        launchToolbar.config.$logTargetsPanel.toggle()
-        launchToolbar.config.$logActivity.toggleClass('activeFunction')
-      })
+        launchToolbar.config.$logTargetsPanel.toggle();
+        launchToolbar.config.$logActivity.toggleClass('activeFunction');
+      });
     },
     addStyles () {
       launchToolbar.config.$toolbarStyles
@@ -933,7 +916,7 @@ function programVariables () {
         )
         .append('.myClass:hover, .fa.myClass:hover { font-weight: 900; } ')
         .append('.imp { float: left !important; } ')
-        .append('.dealerCodeInfo th { text-align: center; } ') // end
+        .append('.dealerCodeInfo th { text-align: center; } '); // end
     },
     addFunctionStyles () {
       launchToolbar.config.$toolbarStyles
@@ -951,7 +934,7 @@ function programVariables () {
             border-bottom: 1px solid rgb(0, 0, 0);
             border-right: 1px solid rgb(0, 0, 0);
             right: 315px; }`
-        )
+        );
     },
     addOptionStyles () {
       launchToolbar.config.$toolbarStyles
@@ -966,95 +949,95 @@ function programVariables () {
         .append('.hproofDate { background: rgb(0, 100, 0); } ')
         .append('.hlaunchDate { background: rgb(165, 115, 50); } ')
         .append('.hproductType { background: rgb(19, 106, 138); } ')
-        .append('.hdealerCode { background: rgb(199, 121, 208); } ')
+        .append('.hdealerCode { background: rgb(199, 121, 208); } ');
     },
     buildSettings () {
       let $otherSettings = launchToolbar.config.$container
         .clone(true)
         .text('Other Features')
-        .removeClass('click-able')
-      let $settingsArrow = launchToolbar.config.$arrowIcon.clone(true)
+        .removeClass('click-able');
+      let $settingsArrow = launchToolbar.config.$arrowIcon.clone(true);
       let $quickLinksSizing = launchToolbar.config.$container
         .clone(true)
         .addClass('quickLinksSize')
-        .text('big quick links')
+        .text('big quick links');
       let $quickLinksSizingCheckboxIcon = launchToolbar.config.$settingCheckboxIcon
         .clone()
-        .addClass('quickLinksSize')
+        .addClass('quickLinksSize');
       let $largeInfo = launchToolbar.config.$container
         .clone(true)
         .addClass('largeInfo')
-        .text('make important info pop')
+        .text('make important info pop');
       let $largeInfoCheckboxIcon = launchToolbar.config.$settingCheckboxIcon
         .clone()
-        .addClass('largeInfo')
+        .addClass('largeInfo');
       let $colorizeLaunch = launchToolbar.config.$container
         .clone(true)
         .addClass('colorizeLaunch')
-        .text('highlight important info')
+        .text('highlight important info');
       let $colorizeLaunchCheckboxIcon = launchToolbar.config.$settingCheckboxIcon
         .clone()
-        .addClass('colorizeLaunch')
+        .addClass('colorizeLaunch');
       let $colorTool = launchToolbar.config.$container
         .clone(true)
         .addClass('changeToolColor')
         .removeClass('click-able')
-        .text('Change tool Color')
+        .text('Change tool Color');
       // test elements - colorize
       let $colorStartInputField = launchToolbar.config.$settingInput
         .clone(true)
-        .addClass('startColor changeToolColor')
+        .addClass('startColor changeToolColor');
       let $colorEndInputField = launchToolbar.config.$settingInput
         .clone(true)
-        .addClass('endColor changeToolColor')
+        .addClass('endColor changeToolColor');
       let $colorInputFieldButt = launchToolbar.config.$myButt
         .clone(true)
         .addClass('changeToolColor')
-        .text('submit')
+        .text('submit');
 
-      $otherSettings.append($settingsArrow)
-      $quickLinksSizing.append($quickLinksSizingCheckboxIcon)
-      $largeInfo.append($largeInfoCheckboxIcon)
-      $colorizeLaunch.append($colorizeLaunchCheckboxIcon)
+      $otherSettings.append($settingsArrow);
+      $quickLinksSizing.append($quickLinksSizingCheckboxIcon);
+      $largeInfo.append($largeInfoCheckboxIcon);
+      $colorizeLaunch.append($colorizeLaunchCheckboxIcon);
       // test elements - colorize
       $colorTool
         .append($colorStartInputField)
         .append($colorEndInputField)
-        .append($colorInputFieldButt)
+        .append($colorInputFieldButt);
 
       // Add 'other panel tools' to ther Features Panel
       launchToolbar.config.$settingContainer
         .append($otherSettings)
         .append($quickLinksSizing)
         .append($largeInfo)
-        .append($colorizeLaunch)
+        .append($colorizeLaunch);
     },
     buildToolComponents () {
-      launchToolbar.config.$accountName.append(this.accountName)
-      launchToolbar.config.$idCombo.append(launchToolbar.config.$plusIcon)
+      launchToolbar.config.$accountName.append(this.accountName);
+      launchToolbar.config.$idCombo.append(launchToolbar.config.$plusIcon);
       launchToolbar.config.$copyFolderPath.append(
         launchToolbar.config.$folderImage
-      )
-      launchToolbar.config.$launchID.append(this.launchID)
-      launchToolbar.config.$copyWebID.append(this.webID)
-      launchToolbar.config.$webnum.append(this.webnum)
-      launchToolbar.config.$proofDate.append(this.proofDateText)
-      launchToolbar.config.$launchDate.append(this.launchDateText)
-      launchToolbar.config.$webIDtext.append(this.webIDtext)
+      );
+      launchToolbar.config.$launchID.append(this.launchID);
+      launchToolbar.config.$copyWebID.append(this.webID);
+      launchToolbar.config.$webnum.append(this.webnum);
+      launchToolbar.config.$proofDate.append(this.proofDateText);
+      launchToolbar.config.$launchDate.append(this.launchDateText);
+      launchToolbar.config.$webIDtext.append(this.webIDtext);
 
-      launchToolbar.config.$accountNum.append(this.accountNum)
+      launchToolbar.config.$accountNum.append(this.accountNum);
 
       launchToolbar.config.$platformToggle
         .append(launchToolbar.config.$toggleLabel)
-        .append(launchToolbar.config.$arrowIcon)
+        .append(launchToolbar.config.$arrowIcon);
       launchToolbar.config.$salesforceEmailOwner.append(
         launchToolbar.config.$salesforceEmailIcon
-      )
-      launchToolbar.config.$howToGuide.append(launchToolbar.config.$howToIcon)
-      launchToolbar.config.$settings.append(launchToolbar.config.$settingsIcon)
+      );
+      launchToolbar.config.$howToGuide.append(launchToolbar.config.$howToIcon);
+      launchToolbar.config.$settings.append(launchToolbar.config.$settingsIcon);
       launchToolbar.config.$logActivity.append(
         launchToolbar.config.$logActivityIcon
-      )
+      );
     },
     buildMainTool () {
       launchToolbar.config.$uiBox
@@ -1083,133 +1066,133 @@ function programVariables () {
         .append(launchToolbar.config.$importantInfo)
         .append(launchToolbar.config.$dynoDisplay)
         .append(launchToolbar.config.$accountNum)
-        .append(launchToolbar.config.$bacTable)
+        .append(launchToolbar.config.$bacTable);
     },
     attachTool () {
-      this.$head.append(launchToolbar.config.$toolbarStyles)
-      this.$head.append(launchToolbar.config.$jQueryLink)
-      this.$head.append(launchToolbar.config.$jQueryUI)
-      this.$head.append(launchToolbar.config.$fontAwe)
-      this.$body.prepend(launchToolbar.config.$placeholder)
-      this.$body.prepend(launchToolbar.config.$settingContainer)
-      this.$body.prepend(launchToolbar.config.$uiBox)
+      this.$head.append(launchToolbar.config.$toolbarStyles);
+      this.$head.append(launchToolbar.config.$jQueryLink);
+      this.$head.append(launchToolbar.config.$jQueryUI);
+      this.$head.append(launchToolbar.config.$fontAwe);
+      this.$body.prepend(launchToolbar.config.$placeholder);
+      this.$body.prepend(launchToolbar.config.$settingContainer);
+      this.$body.prepend(launchToolbar.config.$uiBox);
     },
     switchPlatform () {
       launchToolbar.config.$toggleLabel
         .css({
           color: this.platformSelector ? 'purple' : 'blue'
         })
-        .text(this.platformSelector ? 'Nextgen' : 'Tetra')
+        .text(this.platformSelector ? 'Nextgen' : 'Tetra');
       // hide proof link if Nextgen
-      this.nextGenHideProof()
+      this.nextGenHideProof();
     },
     nextGenHideProof () {
       getValue('platformSelector')
         ? launchToolbar.config.$proofSite.hide()
-        : launchToolbar.config.$proofSite.show()
+        : launchToolbar.config.$proofSite.show();
     },
     largerQuickLinks () {
-      this.$quickLinks.toggleClass('makeLarger')
+      this.$quickLinks.toggleClass('makeLarger');
       this.$quickLinks
         .find('.linklet')
         .find('.count')
-        .toggleClass('makeBolder')
+        .toggleClass('makeBolder');
     },
     makeLarger () {
-      this.$launchID.toggleClass('makeLarger')
-      this.$webID.toggleClass('makeLarger')
-      this.$account.toggleClass('makeLarger')
-      this.$webIDtext.toggleClass('makeLarger')
-      this.$webnum.toggleClass('makeLarger')
-      this.$proofDate.toggleClass('makeLarger')
-      this.$launchDate.toggleClass('makeLarger')
-      this.$productType.toggleClass('makeLarger')
-      this.$dealerCode.toggleClass('makeLarger')
+      this.$launchID.toggleClass('makeLarger');
+      this.$webID.toggleClass('makeLarger');
+      this.$account.toggleClass('makeLarger');
+      this.$webIDtext.toggleClass('makeLarger');
+      this.$webnum.toggleClass('makeLarger');
+      this.$proofDate.toggleClass('makeLarger');
+      this.$launchDate.toggleClass('makeLarger');
+      this.$productType.toggleClass('makeLarger');
+      this.$dealerCode.toggleClass('makeLarger');
     },
     colorizeLaunch () {
-      this.$launchID.toggleClass('hFont hlaunchID')
-      this.$webID.toggleClass('hFont hwebID')
-      this.$account.toggleClass('hFont haccount')
-      this.$webIDtext.toggleClass('hFont hwebIDtext')
-      this.$webnum.toggleClass('hFont hwebnum')
-      this.$proofDate.toggleClass('hFont hproofDate')
-      this.$launchDate.toggleClass('hFont hlaunchDate')
-      this.$productType.toggleClass('hFont hproductType')
-      this.$dealerCode.toggleClass('hFont hdealerCode')
+      this.$launchID.toggleClass('hFont hlaunchID');
+      this.$webID.toggleClass('hFont hwebID');
+      this.$account.toggleClass('hFont haccount');
+      this.$webIDtext.toggleClass('hFont hwebIDtext');
+      this.$webnum.toggleClass('hFont hwebnum');
+      this.$proofDate.toggleClass('hFont hproofDate');
+      this.$launchDate.toggleClass('hFont hlaunchDate');
+      this.$productType.toggleClass('hFont hproductType');
+      this.$dealerCode.toggleClass('hFont hdealerCode');
     },
     startTool () {
-      let $funcButts = jQuery('.funcButtons')
-      let BACvariable = 'BSCtable'
-      let self = this
+      let $funcButts = jQuery('.funcButtons');
+      let BACvariable = 'BSCtable';
+      let self = this;
 
-      setValue('accountName', false)
-      setValue(BACvariable, false)
+      setValue('accountName', false);
+      setValue(BACvariable, false);
 
       setTimeout(function () {
-        $funcButts.toggle()
-        self.nextGenHideProof()
+        $funcButts.toggle();
+        self.nextGenHideProof();
 
-        launchToolbar.config.$placeholder.slideToggle('fast')
+        launchToolbar.config.$placeholder.slideToggle('fast');
         launchToolbar.config.$uiBox.slideToggle('fast', function () {
           if (jQuery(this).is(':visible')) {
             jQuery(this).css({
               display: 'inline-block'
-            })
+            });
           }
-        })
+        });
 
         // set up advanced options
-        self.programData()
-      }, 100)
+        self.programData();
+      }, 100);
     },
     // ----------------------------------------
     // TIER 2
     // ----------------------------------------
     doWork (event) {
-      let $clickedElement = jQuery(event.delegateTarget)
-      let classText = $clickedElement.attr('class')
+      let $clickedElement = jQuery(event.delegateTarget);
+      let classText = $clickedElement.attr('class');
 
       switch (true) {
         case classText.indexOf('idCombo') > -1:
-          this.copyInfo(this.comboID)
-          break
+          this.copyInfo(this.comboID);
+          break;
         case classText.indexOf('launchID') > -1:
-          this.copyInfo(this.launchID)
-          break
+          this.copyInfo(this.launchID);
+          break;
         case classText.indexOf('copyWebid') > -1:
-          this.copyInfo(this.webID)
-          break
+          this.copyInfo(this.webID);
+          break;
         case classText.indexOf('accountName') > -1:
-          this.copyInfo(this.accountName)
-          break
+          this.copyInfo(this.accountName);
+          break;
         case classText.indexOf('copyFolderPath') > -1:
-          this.copyInfo(launchToolbar.config.folderPath)
-          break
+          this.copyInfo(launchToolbar.config.folderPath);
+          break;
         case classText.indexOf('webIDtext') > -1:
-          this.copyInfo(this.webIDtext)
-          break
+          this.copyInfo(this.webIDtext);
+          break;
         case classText.indexOf('Webnum') > -1:
-          this.copyInfo(this.webnum)
-          break
+          this.copyInfo(this.webnum);
+          break;
         case classText.indexOf('accountNum') > -1:
-          this.copyInfo(this.accountNum)
-          break
+          this.copyInfo(this.accountNum);
+          break;
         case classText.indexOf('WSMedit') > -1:
-          this.copyInfo(launchToolbar.config.$EditLink.data('link'))
-          break
+          this.copyInfo(launchToolbar.config.$EditLink.data('link'));
+          break;
         // ---------------------------------------- wip/proof/live site
         case event.which === 3 && classText.indexOf('liveSite') >= 0:
-          this.copyInfo($clickedElement.attr('href'))
-          break
+          this.copyInfo($clickedElement.attr('href'));
+          break;
         case event.which === 3 && classText.indexOf('proofSite') > -1:
-          this.copyInfo($clickedElement.attr('href'))
-          break
+          this.copyInfo($clickedElement.attr('href'));
+          break;
         case event.which === 3 && classText.indexOf('wipSite') > -1:
-          this.copyInfo($clickedElement.attr('href'))
-          break
+          this.copyInfo($clickedElement.attr('href'));
+          break;
         case event.which === 3 && classText.indexOf('launchOwner') > -1:
-          this.copyInfo(this.launchOwnerText)
-          break
+          this.copyInfo(this.launchOwnerText);
+          break;
         default:
         // do nothing
       }
@@ -1218,52 +1201,52 @@ function programVariables () {
     // EXTRA
     // ----------------------------------------
     doWork2 (event) {
-      let $clickedElement = jQuery(event.delegateTarget)
-      let classText = $clickedElement.attr('class')
+      let $clickedElement = jQuery(event.delegateTarget);
+      let classText = $clickedElement.attr('class');
 
       switch (true) {
         case classText.indexOf('cdk-webnum') > -1:
-          this.copyInfo('Cdk-' + this.webnum)
-          break
+          this.copyInfo('Cdk-' + this.webnum);
+          break;
         default:
         // do nothing
       }
     },
-    openAccountPageLink (event) {
+    openAccountPageLink () {
       let accountPageLink = jQuery('#CF00N40000002aUDp_ileinner > a').attr(
         'href'
-      )
+      );
 
-      window.open(accountPageLink, '_blank')
+      window.open(accountPageLink, '_blank');
     },
     flipTheSwitch (event) {
-      let $clickedElement = jQuery(event.delegateTarget)
-      let classText = $clickedElement.attr('class')
-      let tempBool
+      let $clickedElement = jQuery(event.delegateTarget);
+      let classText = $clickedElement.attr('class');
+      let tempBool;
 
       switch (true) {
         case classText.indexOf('platformSelector') > -1:
           // set saved variable to opposite of current value
-          this.platformSelector = !getValue('platformSelector')
-          setValue('platformSelector', this.platformSelector)
+          this.platformSelector = !getValue('platformSelector');
+          setValue('platformSelector', this.platformSelector);
           // set toggle
-          this.switchPlatform()
-          break
+          this.switchPlatform();
+          break;
         case classText.indexOf('quickLinksSize') > -1:
-          tempBool = !getValue('quickLinksSize')
-          setValue('quickLinksSize', tempBool)
-          this.setToggle('quickLinksSize', tempBool)
-          break
+          tempBool = !getValue('quickLinksSize');
+          setValue('quickLinksSize', tempBool);
+          this.setToggle('quickLinksSize', tempBool);
+          break;
         case classText.indexOf('largeInfo') > -1:
-          tempBool = !getValue('largeInfo')
-          setValue('largeInfo', tempBool)
-          this.setToggle('largeInfo', tempBool)
-          break
+          tempBool = !getValue('largeInfo');
+          setValue('largeInfo', tempBool);
+          this.setToggle('largeInfo', tempBool);
+          break;
         case classText.indexOf('colorizeLaunch') > -1:
-          tempBool = !getValue('colorizeLaunch')
-          setValue('colorizeLaunch', tempBool)
-          this.setToggle('colorizeLaunch', tempBool)
-          break
+          tempBool = !getValue('colorizeLaunch');
+          setValue('colorizeLaunch', tempBool);
+          this.setToggle('colorizeLaunch', tempBool);
+          break;
         default:
         // do nothing
       }
@@ -1277,29 +1260,29 @@ function programVariables () {
         background: 'red',
         padding: '5px',
         color: 'white'
-      })
-      GM_setClipboard(variable, 'text') // eslint-disable-line new-cap
-      $display.text(`COPIED : ${variable}`)
-      launchToolbar.config.$dynoDisplay.show().append($display)
+      });
+      GM_setClipboard(variable, 'text'); // eslint-disable-line new-cap
+      $display.text(`COPIED : ${variable}`);
+      launchToolbar.config.$dynoDisplay.show().append($display);
       $display.slideToggle(500, function () {
         setTimeout(function () {
-          $display.remove()
-        }, 2000)
-      })
+          $display.remove();
+        }, 2000);
+      });
     },
     programData () {
-      let allVariables = programVariables()
-      let length = allVariables.length
-      let a = 0
-      let variableName = ''
-      let bool = ''
+      let allVariables = programVariables();
+      let length = allVariables.length;
+      let a = 0;
+      let variableName = '';
+      let bool = '';
       // add variables to list
       for (a; a < length; a += 1) {
-        variableName = allVariables[a]
-        bool = getValue(variableName)
+        variableName = allVariables[a];
+        bool = getValue(variableName);
 
         if (bool) {
-          this.setToggle(variableName, bool)
+          this.setToggle(variableName, bool);
         }
       }
     },
@@ -1314,9 +1297,9 @@ function programVariables () {
               : '<i ' +
               'class="fa fa-square fa-lg myClass quickLinksSize" ' +
               'style="padding: 5px;"></i>'
-          )
-          this.largerQuickLinks()
-          break
+          );
+          this.largerQuickLinks();
+          break;
         case variableName === 'largeInfo':
           jQuery('i.largeInfo').replaceWith(
             bool
@@ -1326,9 +1309,9 @@ function programVariables () {
               : '<i ' +
               'class="fa fa-square fa-lg myClass largeInfo" ' +
               'style="padding: 5px;"></i>'
-          )
-          this.makeLarger(bool)
-          break
+          );
+          this.makeLarger(bool);
+          break;
         case variableName === 'colorizeLaunch':
           jQuery('i.colorizeLaunch').replaceWith(
             bool
@@ -1338,92 +1321,92 @@ function programVariables () {
               : '<i ' +
               'class="fa fa-square fa-lg myClass colorizeLaunch" ' +
               'style="padding: 5px;"></i>'
-          )
-          this.colorizeLaunch(bool)
-          break
+          );
+          this.colorizeLaunch(bool);
+          break;
         default:
       }
     }
-  }
+  };
 
   // jQuery -Jun
-  jQuery(window).scroll(function (event) {
+  jQuery(window).scroll(() => {
     if (jQuery(window).scrollTop() > 115) {
       jQuery('#uiBox').css({
         position: 'fixed',
         top: 'auto'
-      })
+      });
 
       jQuery('#sc').css({
         position: 'fixed',
         top: '35px'
-      })
+      });
     } else {
       jQuery('#uiBox').css({
         position: 'absolute',
         top: '115px'
-      })
+      });
 
       jQuery('#sc').css({
         position: 'absolute',
         top: '150px'
-      })
+      });
     }
-  })
+  });
 
   jQuery(document).ready(function () {
     jQuery('.myTitle')
       .parent()
       .css({
         'font-size': '14px'
-      })
+      });
     jQuery('.ptBody > .links').css({
       position: 'absolute',
       right: 0,
       top: '-27px'
-    })
+    });
     jQuery(
       '#sidebarDiv, #handlebarContainer .indicator, #handlebarContainer #handle'
     ).css({
       'margin-top': '60px'
-    })
-    jQuery('.imp').wrapAll('<div class="wrapperZ""></div>')
+    });
+    jQuery('.imp').wrapAll('<div class="wrapperZ""></div>');
     jQuery('.pageType').css({
       position: 'absolute',
       left: '40%',
       top: '-82px',
       color: 'transparent'
-    })
+    });
     jQuery('.pageDescription').css({
       'margin-top': '10px'
-    })
-  })
+    });
+  });
 
   jQuery(window).resize(function () {
     if (jQuery(window).width() <= 1500) {
       jQuery('.wrapperZ').css({
         display: 'inline-block',
         width: '100%'
-      })
+      });
       jQuery(
         '#sidebarDiv, #handlebarContainer .indicator, #handlebarContainer #handle'
       ).css({
         'margin-top': '90px'
-      })
+      });
     } else {
       jQuery('.wrapperZ').css({
         display: 'inherit',
         width: 'inherit'
-      })
+      });
       jQuery(
         '#sidebarDiv, #handlebarContainer .indicator, #handlebarContainer #handle'
       ).css({
         'margin-top': '60px'
-      })
+      });
     }
-  })
+  });
 
   if (window.location.hostname === 'cdk.my.salesforce.com') {
-    launchToolbar.init()
+    launchToolbar.init();
   }
-}())
+}());
