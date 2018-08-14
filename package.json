@@ -1,0 +1,53 @@
+{
+  "name": "salesforcetoolbar",
+  "version": "4.8.5",
+  "private": true,
+  "scripts": {
+    "test": "semistandard launchToolbar/js/*.js"
+  },
+  "devDependencies": {
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-react": "^7.11.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "husky": "^1.0.0-rc.13",
+    "prettier": "1.14.2",
+    "semistandard": "^12.0.1"
+  },
+  "dependencies": {
+    "jquery": "^3.3.1"
+  },
+  "lint-staged": {
+    "launchToolbar.js": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "standard": {
+    "globals": [
+      "$",
+      "jQuery"
+    ],
+    "ignore": [
+      "node_modules/**"
+    ],
+    "env": [
+      "browser",
+      "es6",
+      "greasemonkey",
+      "node",
+      "jQuery"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test",
+      "pre-push": "npm test"
+    }
+  }
+}
