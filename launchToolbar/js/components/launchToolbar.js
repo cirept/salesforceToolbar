@@ -42,7 +42,7 @@ function programVariables() {
   return GM_listValues(); // eslint-disable-line new-cap
 }
 
-const launchToolbar = (function() {
+(function() {
   "use strict";
   var launchToolbar = {
     init() {
