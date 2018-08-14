@@ -1347,75 +1347,75 @@ function programVariables () {
   }
 
   // jQuery -Jun
-  $(window).scroll(function (event) {
-    if ($(window).scrollTop() > 115) {
-      $('#uiBox').css({
+  jQuery(window).scroll(function (event) {
+    if (jQuery(window).scrollTop() > 115) {
+      jQuery('#uiBox').css({
         position: 'fixed',
         top: 'auto'
       })
 
-      $('#sc').css({
+      jQuery('#sc').css({
         position: 'fixed',
         top: '35px'
       })
     } else {
-      $('#uiBox').css({
+      jQuery('#uiBox').css({
         position: 'absolute',
         top: '115px'
       })
 
-      $('#sc').css({
+      jQuery('#sc').css({
         position: 'absolute',
         top: '150px'
       })
     }
   })
 
-  $(document).ready(function () {
-    $('.myTitle')
+  jQuery(document).ready(function () {
+    jQuery('.myTitle')
       .parent()
       .css({
         'font-size': '14px'
       })
-    $('.ptBody > .links').css({
+    jQuery('.ptBody > .links').css({
       position: 'absolute',
       right: 0,
       top: '-27px'
     })
-    $(
+    jQuery(
       '#sidebarDiv, #handlebarContainer .indicator, #handlebarContainer #handle'
     ).css({
       'margin-top': '60px'
     })
-    $('.imp').wrapAll('<div class="wrapperZ""></div>')
-    $('.pageType').css({
+    jQuery('.imp').wrapAll('<div class="wrapperZ""></div>')
+    jQuery('.pageType').css({
       position: 'absolute',
       left: '40%',
       top: '-82px',
       color: 'transparent'
     })
-    $('.pageDescription').css({
+    jQuery('.pageDescription').css({
       'margin-top': '10px'
     })
   })
 
-  $(window).resize(function () {
-    if ($(window).width() <= 1500) {
-      $('.wrapperZ').css({
+  jQuery(window).resize(function () {
+    if (jQuery(window).width() <= 1500) {
+      jQuery('.wrapperZ').css({
         display: 'inline-block',
         width: '100%'
       })
-      $(
+      jQuery(
         '#sidebarDiv, #handlebarContainer .indicator, #handlebarContainer #handle'
       ).css({
         'margin-top': '90px'
       })
     } else {
-      $('.wrapperZ').css({
+      jQuery('.wrapperZ').css({
         display: 'inherit',
         width: 'inherit'
       })
-      $(
+      jQuery(
         '#sidebarDiv, #handlebarContainer .indicator, #handlebarContainer #handle'
       ).css({
         'margin-top': '60px'
